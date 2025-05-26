@@ -117,7 +117,20 @@
   <section class="cta">
     <h2>Coming Soon</h2>
     <p>Get early access to our exclusive fitness collection.</p>
-    <button>Join the Waitlist</button>
+        <form action="https://formspree.io/f/YOUR_FORMSPREE_ID_HERE" method="POST">
+    <input type="text" name="name" placeholder="Your Name" required />
+    <input type="email" name="email" placeholder="Your Email" required />
+    <input type="tel" name="phone" placeholder="Phone Number" pattern="[0-9]{10}" required />
+    
+    <select name="color" required>
+      <option value="" disabled selected>Select Color Preference</option>
+      <option value="Peach">Peach</option>
+      <option value="Cream">Cream</option>
+      <option value="Grey">Grey</option>
+      <option value="Black">Black</option>
+      <option value="Pink">Pink</option>
+    </select>
+    <button type="submit">Join the Waitlist</button>
   </section>
 
   <!-- Footer -->
