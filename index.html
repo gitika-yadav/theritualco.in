@@ -11,33 +11,35 @@
       background-color: #f9f6f3;
       color: #333;
     }
+
     .banner {
       width: 100%;
       height: 60vh;
-      background-image: url('https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&w=1500&q=80'); /* Replace with your banner URL if needed */
+      background-image: url('https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&w=1500&q=80');
       background-size: cover;
       background-position: center;
     }
+
     .hero {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 100px 20px;
+      padding: 80px 20px;
       background-color: #fff0e9;
     }
+
     .hero h1 {
       font-size: 3rem;
       margin-bottom: 20px;
     }
+
     .hero p {
       font-size: 1.2rem;
       max-width: 600px;
     }
-    .logo {
-      margin-bottom: 30px;
-    }
+
     .product-preview {
       display: flex;
       justify-content: center;
@@ -46,23 +48,29 @@
       padding: 60px 20px;
       background-color: #f9f6f3;
     }
+
     .product-preview img {
       max-width: 300px;
       border-radius: 16px;
       box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     }
+
     .cta {
       text-align: center;
       padding: 60px 20px;
+      background-color: #fff0e9;
     }
+
     .cta h2 {
       font-size: 2rem;
       margin-bottom: 10px;
     }
+
     .cta p {
       font-size: 1rem;
       margin-bottom: 20px;
     }
+
     .cta button {
       padding: 12px 30px;
       font-size: 1rem;
@@ -71,7 +79,13 @@
       border: none;
       border-radius: 25px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
+
+    .cta button:hover {
+      background-color: #c98a76;
+    }
+
     .footer {
       text-align: center;
       padding: 30px 20px;
@@ -81,25 +95,36 @@
   </style>
 </head>
 <body>
+
+  <!-- Banner Image -->
+  <section class="banner"></section>
+
+  <!-- Hero Section -->
   <section class="hero">
-    <img src="images/logo.png" alt="The Ritual Co. logo" class="logo" width="160" />
+    <!-- Uncomment below if you want logo back -->
+    <!-- <img src="images/logo.png" alt="The Ritual Co. logo" class="logo" width="160" /> -->
     <h1>Because Movement Is a Ritual.</h1>
     <p>Introducing India's first capsule-shaped silicone dumbbells. Where design meets strength, and wellness becomes an aesthetic.</p>
   </section>
 
+  <!-- Product Images -->
   <section class="product-preview">
-    <img src="images/flat-dumbbell.jpg" alt="Flat Dumbbell">
+    <img src="images/flat-dumbbell.jpg" alt="Flat Dumbbell" />
     <img src="images/capsule-dumbbell.jpg" alt="Capsule Dumbbell" />
   </section>
 
+  <!-- Call to Action -->
   <section class="cta">
     <h2>Coming Soon</h2>
     <p>Get early access to our exclusive fitness collection.</p>
     <button>Join the Waitlist</button>
   </section>
 
+  <!-- Footer -->
   <footer class="footer">
     &copy; 2025 The Ritual Co. | Designed with love & strength
   </footer>
+
 </body>
 </html>
+
