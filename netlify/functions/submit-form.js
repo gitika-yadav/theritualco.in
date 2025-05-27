@@ -5,7 +5,7 @@ exports.handler = async function(event, context) {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
 
-  const RECAPTCHA_SECRET = "YOUR_RECAPTCHA_SECRET_KEY"; // 🔁 Replace with your actual secret key
+  const RECAPTCHA_SECRET = "6Lce9ksrAAAAAPCUQ41LXEgFb44R4gqcOrpW-G79"; 
 
   // Get IP and headers
   const ip = event.headers["x-forwarded-for"] || "unknown";
@@ -47,8 +47,7 @@ exports.handler = async function(event, context) {
   }
 
   // 🔗 Forward valid submission to Formspree
-  const FORMSPREE_ENDPOINT = "https://formspree.io/f/xpwdgbdv"; // 🔁 Replace with your actual Formspree endpoint
-
+  const FORMSPREE_ENDPOINT = "https://formspree.io/f/xpwdgbdv"; 
   const response = await fetch(FORMSPREE_ENDPOINT, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
