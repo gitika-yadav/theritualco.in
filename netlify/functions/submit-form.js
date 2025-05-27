@@ -5,6 +5,8 @@ exports.handler = async function(event, context) {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
 
+  const RECAPTCHA_SECRET = "YOUR_RECAPTCHA_SECRET_KEY"; // 🔁 Replace with your actual secret key
+
   // Get IP and headers
   const ip = event.headers["x-forwarded-for"] || "unknown";
   const userAgent = event.headers["user-agent"];
@@ -17,21 +19,37 @@ exports.handler = async function(event, context) {
     return { statusCode: 400, body: "Invalid JSON" };
   }
 
-  // Log for your own records (optional)
-  console.log("New submission from IP:", ip);
-  console.log("User-Agent:", userAgent);
-  console.log("Form data:", formData);
-
-  // Optional: add honeypot check
+  // 🛡️ Honeypot field check (used to catch bots)
   if (formData.nickname && formData.nickname.trim() !== "") {
-    return {
-      statusCode: 403,
-      body: "Spam detected"
-    };
+    return { statusCode: 403, body: "Spam detected (honeypot)" };
   }
 
-  // Send to Formspree
-  const response = await fetch("https://formspree.io/f/xpwdgbdv", {
+  // 🧠 Verify reCAPTCHA token
+  const recaptchaToken = formData["g-recaptcha-response"];
+  if (!recaptchaToken) {
+    return { statusCode: 400, body: "Missing reCAPTCHA token" };
+  }
+
+  const verifyURL = `https://www.google.com/recaptcha/api/siteverify`;
+  const params = new URLSearchParams();
+  params.append("secret", RECAPTCHA_SECRET);
+  params.append("response", recaptchaToken);
+
+  const recaptchaRes = await fetch(verifyURL, {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: params
+  });
+
+  const recaptchaJson = await recaptchaRes.json();
+  if (!recaptchaJson.success) {
+    return { statusCode: 403, body: "Failed reCAPTCHA verification" };
+  }
+
+  // 🔗 Forward valid submission to Formspree
+  const FORMSPREE_ENDPOINT = "https://formspree.io/f/xpwdgbdv"; // 🔁 Replace with your actual Formspree endpoint
+
+  const response = await fetch(FORMSPREE_ENDPOINT, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(formData)
@@ -44,8 +62,14 @@ exports.handler = async function(event, context) {
     };
   }
 
+  // ✅ Success
+  console.log("New submission from IP:", ip);
+  console.log("User-Agent:", userAgent);
+  console.log("Form data:", formData);
+
   return {
     statusCode: 200,
-    body: JSON.stringify({ success: true, message: "Form submitted" })
+    body: JSON.stringify({ success: true, message: "Form submitted successfully" })
   };
 };
+
