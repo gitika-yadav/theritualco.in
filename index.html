@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Ritual Co.</title>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <style>
     body {
       margin: 0;
@@ -138,10 +139,11 @@
   <section class="cta">
     <h2>Coming Soon</h2>
     <p>Get early access to our exclusive fitness collection.</p>
-    <form action="/.netlify/functions/submit-form" method="POST">
+    <form id="secure-form" action="/.netlify/functions/submit-form" method="POST">
       <input type="text" name="name" placeholder="Your Name" required />
       <input type="email" name="email" placeholder="Your Email" required />
       <input type="tel" name="phone" placeholder="Phone Number" pattern="[0-9]{10}" required />
+      <input type="text" name="nickname" style="display:none"> <!-- Honeypot -->
       <select name="color" required>
         <option value="" disabled selected>Select Color Preference</option>
         <option value="Peach">Peach</option>
@@ -150,9 +152,19 @@
         <option value="Black">Black</option>
         <option value="Pink">Pink</option>
       </select>
-      <button type="submit">Join the Waitlist</button>
+       <button class="g-recaptcha"
+         data-sitekey="YOUR_SITE_KEY"
+         data-callback="onSubmit"
+         data-badge="bottomright"
+         data-size="invisible">Join the Waitlist</button>
     </form>
   </section>
+
+  <script>
+  function onSubmit(token) {
+    document.getElementById("secure-form").submit();
+  }
+ </script>
 
   <!-- Footer -->
   <footer class="footer">
