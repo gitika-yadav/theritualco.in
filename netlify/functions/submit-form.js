@@ -1,11 +1,20 @@
-import fetch from 'node-fetch';
+const fetch = require("node-fetch");
+const querystring = require("querystring");
 
-export async function handler(event) {
+exports.handler = async function (event) {
   try {
-    const data = JSON.parse(event.body);
+    let data;
+
+    // Handle URL-encoded form data (like Formspree sends)
+    if (event.headers["content-type"].includes("application/x-www-form-urlencoded")) {
+      data = querystring.parse(event.body);
+    } else {
+      data = JSON.parse(event.body);
+    }
+
     const { name, email, phone, color, nickname, "g-recaptcha-response": captcha } = data;
 
-    // Anti-spam honeypot
+    // Honeypot anti-spam
     if (nickname && nickname.trim() !== "") {
       return {
         statusCode: 403,
@@ -13,11 +22,16 @@ export async function handler(event) {
       };
     }
 
-    // reCAPTCHA verification
-    const secret = "6Lc6HkwrAAAAAGa3fFtep-hx25MqyAfVK-zxnuh2";
-    const verifyURL = `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${captcha}`;
+    // reCAPTCHA v2 Invisible
+    const secret = process.env.RECAPTCHA_SECRET;
+    const verifyURL = `https://www.google.com/recaptcha/api/siteverify`;
 
-    const captchaRes = await fetch(verifyURL, { method: "POST" });
+    const captchaRes = await fetch(verifyURL, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: `secret=${secret}&response=${captcha}`
+    });
+
     const captchaJson = await captchaRes.json();
 
     if (!captchaJson.success) {
@@ -27,19 +41,17 @@ export async function handler(event) {
       };
     }
 
-    // Do something with the data (store/log/forward to Formspree etc.)
-    console.log("Valid form submission:", { name, email, phone, color });
+    console.log("✅ Valid form submission:", { name, email, phone, color });
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ success: true, message: "Form submitted!" })
+      body: JSON.stringify({ success: true, message: "Form submitted successfully!" })
     };
   } catch (err) {
-    console.error("FULL ERROR:", err);
+    console.error("❌ Function error:", err);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "Server error", details: err.message })
+      body: JSON.stringify({ error: "Internal server error" })
     };
   }
-}
-
+};

@@ -177,31 +177,25 @@
 <!-- Script: reCAPTCHA & form handling -->
 <script>
   function onSubmit(token) {
-    document.getElementById('waitlist-form').dispatchEvent(
-      new Event('submit', { cancelable: true })
-    );
-  }
+    const form = document.getElementById('waitlist-form');
 
-  document.getElementById('waitlist-form').addEventListener('submit', async function (e) {
-    e.preventDefault();
-
-    const form = e.target;
+    // Append the g-recaptcha-response token to the form
     const formData = new FormData(form);
+    formData.append("g-recaptcha-response", token);
     const data = Object.fromEntries(formData.entries());
 
     console.log("Submitting form with data:", data);
 
-    try {
-      const response = await fetch('/.netlify/functions/submit-form', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
-
+    fetch('/.netlify/functions/submit-form', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(async response => {
       let result;
       try {
         result = await response.json();
-      } catch (jsonErr) {
+      } catch (err) {
         throw new Error("Invalid JSON response from server.");
       }
 
@@ -212,13 +206,20 @@
       form.style.display = 'none';
       document.getElementById('confirmation').style.display = 'block';
       console.log("Success:", result);
-
-    } catch (err) {
+    })
+    .catch(err => {
       console.error("Fetch error:", err);
-      alert("Something went wrong. Please try again later.");
-    }
+      alert("Something went wrong. Please try again.");
+    });
+  }
+
+  // Prevent default submit, trigger reCAPTCHA
+  document.getElementById('waitlist-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    grecaptcha.execute(); // This will call onSubmit(token)
   });
 </script>
+
 
 <!-- Footer -->
 <footer class="footer">
