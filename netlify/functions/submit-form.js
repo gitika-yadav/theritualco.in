@@ -14,7 +14,7 @@ export async function handler(event) {
     }
 
     // reCAPTCHA verification
-    const secret = "6Lc6HkwrAAAAAGa3fFtep-hx25MqyAfVK-zxnuh2";
+    const secret = process.env.RECAPTCHA_SECRET;
     const verifyURL = `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${captcha}`;
 
     const captchaRes = await fetch(verifyURL, { method: "POST" });
