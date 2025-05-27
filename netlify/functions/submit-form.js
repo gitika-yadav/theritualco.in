@@ -1,74 +1,45 @@
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';
 
-exports.handler = async function(event, context) {
-  if (event.httpMethod !== "POST") {
-    return { statusCode: 405, body: "Method Not Allowed" };
-  }
-
-  const RECAPTCHA_SECRET = "6Lce9ksrAAAAAPCUQ41LXEgFb44R4gqcOrpW-G79"; 
-
-  // Get IP and headers
-  const ip = event.headers["x-forwarded-for"] || "unknown";
-  const userAgent = event.headers["user-agent"];
-
-  // Parse form data
-  let formData;
+export async function handler(event) {
   try {
-    formData = JSON.parse(event.body);
-  } catch (err) {
-    return { statusCode: 400, body: "Invalid JSON" };
-  }
+    const data = JSON.parse(event.body);
+    const { name, email, phone, color, nickname, "g-recaptcha-response": captcha } = data;
 
-  // 🛡️ Honeypot field check (used to catch bots)
-  if (formData.nickname && formData.nickname.trim() !== "") {
-    return { statusCode: 403, body: "Spam detected (honeypot)" };
-  }
+    // Anti-spam honeypot
+    if (nickname && nickname.trim() !== "") {
+      return {
+        statusCode: 403,
+        body: JSON.stringify({ error: "Bot detected" })
+      };
+    }
 
-  // 🧠 Verify reCAPTCHA token
-  const recaptchaToken = formData["g-recaptcha-response"];
-  if (!recaptchaToken) {
-    return { statusCode: 400, body: "Missing reCAPTCHA token" };
-  }
+    // reCAPTCHA verification
+    const secret = "6Lc6HkwrAAAAAGa3fFtep-hx25MqyAfVK-zxnuh2";
+    const verifyURL = `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${captcha}`;
 
-  const verifyURL = `https://www.google.com/recaptcha/api/siteverify`;
-  const params = new URLSearchParams();
-  params.append("secret", RECAPTCHA_SECRET);
-  params.append("response", recaptchaToken);
+    const captchaRes = await fetch(verifyURL, { method: "POST" });
+    const captchaJson = await captchaRes.json();
 
-  const recaptchaRes = await fetch(verifyURL, {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: params
-  });
+    if (!captchaJson.success) {
+      return {
+        statusCode: 403,
+        body: JSON.stringify({ error: "Captcha verification failed" })
+      };
+    }
 
-  const recaptchaJson = await recaptchaRes.json();
-  if (!recaptchaJson.success) {
-    return { statusCode: 403, body: "Failed reCAPTCHA verification" };
-  }
+    // Do something with the data (store/log/forward to Formspree etc.)
+    console.log("Valid form submission:", { name, email, phone, color });
 
-  // 🔗 Forward valid submission to Formspree
-  const FORMSPREE_ENDPOINT = "https://formspree.io/f/xpwdgbdv"; 
-  const response = await fetch(FORMSPREE_ENDPOINT, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(formData)
-  });
-
-  if (!response.ok) {
     return {
-      statusCode: response.status,
-      body: "Error forwarding to Formspree"
+      statusCode: 200,
+      body: JSON.stringify({ success: true, message: "Form submitted!" })
+    };
+  } catch (err) {
+    console.error("Function error:", err);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: "Server error" })
     };
   }
-
-  // ✅ Success
-  console.log("New submission from IP:", ip);
-  console.log("User-Agent:", userAgent);
-  console.log("Form data:", formData);
-
-  return {
-    statusCode: 200,
-    body: JSON.stringify({ success: true, message: "Form submitted successfully" })
-  };
-};
+}
 

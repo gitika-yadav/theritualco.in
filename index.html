@@ -18,12 +18,12 @@
     }
 
     .banner img {
-     width: 100%;
-     height: 60vh;
-     object-fit: cover;
-     display: block;
-     }
-    
+      width: 100%;
+      height: 60vh;
+      object-fit: cover;
+      display: block;
+    }
+
     .hero {
       display: flex;
       flex-direction: column;
@@ -108,6 +108,13 @@
       background-color: #c98a76;
     }
 
+    #confirmation {
+      margin-top: 20px;
+      color: green;
+      font-size: 1.1rem;
+      display: none;
+    }
+
     .footer {
       text-align: center;
       padding: 30px 20px;
@@ -118,59 +125,107 @@
 </head>
 <body>
 
-  <!-- Banner Image -->
-  <section class="banner">
-    <img src="images/banner.png" alt="Banner" />
-  </section>
+<!-- Banner Image -->
+<section class="banner">
+  <img src="images/banner.png" alt="Banner" />
+</section>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <h1>Because Movement Is a Ritual.</h1>
-    <p>Introducing India's first capsule-shaped silicone dumbbells. Where design meets strength, and wellness becomes an aesthetic.</p>
-  </section>
+<!-- Hero Section -->
+<section class="hero">
+  <h1>Because Movement Is a Ritual.</h1>
+  <p>Introducing India's first capsule-shaped silicone dumbbells. Where design meets strength, and wellness becomes an aesthetic.</p>
+</section>
 
-  <!-- Product Images -->
-  <section class="product-preview">
-    <img src="images/flat-dumbbell.jpg" alt="Flat Dumbbell" />
-    <img src="images/capsule-dumbbell.jpg" alt="Capsule Dumbbell" />
-  </section>
+<!-- Product Images -->
+<section class="product-preview">
+  <img src="images/flat-dumbbell.jpg" alt="Flat Dumbbell" />
+  <img src="images/capsule-dumbbell.jpg" alt="Capsule Dumbbell" />
+</section>
 
-  <!-- Call to Action -->
-  <section class="cta">
-    <h2>Coming Soon</h2>
-    <p>Get early access to our exclusive fitness collection.</p>
-    <form id="secure-form" action="/.netlify/functions/submit-form" method="POST">
-      <input type="text" name="name" placeholder="Your Name" required />
-      <input type="email" name="email" placeholder="Your Email" required />
-      <input type="tel" name="phone" placeholder="Phone Number" pattern="[0-9]{10}" required />
-      <input type="text" name="nickname" style="display:none"> <!-- Honeypot -->
-      <select name="color" required>
-        <option value="" disabled selected>Select Color Preference</option>
-        <option value="Peach">Peach</option>
-        <option value="Cream">Cream</option>
-        <option value="Grey">Grey</option>
-        <option value="Black">Black</option>
-        <option value="Pink">Pink</option>
-      </select>
-       <button class="g-recaptcha"
-         data-sitekey="YOUR_SITE_KEY"
-         data-callback="onSubmit"
-         data-badge="bottomright"
-         data-size="invisible">Join the Waitlist</button>
-    </form>
-  </section>
+<!-- Call to Action -->
+<section class="cta">
+  <h2>Coming Soon</h2>
+  <p>Get early access to our exclusive fitness collection.</p>
 
-  <script>
+  <form id="waitlist-form">
+    <input type="text" name="name" placeholder="Your Name" required />
+    <input type="email" name="email" placeholder="Your Email" required />
+    <input type="tel" name="phone" placeholder="Phone Number" pattern="[0-9]{10}" required />
+    <input type="text" name="nickname" style="display:none" />
+    <select name="color" required>
+      <option value="" disabled selected>Select Color Preference</option>
+      <option value="Peach">Peach</option>
+      <option value="Cream">Cream</option>
+      <option value="Grey">Grey</option>
+      <option value="Black">Black</option>
+      <option value="Pink">Pink</option>
+    </select>
+    <button class="g-recaptcha"
+            data-sitekey="6Lc6HkwrAAAAAIQyjR2X878GppjvEWySgfG8QRIm"
+            data-callback="onSubmit"
+            data-badge="bottomright"
+            data-size="invisible">
+      Join the Waitlist
+    </button>
+  </form>
+
+  <div id="confirmation">
+    ✅ You're on the waitlist! We'll email you first when we launch.
+  </div>
+</section>
+
+<!-- Script: reCAPTCHA & form handling -->
+<script>
   function onSubmit(token) {
-    document.getElementById("secure-form").submit();
+    document.getElementById('waitlist-form').dispatchEvent(
+      new Event('submit', { cancelable: true })
+    );
   }
- </script>
 
-  <!-- Footer -->
-  <footer class="footer">
-    &copy; 2025 The Ritual Co. | Designed with love & strength
-  </footer>
+  document.getElementById('waitlist-form').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    console.log("Submitting form with data:", data);
+
+    try {
+      const response = await fetch('/.netlify/functions/submit-form', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      let result;
+      try {
+        result = await response.json();
+      } catch (jsonErr) {
+        throw new Error("Invalid JSON response from server.");
+      }
+
+      if (!response.ok) {
+        throw new Error(result.message || "Form submission failed.");
+      }
+
+      form.style.display = 'none';
+      document.getElementById('confirmation').style.display = 'block';
+      console.log("Success:", result);
+
+    } catch (err) {
+      console.error("Fetch error:", err);
+      alert("Something went wrong. Please try again later.");
+    }
+  });
+</script>
+
+<!-- Footer -->
+<footer class="footer">
+  &copy; 2025 The Ritual Co. | Designed with love & strength
+</footer>
 
 </body>
 </html>
+
 

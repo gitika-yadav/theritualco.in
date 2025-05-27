@@ -1,2 +1,10 @@
 [build]
-  functions = "netlify/functions"
+ functions = "netlify/functions"
+
+[dev]
+ command = ""
+ targetPort = 8888
+ framework = "#static"
+ autoLaunch = true
+ edge_functions = false
+
