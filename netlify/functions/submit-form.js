@@ -35,10 +35,10 @@ export async function handler(event) {
       body: JSON.stringify({ success: true, message: "Form submitted!" })
     };
   } catch (err) {
-    console.error("Function error:", err);
+    console.error("FULL ERROR:", err);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "Server error" })
+      body: JSON.stringify({ error: "Server error", details: err.message })
     };
   }
 }
