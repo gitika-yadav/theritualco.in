@@ -1,0 +1,263 @@
+/* ===== Global Styles ===== */
+body {
+  margin: 0;
+  font-family: 'Helvetica Neue', sans-serif;
+  background-color: #f9f6f3;
+  color: #333;
+}
+
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 60px 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 16px;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+p {
+  line-height: 1.7;
+  font-size: 1rem;
+  color: #444;
+}
+
+.full-width {
+  max-width: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0 auto;
+}
+
+/* ===== Enhanced Sticky Navbar ===== */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(253, 242, 243, 0.9); /* translucent blush */
+  backdrop-filter: blur(8px);
+  padding: 12px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f3d7d9;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s ease;
+}
+
+.nav-logo {
+  flex: 1;
+}
+
+.nav-logo a {
+  font-size: 1.75rem;
+  font-weight: 700;
+  font-family: 'Helvetica Neue', sans-serif;
+  color: #ba6b74;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li a {
+  font-size: 1rem;
+  color: #555;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.nav-links li a:hover {
+  background-color: #f9e5e7;
+  color: #ba6b74;
+  box-shadow: 0 4px 10px rgba(186, 107, 116, 0.15);
+}
+
+/* ===== Responsive (Hamburger Ready) ===== */
+@media (max-width: 768px) {
+  .navbar {
+    flex-wrap: wrap;
+    padding: 12px 20px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+    display: none;
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+
+  .nav-toggle {
+    display: block;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #ba6b74;
+  }
+}
+
+/* ===== Hero Section ===== */
+.banner {
+  width: 100%;
+}
+
+.banner img {
+  width: 100%;
+  height: 60vh;
+  object-fit: cover;
+  display: block;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 20px;
+  background-color: #fff0e9;
+  width: 100vw;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  max-width: 600px;
+}
+
+/* ===== Product Preview ===== */
+.product-preview {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 60px 20px;
+  background-color: #f9f6f3;
+}
+
+.product-preview img {
+  max-width: 300px;
+  border-radius: 16px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* ===== Call to Action (CTA) ===== */
+.cta {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #fff0e9;
+}
+
+.cta h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.cta p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.cta form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.cta input,
+.cta select {
+  padding: 12px 20px;
+  width: 300px;
+  max-width: 90%;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  font-size: 1rem;
+}
+
+.cta button {
+  padding: 12px 30px;
+  font-size: 1rem;
+  background-color: #d8a48f;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cta button:hover {
+  background-color: #c98a76;
+}
+/* ===== Product Page ===== */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.product-card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+  text-align: center;
+}
+
+.product-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.coming-soon {
+  opacity: 0.6;
+  border: 1px dashed #ccc;
+}
+
+/* ===== Confirmation Message ===== */
+#confirmation {
+  margin-top: 20px;
+  color: green;
+  font-size: 1.1rem;
+  display: none;
+}
+
+/* ===== Footer ===== */
+.footer {
+  text-align: center;
+  padding: 30px 20px;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+

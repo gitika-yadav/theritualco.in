@@ -5,15 +5,59 @@
     <title>Products - The Ritual Co</title>
     <meta name="description" content="Explore our pastel-themed gym gear, including dumbbells, kettlebells, and more." />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-<h1>Our Products</h1>
-<ul>
-    <li>Capsule Dumbbells - Pink / Grey</li>
-    <li>Flat Dumbbells - Pink / Grey</li>
-    <li>Kettlebells - Coming soon</li>
-    <li>Ankle Weights - Coming soon</li>
-    <li>Resistance Bands - Coming soon</li>
-</ul>
+<div class="page-wrapper">
+    <div id="navbar-placeholder"></div>
+
+    <main class="main-content">
+        <h1>Our Products</h1>
+
+        <section class="product-grid">
+            <div class="product-card">
+                <img src="/images/capsule-dumbbell.jpg" alt="Capsule Dumbbell - Grey">
+                <h2>Capsule Dumbbell</h2>
+                <p>Colors: Pink / Grey<br>Weight: 1kg / 2kg</p>
+            </div>
+
+            <div class="product-card coming-soon">
+                <h2>Flat Dumbbell</h2>
+                <p>Coming Soon</p>
+            </div>
+
+            <div class="product-card coming-soon">
+                <h2>Kettlebells</h2>
+                <p>Coming Soon</p>
+            </div>
+
+            <div class="product-card coming-soon">
+                <h2>Ankle Weights</h2>
+                <p>Coming Soon</p>
+            </div>
+
+            <div class="product-card coming-soon">
+                <h2>Resistance Bands</h2>
+                <p>Coming Soon</p>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+</div>
+
+<script>
+    fetch("/partials/navbar.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("navbar-placeholder").innerHTML = data;
+      });
+
+    fetch("/partials/footer.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("footer-placeholder").innerHTML = data;
+      });
+</script>
 </body>
 </html>

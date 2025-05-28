@@ -4,192 +4,101 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Ritual Co.</title>
+  <meta name="description" content="India's first pastel capsule dumbbells. Movement is a ritual." />
+  <link rel="stylesheet" href="/css/style.css" />
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Helvetica Neue', sans-serif;
-      background-color: #f9f6f3;
-      color: #333;
-    }
-
-    .banner {
-      width: 100%;
-    }
-
-    .banner img {
-      width: 100%;
-      height: 60vh;
-      object-fit: cover;
-      display: block;
-    }
-
-    .hero {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 80px 20px;
-      background-color: #fff0e9;
-    }
-
-    .hero h1 {
-      font-size: 3rem;
-      margin-bottom: 20px;
-    }
-
-    .hero p {
-      font-size: 1.2rem;
-      max-width: 600px;
-    }
-
-    .product-preview {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 30px;
-      padding: 60px 20px;
-      background-color: #f9f6f3;
-    }
-
-    .product-preview img {
-      max-width: 300px;
-      border-radius: 16px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    }
-
-    .cta {
-      text-align: center;
-      padding: 60px 20px;
-      background-color: #fff0e9;
-    }
-
-    .cta h2 {
-      font-size: 2rem;
-      margin-bottom: 10px;
-    }
-
-    .cta p {
-      font-size: 1rem;
-      margin-bottom: 20px;
-    }
-
-    .cta form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-      margin-top: 30px;
-    }
-
-    .cta input,
-    .cta select {
-      padding: 12px 20px;
-      width: 300px;
-      max-width: 90%;
-      border: 1px solid #ccc;
-      border-radius: 25px;
-      font-size: 1rem;
-    }
-
-    .cta button {
-      padding: 12px 30px;
-      font-size: 1rem;
-      background-color: #d8a48f;
-      color: white;
-      border: none;
-      border-radius: 25px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .cta button:hover {
-      background-color: #c98a76;
-    }
-
-    #confirmation {
-      margin-top: 20px;
-      color: green;
-      font-size: 1.1rem;
-      display: none;
-    }
-
-    .footer {
-      text-align: center;
-      padding: 30px 20px;
-      font-size: 0.9rem;
-      color: #777;
-    }
-  </style>
 </head>
 <body>
+<div class="page-wrapper">
+  <!-- Navbar -->
+  <div id="navbar-placeholder"></div>
 
-<!-- Banner Image -->
-<section class="banner">
-  <img src="images/banner.png" alt="Banner" />
-</section>
+  <main>
+    <!-- Full-width Banner -->
+    <section class="banner">
+      <img src="images/banner.png" alt="Banner" />
+    </section>
 
-<!-- Hero Section -->
-<section class="hero">
-  <h1>Because Movement Is a Ritual.</h1>
-  <p>Introducing India's first capsule-shaped silicone dumbbells. Where design meets strength, and wellness becomes an aesthetic.</p>
-</section>
+    <!-- Full-width Hero Section -->
+    <section class="hero">
+      <h1>Because Movement Is a Ritual.</h1>
+      <p>Introducing India's first capsule-shaped silicone dumbbells. Where design meets strength, and wellness becomes an aesthetic.</p>
+    </section>
 
-<!-- Product Images -->
-<section class="product-preview">
-  <img src="images/flat-dumbbell.jpg" alt="Flat Dumbbell" />
-  <img src="images/capsule-dumbbell.jpg" alt="Capsule Dumbbell" />
-</section>
+    <!-- Full-width Product Preview -->
+    <section class="product-preview">
+      <img src="images/flat-dumbbell.jpg" alt="Flat Dumbbell" />
+      <img src="images/capsule-dumbbell.jpg" alt="Capsule Dumbbell" />
+    </section>
 
-<!-- Call to Action -->
-<section class="cta">
-  <h2>Coming Soon</h2>
-  <p>Get early access to our exclusive fitness collection.</p>
+    <!-- Centered CTA Form -->
+    <div class="main-content">
+      <section class="cta">
+        <h2>Coming Soon</h2>
+        <p>Get early access to our exclusive fitness collection.</p>
 
-  <form id="waitlist-form">
-    <input type="text" name="name" placeholder="Your Name" required />
-    <input type="email" name="email" placeholder="Your Email" required />
-    <input type="tel" name="phone" placeholder="Phone Number" pattern="[0-9]{10}" required />
-    <input type="text" name="nickname" style="display:none" /> <!-- Honeypot -->
+        <form id="waitlist-form">
+          <input type="text" name="name" placeholder="Your Name" required />
+          <input type="email" name="email" placeholder="Your Email" required />
+          <input type="tel" name="phone" placeholder="Phone Number" pattern="[0-9]{10}" required />
+          <input type="text" name="nickname" style="display:none" /> <!-- Honeypot -->
 
-    <select name="color" required>
-      <option value="" disabled selected>Select Color Preference</option>
-      <option value="Peach">Peach</option>
-      <option value="Cream">Cream</option>
-      <option value="Grey">Grey</option>
-      <option value="Black">Black</option>
-      <option value="Pink">Pink</option>
-    </select>
+          <select name="color" required>
+            <option value="" disabled selected>Select Color Preference</option>
+            <option value="Peach">Peach</option>
+            <option value="Cream">Cream</option>
+            <option value="Grey">Grey</option>
+            <option value="Black">Black</option>
+            <option value="Pink">Pink</option>
+          </select>
 
-    <button class="g-recaptcha"
-            data-sitekey="6Lc6HkwrAAAAAIQyjR2X878GppjvEWySgfG8QRIm"
-            data-callback="onSubmit"
-            data-badge="bottomright"
-            data-size="invisible">
-      Join the Waitlist
-    </button>
-  </form>
+          <button class="g-recaptcha"
+                  data-sitekey="6Lc6HkwrAAAAAIQyjR2X878GppjvEWySgfG8QRIm"
+                  data-callback="onSubmit"
+                  data-badge="bottomright"
+                  data-size="invisible">
+            Join the Waitlist
+          </button>
+        </form>
 
-  <div id="confirmation" style="display:none;">
-    ✅ You're on the waitlist! We'll email you first when we launch.
-  </div>
-</section>
+        <div id="confirmation" style="display:none;">
+          ✅ You're on the waitlist! We'll email you first when we launch.
+        </div>
+      </section>
+    </div>
+  </main>
 
-<!-- Script: reCAPTCHA & form handling -->
+  <!-- Footer -->
+  <div id="footer-placeholder"></div>
+</div>
+
+<!-- Load Navbar and Footer -->
+<script>
+  fetch("/partials/navbar.html")
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("navbar-placeholder").innerHTML = data;
+    });
+
+  fetch("/partials/footer.html")
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("footer-placeholder").innerHTML = data;
+    });
+</script>
+
+<!-- Form Submission + reCAPTCHA -->
 <script>
   function onSubmit(token) {
     const form = document.getElementById('waitlist-form');
     const formData = new FormData(form);
     formData.append("g-recaptcha-response", token);
 
-    // Convert formData to JSON object
     const data = {};
     for (let [key, value] of formData.entries()) {
       data[key] = value.trim();
     }
 
-    // If honeypot filled, reject
     if (data.nickname) {
       console.warn("Spam submission detected.");
       return;
@@ -202,9 +111,7 @@
     })
     .then(async response => {
       const result = await response.json();
-      if (!response.ok) {
-        throw new Error(result.message || "Submission failed");
-      }
+      if (!response.ok) throw new Error(result.message || "Submission failed");
 
       form.style.display = 'none';
       document.getElementById('confirmation').style.display = 'block';
@@ -221,15 +128,9 @@
     grecaptcha.execute(); // Calls onSubmit()
   });
 </script>
-
-
-
-<!-- Footer -->
-<footer class="footer">
-  &copy; 2025 The Ritual Co. | Designed with love & strength
-</footer>
-
 </body>
 </html>
+
+
 
 
