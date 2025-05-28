@@ -7,6 +7,10 @@ body {
   overflow-x: hidden;
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
 .page-wrapper {
   min-height: 100vh;
   display: flex;
@@ -139,7 +143,9 @@ p {
   text-align: center;
   padding: 80px 20px;
   background-color: #fff0e9;
-  width: 100vw;
+  width: 100%;
+  max-width: 100vw;
+  box-sizing: border-box;
 }
 
 .hero h1 {
