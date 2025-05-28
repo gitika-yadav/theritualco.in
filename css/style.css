@@ -1,13 +1,9 @@
 /* ===== Global Styles ===== */
 body {
   margin: 0;
-  font-family: 'Helvetica Neue', sans-serif;
-  background-color: #f9f6f3;
-  color: #333;
-  overflow-x: hidden;
-}
-
-html, body {
+  font-family: 'Playfair Display', serif;
+  background-color: #fdfaf7;
+  color: #222;
   overflow-x: hidden;
 }
 
@@ -28,7 +24,7 @@ h1, h2, h3 {
   font-weight: 600;
   color: #333;
   margin-bottom: 16px;
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: 'Playfair Display', serif;
 }
 
 p {
@@ -67,7 +63,7 @@ p {
 .nav-logo a {
   font-size: 1.75rem;
   font-weight: 700;
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: 'Playfair Display', serif;
   color: #ba6b74;
   text-decoration: none;
   letter-spacing: 0.5px;
