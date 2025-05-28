@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Dumbbell for Beginners: Where to Start – The Ritual Co</title>
+    <meta name="description" content="New to working out? Learn how to choose the best dumbbells for beginners and build a sustainable strength ritual." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<div class="page-wrapper">
+    <div id="navbar-placeholder"></div>
+
+    <main class="main-content">
+        <h1>Dumbbell for Beginners: Where to Start</h1>
+        <p>Starting a strength training routine can feel overwhelming — but it doesn’t have to be. At The Ritual Co, we believe every fitness journey should begin with confidence, consistency, and the right tools.</p>
+
+        <h2>Why 1kg or 2kg Dumbbells Are Ideal</h2>
+        <p>When you're new, lighter weights allow you to focus on form and avoid injury. Our capsule dumbbells (available in 1kg and 2kg) are designed for beginners who want to tone, not bulk.</p>
+
+        <h2>How to Use Dumbbells as a Beginner</h2>
+        <ul>
+            <li>Start with 10-minute routines, 3x per week</li>
+            <li>Use exercises like bicep curls, shoulder presses, and squats</li>
+            <li>Listen to your body and build gradually</li>
+        </ul>
+
+        <p>Ready to begin your ritual? Try our pastel dumbbells — designed for flow, not fatigue.</p>
+    </main>
+
+    <div id="footer-placeholder"></div>
+</div>
+
+<script>
+    fetch("/partials/navbar.html").then(res => res.text()).then(data => {
+      document.getElementById("navbar-placeholder").innerHTML = data;
+    });
+    fetch("/partials/footer.html").then(res => res.text()).then(data => {
+      document.getElementById("footer-placeholder").innerHTML = data;
+    });
+</script>
+</body>

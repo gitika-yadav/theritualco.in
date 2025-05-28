@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>The Ritual of Movement – The Ritual Co</title>
+    <meta name="description" content="Fitness isn’t a chore — it’s a ritual. Here’s how to build a sustainable wellness routine at home." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<div class="page-wrapper">
+    <div id="navbar-placeholder"></div>
+
+    <main class="main-content">
+        <h1>The Ritual of Movement</h1>
+        <p>What if fitness felt like brushing your teeth? Calming. Centering. Consistent. At The Ritual Co, we’re not just selling dumbbells — we’re helping you form habits you love.</p>
+
+        <h2>Make It Easy</h2>
+        <p>Leave your dumbbells visible. Use cute gear that invites you to move. No motivation needed.</p>
+
+        <h2>Make It Small</h2>
+        <p>Even 5 minutes of movement a day makes a difference. Morning stretches, evening curls — it all adds up.</p>
+
+        <h2>Make It Aesthetic</h2>
+        <p>Your space matters. That’s why our capsule dumbbells are designed to be seen and used daily.</p>
+
+        <p>Start with our pastel capsule dumbbells — the first step to making movement a beautiful habit.</p>
+    </main>
+
+    <div id="footer-placeholder"></div>
+</div>
+
+<script>
+    fetch("/partials/navbar.html").then(res => res.text()).then(data => {
+      document.getElementById("navbar-placeholder").innerHTML = data;
+    });
+    fetch("/partials/footer.html").then(res => res.text()).then(data => {
+      document.getElementById("footer-placeholder").innerHTML = data;
+    });
+</script>
+</body>
