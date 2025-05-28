@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Blog – The Ritual Co</title>
+    <meta name="description" content="Wellness, fitness and movement tips from The Ritual Co." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<div class="page-wrapper">
+    <div id="navbar-placeholder"></div>
+
+    <main class="main-content">
+        <h1>Our Blog</h1>
+        <p>Read articles on wellness rituals, beginner-friendly workouts, and how to design your own home gym lifestyle.</p>
+
+        <ul>
+            <li><a href="#">Dumbbell for Beginners: Where to Start</a></li>
+            <li><a href="#">Top 5 Dumbbell Exercises for Toned Arms</a></li>
+            <li><a href="#">The Ritual of Movement: How to Make Fitness a Habit</a></li>
+        </ul>
+    </main>
+
+    <div id="footer-placeholder"></div>
+</div>
+
+<script>
+    fetch("/partials/navbar.html").then(res => res.text()).then(data => {
+      document.getElementById("navbar-placeholder").innerHTML = data;
+    });
+    fetch("/partials/footer.html").then(res => res.text()).then(data => {
+      document.getElementById("footer-placeholder").innerHTML = data;
+    });
+</script>
+</body>

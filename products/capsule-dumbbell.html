@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Capsule Dumbbell – The Ritual Co</title>
+    <meta name="description" content="Discover the perfect dumbbell for beginners, girls and home gyms. Silicone-coated, pastel capsule dumbbells from The Ritual Co." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<div class="page-wrapper">
+    <div id="navbar-placeholder"></div>
+
+    <main class="main-content">
+        <h1>Capsule Dumbbell</h1>
+        <p>Our signature capsule-shaped dumbbell is uniquely designed for comfort, control, and aesthetics. Coated with skin-safe silicone and available in 1kg and 2kg — it's perfect for:</p>
+        <ul>
+            <li>Dumbbell workouts for beginners</li>
+            <li>Toning arms & biceps</li>
+            <li>Girls and women building strength at home</li>
+            <li>Small-space and pastel-inspired home gyms</li>
+        </ul>
+
+        <img src="/images/capsule-dumbbell.jpg" alt="Capsule Dumbbell" style="width: 100%; max-width: 400px; border-radius: 16px;" />
+
+        <p>✨ Choose your color: Peach or Grey<br>
+            ✨ Designed for flow, function, and feminine strength</p>
+    </main>
+
+    <div id="footer-placeholder"></div>
+</div>
+
+<script>
+    fetch("/partials/navbar.html").then(res => res.text()).then(data => {
+      document.getElementById("navbar-placeholder").innerHTML = data;
+    });
+    fetch("/partials/footer.html").then(res => res.text()).then(data => {
+      document.getElementById("footer-placeholder").innerHTML = data;
+    });
+</script>
+</body>
+</html>
