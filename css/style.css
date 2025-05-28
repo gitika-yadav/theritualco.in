@@ -7,6 +7,14 @@ body {
   overflow-x: hidden;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* 🔒 prevents horizontal scroll */
+  width: 100%;
+}
+
+
 .page-wrapper {
   min-height: 100vh;
   display: flex;
@@ -89,6 +97,7 @@ p {
   padding: 6px 12px;
   border-radius: 6px;
   transition: all 0.3s ease;
+  flex-wrap: wrap;
 }
 
 .nav-links li a:hover {
