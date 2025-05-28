@@ -151,7 +151,8 @@
     <input type="text" name="name" placeholder="Your Name" required />
     <input type="email" name="email" placeholder="Your Email" required />
     <input type="tel" name="phone" placeholder="Phone Number" pattern="[0-9]{10}" required />
-    <input type="text" name="nickname" style="display:none" />
+    <input type="text" name="nickname" style="display:none" /> <!-- Honeypot -->
+
     <select name="color" required>
       <option value="" disabled selected>Select Color Preference</option>
       <option value="Peach">Peach</option>
@@ -160,6 +161,7 @@
       <option value="Black">Black</option>
       <option value="Pink">Pink</option>
     </select>
+
     <button class="g-recaptcha"
             data-sitekey="6Lc6HkwrAAAAAIQyjR2X878GppjvEWySgfG8QRIm"
             data-callback="onSubmit"
@@ -169,7 +171,7 @@
     </button>
   </form>
 
-  <div id="confirmation">
+  <div id="confirmation" style="display:none;">
     ✅ You're on the waitlist! We'll email you first when we launch.
   </div>
 </section>
@@ -178,47 +180,48 @@
 <script>
   function onSubmit(token) {
     const form = document.getElementById('waitlist-form');
-
-    // Append the g-recaptcha-response token to the form
     const formData = new FormData(form);
     formData.append("g-recaptcha-response", token);
-    const data = Object.fromEntries(formData.entries());
 
-    console.log("Submitting form with data:", data);
+    // Convert formData to JSON object
+    const data = {};
+    for (let [key, value] of formData.entries()) {
+      data[key] = value.trim();
+    }
 
-    fetch('/.netlify/functions/submit-form', {
+    // If honeypot filled, reject
+    if (data.nickname) {
+      console.warn("Spam submission detected.");
+      return;
+    }
+
+    fetch('/.netlify/functions/submit-to-sheet', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     })
     .then(async response => {
-      let result;
-      try {
-        result = await response.json();
-      } catch (err) {
-        throw new Error("Invalid JSON response from server.");
-      }
-
+      const result = await response.json();
       if (!response.ok) {
-        throw new Error(result.message || "Form submission failed.");
+        throw new Error(result.message || "Submission failed");
       }
 
       form.style.display = 'none';
       document.getElementById('confirmation').style.display = 'block';
-      console.log("Success:", result);
+      console.log("Submission successful:", result);
     })
     .catch(err => {
-      console.error("Fetch error:", err);
+      console.error("Error:", err);
       alert("Something went wrong. Please try again.");
     });
   }
 
-  // Prevent default submit, trigger reCAPTCHA
   document.getElementById('waitlist-form').addEventListener('submit', function (e) {
     e.preventDefault();
-    grecaptcha.execute(); // This will call onSubmit(token)
+    grecaptcha.execute(); // Calls onSubmit()
   });
 </script>
+
 
 
 <!-- Footer -->

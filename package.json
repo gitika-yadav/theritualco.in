@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/gitika-yadav/theritualco.in#readme",
   "dependencies": {
+    "googleapis": "^149.0.0",
     "node-fetch": "^2.7.0"
   }
 }
