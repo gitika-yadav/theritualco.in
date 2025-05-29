@@ -48,6 +48,15 @@ p {
   margin: 0 auto;
 }
 
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none; /* or underline if you want it on hover */
+}
+
+
 /* ===== Enhanced Sticky Navbar ===== */
 .navbar {
   position: sticky;
