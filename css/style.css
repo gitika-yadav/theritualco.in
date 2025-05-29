@@ -384,5 +384,74 @@ p {
   margin: 0 16px 20px;
 }
 
+/* ===== Contact Form Styling ===== */
+.contact-form {
+  background-color: #fff9f9;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  max-width: 600px;
+  margin: 0 auto 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-form label {
+  font-weight: 500;
+  color: #555;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 12px 20px;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-family: 'Helvetica Neue', sans-serif;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+.contact-form textarea {
+  border-radius: 20px;
+  resize: vertical;
+  min-height: 120px;
+}
+
+.contact-form button {
+  background-color: #d8a48f;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 25px;
+  padding: 14px 28px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+  background-color: #c98a76;
+}
+
+.contact-details {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.contact-details a {
+  color: #ba6b74;
+  text-decoration: none;
+}
+
+.contact-details a:hover {
+  text-decoration: underline;
+}
+
+
 
 

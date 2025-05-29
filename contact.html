@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D366Q7R3XB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-D366Q7R3XB');
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us – The Ritual Co</title>
+    <meta name="description" content="Get in touch with The Ritual Co. We're here to help with orders, partnerships, and product inquiries." />
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<div class="page-wrapper">
+    <div id="navbar-placeholder"></div>
+
+    <main class="main-content">
+        <h1>Contact Us</h1>
+        <p class="intro">Have questions about your order, want to collaborate, or just want to say hi? We'd love to hear from you.</p>
+
+        <form name="contact" method="POST" data-netlify="true" class="contact-form">
+            <input type="hidden" name="form-name" value="contact" />
+
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required placeholder="Your full name" />
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required placeholder="you@example.com" />
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required placeholder="Tell us how we can help"></textarea>
+
+            <button type="submit">Send Message</button>
+        </form>
+
+        <div class="contact-details">
+            <p>Email us: <a href="mailto:theritualcoofficial@gmail.com">theritualcoofficial@gmail.com</a></p>
+            <p>Instagram: <a href="https://instagram.com/theritualco.in" target="_blank">@theritualco.in</a></p>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+</div>
+
+<script>
+    fetch("/partials/navbar.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("navbar-placeholder").innerHTML = data;
+      });
+
+    fetch("/partials/footer.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("footer-placeholder").innerHTML = data;
+      });
+</script>
+</body>
+</html>
