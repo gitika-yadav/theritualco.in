@@ -20,7 +20,7 @@ exports.handler = async function(event, context) {
   const sheets = google.sheets({ version: "v4", auth });
 
   const spreadsheetId = process.env.SHEET_ID;
-  const range = "Sheet1!A1:E1"; // Update to cover all 5 columns
+  const range = "Waitlist!A1:E1"; // Update to cover all 5 columns
 
   try {
     await sheets.spreadsheets.values.append({
