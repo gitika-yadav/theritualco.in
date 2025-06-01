@@ -1,23 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-D366Q7R3XB"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-D366Q7R3XB');
   </script>
+
+  <!-- Meta Info -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter&family=Playfair+Display&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="icon" type="image/png" href="/favicon.png" />
-  <title>The Ritual Co.</title>
   <meta name="description" content="India's first pastel capsule dumbbells. Movement is a ritual." />
-  <link rel="stylesheet" href="/css/style.css" />
+  <title>The Ritual Co.</title>
+  <link rel="icon" type="image/png" href="/favicon.png" />
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter&family=Playfair+Display&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="/css/home.css" />
+  <link rel="stylesheet" href="/css/footer.css" />
+  <link rel="stylesheet" href="/css/responsive.css" />
+  <link rel="stylesheet" href="/css/navbar.css" />
+
+  <!-- reCAPTCHA -->
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
@@ -26,61 +37,35 @@
   <div id="navbar-placeholder"></div>
 
   <main>
-    <!-- Full-width Banner -->
+    <!-- Banner -->
     <section class="banner">
-      <img src="images/banner.png" alt="Banner" loading="lazy"/>
+      <img src="images/banner.png" alt="Banner" loading="lazy" />
     </section>
 
-    <!-- Full-width Hero Section -->
+    <!-- Hero Section -->
     <section class="hero">
       <h1>Because Movement Is a Ritual.</h1>
       <p>Introducing India's first capsule-shaped silicone dumbbells. Where design meets strength, and wellness becomes an aesthetic.</p>
     </section>
 
-    <!-- Full-width Product Preview -->
+    <!-- Product Preview -->
     <section class="product-preview">
-      <img src="images/flat-dumbbell.jpg" alt="Flat Dumbbell" loading="lazy"/>
-      <img src="images/capsule-dumbbell.jpg" alt="Capsule Dumbbell" loading="lazy"/>
+      <img src="images/flat-dumbbell.jpg" alt="Flat Dumbbell" loading="lazy" />
+      <img src="images/capsule-dumbbell.jpg" alt="Capsule Dumbbell" loading="lazy" />
     </section>
 
-    <!-- Centered CTA Form -->
+    <!-- CTA Form -->
     <div class="main-content">
       <section class="cta">
         <h2>Coming Soon</h2>
         <p>Get early access to our exclusive fitness collection.</p>
 
         <form id="waitlist-form">
-          <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  placeholder="Enter your full name"
-                  required
-                  minlength="2"
-          />
-          <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="Enter your email address"
-                  required
-          />
-          <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  placeholder="10-digit phone number"
-                  pattern="[0-9]{10}"
-                  title="Please enter exactly 10 digits"
-                  required
-          />
-          <input
-                  type="text"
-                  name="nickname"
-                  style="display:none"
-                  tabindex="-1"
-                  autocomplete="off"
-          />
+          <input type="text" id="name" name="name" placeholder="Enter your full name" required minlength="2" />
+          <input type="email" id="email" name="email" placeholder="Enter your email address" required />
+          <input type="tel" id="phone" name="phone" placeholder="10-digit phone number" pattern="[0-9]{10}" title="Please enter exactly 10 digits" required />
+          <input type="text" name="nickname" style="display:none" tabindex="-1" autocomplete="off" />
+
           <select name="color" required>
             <option value="" disabled selected>Select Color Preference</option>
             <option value="Peach">Peach</option>
@@ -90,11 +75,7 @@
             <option value="Pink">Pink</option>
           </select>
 
-          <button class="g-recaptcha"
-                  data-sitekey="6Lc6HkwrAAAAAIQyjR2X878GppjvEWySgfG8QRIm"
-                  data-callback="onSubmit"
-                  data-badge="bottomright"
-                  data-size="invisible">
+          <button class="g-recaptcha" data-sitekey="6Lc6HkwrAAAAAIQyjR2X878GppjvEWySgfG8QRIm" data-callback="onSubmit" data-badge="bottomright" data-size="invisible">
             Join the Waitlist
           </button>
         </form>
@@ -112,17 +93,12 @@
 
 <!-- Load Navbar and Footer -->
 <script>
-  fetch("/partials/navbar.html")
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById("navbar-placeholder").innerHTML = data;
-    });
-
-  fetch("/partials/footer.html")
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById("footer-placeholder").innerHTML = data;
-    });
+  fetch("/partials/navbar.html").then(res => res.text()).then(data => {
+    document.getElementById("navbar-placeholder").innerHTML = data;
+  });
+  fetch("/partials/footer.html").then(res => res.text()).then(data => {
+    document.getElementById("footer-placeholder").innerHTML = data;
+  });
 </script>
 
 <!-- Form Submission + reCAPTCHA -->
@@ -163,7 +139,7 @@
 
   document.getElementById('waitlist-form').addEventListener('submit', function (e) {
     e.preventDefault();
-    grecaptcha.execute(); // Calls onSubmit()
+    grecaptcha.execute();
   });
 </script>
 </body>

@@ -1,0 +1,7 @@
+/* ===== Confirmation Message ===== */
+#confirmation {
+  margin-top: 20px;
+  color: green;
+  font-size: 1.1rem;
+  display: none;
+}

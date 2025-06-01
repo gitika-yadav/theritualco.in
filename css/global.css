@@ -1,0 +1,49 @@
+/* ===== Global Styles ===== */
+body {
+  margin: 0;
+  font-family: 'Playfair Display', serif;
+  background-color: #fdfaf7;
+  color: #222;
+  overflow-x: hidden;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 60px 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 16px;
+  font-family: 'Playfair Display', serif;
+}
+
+p {
+  line-height: 1.7;
+  font-size: 1rem;
+  color: #444;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}

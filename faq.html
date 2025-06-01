@@ -7,22 +7,29 @@
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-
         gtag('config', 'G-D366Q7R3XB');
     </script>
+
     <meta charset="UTF-8" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Playfair+Display&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <title>FAQ - The Ritual Co</title>
-    <meta name="description" content="Answers to your questions about The Ritual Co's products and policies." />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/style.css" />
+    <title>FAQ – The Ritual Co</title>
+    <meta name="description" content="Answers to your questions about The Ritual Co's products and policies." />
+
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Playfair+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+
 </head>
+
 <body>
 <div class="page-wrapper">
+    <!-- Navbar -->
     <div id="navbar-placeholder"></div>
 
+    <!-- Main Content -->
     <main class="main-content">
         <h1>Frequently Asked Questions</h1>
 
@@ -46,12 +53,14 @@
     <div id="footer-placeholder"></div>
 </div>
 
+<!-- Navbar + Footer Injection -->
 <script>
     fetch("/partials/navbar.html")
       .then(res => res.text())
       .then(data => {
         document.getElementById("navbar-placeholder").innerHTML = data;
       });
+
     fetch("/partials/footer.html")
       .then(res => res.text())
       .then(data => {

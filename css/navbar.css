@@ -1,0 +1,58 @@
+
+/* ===== Enhanced Sticky Navbar ===== */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(253, 242, 243, 0.9); /* translucent blush */
+  backdrop-filter: blur(8px);
+  padding: 12px 40px;
+  display: flex;
+  width: 100%;
+  max-width: 100vw;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f3d7d9;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s ease;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+.nav-logo {
+  flex: 1;
+}
+
+.nav-logo a {
+  font-size: 1.75rem;
+  font-weight: 700;
+  font-family: 'Playfair Display', serif;
+  color: #ba6b74;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li a {
+  font-size: 1rem;
+  color: #555;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  flex-wrap: wrap;
+}
+
+.nav-links li a:hover {
+  background-color: #f9e5e7;
+  color: #ba6b74;
+  box-shadow: 0 4px 10px rgba(186, 107, 116, 0.15);
+}
