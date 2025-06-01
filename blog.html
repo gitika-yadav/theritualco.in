@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,84 +7,103 @@
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-
         gtag('config', 'G-D366Q7R3XB');
     </script>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Explore The Ritual Co’s Journal: fitness, wellness, mindset and movement insights organized by category." />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <title>Blog – The Ritual Co</title>
-    <meta name="description" content="Wellness, fitness and movement tips from The Ritual Co." />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Styles -->
     <link rel="stylesheet" href="/css/global.css" />
     <link rel="stylesheet" href="/css/blog.css" />
     <link rel="stylesheet" href="/css/navbar.css" />
     <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 <body>
 <div class="page-wrapper">
+    <!-- Navbar -->
     <div id="navbar-placeholder"></div>
 
     <main class="main-content blog-listing">
+        <!-- Breadcrumb -->
+        <nav class="breadcrumbs">
+            <a href="/">Home</a> › <a href="/blog.html">Blog</a>
+        </nav>
         <h1>Our Journal</h1>
         <p class="intro">Rituals begin with reflection. Read stories on movement, mindset, and how wellness becomes a daily art form.</p>
 
-        <section class="blog-grid">
+        <!-- Blog Category Tiles -->
+        <section class="blog-categories">
+            <h2>Explore by Category</h2>
+            <div class="category-grid">
 
-            <article class="blog-card">
-                <a href="/blog/dumbbell-for-beginners.html">
-                    <h2>Dumbbell for Beginners: Where to Start</h2>
-                    <p>Starting your fitness journey? Here’s how to begin softly — with the right weight, the right mood, and the right intention.</p>
+                <a href="/category/category-dumbbells/dumbbell-bloglist.html" class="category-tile">
+                    <div class="tile-content">
+                        <h3>Dumbbell Training</h3>
+                        <p>Workouts, tips & techniques with dumbbells.</p>
+                    </div>
                 </a>
-            </article>
 
-            <article class="blog-card">
-                <a href="/blog/dumbbell-exercises-for-arms.html">
-                    <h2>Top 5 Dumbbell Exercises for Toned Arms</h2>
-                    <p>Want graceful arms without heavy lifting? These beginner-friendly moves are effective and aesthetic.</p>
+                <a href="/category/category-ritual-mindset/ritual-mindset-bloglist.html" class="category-tile">
+                    <div class="tile-content">
+                        <h3>Wellness Rituals</h3>
+                        <p>Mind-body routines, reflection & self-care.</p>
+                    </div>
                 </a>
-            </article>
 
-            <article class="blog-card">
-                <a href="/blog/how-to-make-fitness-a-ritual.html">
-                    <h2>The Ritual of Movement</h2>
-                    <p>Fitness isn’t punishment. It’s presence. Learn how to turn everyday movement into your favorite daily ritual.</p>
+                <a href="/category/category-homegym/homegym-bloglist.html" class="category-tile">
+                    <div class="tile-content">
+                        <h3>Home Gym Aesthetic</h3>
+                        <p>Gear setups, space-saving routines & moodboard inspiration.</p>
+                    </div>
                 </a>
-            </article>
 
-            <article class="blog-card">
-                <a href="/blog/womens-dumbbell.html">
-                    <h2>The Women’s Dumbbell Guide</h2>
-                    <p>Looking for the best dumbbells for women? Here's how to choose weights that align with your goals and lifestyle.</p>
+<!--                <a href="/category/category-wellness/wellness-bloglist.html" class="category-tile">-->
+<!--                    <div class="tile-content">-->
+<!--                        <h3>Fitness & Wellness</h3>-->
+<!--                        <p>Nutrition, mobility, recovery & glow-up routines.</p>-->
+<!--                    </div>-->
+<!--                </a>-->
+
+                <a href="/category/category-womens-wellness/womens-wellness-bloglist.html" class="category-tile">
+                    <div class="tile-content">
+                        <h3>Women's Wellness</h3>
+                        <p>Hormones, lifestyle design & mental fitness for women.</p>
+                    </div>
                 </a>
-            </article>
 
-            <article class="blog-card">
-                <a href="/blog/weightloss-with-dumbbells.html">
-                    <h2>Dumbbells for Women: A Mind-Body Approach</h2>
-                    <p>Discover how light dumbbells can shape strength, posture, and confidence — with mindful routines made for women.</p>
+                <a href="/category/category-weightloss/weightloss-bloglist.html" class="category-tile">
+                    <div class="tile-content">
+                        <h3>Weight Loss & Strength</h3>
+                        <p>Gentle approaches to tone, lose fat, and feel strong.</p>
+                    </div>
                 </a>
-            </article>
 
-            <article class="blog-card">
-                <a href="/blog/home-gym-equipment-for-women.html">
-                    <h2>Home Gym Equipment for Women: The Essentials</h2>
-                    <p>No fancy setups. Just the essentials: from capsule dumbbells to yoga mats. Aesthetic, functional, feminine.</p>
-                </a>
-            </article>
-
+            </div>
         </section>
     </main>
 
+    <!-- Footer -->
     <div id="footer-placeholder"></div>
 </div>
 
+<!-- Load Navbar & Footer -->
 <script>
-    fetch("/partials/navbar.html").then(res => res.text()).then(data => {
-      document.getElementById("navbar-placeholder").innerHTML = data;
-    });
-    fetch("/partials/footer.html").then(res => res.text()).then(data => {
-      document.getElementById("footer-placeholder").innerHTML = data;
-    });
+    fetch("/partials/navbar.html")
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById("navbar-placeholder").innerHTML = data;
+        });
+
+    fetch("/partials/footer.html")
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById("footer-placeholder").innerHTML = data;
+        });
 </script>
 </body>
+</html>

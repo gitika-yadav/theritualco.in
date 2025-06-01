@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D366Q7R3XB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-D366Q7R3XB');
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title>Women's Wellness – The Ritual Co</title>
+    <meta name="description" content="Explore wellness tips, dumbbell workouts, and home fitness routines designed with women in mind." />
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/blog.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+</head>
+<body>
+<div class="page-wrapper">
+    <!-- Navbar -->
+    <div id="navbar-placeholder"></div>
+
+    <main class="main-content blog-listing">
+        <!-- Breadcrumb -->
+        <nav class="breadcrumbs">
+            <a href="/">Home</a> › <a href="/blog.html">Blog</a> › Women's Wellness
+        </nav>
+        <h1>Women's Wellness</h1>
+        <p class="intro">From strength to self-care, explore articles that celebrate feminine energy, mindful movement, and soft strength.</p>
+
+        <section class="blog-grid">
+            <article class="blog-card">
+                <a href="/category/category-womens-wellness/bloglist/dumbbell-exercises-for-arms.html">
+                    <h2>Top 5 Dumbbell Exercises for Toned Arms</h2>
+                    <p>Beginner-friendly arm exercises to tone without bulking, designed for a softer, sculpted look.</p>
+                </a>
+            </article>
+
+            <article class="blog-card">
+                <a href="/category/category-womens-wellness/bloglist/dumbbell-for-beginners.html">
+                    <h2>Dumbbell for Beginners: Where to Start</h2>
+                    <p>New to strength training? Start here with simple routines and beginner-safe weights.</p>
+                </a>
+            </article>
+
+            <article class="blog-card">
+                <a href="/category/category-womens-wellness/bloglist/home-gym-equipment-for-women.html">
+                    <h2>Home Gym Equipment for Women: The Essentials</h2>
+                    <p>No heavy machines, no clutter. Discover pastel-toned essentials for your mindful workout space.</p>
+                </a>
+            </article>
+
+            <article class="blog-card">
+                <a href="/category/category-womens-wellness/bloglist/weightloss-with-dumbbells.html">
+                    <h2>Dumbbells for Women: A Mind-Body Approach</h2>
+                    <p>Lose weight with grace. Our capsule dumbbells enable flowing movements that burn calories and calm the mind.</p>
+                </a>
+            </article>
+
+            <article class="blog-card">
+                <a href="/category/category-womens-wellness/bloglist/womens-dumbbell.html">
+                    <h2>The Women’s Dumbbell Guide</h2>
+                    <p>Everything you need to know about size, weight, and why capsule shapes fit the feminine grip best.</p>
+                </a>
+            </article>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+</div>
+
+<script>
+    fetch("/partials/navbar.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("navbar-placeholder").innerHTML = data;
+      });
+
+    fetch("/partials/footer.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("footer-placeholder").innerHTML = data;
+      });
+</script>
+</body>
+</html>
+
+

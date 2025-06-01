@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D366Q7R3XB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-D366Q7R3XB');
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dumbbell Training Blogs – The Ritual Co</title>
+    <meta name="description" content="Explore beginner-friendly dumbbell workouts, training guides, and wellness tips by The Ritual Co. Your pastel fitness ritual starts here." />
+
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/blog.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+<div class="page-wrapper">
+    <div id="navbar-placeholder"></div>
+
+    <main class="main-content blog-listing">
+        <!-- Breadcrumbs -->
+        <nav class="breadcrumbs">
+            <a href="/">Home</a> › <a href="/blog.html">Blog</a> › Dumbbell Training
+        </nav>
+
+        <h1>Dumbbell Training</h1>
+        <p class="intro">Beginner workouts, body-toning tips, and pastel-powered strength rituals using our signature dumbbells.</p>
+
+        <section class="blog-grid">
+
+            <article class="blog-card">
+                <a href="/category/category-dumbbells/bloglist/dumbbell-for-beginners.html">
+                    <h2>Dumbbell for Beginners: Where to Start</h2>
+                    <p>New to strength training? Learn how to build consistency, not bulk — with the right weights and routine.</p>
+                </a>
+            </article>
+
+            <article class="blog-card">
+                <a href="/category/category-dumbbells/bloglist/dumbbell-exercises-for-arms.html">
+                    <h2>Top 5 Dumbbell Exercises for Toned Arms</h2>
+                    <p>Say hello to graceful arms — no heavy lifting needed. These dumbbell moves sculpt and tone mindfully.</p>
+                </a>
+            </article>
+
+            <article class="blog-card">
+                <a href="/category/category-dumbbells/bloglist/womens-dumbbell.html">
+                    <h2>The Women’s Dumbbell Guide</h2>
+                    <p>How to choose the best dumbbell weight for you. A pastel roadmap to strength, comfort, and results.</p>
+                </a>
+            </article>
+
+            <article class="blog-card">
+                <a href="/category/category-dumbbells/bloglist/weightloss-with-dumbbells.html">
+                    <h2>Dumbbells for Women: A Mind-Body Approach</h2>
+                    <p>Toning, metabolism, posture — here's how light dumbbells fit into your weight loss and wellness journey.</p>
+                </a>
+            </article>
+
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+</div>
+
+<script>
+    fetch("/partials/navbar.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("navbar-placeholder").innerHTML = data;
+      });
+
+    fetch("/partials/footer.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("footer-placeholder").innerHTML = data;
+      });
+</script>
+</body>
+</html>
