@@ -52,12 +52,16 @@
     <div id="footer-placeholder"></div>
 </div>
 
-<!-- Load Navbar & Footer -->
+<!-- Load Navbar and Footer -->
 <script>
     fetch("/partials/navbar.html")
       .then(res => res.text())
       .then(data => {
         document.getElementById("navbar-placeholder").innerHTML = data;
+        // ✅ Load the JS only after navbar is injected
+        const script = document.createElement('script');
+        script.src = '/js/navbar.js';
+        document.body.appendChild(script);
       });
 
     fetch("/partials/footer.html")
@@ -66,8 +70,6 @@
         document.getElementById("footer-placeholder").innerHTML = data;
       });
 </script>
-<!-- ✅ Add this below the fetch scripts -->
-<script src="/js/navbar.js"></script>
 </body>
 </html>
 

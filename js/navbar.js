@@ -1,9 +1,11 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const navToggle = document.getElementById('navToggle');
-  const navLinks = document.getElementById('navLinks');
+document.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.getElementById("hamburger");
+  const navLinks = document.getElementById("nav-links");
 
-  navToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('show');
-  });
+  if (toggle && navLinks) {
+    toggle.addEventListener("click", () => {
+      navLinks.classList.toggle("show");
+    });
+  }
 });
 
