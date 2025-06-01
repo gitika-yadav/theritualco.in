@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (toggle && navLinks) {
     toggle.addEventListener("click", () => {
+      console.log("Hamburger clicked");
       navLinks.classList.toggle("show");
     });
   }
