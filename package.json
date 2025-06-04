@@ -6,7 +6,8 @@
   "scripts": {
     "build": "npm run generate-sitemap && your-original-build-command",
     "generate-sitemap": "node generate-sitemap.js",
-    "generate-feed": "node generate-feed.js"
+    "generate-feed": "node generate-feed.js",
+    "generate-blog-schema": "node generate-blog-schema.js"
   },
   "repository": {
     "type": "git",
