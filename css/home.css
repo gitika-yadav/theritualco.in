@@ -100,3 +100,123 @@
 .cta button:hover {
   background-color: #c98a76;
 }
+
+/* ======= Global/Existing Styles Omitted for Brevity ======= */
+
+/* ===== Featured Blog Carousel ===== */
+.featured-blogs {
+  padding: 60px 20px;
+  background-color: #fffdfc;
+  text-align: center;
+}
+
+.featured-blogs h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.carousel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+}
+
+.carousel-item {
+  background-color: #fdf4f4;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03);
+  max-width: 300px;
+  text-align: left;
+  transition: all 0.3s ease;
+}
+
+.carousel-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.05);
+}
+
+.carousel-item h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #222;
+}
+
+.carousel-item p {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+.carousel-item a {
+  text-decoration: none;
+  color: #ff6b81;
+}
+
+/* ===== Shop Our Gear Grid ===== */
+.shop-gear {
+  padding: 60px 20px;
+  background-color: #fef7f5;
+  text-align: center;
+}
+
+.shop-gear h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.gear-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+
+.gear-item {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+  text-align: center;
+  max-width: 280px;
+  transition: transform 0.3s ease;
+}
+
+.gear-item:hover {
+  transform: translateY(-4px);
+}
+
+.gear-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  margin-bottom: 15px;
+}
+
+.gear-item h3 {
+  font-size: 1.1rem;
+  color: #222;
+  margin-bottom: 10px;
+}
+
+.gear-item a {
+  color: #ff6b81;
+  text-decoration: none;
+}
+
+.gear-item p {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* ===== Responsive Adjustments ===== */
+@media (max-width: 768px) {
+  .carousel, .gear-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+}

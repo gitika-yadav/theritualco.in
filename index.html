@@ -86,6 +86,33 @@
           ✅ You're on the waitlist! We'll email you first when we launch.
         </div>
       </section>
+
+      <!-- Featured Blog Carousel -->
+      <section class="featured-blogs">
+        <h2>From the Blog</h2>
+        <div class="carousel">
+          <div class="carousel-item">
+            <h3><a href="/category/category-dumbbells/bloglist/dumbbell-for-beginners.html">Dumbbell for Beginners</a></h3>
+            <p>New to fitness? Here's how to start strength training at home with just 1kg weights.</p>
+          </div>
+          <div class="carousel-item">
+            <h3><a href="/category/category-homegym/bloglist/home-gym-equipment-for-women.html">Home Gym Setup</a></h3>
+            <p>Create a Pinterest-worthy home gym with pastel dumbbells, mats, and more.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Shop Our Gear Grid -->
+      <section class="shop-gear">
+        <h2>Shop Our Gear</h2>
+        <div class="gear-grid">
+          <div class="gear-item">
+            <img src="images/capsule-dumbbell.jpg" alt="Capsule Dumbbells" />
+            <h3><a href="/products/capsule-dumbbell.html">Capsule Dumbbells</a></h3>
+            <p>Skin-safe silicone, minimalist aesthetic. Available in 1kg & 2kg.</p>
+          </div>
+        </div>
+      </section>
     </div>
   </main>
 
@@ -99,8 +126,6 @@
     .then(res => res.text())
     .then(data => {
       document.getElementById("navbar-placeholder").innerHTML = data;
-
-      // ✅ Only load JS after navbar has been injected
       const script = document.createElement("script");
       script.src = "/js/navbar.js";
       document.body.appendChild(script);
@@ -148,9 +173,37 @@
     grecaptcha.execute();
   });
 </script>
+
+<script>
+  fetch('/feed.xml')
+    .then(response => response.text())
+    .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
+    .then(data => {
+      const items = data.querySelectorAll("item");
+      const carousel = document.getElementById("blog-carousel");
+
+      // Load only 2 featured items
+      for (let i = 0; i < Math.min(2, items.length); i++) {
+        const title = items[i].querySelector("title").textContent;
+        const link = items[i].querySelector("link").textContent;
+        const desc = items[i].querySelector("description").textContent;
+
+        const itemHTML = `
+          <div class="carousel-item">
+            <h3><a href="${link}">${title}</a></h3>
+            <p>${desc}</p>
+          </div>
+        `;
+        carousel.innerHTML += itemHTML;
+      }
+    })
+    .catch(err => {
+      console.error("Could not load blog feed:", err);
+    });
+</script>
+
 </body>
 </html>
-
 
 
 
