@@ -47,3 +47,15 @@ a {
 a:hover {
   text-decoration: none;
 }
+
+.btn-primary {
+  background-color: #ff6b81;
+  padding: 12px 28px;
+  font-size: 1rem;
+  border-radius: 10px;
+}
+
+.btn-primary:hover {
+  background-color: #e85c70;
+}
+
