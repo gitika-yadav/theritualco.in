@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-D366Q7R3XB"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -13,7 +13,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About – The Ritual Co</title>
-    <meta name="description" content="Our story and philosophy at The Ritual Co – a pastel fitness brand founded by Gitika Yadav." />
+    <meta name="description" content="Discover The Ritual Co's origin, values, and India's first capsule-shaped silicone dumbbells. A pastel fitness startup reimagining movement as a daily ritual." />
 
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter&display=swap" rel="stylesheet">
@@ -33,19 +33,26 @@
     <main class="main-content">
         <h1>About The Ritual Co</h1>
 
-        <p><strong>The Ritual Co</strong> was born from the idea that fitness should feel like a celebration — not a chore. We believe that movement, much like meditation or music, is a ritual. It’s personal. It’s powerful. And it deserves design that reflects that.</p>
+        <p><strong>The Ritual Co.</strong> is a <strong>female-founded fitness startup</strong> that reimagines everyday strength. We launched with one goal — to create <strong>aesthetic gym gear</strong> that feels soft, strong, and truly yours. Our signature product? <strong>India’s first capsule-shaped silicone dumbbells</strong>.</p>
 
-        <p>Founded by <strong>Gitika Yadav</strong>, The Ritual Co blends softness and strength in every product — whether it’s our capsule-shaped dumbbells or our blush-toned mats. Built for women and wellness-forward minds, we want fitness gear to feel as good as it looks.</p>
+        <p>It started with a problem: gym gear was either too harsh or too plain. We wanted equipment that lived beautifully in your space — empowering, elegant, and ergonomic. We blended high-function materials like silicone with gentle tones to create gear that fits into your life and uplifts it.</p>
 
-        <p>With India’s first pastel fitness collection, we’re reimagining home workouts to be calm, aesthetic, and consistent. We prioritize:</p>
+        <blockquote>
+            “I wanted to create fitness tools that don’t just sit in a corner — but inspire you to move. You deserve gear that reflects your lifestyle and your strength.”<br>
+            <strong>– Gitika Yadav, Founder</strong>
+        </blockquote>
 
+        <h2>What We Believe</h2>
         <ul>
-            <li>Ergonomic design for comfort and control</li>
-            <li>Pastel palettes that soothe and inspire</li>
-            <li>Thoughtful packaging and conscious material sourcing</li>
+            <li><strong>Movement is a ritual</strong> — It should feel grounding, not overwhelming.</li>
+            <li><strong>Sustainability</strong> — Long-lasting designs with low-waste packaging.</li>
+            <li><strong>Minimal aesthetics</strong> — Soft pastels and clean lines that soothe the mind.</li>
+            <li><strong>Strength for all</strong> — Inclusive tools for beginners, women, and everyone in between.</li>
         </ul>
 
-        <p>Whether you're lifting dumbbells or lifting your mood, we’re here to remind you: <em>Movement is a ritual worth honoring daily.</em></p>
+        <p>Today, The Ritual Co. is on a mission to make home workouts more inviting — one pastel dumbbell at a time. Whether you're building a Pinterest-worthy home gym or simply taking five minutes for yourself, we’re here to support you with tools that match your rhythm.</p>
+
+        <p>We’re not just selling gear — we’re nurturing a mindset. A ritual of showing up, staying soft, and getting stronger every day.</p>
     </main>
 
     <!-- Footer -->
@@ -58,7 +65,6 @@
       .then(res => res.text())
       .then(data => {
         document.getElementById("navbar-placeholder").innerHTML = data;
-        // ✅ Load the JS only after navbar is injected
         const script = document.createElement('script');
         script.src = '/js/navbar.js';
         document.body.appendChild(script);
@@ -72,5 +78,6 @@
 </script>
 </body>
 </html>
+
 
 
