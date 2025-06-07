@@ -1,3 +1,10 @@
+:root {
+  --heading-text-color: #a57979;
+  --body-text-color: #a16767;
+  --blog-title-color: #cc7d6f;
+}
+
+
 /* ===== Hero Section ===== */
 .banner {
   width: 100%;
@@ -28,11 +35,13 @@
 .hero h1 {
   font-size: 3rem;
   margin-bottom: 20px;
+  color: var(--heading-text-color)
 }
 
 .hero p {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   max-width: 600px;
+  color: var(--body-text-color)
 }
 
 /* ===== Product Preview ===== */
@@ -42,30 +51,41 @@
   flex-wrap: wrap;
   gap: 30px;
   padding: 60px 20px;
-  background-color: #f9f6f3;
+  background-color: #fdf1ee;
 }
 
 .product-preview img {
   max-width: 300px;
   border-radius: 16px;
+  margin: 10px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease-in,
+              box-shadow 0.2s ease-out;
+}
+
+.product-preview img:hover {
+  transform: translateY(-7px);
   box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
+
 
 /* ===== Call to Action (CTA) ===== */
 .cta {
   text-align: center;
   padding: 60px 20px;
-  background-color: #fff0e9;
+  background-color: #faf2ed;
 }
 
 .cta h2 {
   font-size: 2rem;
   margin-bottom: 10px;
+  color: var(--heading-text-color)
 }
 
 .cta p {
-  font-size: 1rem;
+  font-size: 1.2rem;
   margin-bottom: 20px;
+  color: var(--body-text-color)
 }
 
 .cta form {
@@ -113,7 +133,7 @@
 .featured-blogs h2 {
   font-size: 2rem;
   margin-bottom: 30px;
-  color: #333;
+  color: var(--heading-text-color);
 }
 
 .carousel {
@@ -145,14 +165,14 @@
 }
 
 .carousel-item p {
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: #555;
   line-height: 1.6;
 }
 
 .carousel-item a {
   text-decoration: none;
-  color: #ff6b81;
+  color: var(--blog-title-color);
 }
 
 /* ===== Shop Our Gear Grid ===== */
@@ -165,7 +185,7 @@
 .shop-gear h2 {
   font-size: 2rem;
   margin-bottom: 30px;
-  color: #333;
+  color: var(--heading-text-color);
 }
 
 .gear-grid {
@@ -177,16 +197,18 @@
 
 .gear-item {
   background-color: #fff;
-  padding: 20px;
+  padding: 40px;
   border-radius: 16px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
   text-align: center;
   max-width: 280px;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease,
+              box-shadow 0.3s ease;
 }
 
 .gear-item:hover {
   transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
 }
 
 .gear-item img {
@@ -197,18 +219,18 @@
 }
 
 .gear-item h3 {
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   color: #222;
   margin-bottom: 10px;
 }
 
 .gear-item a {
-  color: #ff6b81;
+  color: var(--blog-title-color);
   text-decoration: none;
 }
 
 .gear-item p {
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   color: #555;
   line-height: 1.5;
 }
