@@ -1,7 +1,7 @@
 /* ===== Global Styles ===== */
 body {
   margin: 0;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Quicksand', sans-serif;
   background-color: #fdfaf7;
   color: #222;
   overflow-x: hidden;
@@ -31,7 +31,7 @@ h1, h2, h3 {
   font-weight: 600;
   color: #333;
   margin-bottom: 16px;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Quicksand', sans-serif;
 }
 
 p {
