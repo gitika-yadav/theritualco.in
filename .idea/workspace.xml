@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="Improving the faq page">
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="Improving the about page">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/about.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/about.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/about.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/products/capsule-dumbbell.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/capsule-dumbbell.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -252,7 +251,23 @@
       <option name="project" value="LOCAL" />
       <updated>1757333379820</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Improving the faq page">
+      <option name="closed" value="true" />
+      <created>1757335259564</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1757335259564</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Improving the about page">
+      <option name="closed" value="true" />
+      <created>1757335278226</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1757335278226</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -275,7 +290,8 @@
     <MESSAGE value="adding organisation and product schema" />
     <MESSAGE value="adding blog schema and writing script to automate it" />
     <MESSAGE value="Improving the faq page" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improving the faq page" />
+    <MESSAGE value="Improving the about page" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improving the about page" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
