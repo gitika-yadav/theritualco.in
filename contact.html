@@ -104,7 +104,7 @@
                 </label>
             </div>
 
-            <button type="submit" data-callback="onSubmit" data-sitekey="6Lc6HkwrAAAAAIQyjR2X878GppjvEWySgfG8QRIm">Send Message</button>
+            <button type="submit">Send Message</button>
 
             <!-- Success notice (hidden by default) -->
             <div id="contact-success" role="status" aria-live="polite"
@@ -177,8 +177,8 @@
 </script>
 
 <script>
-    function onSubmit(token) {
-      var form = document.getElementById('contact-form');
+    (function() {
+      var form = document.querySelector('form');               // your existing form
       if (!form) return;
 
       var consent = document.getElementById('consent');
@@ -201,24 +201,6 @@
           evt.preventDefault();
           return false;
         }
-
-        fetch('/.netlify/functions/submit-to-contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        })
-        .then(async response => {
-          const result = await response.json();
-          if (!response.ok) throw new Error(result.message || "Submission failed");
-
-          form.style.display = 'none';
-          document.getElementById('confirmation').style.display = 'block';
-          console.log("Submission successful:", result);
-        })
-        .catch(err => {
-          console.error("Error:", err);
-          alert("Something went wrong. Please try again.");
-        });
 
         // If you POST via JS elsewhere, keep it. If this is native submit, we let it proceed.
         // Show success if the page stays (e.g., Netlify/Formspree no-redirect mode)

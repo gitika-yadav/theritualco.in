@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="improving contact us page">
-      <change afterPath="$PROJECT_DIR$/netlify/functions/submit-to-contact.js" afterDir="false" />
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="Improving the products page">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/contact.html" beforeDir="false" afterPath="$PROJECT_DIR$/contact.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/contact.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/contact.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -308,15 +308,7 @@
       <option name="project" value="LOCAL" />
       <updated>1757338470325</updated>
     </task>
-    <task id="LOCAL-00029" summary="improving contact us page">
-      <option name="closed" value="true" />
-      <created>1757344200295</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1757344200295</updated>
-    </task>
-    <option name="localTasksCounter" value="30" />
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -342,8 +334,7 @@
     <MESSAGE value="Improving the about page" />
     <MESSAGE value="Improving the capsule dumbbell product page" />
     <MESSAGE value="Improving the products page" />
-    <MESSAGE value="improving contact us page" />
-    <option name="LAST_COMMIT_MESSAGE" value="improving contact us page" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improving the products page" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
