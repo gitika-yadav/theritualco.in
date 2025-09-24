@@ -4,7 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="improving content organisation" />
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="improving content organisation">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/blog.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/blogs/category-dumbbells/bloglist/capsule-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-dumbbells/bloglist/capsule-dumbbells.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/blogs/category-dumbbells/bloglist/dumbbell-exercises-for-arms.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-dumbbells/bloglist/dumbbell-exercises-for-arms.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/blogs/category-dumbbells/bloglist/dumbbell-for-beginners.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-dumbbells/bloglist/dumbbell-for-beginners.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/blogs/category-dumbbells/bloglist/weightloss-with-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-dumbbells/bloglist/weightloss-with-dumbbells.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/blogs/category-dumbbells/bloglist/womens-dumbbell.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-dumbbells/bloglist/womens-dumbbell.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/blogs/category-dumbbells/dumbbell-bloglist.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-dumbbells/dumbbell-bloglist.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/blogs/category-homegym/bloglist/home-gym-design-small-spaces.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-homegym/bloglist/home-gym-design-small-spaces.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/blogs/category-homegym/bloglist/home-gym-equipment-for-women.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-homegym/bloglist/home-gym-equipment-for-women.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/blogs/category-homegym/bloglist/pinterest-worthy-home-gym-setup.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-homegym/bloglist/pinterest-worthy-home-gym-setup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/blogs/category-homegym/homegym-bloglist.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-homegym/homegym-bloglist.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/blogs/category-ritual-mindset/bloglist/how-to-make-fitness-a-ritual.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-ritual-mindset/bloglist/how-to-make-fitness-a-ritual.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/blogs/category-ritual-mindset/ritual-mindset-bloglist.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-ritual-mindset/ritual-mindset-bloglist.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/blogs/category-weightloss/bloglist/weightloss-with-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-weightloss/bloglist/weightloss-with-dumbbells.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/blogs/category-weightloss/weightloss-bloglist.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-weightloss/weightloss-bloglist.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/blogs/category-wellness/wellness-bloglist.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-wellness/wellness-bloglist.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/blogs/category-womens-wellness/bloglist/best-dumbbell-for-women.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-womens-wellness/bloglist/best-dumbbell-for-women.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/blogs/category-womens-wellness/bloglist/dumbbell-exercises-for-arms.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-womens-wellness/bloglist/dumbbell-exercises-for-arms.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/blogs/category-womens-wellness/bloglist/dumbbell-for-beginners.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-womens-wellness/bloglist/dumbbell-for-beginners.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/blogs/category-womens-wellness/bloglist/home-gym-equipment-for-women.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-womens-wellness/bloglist/home-gym-equipment-for-women.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/blogs/category-womens-wellness/bloglist/weightloss-with-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-womens-wellness/bloglist/weightloss-with-dumbbells.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/blogs/category-womens-wellness/bloglist/womens-dumbbell.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-womens-wellness/bloglist/womens-dumbbell.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/blogs/category-womens-wellness/womens-wellness-bloglist.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-womens-wellness/womens-wellness-bloglist.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/partials/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/partials/navbar.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -59,11 +85,11 @@
       <recent name="$PROJECT_DIR$/category/category-homegym/bloglist" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/blog" />
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/webpages" />
       <recent name="$PROJECT_DIR$/images" />
       <recent name="$PROJECT_DIR$/products" />
-      <recent name="$PROJECT_DIR$/javascript" />
-      <recent name="$PROJECT_DIR$/blog" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -340,7 +366,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758715072539</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="improving content organisation">
+      <option name="closed" value="true" />
+      <created>1758715403050</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1758715403050</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
