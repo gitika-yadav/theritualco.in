@@ -5,31 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="improving content organisation">
+      <change afterPath="$PROJECT_DIR$/.prettierrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/founder.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/img.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/img_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/img_2.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/blog.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/blogs/category-dumbbells/bloglist/capsule-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-dumbbells/bloglist/capsule-dumbbells.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/blogs/category-dumbbells/bloglist/dumbbell-exercises-for-arms.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-dumbbells/bloglist/dumbbell-exercises-for-arms.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/blogs/category-dumbbells/bloglist/dumbbell-for-beginners.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-dumbbells/bloglist/dumbbell-for-beginners.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/blogs/category-dumbbells/bloglist/weightloss-with-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-dumbbells/bloglist/weightloss-with-dumbbells.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/blogs/category-dumbbells/bloglist/womens-dumbbell.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-dumbbells/bloglist/womens-dumbbell.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/blogs/category-dumbbells/dumbbell-bloglist.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-dumbbells/dumbbell-bloglist.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/blogs/category-homegym/bloglist/home-gym-design-small-spaces.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-homegym/bloglist/home-gym-design-small-spaces.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/blogs/category-homegym/bloglist/home-gym-equipment-for-women.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-homegym/bloglist/home-gym-equipment-for-women.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/blogs/category-homegym/bloglist/pinterest-worthy-home-gym-setup.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-homegym/bloglist/pinterest-worthy-home-gym-setup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/blogs/category-homegym/homegym-bloglist.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-homegym/homegym-bloglist.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/blogs/category-ritual-mindset/bloglist/how-to-make-fitness-a-ritual.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-ritual-mindset/bloglist/how-to-make-fitness-a-ritual.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/blogs/category-ritual-mindset/ritual-mindset-bloglist.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-ritual-mindset/ritual-mindset-bloglist.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/blogs/category-weightloss/bloglist/weightloss-with-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-weightloss/bloglist/weightloss-with-dumbbells.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/blogs/category-weightloss/weightloss-bloglist.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-weightloss/weightloss-bloglist.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/blogs/category-wellness/wellness-bloglist.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-wellness/wellness-bloglist.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/blogs/category-womens-wellness/bloglist/best-dumbbell-for-women.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-womens-wellness/bloglist/best-dumbbell-for-women.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/blogs/category-womens-wellness/bloglist/dumbbell-exercises-for-arms.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-womens-wellness/bloglist/dumbbell-exercises-for-arms.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/blogs/category-womens-wellness/bloglist/dumbbell-for-beginners.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-womens-wellness/bloglist/dumbbell-for-beginners.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/blogs/category-womens-wellness/bloglist/home-gym-equipment-for-women.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-womens-wellness/bloglist/home-gym-equipment-for-women.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/blogs/category-womens-wellness/bloglist/weightloss-with-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-womens-wellness/bloglist/weightloss-with-dumbbells.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/blogs/category-womens-wellness/bloglist/womens-dumbbell.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-womens-wellness/bloglist/womens-dumbbell.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/blogs/category-womens-wellness/womens-wellness-bloglist.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/category-womens-wellness/womens-wellness-bloglist.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/partials/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/partials/navbar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/home.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/navbar.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/navbar.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +38,65 @@
     &quot;accountId&quot;: &quot;29d2ea32-280e-42d5-8277-bb83670ea765&quot;
   }
 }</component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0000000000005103" />
+      <entry key="S2" value="1.0008451529063254" />
+      <entry key="S5" value="1.0589894185896782" />
+      <entry key="S10" value="1.2428773735646823" />
+      <entry key="S30" value="1.6239201608341904" />
+      <entry key="S60" value="1.789889282497103" />
+      <entry key="M2" value="1.8926904877725557" />
+      <entry key="M5" value="2.261114031043329" />
+      <entry key="M10" value="3.4140673299318496" />
+      <entry key="M15" value="4.505293944377531" />
+      <entry key="M30" value="6.708646036990074" />
+      <entry key="H1" value="8.723772670935249" />
+      <entry key="H2" value="10.158002475818789" />
+      <entry key="H4" value="11.209669644209313" />
+      <entry key="D1" value="15.67833564872682" />
+      <entry key="W1" value="18.402385438878436" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="0.0" />
+      <entry key="S30" value="0.0" />
+      <entry key="S60" value="0.0" />
+      <entry key="M2" value="0.0" />
+      <entry key="M5" value="0.0" />
+      <entry key="M10" value="0.0" />
+      <entry key="M15" value="0.0" />
+      <entry key="M30" value="0.0" />
+      <entry key="H1" value="0.0" />
+      <entry key="H2" value="0.0" />
+      <entry key="H4" value="0.0" />
+      <entry key="D1" value="0.0" />
+      <entry key="W1" value="0.0" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="0.8950250709279725" />
+      <entry key="MS500" value="0.9780634734478447" />
+      <entry key="S2" value="0.9953132737108847" />
+      <entry key="S5" value="1.0567165897905464" />
+      <entry key="S10" value="1.2416511365763792" />
+      <entry key="S30" value="1.623449649503624" />
+      <entry key="S60" value="1.7896405864911238" />
+      <entry key="M2" value="1.8925617824707337" />
+      <entry key="M5" value="2.2610504643761224" />
+      <entry key="M10" value="3.4140137946571674" />
+      <entry key="M15" value="4.5052430169886275" />
+      <entry key="M30" value="6.708602997161896" />
+      <entry key="H1" value="8.72374211075191" />
+      <entry key="H2" value="10.157983764514231" />
+      <entry key="H4" value="11.20965891615806" />
+      <entry key="D1" value="15.67833269330927" />
+      <entry key="W1" value="18.4023849118306" />
+    </decayedShown>
+  </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -62,20 +108,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/gitikayadav/Documents/GitHub/theritualco.in/category/category-dumbbells/bloglist&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "go.import.settings.migrated": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/gitikayadav/Documents/GitHub/theritualco.in/category/category-dumbbells/bloglist",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/category/category-dumbbells/bloglist" />
@@ -91,6 +147,14 @@
       <recent name="$PROJECT_DIR$/images" />
       <recent name="$PROJECT_DIR$/products" />
     </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-37e91769500f-intellij.indexing.shared.core-IU-261.24374.151" />
+        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-IU-261.24374.151" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -109,6 +173,7 @@
       <workItem from="1748379268715" duration="4000" />
       <workItem from="1748379359741" duration="6000" />
       <workItem from="1748379420413" duration="3000" />
+      <workItem from="1779547815911" duration="9028000" />
     </task>
     <task id="LOCAL-00001" summary="Breaking css file to subsections for efficacy">
       <option name="closed" value="true" />
@@ -376,6 +441,9 @@
     </task>
     <option name="localTasksCounter" value="34" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Breaking css file to subsections for efficacy" />

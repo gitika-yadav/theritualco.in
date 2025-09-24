@@ -1,226 +1,308 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D366Q7R3XB"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-D366Q7R3XB');
-  </script>
-  <!-- Pinterest Tag Validation -->
-  <meta name="p:domain_verify" content="cbaf5a12da6e6eb9158f5d4ea88aa99c"/>
-
-  <!-- Meta Info -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="India's first pastel capsule dumbbells. Movement is a ritual." />
-  <title>The Ritual Co.</title>
-  <link rel="icon" type="image/png" href="/favicon.png" />
-
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter&family=Playfair+Display&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-  <!-- CSS Files -->
-  <link rel="stylesheet" href="/css/global.css" />
-  <link rel="stylesheet" href="/css/home.css" />
-  <link rel="stylesheet" href="/css/footer.css" />
-  <link rel="stylesheet" href="/css/responsive.css" />
-  <link rel="stylesheet" href="/css/navbar.css" />
-
-  <!-- reCAPTCHA -->
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
-  <!-- ORGANISATION SCHEMA-->
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "The Ritual Co",
-      "url": "https://theritualco.in",
-      "logo": "https://theritualco.in/images/logo.png",
-      "sameAs": [
-        "https://www.instagram.com/theritualcoofficial/",
-        "https://pinterest.com/theritualco.in"
-      ],
-      "description": "India's first pastel capsule dumbbells. Wellness-forward fitness gear for women and home gym lovers."
-    }
-  </script>
-
-</head>
-<body>
-<div class="page-wrapper">
-  <!-- Navbar -->
-  <div id="navbar-placeholder"></div>
-
-  <main>
-    <!-- Banner -->
-    <section class="banner">
-      <img src="images/banner.png" alt="Banner" loading="lazy" />
-    </section>
-
-    <!-- Hero Section -->
-    <section class="hero">
-      <h1>Because Movement Is a Ritual.</h1>
-      <p>Introducing India's first capsule-shaped silicone dumbbells. Where design meets strength, and wellness becomes an aesthetic.</p>
-    </section>
-
-    <!-- Product Preview -->
-    <section class="product-preview">
-      <img src="images/flat-dumbbell.jpg" alt="Flat Dumbbell" loading="lazy" />
-      <img src="images/capsule-dumbbell.jpg" alt="Capsule Dumbbell" loading="lazy" />
-    </section>
-
-    <!-- CTA Form -->
-    <div class="main-content">
-      <section class="cta" id="waitlist">
-        <h2>Join the Waitlist</h2>
-        <p>Get early access to our exclusive fitness collection.</p>
-
-        <form id="waitlist-form">
-          <input type="text" id="name" name="name" placeholder="Enter your full name" required minlength="2" />
-          <input type="email" id="email" name="email" placeholder="Enter your email address" required />
-          <input type="tel" id="phone" name="phone" placeholder="10-digit phone number" pattern="[0-9]{10}" title="Please enter exactly 10 digits" required />
-          <input type="text" name="nickname" style="display:none" tabindex="-1" autocomplete="off" />
-
-          <select name="color" required>
-            <option value="" disabled selected>Select Color Preference</option>
-            <option value="Peach">Peach</option>
-            <option value="Cream">Cream</option>
-            <option value="Grey">Grey</option>
-            <option value="Black">Black</option>
-            <option value="Pink">Pink</option>
-          </select>
-
-          <button class="g-recaptcha" data-sitekey="6Lc6HkwrAAAAAIQyjR2X878GppjvEWySgfG8QRIm" data-callback="onSubmit" data-badge="bottomright" data-size="invisible">
-            Join the Waitlist
-          </button>
-        </form>
-
-        <div id="confirmation" style="display:none;">
-          ✅ You're on the waitlist! We'll email you first when we launch.
-        </div>
-      </section>
-
-      <!-- Featured Blog Carousel -->
-      <section class="featured-blogs">
-        <h2>From the Blog</h2>
-        <div class="carousel">
-          <div class="carousel-item">
-            <h3><a href="/category/category-dumbbells/bloglist/dumbbell-for-beginners.html">Dumbbell for Beginners</a></h3>
-            <p>New to fitness? Here's how to start strength training at home with just 1kg weights.</p>
-          </div>
-          <div class="carousel-item">
-            <h3><a href="/category/category-homegym/bloglist/home-gym-equipment-for-women.html">Home Gym Setup</a></h3>
-            <p>Create a Pinterest-worthy home gym with pastel dumbbells, mats, and more.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Shop Our Gear Grid -->
-      <section class="shop-gear">
-        <h2>Shop Our Gear</h2>
-        <div class="gear-grid">
-          <div class="gear-item">
-            <img src="images/capsule-dumbbell.jpg" alt="Capsule Dumbbells" />
-            <h3><a href="/products/capsule-dumbbell.html">Capsule Dumbbells</a></h3>
-            <p>Skin-safe silicone, minimalist aesthetic. Available in 1kg & 2kg.</p>
-          </div>
-        </div>
-      </section>
-    </div>
-  </main>
-
-  <!-- Footer -->
-  <div id="footer-placeholder"></div>
-</div>
-
-<!-- Load Navbar and Footer -->
-<script>
-  fetch("/partials/navbar.html")
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById("navbar-placeholder").innerHTML = data;
-      const script = document.createElement("script");
-      script.src = "/js/navbar.js";
-      document.body.appendChild(script);
-    });
-</script>
-
-<!-- Form Submission + reCAPTCHA -->
-<script>
-  function onSubmit(token) {
-    const form = document.getElementById('waitlist-form');
-    const formData = new FormData(form);
-    formData.append("g-recaptcha-response", token);
-
-    const data = {};
-    for (let [key, value] of formData.entries()) {
-      data[key] = value.trim();
-    }
-
-    if (data.nickname) {
-      console.warn("Spam submission detected.");
-      return;
-    }
-
-    fetch('/.netlify/functions/submit-to-sheet', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    })
-    .then(async response => {
-      const result = await response.json();
-      if (!response.ok) throw new Error(result.message || "Submission failed");
-
-      form.style.display = 'none';
-      document.getElementById('confirmation').style.display = 'block';
-      console.log("Submission successful:", result);
-    })
-    .catch(err => {
-      console.error("Error:", err);
-      alert("Something went wrong. Please try again.");
-    });
-  }
-
-  document.getElementById('waitlist-form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    grecaptcha.execute();
-  });
-</script>
-
-<script>
-  fetch('/feed.xml')
-    .then(response => response.text())
-    .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
-    .then(data => {
-      const items = data.querySelectorAll("item");
-      const carousel = document.getElementById("blog-carousel");
-
-      // Load only 2 featured items
-      for (let i = 0; i < Math.min(2, items.length); i++) {
-        const title = items[i].querySelector("title").textContent;
-        const link = items[i].querySelector("link").textContent;
-        const desc = items[i].querySelector("description").textContent;
-
-        const itemHTML = `
-          <div class="carousel-item">
-            <h3><a href="${link}">${title}</a></h3>
-            <p>${desc}</p>
-          </div>
-        `;
-        carousel.innerHTML += itemHTML;
+  <head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D366Q7R3XB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
       }
-    })
-    .catch(err => {
-      console.error("Could not load blog feed:", err);
-    });
-</script>
+      gtag("js", new Date());
+      gtag("config", "G-D366Q7R3XB");
+    </script>
 
-</body>
+    <!-- Pinterest Tag Validation -->
+    <meta name="p:domain_verify" content="cbaf5a12da6e6eb9158f5d4ea88aa99c" />
+
+    <!-- Meta -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>The Ritual Co.</title>
+
+    <meta
+      name="description"
+      content="Thoughtfully designed strength essentials for homes that value beauty as much as discipline."
+    />
+
+    <link rel="icon" href="/favicon.png" />
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <!-- Existing CSS -->
+
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/home.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/responsive.css" />
+
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <!-- Schema -->
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "The Ritual Co",
+        "url": "https://theritualco.in",
+        "logo": "https://theritualco.in/images/logo.png",
+        "sameAs": ["https://instagram.com/theritualcoofficial"],
+        "description": "Luxury wellness strength essentials designed for beautiful homes."
+      }
+    </script>
+  </head>
+
+  <body>
+    <div class="page-wrapper">
+      <div id="navbar-placeholder"></div>
+
+      <main>
+        <!-- HERO -->
+
+        <section class="hero">
+          <div class="hero-left">
+            <p class="eyebrow">THE RITUAL CO.</p>
+
+            <h1>
+              Because<br />
+              Movement<br />
+              Is A Ritual.
+            </h1>
+
+            <p class="hero-copy">
+              Thoughtfully designed strength essentials for homes that value beauty as much as
+              discipline.
+            </p>
+
+            <a href="#waitlist" class="hero-button"> Explore Collection </a>
+          </div>
+
+          <div class="hero-right">
+            <img
+              src="images/img.png"
+              alt="The Ritual Co Capsule Dumbbells"
+              loading="eager"
+            />
+          </div>
+        </section>
+
+        <!-- PROOF -->
+
+        <section class="proof-strip">
+          <div>Designed For Beautiful Homes</div>
+
+          <div>Medical Grade Silicone</div>
+
+          <div>Women's Ergonomics</div>
+
+          <div>Minimal Wellness Design</div>
+        </section>
+
+        <!-- PHILOSOPHY -->
+
+        <section class="philosophy">
+          <div class="philosophy-text">
+            <p class="eyebrow">OUR PHILOSOPHY</p>
+
+            <h2>Movement shouldn't hide in a corner.</h2>
+
+            <p>
+              We created strength essentials designed to belong in your life — beautiful enough to
+              stay visible, functional enough to become ritual.
+            </p>
+          </div>
+
+          <div class="philosophy-image">
+            <img src="images/img_1.png" loading="lazy" alt="Wellness aesthetic" />
+          </div>
+        </section>
+
+        <!-- PRODUCT -->
+
+        <section class="signature-product">
+          <div>
+            <img src="images/img_2.png" loading="lazy" alt="Capsule Dumbbells" />
+          </div>
+
+          <div>
+            <p class="eyebrow">OUR SIGNATURE</p>
+
+            <h2>Capsule Dumbbells</h2>
+
+            <p>
+              Designed for smaller grips. Soft matte silicone finish. Timeless shape. Made to belong
+              beautifully.
+            </p>
+
+            <p>1 KG · 2 KG</p>
+
+            <a href="#waitlist" class="hero-button"> Reserve Early Access </a>
+          </div>
+        </section>
+
+        <!-- MATERIALS -->
+
+        <section class="craftsmanship">
+          <div>
+            <h3>Medical Grade Silicone</h3>
+
+            <p>Soft touch. Long lasting.</p>
+          </div>
+
+          <div>
+            <h3>Women's Ergonomics</h3>
+
+            <p>Designed for comfort.</p>
+          </div>
+
+          <div>
+            <h3>Balanced Weight Distribution</h3>
+
+            <p>Control and confidence.</p>
+          </div>
+
+          <div>
+            <h3>Minimal Wellness Design</h3>
+
+            <p>Built beautifully.</p>
+          </div>
+        </section>
+
+        <!-- FOUNDER -->
+
+        <section class="founder">
+          <div>
+            <img src="images/founder.png" alt="Founder" loading="lazy" />
+          </div>
+
+          <div>
+            <p class="eyebrow">FOUNDER</p>
+
+            <h2>
+              Built by an engineer, fitness enthusiast, and someone who wanted wellness products
+              beautiful enough to deserve space at home.
+            </h2>
+
+            <p>— Gitika Yadav
+                 Founder</p>
+          </div>
+        </section>
+
+        <!-- WAITLIST -->
+
+        <section id="waitlist" class="waitlist">
+          <h2>Early Access</h2>
+
+          <p>First collection releasing soon.</p>
+
+          <form id="waitlist-form">
+            <input id="name" name="name" required placeholder="Name" />
+
+            <input id="email" name="email" type="email" required placeholder="Email" />
+
+            <input id="phone" name="phone" required placeholder="Phone" />
+
+            <input name="nickname" style="display: none" />
+
+            <button
+              class="g-recaptcha"
+              data-sitekey="6Lc6HkwrAAAAAIQyjR2X878GppjvEWySgfG8QRIm"
+              data-callback="onSubmit"
+              data-size="invisible"
+            >
+              Reserve Your Spot
+            </button>
+          </form>
+
+          <div id="confirmation" style="display: none">You're on the list.</div>
+        </section>
+      </main>
+
+      <div id="footer-placeholder"></div>
+    </div>
+
+    <script>
+      fetch("/partials/navbar.html")
+        .then((r) => r.text())
+        .then((data) => {
+          document.getElementById("navbar-placeholder").innerHTML = data;
+
+          const script = document.createElement("script");
+
+          script.src = "/js/navbar.js";
+
+          document.body.appendChild(script);
+        });
+
+      fetch("/partials/footer.html")
+        .then((r) => r.text())
+        .then((data) => {
+          document.getElementById("footer-placeholder").innerHTML = data;
+        });
+    </script>
+
+    <script>
+      function onSubmit(token) {
+        const form = document.getElementById("waitlist-form");
+
+        const formData = new FormData(form);
+
+        formData.append("g-recaptcha-response", token);
+
+        const data = {};
+
+        for (let [k, v] of formData.entries()) {
+          data[k] = v.trim();
+        }
+
+        fetch("/.netlify/functions/submit-to-sheet", {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify(data),
+        })
+          .then((r) => r.json())
+
+          .then(() => {
+            form.style.display = "none";
+
+            document.getElementById("confirmation").style.display = "block";
+          })
+
+          .catch(() => {
+            alert("Please try again.");
+          });
+      }
+
+      document
+
+        .getElementById("waitlist-form")
+
+        .addEventListener(
+          "submit",
+
+          function (e) {
+            e.preventDefault();
+
+            grecaptcha.execute();
+          }
+        );
+    </script>
+  </body>
 </html>
-
-
 
