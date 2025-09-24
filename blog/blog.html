@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D366Q7R3XB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-D366Q7R3XB');
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Explore The Ritual Co’s Journal: fitness, wellness, mindset and movement insights organized by category." />
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <title>Blog – The Ritual Co</title>
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Playfair+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/blog.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="canonical" href="https://theritualco.in/blog">
+</head>
+
+<body>
+<div class="page-wrapper">
+    <!-- Navbar -->
+    <div id="navbar-placeholder"></div>
+
+    <main class="main-content blog-listing">
+        <!-- Breadcrumb -->
+        <nav class="breadcrumbs">
+            <a href="/">Home</a> › <a href="/blogl">Blog</a>
+        </nav>
+        <h1>Our Journal</h1>
+        <p class="intro">Rituals begin with reflection. Read stories on movement, mindset, and how wellness becomes a daily art form.</p>
+
+        <!-- Blog Category Tiles -->
+        <section class="blog-categories">
+            <h2>Explore by Category</h2>
+            <div class="category-grid">
+
+                <a href="/blogtegory-dumbbells/dumbbell-bloglist.html" class="category-tile">
+                    <div class="tile-content">
+                        <h3>Dumbbell Training</h3>
+                        <p>Workouts, tips & techniques with dumbbells.</p>
+                    </div>
+                </a>
+
+<!--                <a href="/webpages/blog/blogs/category-dumbbells/dumbbell-bloglist.html" class="category-tile">-->
+<!--                    <div class="tile-content">-->
+<!--                        <h3>Dumbbell Training</h3>-->
+<!--                        <p>Workouts, tips & techniques with dumbbells.</p>-->
+<!--                    </div>-->
+<!--                </a>-->
+
+                <a href="/blogtegory-ritual-mindset/ritual-mindset-bloglist.html" class="category-tile">
+                    <div class="tile-content">
+                        <h3>Wellness Rituals</h3>
+                        <p>Mind-body routines, reflection & self-care.</p>
+                    </div>
+                </a>
+
+                <a href="/blogtegory-homegym/homegym-bloglist.html" class="category-tile">
+                    <div class="tile-content">
+                        <h3>Home Workouts and Fitness</h3>
+                        <p>Gear setups, space-saving routines & moodboard inspiration.</p>
+                    </div>
+                </a>
+
+<!--                <a href="/category/category-wellness/wellness-bloglist.html" class="category-tile">-->
+<!--                    <div class="tile-content">-->
+<!--                        <h3>Fitness & Wellness</h3>-->
+<!--                        <p>Nutrition, mobility, recovery & glow-up routines.</p>-->
+<!--                    </div>-->
+<!--                </a>-->
+
+                <a href="/blogtegory-womens-wellness/womens-wellness-bloglist.html" class="category-tile">
+                    <div class="tile-content">
+                        <h3>Women's Wellness</h3>
+                        <p>Hormones, lifestyle design & mental fitness for women.</p>
+                    </div>
+                </a>
+
+                <a href="/blogtegory-weightloss/weightloss-bloglist.html" class="category-tile">
+                    <div class="tile-content">
+                        <h3>Weight Loss & Strength</h3>
+                        <p>Gentle approaches to tone, lose fat, and feel strong.</p>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+</div>
+
+<!-- Load Navbar and Footer -->
+<script>
+    fetch("/partials/navbar.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("navbar-placeholder").innerHTML = data;
+        // ✅ Load the JS only after navbar is injected
+        const script = document.createElement('script');
+        script.src = '/js/navbar.js';
+        document.body.appendChild(script);
+      });
+
+    fetch("/partials/footer.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("footer-placeholder").innerHTML = data;
+      });
+</script>
+</body>
+</html>

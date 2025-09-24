@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D366Q7R3XB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-D366Q7R3XB');
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weight Loss with Dumbbells – The Ritual Co</title>
+    <meta name="description" content="Explore how light dumbbells can help women lose weight mindfully. Fitness routines, rituals, and results — all in one." />
+
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/blog.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Playfair+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+<div class="page-wrapper">
+    <div id="navbar-placeholder"></div>
+
+    <main class="main-content blog-listing">
+        <!-- Breadcrumb -->
+        <nav class="breadcrumbs">
+            <a href="/">Home</a> › <a href="/blogl">Blog</a> › Weight Loss
+        </nav>
+
+        <h1>Weight Loss with Rituals</h1>
+        <p class="intro">Weight loss doesn’t have to feel intense or aggressive. Explore routines that promote slow, sustainable results using our capsule dumbbells.</p>
+
+        <section class="blog-grid">
+            <article class="blog-card">
+                <a href="/blogtegory-weightloss/bloglist/weightloss-with-dumbbells.html">
+                    <h2>Dumbbells for Women: A Mind-Body Approach</h2>
+                    <p>Discover how light dumbbells can shape strength, posture, and confidence — with mindful routines made for women.</p>
+                </a>
+            </article>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+</div>
+
+<!-- Load Navbar and Footer -->
+<script>
+    fetch("/partials/navbar.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("navbar-placeholder").innerHTML = data;
+        // ✅ Load the JS only after navbar is injected
+        const script = document.createElement('script');
+        script.src = '/js/navbar.js';
+        document.body.appendChild(script);
+      });
+
+    fetch("/partials/footer.html")
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("footer-placeholder").innerHTML = data;
+      });
+</script>
+</body>
+</html>
