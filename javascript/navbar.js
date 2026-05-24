@@ -1,43 +1,26 @@
 console.log("Navbar loaded");
 
-window.addEventListener(
-    "load",
-    ()=>{
+const hamburger=
+    document.getElementById(
+        "hamburger"
+    );
 
-        const toggle=
+if(hamburger){
 
-            document.getElementById(
-                "hamburger"
-            );
-
-        const navLinks=
-
-            document.getElementById(
-                "nav-links"
-            );
+    hamburger.onclick=()=>{
 
         console.log(
-            toggle,
-            navLinks
+            "clicked"
         );
 
-        if(
-            toggle&&navLinks
-        ){
+        document
+            .getElementById(
+                "nav-links"
+            )
+            .classList.toggle(
+            "active"
+        );
 
-            toggle.onclick=()=>{
+    };
 
-                console.log(
-                    "clicked"
-                );
-
-                navLinks.classList.toggle(
-                    "active"
-                );
-
-            };
-
-        }
-
-    }
-);
+}

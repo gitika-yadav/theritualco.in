@@ -68,31 +68,38 @@
 
 @media(max-width:900px){
 
-  .nav-toggle{
-    display:flex;
-  }
-
   .nav-links{
+
     position:fixed;
+
     top:88px;
-    right:-100%;
+
+    right:-280px;
+
     width:260px;
+
     height:100vh;
+
     background:#F7F2EC;
+
+    display:flex;
+
     flex-direction:column;
-    align-items:flex-start;
+
     padding:40px 24px;
+
     gap:28px;
+
     transition:right .3s ease;
-    z-index:99998;
+
+    z-index:999999;
+
   }
 
   .nav-links.active{
-    right:0;
+
+    right:0!important;
+
   }
 
-}
-
-.page-wrapper{
-  overflow-x:hidden;
 }
