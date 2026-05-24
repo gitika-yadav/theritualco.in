@@ -5,6 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="fix mobile hamburger">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/navbar.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/navbar.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/javascript/navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/javascript/navbar.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -164,7 +166,7 @@
       <workItem from="1748379268715" duration="4000" />
       <workItem from="1748379359741" duration="6000" />
       <workItem from="1748379420413" duration="3000" />
-      <workItem from="1779547815911" duration="16808000" />
+      <workItem from="1779547815911" duration="18140000" />
     </task>
     <task id="LOCAL-00001" summary="Breaking css file to subsections for efficacy">
       <option name="closed" value="true" />
@@ -462,7 +464,23 @@
       <option name="project" value="LOCAL" />
       <updated>1779631030700</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="fix mobile hamburger">
+      <option name="closed" value="true" />
+      <created>1779631303105</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1779631303105</updated>
+    </task>
+    <task id="LOCAL-00039" summary="fix mobile hamburger">
+      <option name="closed" value="true" />
+      <created>1779631576922</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1779631576922</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -1,15 +1,56 @@
 console.log("Navbar JS loaded");
 
-// No need for DOMContentLoaded here — navbar is already in the DOM now
-const toggle = document.getElementById("hamburger");
-const navLinks = document.getElementById("nav-links");
+function initNavbar(){
 
-if (toggle && navLinks) {
-    toggle.addEventListener("click", () => {
-        console.log("Hamburger clicked");
-        navLinks.classList.toggle("active");
-    });
-} else {
-    console.warn("Hamburger or navLinks not found in DOM");
+    const toggle=
+        document.getElementById(
+            "hamburger"
+        );
+
+    const navLinks=
+        document.getElementById(
+            "nav-links"
+        );
+
+    if(!toggle||!navLinks){
+        console.warn(
+            "Navbar elements missing"
+        );
+        return;
+    }
+
+    toggle.onclick=(e)=>{
+        e.stopPropagation();
+        navLinks.classList.toggle(
+            "active"
+        );
+    };
+    document.onclick=(e)=>{
+        if(
+            !navLinks.contains(
+                e.target
+            )
+            &&
+            !toggle.contains(
+                e.target
+            )
+        ){
+            navLinks.classList.remove(
+                "active"
+            );
+        }
+    };
+
 }
 
+if(
+    document.readyState===
+    "loading"
+){
+    document.addEventListener(
+        "DOMContentLoaded",
+        initNavbar
+    );
+}else{
+    initNavbar();
+}
