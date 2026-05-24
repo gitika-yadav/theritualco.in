@@ -234,23 +234,47 @@
     </div>
 
     <script>
+
       fetch("/partials/navbar.html")
-        .then((r) => r.text())
-        .then((data) => {
-          document.getElementById("navbar-placeholder").innerHTML = data;
 
-          const script = document.createElement("script");
+              .then((r)=>r.text())
 
-          script.src= "/javascript/navbar.js?v=3";
+              .then((data)=>{
 
-          document.body.appendChild(script);
-        });
+                document.getElementById(
+                        "navbar-placeholder"
+                ).innerHTML=data;
+
+                requestAnimationFrame(()=>{
+
+                  const script=
+                          document.createElement(
+                                  "script"
+                          );
+
+                  script.src=
+                          "/javascript/navbar.js";
+
+                  document.body.appendChild(
+                          script
+                  );
+
+                });
+
+              });
 
       fetch("/partials/footer.html")
-        .then((r) => r.text())
-        .then((data) => {
-          document.getElementById("footer-placeholder").innerHTML = data;
-        });
+
+              .then((r)=>r.text())
+
+              .then((data)=>{
+
+                document.getElementById(
+                        "footer-placeholder"
+                ).innerHTML=data;
+
+              });
+
     </script>
 
     <script>

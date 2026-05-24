@@ -1,56 +1,43 @@
-console.log("Navbar JS loaded");
+console.log("Navbar loaded");
 
-function initNavbar(){
+window.addEventListener(
+    "load",
+    ()=>{
 
-    const toggle=
-        document.getElementById(
-            "hamburger"
-        );
+        const toggle=
 
-    const navLinks=
-        document.getElementById(
-            "nav-links"
-        );
-
-    if(!toggle||!navLinks){
-        console.warn(
-            "Navbar elements missing"
-        );
-        return;
-    }
-
-    toggle.onclick=(e)=>{
-        e.stopPropagation();
-        navLinks.classList.toggle(
-            "active"
-        );
-    };
-    document.onclick=(e)=>{
-        if(
-            !navLinks.contains(
-                e.target
-            )
-            &&
-            !toggle.contains(
-                e.target
-            )
-        ){
-            navLinks.classList.remove(
-                "active"
+            document.getElementById(
+                "hamburger"
             );
+
+        const navLinks=
+
+            document.getElementById(
+                "nav-links"
+            );
+
+        console.log(
+            toggle,
+            navLinks
+        );
+
+        if(
+            toggle&&navLinks
+        ){
+
+            toggle.onclick=()=>{
+
+                console.log(
+                    "clicked"
+                );
+
+                navLinks.classList.toggle(
+                    "active"
+                );
+
+            };
+
         }
-    };
 
-}
-
-if(
-    document.readyState===
-    "loading"
-){
-    document.addEventListener(
-        "DOMContentLoaded",
-        initNavbar
-    );
-}else{
-    initNavbar();
-}
+    }
+);
