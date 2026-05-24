@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Checkout • The Ritual Co</title>
+
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/footer.css">
+
+    <style>
+
+        body{
+            background:#F7F2EC;
+            color:#171717;
+            font-family:Inter,sans-serif;
+            margin:0;
+        }
+
+        .checkout{
+            max-width:1200px;
+            margin:auto;
+            padding:140px 7% 100px;
+            display:grid;
+            grid-template-columns:1fr 420px;
+            gap:80px;
+        }
+
+        .checkout-left h1{
+            font-size:54px;
+            font-family:"Cormorant Garamond",serif;
+            font-weight:500;
+            margin-bottom:18px;
+        }
+
+        .checkout-copy{
+            opacity:.7;
+            line-height:1.7;
+            margin-bottom:42px;
+        }
+
+        .form-grid{
+            display:grid;
+            gap:16px;
+        }
+
+        input,
+        select{
+            padding:18px;
+            border:none;
+            border-radius:16px;
+            background:white;
+            font-size:15px;
+            width:100%;
+            box-sizing:border-box;
+        }
+
+        .checkout-right{
+            background:white;
+            padding:34px;
+            border-radius:28px;
+            height:fit-content;
+            position:sticky;
+            top:120px;
+        }
+
+        .order-title{
+            font-family:"Cormorant Garamond",serif;
+            font-size:28px;
+            margin-bottom:30px;
+        }
+
+        .line{
+            display:flex;
+            justify-content:space-between;
+            margin-bottom:18px;
+        }
+
+        .total{
+            padding-top:24px;
+            border-top:1px solid #ECECEC;
+            margin-top:24px;
+            font-size:24px;
+            font-weight:600;
+        }
+
+        .pay{
+            width:100%;
+            padding:18px;
+            background:#171717;
+            color:white;
+            border:none;
+            border-radius:18px;
+            cursor:pointer;
+            font-size:15px;
+            margin-top:28px;
+            transition:.3s;
+        }
+
+        .pay:hover{
+            opacity:.92;
+        }
+
+        .ship{
+            margin-top:20px;
+            font-size:13px;
+            opacity:.65;
+            line-height:1.6;
+        }
+
+        @media(max-width:900px){
+
+            .checkout{
+                grid-template-columns:1fr;
+                padding:120px 24px;
+                gap:40px;
+            }
+
+            .checkout-left h1{
+                font-size:42px;
+            }
+
+            .checkout-right{
+                position:static;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div id="navbar-placeholder"></div>
+
+<main class="checkout">
+
+    <section class="checkout-left">
+
+        <p>EARLY BIRD ACCESS</p>
+
+        <h1>
+            Pre-Order Capsule Dumbbells
+        </h1>
+
+        <p class="checkout-copy">
+            Designed intentionally.
+            Balanced beautifully.
+            Limited first production run.
+        </p>
+
+        <div class="form-grid">
+
+            <input placeholder="Full Name">
+
+            <input placeholder="Email">
+
+            <input placeholder="Phone Number">
+
+            <input placeholder="Shipping Address">
+
+            <select id="product">
+
+                <option value="1999">
+                    1 KG Set • ₹1,999
+                </option>
+
+                <option value="2499">
+                    2 KG Set • ₹2,499
+                </option>
+
+            </select>
+
+        </div>
+
+    </section>
+
+    <aside class="checkout-right">
+
+        <h2 class="order-title">
+            Order Summary
+        </h2>
+
+        <div class="line">
+
+<span>
+Capsule Dumbbells
+</span>
+
+            <span id="price">
+₹1,999
+</span>
+
+        </div>
+
+        <div class="line">
+
+<span>
+Shipping
+</span>
+
+            <span>
+Free
+</span>
+
+        </div>
+
+        <div class="line total">
+
+<span>
+Total
+</span>
+
+            <span id="total">
+₹1,999
+</span>
+
+        </div>
+
+        <button class="pay"
+                id="payBtn">
+            Continue To Payment
+        </button>
+
+        <p class="ship">
+            Early Bird pricing.
+            Ships June 2026.
+        </p>
+
+    </aside>
+
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script>
+
+    const product=
+        document.getElementById(
+            "product"
+        );
+
+    const total=
+        document.getElementById(
+            "total"
+        );
+
+    const price=
+        document.getElementById(
+            "price"
+        );
+
+    product.addEventListener(
+        "change",
+        ()=>{
+
+            const value=
+                "₹"+
+                product.value;
+
+            price.innerText=
+                value;
+
+            total.innerText=
+                value;
+
+        }
+    );
+
+</script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+
+    document
+        .getElementById(
+            "payBtn"
+        )
+
+        .onclick=async()=>{
+
+        const amount=
+
+            document
+                .getElementById(
+                    "product"
+                )
+                .value;
+
+        const orderRes=
+            await fetch(
+
+                "/.netlify/functions/create-order",
+
+                {
+
+                    method:"POST",
+
+                    headers:{
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body:
+
+                        JSON.stringify({
+
+                            amount
+
+                        })
+
+                }
+
+            );
+
+        const order=
+            await orderRes.json();
+
+        const razorpay=
+
+            new Razorpay({
+
+                key:
+
+                    "YOUR_KEY_ID",
+
+                amount:
+
+                order.amount,
+
+                currency:
+
+                    "INR",
+
+                order_id:
+
+                order.id,
+
+                name:
+
+                    "The Ritual Co",
+
+                description:
+
+                    "Capsule Dumbbell Preorder",
+
+                theme:{
+
+                    color:"#49201F"
+
+                },
+
+                handler(){
+
+                    window.location=
+
+                        "/thank-you.html";
+
+                }
+
+            });
+
+        razorpay.open();
+
+    };
+
+</script>
+</body>
+
+</html>

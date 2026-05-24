@@ -4,7 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="fix mobile hamburger" />
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="fix mobile hamburger">
+      <change afterPath="$PROJECT_DIR$/checkout.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/netlify/functions/create-order.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/thankyou.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/home.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/navbar.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/navbar.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/products.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/products.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/responsive.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/responsive.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jws/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/jws/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/qs/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/qs/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/products/capsule-dumbbell.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/capsule-dumbbell.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/products/products.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/products.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,23 +45,23 @@
 }]]></component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0161056788200487" />
-      <entry key="MS500" value="1.570557624141951" />
-      <entry key="S2" value="2.417119493875374" />
-      <entry key="S5" value="2.737920082111782" />
-      <entry key="S10" value="2.863533523825801" />
-      <entry key="S30" value="2.965178635818832" />
-      <entry key="S60" value="3.220880982631475" />
-      <entry key="M2" value="4.127451064693981" />
-      <entry key="M5" value="6.658506810380019" />
-      <entry key="M10" value="9.868023659190321" />
-      <entry key="M15" value="12.30806785266104" />
-      <entry key="M30" value="17.80223563307691" />
-      <entry key="H1" value="25.556787459105696" />
-      <entry key="H2" value="34.28743508470761" />
-      <entry key="H4" value="41.616190954938546" />
-      <entry key="D1" value="53.54016443449867" />
-      <entry key="W1" value="58.061878057130365" />
+      <entry key="MS100" value="1.113439894414645" />
+      <entry key="MS500" value="1.6470728272414266" />
+      <entry key="S2" value="1.8968881596620148" />
+      <entry key="S5" value="1.9574041733966574" />
+      <entry key="S10" value="1.9784703232069214" />
+      <entry key="S30" value="1.9927713130632076" />
+      <entry key="S60" value="1.9963791010770988" />
+      <entry key="M2" value="1.9981879087011118" />
+      <entry key="M5" value="1.9992747690581902" />
+      <entry key="M10" value="1.999637318765985" />
+      <entry key="M15" value="1.9997582835631644" />
+      <entry key="M30" value="2.0013643570978035" />
+      <entry key="H1" value="2.233377262398743" />
+      <entry key="H2" value="5.276901419240599" />
+      <entry key="H4" value="14.865539708648662" />
+      <entry key="D1" value="46.02581197928549" />
+      <entry key="W1" value="58.461469395816906" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -66,23 +83,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9157559050592702" />
-      <entry key="MS500" value="1.5305358531023783" />
-      <entry key="S2" value="2.3954970893349246" />
-      <entry key="S5" value="2.7272733428180196" />
-      <entry key="S10" value="2.857807784223734" />
-      <entry key="S30" value="2.9631725453667226" />
-      <entry key="S60" value="3.219859207480766" />
-      <entry key="M2" value="4.126905203426652" />
-      <entry key="M5" value="6.658087925418675" />
-      <entry key="M10" value="9.867620327014622" />
-      <entry key="M15" value="12.307712179858983" />
-      <entry key="M30" value="17.801989320571433" />
-      <entry key="H1" value="25.556633921037076" />
-      <entry key="H2" value="34.287344532536146" />
-      <entry key="H4" value="41.61614008167989" />
-      <entry key="D1" value="53.54015396267505" />
-      <entry key="W1" value="58.06187642205186" />
+      <entry key="MS100" value="0.9421859086118858" />
+      <entry key="MS500" value="1.578744919673228" />
+      <entry key="S2" value="1.8757194261672838" />
+      <entry key="S5" value="1.9485368727989512" />
+      <entry key="S10" value="1.973966922186244" />
+      <entry key="S30" value="1.9912543800750406" />
+      <entry key="S60" value="1.9956186407034027" />
+      <entry key="M2" value="1.9978071786117952" />
+      <entry key="M5" value="1.9991223568620744" />
+      <entry key="M10" value="1.9995610926258613" />
+      <entry key="M15" value="1.9997074616790105" />
+      <entry key="M30" value="2.001338923379018" />
+      <entry key="H1" value="2.2333631528285944" />
+      <entry key="H2" value="5.276886411244498" />
+      <entry key="H4" value="14.865520804401752" />
+      <entry key="D1" value="46.02580283886985" />
+      <entry key="W1" value="58.461467730166405" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -162,7 +179,7 @@
       <workItem from="1748379268715" duration="4000" />
       <workItem from="1748379359741" duration="6000" />
       <workItem from="1748379420413" duration="3000" />
-      <workItem from="1779547815911" duration="20254000" />
+      <workItem from="1779547815911" duration="25126000" />
     </task>
     <task id="LOCAL-00001" summary="Breaking css file to subsections for efficacy">
       <option name="closed" value="true" />
@@ -500,7 +517,15 @@
       <option name="project" value="LOCAL" />
       <updated>1779634861874</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="fix mobile hamburger">
+      <option name="closed" value="true" />
+      <created>1779635594650</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1779635594650</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

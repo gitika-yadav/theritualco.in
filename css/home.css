@@ -619,3 +619,56 @@ repeat(4,1fr);
   }
 }
 
+.pricing-preview{
+
+  display:flex;
+
+  gap:18px;
+
+  margin:28px 0 12px;
+
+  flex-wrap:wrap;
+
+}
+
+.pricing-preview div{
+
+  padding:14px 18px;
+
+  background:#F7F2EC;
+
+  border-radius:14px;
+
+  font-size:12px;
+
+  letter-spacing:.12em;
+
+}
+
+.pricing-preview span{
+
+  display:block;
+
+  font-size:24px;
+
+  font-weight:600;
+
+  margin-top:6px;
+
+  letter-spacing:0;
+
+}
+
+.early-bird{
+
+  font-size:12px;
+
+  letter-spacing:.18em;
+
+  text-transform:uppercase;
+
+  opacity:.65;
+
+  margin-bottom:28px;
+
+}

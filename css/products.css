@@ -1161,3 +1161,109 @@ repeat(
     margin-bottom:70px;
 
 }
+
+.price-box{
+
+    display:flex;
+
+    gap:14px;
+
+    margin:28px 0;
+
+}
+
+.price-box div{
+
+    background:#F7F2EC;
+
+    padding:18px;
+
+    border-radius:16px;
+
+    min-width:120px;
+
+}
+
+.price-box span{
+
+    display:block;
+
+    font-size:28px;
+
+    font-weight:600;
+
+    margin-top:8px;
+
+}
+
+.launch-copy{
+
+    font-size:12px;
+
+    letter-spacing:.14em;
+
+    text-transform:uppercase;
+
+    opacity:.65;
+
+    margin-bottom:24px;
+
+}
+
+.product-pricing{
+
+    display:flex;
+
+    gap:14px;
+
+    margin:24px 0;
+
+    flex-wrap:wrap;
+
+}
+
+.product-pricing div{
+
+    background:#F7F2EC;
+
+    padding:16px;
+
+    border-radius:14px;
+
+    min-width:120px;
+
+}
+
+.product-pricing span{
+
+    display:block;
+
+    font-size:10px;
+
+    letter-spacing:.15em;
+
+    opacity:.6;
+
+    margin-bottom:6px;
+
+}
+
+.product-pricing div{
+
+    font-size:28px;
+
+    font-weight:600;
+
+}
+
+.product-pricing p{
+
+    font-size:12px;
+
+    margin-top:6px;
+
+    opacity:.7;
+
+    font-weight:400;
+
+}

@@ -23,7 +23,8 @@
   "dependencies": {
     "googleapis": "^149.0.0",
     "jsdom": "^26.1.0",
-    "node-fetch": "^2.7.0"
+    "node-fetch": "^2.7.0",
+    "razorpay": "^2.9.6"
   },
   "devDependencies": {
     "prettier": "^3.8.3"

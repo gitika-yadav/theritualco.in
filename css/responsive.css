@@ -9,7 +9,6 @@
     flex-direction: column;
     width: 100%;
     margin-top: 10px;
-    display: none;
   }
 
   .nav-links.show {
