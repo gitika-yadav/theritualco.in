@@ -153,13 +153,13 @@
 
         <div class="form-grid">
 
-            <input placeholder="Full Name">
+            <input id="name" placeholder="Full Name">
 
-            <input placeholder="Email">
+            <input id="email" placeholder="Email">
 
-            <input placeholder="Phone Number">
+            <input id="phone" placeholder="Phone Number">
 
-            <input placeholder="Shipping Address">
+            <input id="address" placeholder="Shipping Address">
 
             <select id="product">
 
@@ -352,7 +352,109 @@ Total
 
                 },
 
-                handler(){
+                handler:async function(response){
+
+                    await fetch(
+
+                        "YOUR_GOOGLE_SCRIPT_URL",
+
+                        {
+
+                            method:"POST",
+
+                            headers:{
+
+                                "Content-Type":
+
+                                    "application/json"
+
+                            },
+
+                            body:
+
+                                JSON.stringify({
+
+                                    name:
+
+                                    document
+                                        .querySelector(
+                                            "#name"
+                                        )
+                                        .value,
+
+                                    email:
+
+                                    document
+                                        .querySelector(
+                                            "#email"
+                                        )
+                                        .value,
+
+                                    phone:
+
+                                    document
+                                        .querySelector(
+                                            "#phone"
+                                        )
+                                        .value,
+
+                                    address:
+
+                                    document
+                                        .querySelector(
+                                            "#address"
+                                        )
+                                        .value,
+
+                                    product:
+
+                                    document
+                                        .querySelector(
+                                            "#product"
+                                        )
+                                        .value,
+
+                                    weight:
+
+                                        document
+                                            .querySelector(
+                                                "#product"
+                                            )
+                                            .value.includes(
+                                            "2 KG"
+                                        )
+
+                                            ?
+
+                                            "2 KG"
+
+                                            :
+
+                                            "1 KG",
+
+                                    amount:
+
+                                    document
+                                        .querySelector(
+                                            "#product"
+                                        )
+                                        .value,
+
+                                    paymentId:
+
+                                    response
+                                        .razorpay_payment_id,
+
+                                    orderId:
+
+                                    response
+                                        .razorpay_order_id
+
+                                })
+
+                        }
+
+                    );
 
                     window.location=
 

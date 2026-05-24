@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="Install razorpay dependency" />
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="&quot;Fix Razorpay frontend key&quot;">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/products/products.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/products.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,23 +31,23 @@
 }]]></component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.113439894414645" />
-      <entry key="MS500" value="1.6470728272414266" />
-      <entry key="S2" value="1.8968881596620148" />
-      <entry key="S5" value="1.9574041733966574" />
-      <entry key="S10" value="1.9784703232069214" />
-      <entry key="S30" value="1.9927713130632076" />
-      <entry key="S60" value="1.9963791010770988" />
-      <entry key="M2" value="1.9981879087011118" />
-      <entry key="M5" value="1.9992747690581902" />
-      <entry key="M10" value="1.999637318765985" />
-      <entry key="M15" value="1.9997582835631644" />
-      <entry key="M30" value="2.0013643570978035" />
-      <entry key="H1" value="2.233377262398743" />
-      <entry key="H2" value="5.276901419240599" />
-      <entry key="H4" value="14.865539708648662" />
-      <entry key="D1" value="46.02581197928549" />
-      <entry key="W1" value="58.461469395816906" />
+      <entry key="MS100" value="1.0000000842936971" />
+      <entry key="MS500" value="1.038992341729264" />
+      <entry key="S2" value="1.6109824811387323" />
+      <entry key="S5" value="2.3880532786361766" />
+      <entry key="S10" value="2.9783203092139656" />
+      <entry key="S30" value="3.5913312813086695" />
+      <entry key="S60" value="3.785412350189932" />
+      <entry key="M2" value="3.8899886030551403" />
+      <entry key="M5" value="3.956683606077373" />
+      <entry key="M10" value="4.029725700358437" />
+      <entry key="M15" value="4.160935170734017" />
+      <entry key="M30" value="4.586107260963818" />
+      <entry key="H1" value="5.212574068477888" />
+      <entry key="H2" value="7.892371957686359" />
+      <entry key="H4" value="16.769421795741827" />
+      <entry key="D1" value="48.8749209299477" />
+      <entry key="W1" value="62.250367237452146" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -66,23 +69,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9421859086118858" />
-      <entry key="MS500" value="1.578744919673228" />
-      <entry key="S2" value="1.8757194261672838" />
-      <entry key="S5" value="1.9485368727989512" />
-      <entry key="S10" value="1.973966922186244" />
-      <entry key="S30" value="1.9912543800750406" />
-      <entry key="S60" value="1.9956186407034027" />
-      <entry key="M2" value="1.9978071786117952" />
-      <entry key="M5" value="1.9991223568620744" />
-      <entry key="M10" value="1.9995610926258613" />
-      <entry key="M15" value="1.9997074616790105" />
-      <entry key="M30" value="2.001338923379018" />
-      <entry key="H1" value="2.2333631528285944" />
-      <entry key="H2" value="5.276886411244498" />
-      <entry key="H4" value="14.865520804401752" />
-      <entry key="D1" value="46.02580283886985" />
-      <entry key="W1" value="58.461467730166405" />
+      <entry key="MS100" value="0.9330330685670388" />
+      <entry key="MS500" value="1.024528626746382" />
+      <entry key="S2" value="1.6047525102803537" />
+      <entry key="S5" value="2.3840598149641874" />
+      <entry key="S10" value="2.97572271330822" />
+      <entry key="S30" value="3.590251577277519" />
+      <entry key="S60" value="3.7848381981288166" />
+      <entry key="M2" value="3.8896922490884047" />
+      <entry key="M5" value="3.9565626372580005" />
+      <entry key="M10" value="4.029662883186655" />
+      <entry key="M15" value="4.160890059039516" />
+      <entry key="M30" value="4.586079352421589" />
+      <entry key="H1" value="5.2125561906760725" />
+      <entry key="H2" value="7.892355782530939" />
+      <entry key="H4" value="16.769403005426977" />
+      <entry key="D1" value="48.87491159288507" />
+      <entry key="W1" value="62.25036551707393" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -162,7 +165,7 @@
       <workItem from="1748379268715" duration="4000" />
       <workItem from="1748379359741" duration="6000" />
       <workItem from="1748379420413" duration="3000" />
-      <workItem from="1779547815911" duration="25499000" />
+      <workItem from="1779547815911" duration="26370000" />
     </task>
     <task id="LOCAL-00001" summary="Breaking css file to subsections for efficacy">
       <option name="closed" value="true" />
@@ -516,14 +519,21 @@
       <option name="project" value="LOCAL" />
       <updated>1779657997798</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="&quot;Fix Razorpay frontend key&quot;">
+      <option name="closed" value="true" />
+      <created>1779658559840</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1779658559840</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Adding navbar fix with js files" />
     <MESSAGE value="Adding navbar fix + log" />
     <MESSAGE value="Adding navbar fix + log new" />
     <MESSAGE value="Adding home gym design on a budgett blog" />
@@ -548,7 +558,8 @@
     <MESSAGE value="refactor homepage" />
     <MESSAGE value="fix mobile hamburger" />
     <MESSAGE value="Install razorpay dependency" />
-    <option name="LAST_COMMIT_MESSAGE" value="Install razorpay dependency" />
+    <MESSAGE value="&quot;Fix Razorpay frontend key&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;Fix Razorpay frontend key&quot;" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
