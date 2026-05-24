@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="refactor homepage">
-      <change afterPath="$PROJECT_DIR$/images/flat-dumbbell.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.prettierrc" beforeDir="false" afterPath="$PROJECT_DIR$/.prettierrc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/products.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/products.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/flat-dumbbell.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/products.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/products.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/navbar.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/navbar.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,23 +31,23 @@
 }]]></component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0000007800121866" />
-      <entry key="MS500" value="1.060040371530909" />
-      <entry key="S2" value="1.5630238003424062" />
-      <entry key="S5" value="2.2700399078866007" />
-      <entry key="S10" value="2.8832485959174274" />
-      <entry key="S30" value="3.548979057441793" />
-      <entry key="S60" value="3.7627369440598963" />
-      <entry key="M2" value="3.8827079858135165" />
-      <entry key="M5" value="4.274401227369948" />
-      <entry key="M10" value="5.527856645681891" />
-      <entry key="M15" value="6.901522444226313" />
-      <entry key="M30" value="10.900015062183323" />
-      <entry key="H1" value="17.45653328404101" />
-      <entry key="H2" value="25.00610330435875" />
-      <entry key="H4" value="31.297181566895667" />
-      <entry key="D1" value="41.90908439264243" />
-      <entry key="W1" value="46.11949735017969" />
+      <entry key="MS100" value="1.0005060661610612" />
+      <entry key="MS500" value="1.327878998690042" />
+      <entry key="S2" value="2.587300602824295" />
+      <entry key="S5" value="3.3052814059776345" />
+      <entry key="S10" value="3.6413901309741052" />
+      <entry key="S30" value="4.492532553214172" />
+      <entry key="S60" value="5.511072448908619" />
+      <entry key="M2" value="6.480610121590059" />
+      <entry key="M5" value="7.578864966791652" />
+      <entry key="M10" value="9.060912103844817" />
+      <entry key="M15" value="10.508460785233138" />
+      <entry key="M30" value="14.586475942314076" />
+      <entry key="H1" value="21.204334186626834" />
+      <entry key="H2" value="28.825059961075016" />
+      <entry key="H4" value="35.18375240467806" />
+      <entry key="D1" value="45.88374722677292" />
+      <entry key="W1" value="50.11551375412528" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -73,23 +69,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9138321581054011" />
-      <entry key="MS500" value="1.0410259397460722" />
-      <entry key="S2" value="1.555850224848967" />
-      <entry key="S5" value="2.2659194225031167" />
-      <entry key="S10" value="2.8806617864750566" />
-      <entry key="S30" value="3.5479280294190265" />
-      <entry key="S60" value="3.7621812373096626" />
-      <entry key="M2" value="3.8824217926054057" />
-      <entry key="M5" value="4.274279251896341" />
-      <entry key="M10" value="5.527784309575545" />
-      <entry key="M15" value="6.901465782863947" />
-      <entry key="M30" value="10.899973980328557" />
-      <entry key="H1" value="17.456500538848143" />
-      <entry key="H2" value="25.006078689034176" />
-      <entry key="H4" value="31.297165341818726" />
-      <entry key="D1" value="41.90907997638319" />
-      <entry key="W1" value="46.119496589049064" />
+      <entry key="MS100" value="0.9799120544710443" />
+      <entry key="MS500" value="1.266576659098489" />
+      <entry key="S2" value="2.4726178449551672" />
+      <entry key="S5" value="3.2356785114331266" />
+      <entry key="S10" value="3.6013603044073856" />
+      <entry key="S30" value="4.477705662398016" />
+      <entry key="S60" value="5.503345579825152" />
+      <entry key="M2" value="6.4766338936179535" />
+      <entry key="M5" value="7.577235435074135" />
+      <entry key="M10" value="9.060080495498553" />
+      <entry key="M15" value="10.507896720615793" />
+      <entry key="M30" value="14.586180538291156" />
+      <entry key="H1" value="21.204174114985992" />
+      <entry key="H2" value="28.824971612271383" />
+      <entry key="H4" value="35.18370427958119" />
+      <entry key="D1" value="45.88373748630062" />
+      <entry key="W1" value="50.11551223206713" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -169,7 +165,7 @@
       <workItem from="1748379268715" duration="4000" />
       <workItem from="1748379359741" duration="6000" />
       <workItem from="1748379420413" duration="3000" />
-      <workItem from="1779547815911" duration="15834000" />
+      <workItem from="1779547815911" duration="16507000" />
     </task>
     <task id="LOCAL-00001" summary="Breaking css file to subsections for efficacy">
       <option name="closed" value="true" />
@@ -443,7 +439,23 @@
       <option name="project" value="LOCAL" />
       <updated>1779622834903</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="refactor homepage">
+      <option name="closed" value="true" />
+      <created>1779630382150</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1779630382150</updated>
+    </task>
+    <task id="LOCAL-00036" summary="refactor homepage">
+      <option name="closed" value="true" />
+      <created>1779630421905</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1779630421905</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -473,6 +485,7 @@
     <MESSAGE value="Improving the capsule dumbbell product page" />
     <MESSAGE value="Improving the products page" />
     <MESSAGE value="improving content organisation" />
+    <MESSAGE value="refactor products page" />
     <MESSAGE value="refactor homepage" />
     <option name="LAST_COMMIT_MESSAGE" value="refactor homepage" />
   </component>
