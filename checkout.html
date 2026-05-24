@@ -355,59 +355,41 @@ Total
                 handler:async function(response){
 
                     await fetch(
-
-                        "https://script.google.com/macros/s/AKfycbx0ckKpn95vzX4g_z3wZhhYXrjy9TYs09J6fVurN7TtKIJOL_AE1hJWoUWpwkpaOy2q/exec",
-
+                        "https://script.google.com/macros/s/AKfycbx0MAr86D_9PcUEm6hLmhYHExZK4JdFxZB-VuixvPNAJ1xDE7PqvRxu6F1ncpqViNSN/exec",
                         {
-
                             method:"POST",
-
                             headers:{
-
                                 "Content-Type":
-
                                     "application/json"
-
                             },
-
                             body:
 
                                 JSON.stringify({
-
                                     name:
-
                                     document
                                         .querySelector(
                                             "#name"
                                         )
                                         .value,
-
                                     email:
-
                                     document
                                         .querySelector(
                                             "#email"
                                         )
                                         .value,
-
                                     phone:
-
                                     document
                                         .querySelector(
                                             "#phone"
                                         )
                                         .value,
-
                                     address:
-
                                     document
                                         .querySelector(
                                             "#address"
                                         )
                                         .value,
-
                                     product:
-
                                     document
                                         .querySelector(
                                             "#product"
@@ -415,7 +397,6 @@ Total
                                         .value,
 
                                     weight:
-
                                         document
                                             .querySelector(
                                                 "#product"
@@ -423,17 +404,12 @@ Total
                                             .value.includes(
                                             "2 KG"
                                         )
-
                                             ?
-
                                             "2 KG"
-
                                             :
-
                                             "1 KG",
 
                                     amount:
-
                                     document
                                         .querySelector(
                                             "#product"
