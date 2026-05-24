@@ -86,20 +86,18 @@
 
     flex-direction:column;
 
+    align-items:flex-start;
+
     padding:40px 24px;
 
     gap:28px;
 
     transition:right .3s ease;
 
-    z-index:999999;
-
+    z-index:99998;
   }
 
-  .nav-links.active{
-
+  #nav-links.active{
     right:0!important;
-
   }
-
 }
