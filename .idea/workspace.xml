@@ -4,19 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="improving content organisation">
-      <change afterPath="$PROJECT_DIR$/.prettierrc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/founder.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/img.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/img_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/img_2.png" afterDir="false" />
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="refactor homepage">
+      <change afterPath="$PROJECT_DIR$/images/flat-dumbbell.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/home.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/navbar.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/navbar.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.prettierrc" beforeDir="false" afterPath="$PROJECT_DIR$/.prettierrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/products.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/products.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/flat-dumbbell.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/products/products.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/products.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +19,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -32,31 +27,31 @@
     &quot;assignee&quot;: &quot;gitika-yadav&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/gitika-yadav/theritualco.in.git&quot;,
-    &quot;accountId&quot;: &quot;29d2ea32-280e-42d5-8277-bb83670ea765&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/gitika-yadav/theritualco.in.git",
+    "accountId": "5cde5b10-82b6-4a2e-b0ee-df1eaadfa006"
   }
-}</component>
+}]]></component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0000000000005103" />
-      <entry key="S2" value="1.0008451529063254" />
-      <entry key="S5" value="1.0589894185896782" />
-      <entry key="S10" value="1.2428773735646823" />
-      <entry key="S30" value="1.6239201608341904" />
-      <entry key="S60" value="1.789889282497103" />
-      <entry key="M2" value="1.8926904877725557" />
-      <entry key="M5" value="2.261114031043329" />
-      <entry key="M10" value="3.4140673299318496" />
-      <entry key="M15" value="4.505293944377531" />
-      <entry key="M30" value="6.708646036990074" />
-      <entry key="H1" value="8.723772670935249" />
-      <entry key="H2" value="10.158002475818789" />
-      <entry key="H4" value="11.209669644209313" />
-      <entry key="D1" value="15.67833564872682" />
-      <entry key="W1" value="18.402385438878436" />
+      <entry key="MS100" value="1.0000007800121866" />
+      <entry key="MS500" value="1.060040371530909" />
+      <entry key="S2" value="1.5630238003424062" />
+      <entry key="S5" value="2.2700399078866007" />
+      <entry key="S10" value="2.8832485959174274" />
+      <entry key="S30" value="3.548979057441793" />
+      <entry key="S60" value="3.7627369440598963" />
+      <entry key="M2" value="3.8827079858135165" />
+      <entry key="M5" value="4.274401227369948" />
+      <entry key="M10" value="5.527856645681891" />
+      <entry key="M15" value="6.901522444226313" />
+      <entry key="M30" value="10.900015062183323" />
+      <entry key="H1" value="17.45653328404101" />
+      <entry key="H2" value="25.00610330435875" />
+      <entry key="H4" value="31.297181566895667" />
+      <entry key="D1" value="41.90908439264243" />
+      <entry key="W1" value="46.11949735017969" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -78,23 +73,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.8950250709279725" />
-      <entry key="MS500" value="0.9780634734478447" />
-      <entry key="S2" value="0.9953132737108847" />
-      <entry key="S5" value="1.0567165897905464" />
-      <entry key="S10" value="1.2416511365763792" />
-      <entry key="S30" value="1.623449649503624" />
-      <entry key="S60" value="1.7896405864911238" />
-      <entry key="M2" value="1.8925617824707337" />
-      <entry key="M5" value="2.2610504643761224" />
-      <entry key="M10" value="3.4140137946571674" />
-      <entry key="M15" value="4.5052430169886275" />
-      <entry key="M30" value="6.708602997161896" />
-      <entry key="H1" value="8.72374211075191" />
-      <entry key="H2" value="10.157983764514231" />
-      <entry key="H4" value="11.20965891615806" />
-      <entry key="D1" value="15.67833269330927" />
-      <entry key="W1" value="18.4023849118306" />
+      <entry key="MS100" value="0.9138321581054011" />
+      <entry key="MS500" value="1.0410259397460722" />
+      <entry key="S2" value="1.555850224848967" />
+      <entry key="S5" value="2.2659194225031167" />
+      <entry key="S10" value="2.8806617864750566" />
+      <entry key="S30" value="3.5479280294190265" />
+      <entry key="S60" value="3.7621812373096626" />
+      <entry key="M2" value="3.8824217926054057" />
+      <entry key="M5" value="4.274279251896341" />
+      <entry key="M10" value="5.527784309575545" />
+      <entry key="M15" value="6.901465782863947" />
+      <entry key="M30" value="10.899973980328557" />
+      <entry key="H1" value="17.456500538848143" />
+      <entry key="H2" value="25.006078689034176" />
+      <entry key="H4" value="31.297165341818726" />
+      <entry key="D1" value="41.90907997638319" />
+      <entry key="W1" value="46.119496589049064" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -128,6 +123,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "editor.preferences.completion.popup",
     "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   }
@@ -173,7 +169,7 @@
       <workItem from="1748379268715" duration="4000" />
       <workItem from="1748379359741" duration="6000" />
       <workItem from="1748379420413" duration="3000" />
-      <workItem from="1779547815911" duration="9028000" />
+      <workItem from="1779547815911" duration="15834000" />
     </task>
     <task id="LOCAL-00001" summary="Breaking css file to subsections for efficacy">
       <option name="closed" value="true" />
@@ -439,7 +435,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758715403050</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="refactor homepage">
+      <option name="closed" value="true" />
+      <created>1779622834903</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1779622834903</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -469,9 +473,14 @@
     <MESSAGE value="Improving the capsule dumbbell product page" />
     <MESSAGE value="Improving the products page" />
     <MESSAGE value="improving content organisation" />
-    <option name="LAST_COMMIT_MESSAGE" value="improving content organisation" />
+    <MESSAGE value="refactor homepage" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor homepage" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
