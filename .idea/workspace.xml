@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="refactor homepage">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/navbar.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/navbar.css" afterDir="false" />
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="fix mobile hamburger">
+      <change beforePath="$PROJECT_DIR$/javascript/navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/javascript/navbar.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,23 +30,23 @@
 }]]></component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0005060661610612" />
-      <entry key="MS500" value="1.327878998690042" />
-      <entry key="S2" value="2.587300602824295" />
-      <entry key="S5" value="3.3052814059776345" />
-      <entry key="S10" value="3.6413901309741052" />
-      <entry key="S30" value="4.492532553214172" />
-      <entry key="S60" value="5.511072448908619" />
-      <entry key="M2" value="6.480610121590059" />
-      <entry key="M5" value="7.578864966791652" />
-      <entry key="M10" value="9.060912103844817" />
-      <entry key="M15" value="10.508460785233138" />
-      <entry key="M30" value="14.586475942314076" />
-      <entry key="H1" value="21.204334186626834" />
-      <entry key="H2" value="28.825059961075016" />
-      <entry key="H4" value="35.18375240467806" />
-      <entry key="D1" value="45.88374722677292" />
-      <entry key="W1" value="50.11551375412528" />
+      <entry key="MS100" value="1.0161056788200487" />
+      <entry key="MS500" value="1.570557624141951" />
+      <entry key="S2" value="2.417119493875374" />
+      <entry key="S5" value="2.737920082111782" />
+      <entry key="S10" value="2.863533523825801" />
+      <entry key="S30" value="2.965178635818832" />
+      <entry key="S60" value="3.220880982631475" />
+      <entry key="M2" value="4.127451064693981" />
+      <entry key="M5" value="6.658506810380019" />
+      <entry key="M10" value="9.868023659190321" />
+      <entry key="M15" value="12.30806785266104" />
+      <entry key="M30" value="17.80223563307691" />
+      <entry key="H1" value="25.556787459105696" />
+      <entry key="H2" value="34.28743508470761" />
+      <entry key="H4" value="41.616190954938546" />
+      <entry key="D1" value="53.54016443449867" />
+      <entry key="W1" value="58.061878057130365" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -69,23 +68,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9799120544710443" />
-      <entry key="MS500" value="1.266576659098489" />
-      <entry key="S2" value="2.4726178449551672" />
-      <entry key="S5" value="3.2356785114331266" />
-      <entry key="S10" value="3.6013603044073856" />
-      <entry key="S30" value="4.477705662398016" />
-      <entry key="S60" value="5.503345579825152" />
-      <entry key="M2" value="6.4766338936179535" />
-      <entry key="M5" value="7.577235435074135" />
-      <entry key="M10" value="9.060080495498553" />
-      <entry key="M15" value="10.507896720615793" />
-      <entry key="M30" value="14.586180538291156" />
-      <entry key="H1" value="21.204174114985992" />
-      <entry key="H2" value="28.824971612271383" />
-      <entry key="H4" value="35.18370427958119" />
-      <entry key="D1" value="45.88373748630062" />
-      <entry key="W1" value="50.11551223206713" />
+      <entry key="MS100" value="0.9157559050592702" />
+      <entry key="MS500" value="1.5305358531023783" />
+      <entry key="S2" value="2.3954970893349246" />
+      <entry key="S5" value="2.7272733428180196" />
+      <entry key="S10" value="2.857807784223734" />
+      <entry key="S30" value="2.9631725453667226" />
+      <entry key="S60" value="3.219859207480766" />
+      <entry key="M2" value="4.126905203426652" />
+      <entry key="M5" value="6.658087925418675" />
+      <entry key="M10" value="9.867620327014622" />
+      <entry key="M15" value="12.307712179858983" />
+      <entry key="M30" value="17.801989320571433" />
+      <entry key="H1" value="25.556633921037076" />
+      <entry key="H2" value="34.287344532536146" />
+      <entry key="H4" value="41.61614008167989" />
+      <entry key="D1" value="53.54015396267505" />
+      <entry key="W1" value="58.06187642205186" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -165,7 +164,7 @@
       <workItem from="1748379268715" duration="4000" />
       <workItem from="1748379359741" duration="6000" />
       <workItem from="1748379420413" duration="3000" />
-      <workItem from="1779547815911" duration="16507000" />
+      <workItem from="1779547815911" duration="16808000" />
     </task>
     <task id="LOCAL-00001" summary="Breaking css file to subsections for efficacy">
       <option name="closed" value="true" />
@@ -455,14 +454,21 @@
       <option name="project" value="LOCAL" />
       <updated>1779630421905</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="fix mobile hamburger">
+      <option name="closed" value="true" />
+      <created>1779631030700</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1779631030700</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Breaking css file to subsections for efficacy" />
     <MESSAGE value="Adding breadcrumbs + adding category tiles and breaking blog into sub categories" />
     <MESSAGE value="Adding navbar fix with js files" />
     <MESSAGE value="Adding navbar fix + log" />
@@ -487,7 +493,8 @@
     <MESSAGE value="improving content organisation" />
     <MESSAGE value="refactor products page" />
     <MESSAGE value="refactor homepage" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor homepage" />
+    <MESSAGE value="fix mobile hamburger" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix mobile hamburger" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
