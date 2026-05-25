@@ -153,15 +153,15 @@
 
         <div class="form-grid">
 
-            <input id="name" placeholder="Full Name">
+            <input id="name" placeholder="Full Name" required>
 
-            <input id="email" placeholder="Email">
+            <input id="email" placeholder="Email" required>
 
-            <input id="phone" placeholder="Phone Number">
+            <input id="phone" placeholder="Phone Number" required>
 
-            <input id="address" placeholder="Shipping Address">
+            <input id="address" placeholder="Shipping Address" required>
 
-            <select id="product">
+            <select id="product" required>
 
                 <option value="1999">
                     1 KG Set • ₹1,999
@@ -271,7 +271,6 @@ Total
 
 </script>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
 <script>
 
     document
@@ -281,15 +280,94 @@ Total
 
         .onclick=async()=>{
 
-        const amount=
+        const name=
+            document
+                .getElementById(
+                    "name"
+                )
+                .value
+                .trim();
 
+        const email=
+            document
+                .getElementById(
+                    "email"
+                )
+                .value
+                .trim();
+
+        const phone=
+            document
+                .getElementById(
+                    "phone"
+                )
+                .value
+                .trim();
+
+        const address=
+            document
+                .getElementById(
+                    "address"
+                )
+                .value
+                .trim();
+
+        const product=
             document
                 .getElementById(
                     "product"
-                )
-                .value;
+                );
+
+        if(
+            !name||
+            !email||
+            !phone||
+            !address
+        ){
+
+            alert(
+                "Please complete all details."
+            );
+
+            return;
+
+        }
+
+        const emailRegex=
+
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if(
+            !emailRegex.test(
+                email
+            )
+        ){
+
+            alert(
+                "Please enter valid email."
+            );
+
+            return;
+
+        }
+
+        if(
+            phone.length<10
+        ){
+
+            alert(
+                "Please enter valid phone number."
+            );
+
+            return;
+
+        }
+
+        const amount=
+            product.value;
 
         const orderRes=
+
             await fetch(
 
                 "/.netlify/functions/create-order",
@@ -318,13 +396,16 @@ Total
             );
 
         const order=
+
             await orderRes.json();
 
         const razorpay=
 
             new Razorpay({
 
-                key: "rzp_test_StLMQeegWUFaxf",
+                key:
+
+                    "rzp_test_StLMQeegWUFaxf",
 
                 amount:
 
@@ -352,69 +433,49 @@ Total
 
                 },
 
-                handler:async function(response){
+                handler:async function(
+
+                    response
+
+                ){
 
                     await fetch(
+
                         "https://script.google.com/macros/s/AKfycbx0MAr86D_9PcUEm6hLmhYHExZK4JdFxZB-VuixvPNAJ1xDE7PqvRxu6F1ncpqViNSN/exec",
+
                         {
+
                             method:"POST",
-                            headers:{
-                                "Content-Type":
-                                    "application/json"
-                            },
+
                             body:
 
                                 JSON.stringify({
-                                    name:
-                                    document
-                                        .querySelector(
-                                            "#name"
-                                        )
-                                        .value,
-                                    email:
-                                    document
-                                        .querySelector(
-                                            "#email"
-                                        )
-                                        .value,
-                                    phone:
-                                    document
-                                        .querySelector(
-                                            "#phone"
-                                        )
-                                        .value,
-                                    address:
-                                    document
-                                        .querySelector(
-                                            "#address"
-                                        )
-                                        .value,
+
+                                    name,
+
+                                    email,
+
+                                    phone,
+
+                                    address,
+
                                     product:
-                                    document
-                                        .querySelector(
-                                            "#product"
-                                        )
-                                        .value,
+
+                                        "Capsule Dumbbells",
 
                                     weight:
-                                        document
-                                            .querySelector(
-                                                "#product"
-                                            )
-                                            .value.includes(
-                                            "2 KG"
-                                        )
+
+                                        amount==="2499"
+
                                             ?
+
                                             "2 KG"
+
                                             :
+
                                             "1 KG",
 
-                                    amount:
-                                    document
-                                        .querySelector(
-                                            "#product"
-                                        )
-                                        .value,
+                                    amount,
 
                                     paymentId:
 
