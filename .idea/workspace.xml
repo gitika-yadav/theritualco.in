@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="update checkout validation">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/netlify/functions/verify-payment.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/checkout.html" beforeDir="false" afterPath="$PROJECT_DIR$/checkout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/netlify/functions/create-order.js" beforeDir="false" afterPath="$PROJECT_DIR$/netlify/functions/create-order.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,15 +166,7 @@
       <workItem from="1748379359741" duration="6000" />
       <workItem from="1748379420413" duration="3000" />
       <workItem from="1779547815911" duration="29068000" />
-      <workItem from="1779695741143" duration="3547000" />
-    </task>
-    <task id="LOCAL-00001" summary="Breaking css file to subsections for efficacy">
-      <option name="closed" value="true" />
-      <created>1748781857222</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1748781857222</updated>
+      <workItem from="1779695741143" duration="5045000" />
     </task>
     <task id="LOCAL-00002" summary="Adding breadcrumbs + adding category tiles and breaking blog into sub categories">
       <option name="closed" value="true" />
@@ -564,7 +552,15 @@
       <option name="project" value="LOCAL" />
       <updated>1779698525423</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="update checkout validation">
+      <option name="closed" value="true" />
+      <created>1779726123285</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1779726123286</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
