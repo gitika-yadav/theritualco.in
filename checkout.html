@@ -433,71 +433,127 @@ Total
 
                 },
 
-                handler:async function(
+                handler:
+                    async function(response){
 
-                    response
+                        const verify=
 
-                ){
+                            await fetch(
 
-                    await fetch(
+                                "/.netlify/functions/verify-payment",
 
-                        "https://script.google.com/macros/s/AKfycbx0MAr86D_9PcUEm6hLmhYHExZK4JdFxZB-VuixvPNAJ1xDE7PqvRxu6F1ncpqViNSN/exec",
+                                {
 
-                        {
+                                    method:"POST",
 
-                            method:"POST",
+                                    headers:{
 
-                            body:
+                                        "Content-Type":
 
-                                JSON.stringify({
+                                            "application/json"
 
-                                    name,
+                                    },
 
-                                    email,
+                                    body:
 
-                                    phone,
+                                        JSON.stringify({
 
-                                    address,
+                                            razorpay_order_id:
 
-                                    product:
+                                            response
+                                                .razorpay_order_id,
 
-                                        "Capsule Dumbbells",
+                                            razorpay_payment_id:
 
-                                    weight:
+                                            response
+                                                .razorpay_payment_id,
 
-                                        amount==="2499"
+                                            razorpay_signature:
 
-                                            ?
+                                            response
+                                                .razorpay_signature
 
-                                            "2 KG"
+                                        })
 
-                                            :
+                                }
 
-                                            "1 KG",
+                            );
 
-                                    amount,
+                        const verified=
 
-                                    paymentId:
+                            await verify.json();
 
-                                    response
-                                        .razorpay_payment_id,
+                        if(
+                            !verified.success
+                        ){
 
-                                    orderId:
+                            alert(
+                                "Payment verification failed"
+                            );
 
-                                    response
-                                        .razorpay_order_id
-
-                                })
+                            return;
 
                         }
 
-                    );
+                        await fetch(
 
-                    window.location=
+                            "https://script.google.com/macros/s/AKfycbx0MAr86D_9PcUEm6hLmhYHExZK4JdFxZB-VuixvPNAJ1xDE7PqvRxu6F1ncpqViNSN/exec",
 
-                        "/thank-you.html";
+                            {
 
-                }
+                                method:"POST",
+
+                                body:
+
+                                    JSON.stringify({
+
+                                        name,
+
+                                        email,
+
+                                        phone,
+
+                                        address,
+
+                                        product:
+
+                                            "Capsule Dumbbells",
+
+                                        weight:
+
+                                            amount==="2499"
+
+                                                ?
+
+                                                "2 KG"
+
+                                                :
+
+                                                "1 KG",
+
+                                        amount,
+
+                                        paymentId:
+
+                                        response
+                                            .razorpay_payment_id,
+
+                                        orderId:
+
+                                        response
+                                            .razorpay_order_id
+
+                                    })
+
+                            }
+
+                        );
+
+                        window.location=
+
+                            "/thank-you.html";
+
+                    }
 
             });
 

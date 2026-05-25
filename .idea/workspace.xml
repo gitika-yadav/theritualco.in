@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="update payment">
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="update checkout validation">
+      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/netlify/functions/verify-payment.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/checkout.html" beforeDir="false" afterPath="$PROJECT_DIR$/checkout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/netlify/functions/create-order.js" beforeDir="false" afterPath="$PROJECT_DIR$/netlify/functions/create-order.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,23 +35,23 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.000056950476101" />
-      <entry key="MS500" value="1.1730667300826525" />
-      <entry key="S2" value="2.7040509126596706" />
-      <entry key="S5" value="4.181026599829247" />
-      <entry key="S10" value="4.974017805564663" />
-      <entry key="S30" value="5.627970205110685" />
-      <entry key="S60" value="5.824190344478163" />
-      <entry key="M2" value="6.142923216702324" />
-      <entry key="M5" value="7.257655611195582" />
-      <entry key="M10" value="8.287200985011594" />
-      <entry key="M15" value="8.855560012701577" />
-      <entry key="M30" value="9.801342066110015" />
-      <entry key="H1" value="10.746482699122454" />
-      <entry key="H2" value="13.532204248355592" />
-      <entry key="H4" value="22.383269155655952" />
-      <entry key="D1" value="54.685786103312395" />
-      <entry key="W1" value="68.2159018452646" />
+      <entry key="MS100" value="1.0243771674830293" />
+      <entry key="MS500" value="1.816705593015861" />
+      <entry key="S2" value="3.91743773640142" />
+      <entry key="S5" value="6.508949884053978" />
+      <entry key="S10" value="8.284147935528415" />
+      <entry key="S30" value="9.95989928558584" />
+      <entry key="S60" value="10.47434648333682" />
+      <entry key="M2" value="10.958974879663288" />
+      <entry key="M5" value="12.173510973237951" />
+      <entry key="M10" value="13.240366239403839" />
+      <entry key="M15" value="13.822593611567237" />
+      <entry key="M30" value="14.783414166293296" />
+      <entry key="H1" value="15.736799319544469" />
+      <entry key="H2" value="18.526306042166382" />
+      <entry key="H4" value="27.37864259024935" />
+      <entry key="D1" value="59.68399469936412" />
+      <entry key="W1" value="73.2155848778309" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -69,23 +73,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.986288482945797" />
-      <entry key="MS500" value="1.169595184785935" />
-      <entry key="S2" value="2.7017740047738323" />
-      <entry key="S5" value="4.1795906176410655" />
-      <entry key="S10" value="4.973159468676769" />
-      <entry key="S30" value="5.62764553869475" />
-      <entry key="S60" value="5.82402049019509" />
-      <entry key="M2" value="6.142819779741642" />
-      <entry key="M5" value="7.25758154828174" />
-      <entry key="M10" value="8.287147757321002" />
-      <entry key="M15" value="8.855517386242344" />
-      <entry key="M30" value="9.801313123965459" />
-      <entry key="H1" value="10.746463522269348" />
-      <entry key="H2" value="13.532187364375101" />
-      <entry key="H4" value="22.383250075193253" />
-      <entry key="D1" value="54.685776682021" />
-      <entry key="W1" value="68.21590010864723" />
+      <entry key="MS100" value="1.0000631011109582" />
+      <entry key="MS500" value="1.6095156181931756" />
+      <entry key="S2" value="3.750257568093104" />
+      <entry key="S5" value="6.423169356606579" />
+      <entry key="S10" value="8.23740115618337" />
+      <entry key="S30" value="9.943373203299647" />
+      <entry key="S60" value="10.46595717024776" />
+      <entry key="M2" value="10.954731903238512" />
+      <entry key="M5" value="12.171773988177403" />
+      <entry key="M10" value="13.23948031234921" />
+      <entry key="M15" value="13.821995565639096" />
+      <entry key="M30" value="14.783107366376738" />
+      <entry key="H1" value="15.7366411745633" />
+      <entry key="H2" value="18.5262196652902" />
+      <entry key="H4" value="27.378588761764092" />
+      <entry key="D1" value="59.68397948615404" />
+      <entry key="W1" value="73.21558231375514" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -166,7 +170,7 @@
       <workItem from="1748379359741" duration="6000" />
       <workItem from="1748379420413" duration="3000" />
       <workItem from="1779547815911" duration="29068000" />
-      <workItem from="1779695741143" duration="1411000" />
+      <workItem from="1779695741143" duration="3547000" />
     </task>
     <task id="LOCAL-00001" summary="Breaking css file to subsections for efficacy">
       <option name="closed" value="true" />
@@ -552,14 +556,21 @@
       <option name="project" value="LOCAL" />
       <updated>1779661312518</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="update checkout validation">
+      <option name="closed" value="true" />
+      <created>1779698525423</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1779698525423</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Adding home gym design on a budgett blog" />
     <MESSAGE value="pinterest-worthy-home-gym-setup.html" />
     <MESSAGE value="adding pinterest tag validation to index" />
     <MESSAGE value="adding capsule dumbbell blog post" />
@@ -584,7 +595,8 @@
     <MESSAGE value="&quot;Fix Razorpay frontend key&quot;" />
     <MESSAGE value="update payment script" />
     <MESSAGE value="update payment" />
-    <option name="LAST_COMMIT_MESSAGE" value="update payment" />
+    <MESSAGE value="update checkout validation" />
+    <option name="LAST_COMMIT_MESSAGE" value="update checkout validation" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
