@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="update checkout validation">
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="Add launch offer">
+      <change afterPath="$PROJECT_DIR$/css/checkout.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javascript/checkout.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/products/capsule-dumbbell.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/checkout.html" beforeDir="false" afterPath="$PROJECT_DIR$/checkout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/products.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/products.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/products.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/products.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/products/capsule-dumbbell.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/capsule-dumbbell.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,23 +35,23 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0243771674830293" />
-      <entry key="MS500" value="1.816705593015861" />
-      <entry key="S2" value="3.91743773640142" />
-      <entry key="S5" value="6.508949884053978" />
-      <entry key="S10" value="8.284147935528415" />
-      <entry key="S30" value="9.95989928558584" />
-      <entry key="S60" value="10.47434648333682" />
-      <entry key="M2" value="10.958974879663288" />
-      <entry key="M5" value="12.173510973237951" />
-      <entry key="M10" value="13.240366239403839" />
-      <entry key="M15" value="13.822593611567237" />
-      <entry key="M30" value="14.783414166293296" />
-      <entry key="H1" value="15.736799319544469" />
-      <entry key="H2" value="18.526306042166382" />
-      <entry key="H4" value="27.37864259024935" />
-      <entry key="D1" value="59.68399469936412" />
-      <entry key="W1" value="73.2155848778309" />
+      <entry key="MS100" value="1.2398160298313161" />
+      <entry key="MS500" value="1.7515807390327813" />
+      <entry key="S2" value="1.9311019198100379" />
+      <entry key="S5" value="1.9839433687071355" />
+      <entry key="S10" value="2.139028993180978" />
+      <entry key="S30" value="3.056729523494058" />
+      <entry key="S60" value="4.6643825768887375" />
+      <entry key="M2" value="7.597677619916257" />
+      <entry key="M5" value="13.504276706658883" />
+      <entry key="M10" value="19.49949020770616" />
+      <entry key="M15" value="23.150752627104733" />
+      <entry key="M30" value="28.552598409042776" />
+      <entry key="H1" value="32.30582787635399" />
+      <entry key="H2" value="35.280166063729915" />
+      <entry key="H4" value="41.34610362955317" />
+      <entry key="D1" value="82.64308487513017" />
+      <entry key="W1" value="107.48024151164286" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -71,23 +73,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.0000631011109582" />
-      <entry key="MS500" value="1.6095156181931756" />
-      <entry key="S2" value="3.750257568093104" />
-      <entry key="S5" value="6.423169356606579" />
-      <entry key="S10" value="8.23740115618337" />
-      <entry key="S30" value="9.943373203299647" />
-      <entry key="S60" value="10.46595717024776" />
-      <entry key="M2" value="10.954731903238512" />
-      <entry key="M5" value="12.171773988177403" />
-      <entry key="M10" value="13.23948031234921" />
-      <entry key="M15" value="13.821995565639096" />
-      <entry key="M30" value="14.783107366376738" />
-      <entry key="H1" value="15.7366411745633" />
-      <entry key="H2" value="18.5262196652902" />
-      <entry key="H4" value="27.378588761764092" />
-      <entry key="D1" value="59.68397948615404" />
-      <entry key="W1" value="73.21558231375514" />
+      <entry key="MS100" value="1.0733092111649576" />
+      <entry key="MS500" value="1.7023362197416498" />
+      <entry key="S2" value="1.9174187363300346" />
+      <entry key="S5" value="1.9783338525814593" />
+      <entry key="S10" value="2.136134229000723" />
+      <entry key="S30" value="3.0555101289049653" />
+      <entry key="S60" value="4.662754050190727" />
+      <entry key="M2" value="7.592986507795204" />
+      <entry key="M5" value="13.494614119654232" />
+      <entry key="M10" value="19.489628642756248" />
+      <entry key="M15" value="23.142194995311183" />
+      <entry key="M30" value="28.546952434195383" />
+      <entry key="H1" value="32.30256816223242" />
+      <entry key="H2" value="35.27840900342278" />
+      <entry key="H4" value="41.34518290014488" />
+      <entry key="D1" value="82.64291681875841" />
+      <entry key="W1" value="107.48021658529602" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -168,15 +170,7 @@
       <workItem from="1748379359741" duration="6000" />
       <workItem from="1748379420413" duration="3000" />
       <workItem from="1779547815911" duration="29068000" />
-      <workItem from="1779695741143" duration="6052000" />
-    </task>
-    <task id="LOCAL-00003" summary="Adding navbar fix with js files">
-      <option name="closed" value="true" />
-      <created>1748790365394</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1748790365394</updated>
+      <workItem from="1779695741143" duration="8369000" />
     </task>
     <task id="LOCAL-00004" summary="Adding navbar fix with js files">
       <option name="closed" value="true" />
@@ -562,14 +556,21 @@
       <option name="project" value="LOCAL" />
       <updated>1779727325823</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="Add launch offer">
+      <option name="closed" value="true" />
+      <created>1779729290365</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1779729290366</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="pinterest-worthy-home-gym-setup.html" />
     <MESSAGE value="adding pinterest tag validation to index" />
     <MESSAGE value="adding capsule dumbbell blog post" />
     <MESSAGE value="adding best dumbbell for women in india blog" />
@@ -594,7 +595,8 @@
     <MESSAGE value="update payment script" />
     <MESSAGE value="update payment" />
     <MESSAGE value="update checkout validation" />
-    <option name="LAST_COMMIT_MESSAGE" value="update checkout validation" />
+    <MESSAGE value="Add launch offer" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add launch offer" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
