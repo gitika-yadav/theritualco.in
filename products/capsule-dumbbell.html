@@ -129,45 +129,77 @@
                 </ul>
 
                 <!-- Sticky CTA (scrolls to form) -->
-                <div class="price-box">
+                <div class="capsule-pricing">
 
-                    <div>
+                    <div class="capsule-price-card">
 
-                        1 KG SET
+                        <div class="capsule-weight">
 
-                        <span>
+                            1 KG SET
+
+                        </div>
+
+                        <div class="capsule-price-row">
+
+<span class="capsule-retail">
 
 ₹1,999
 
 </span>
 
+                            <span class="capsule-launch">
+
+₹1,499
+
+</span>
+
+                        </div>
+
+                        <div class="capsule-offer">
+
+                            Early Bird • First 100 Orders
+
+                        </div>
+
                     </div>
 
-                    <div>
+                    <div class="capsule-price-card">
 
-                        2 KG SET
+                        <div class="capsule-weight">
 
-                        <span>
+                            2 KG SET
+
+                        </div>
+
+                        <div class="capsule-price-row">
+
+<span class="capsule-retail">
 
 ₹2,499
 
 </span>
 
+                            <span class="capsule-launch">
+
+₹1,999
+
+</span>
+
+                        </div>
+
+                        <div class="capsule-offer">
+
+                            Early Bird • First 100 Orders
+
+                        </div>
+
                     </div>
 
                 </div>
 
-                <p class="launch-copy">
-
-                    Early Bird Pricing
-
-                    Regular pricing launches later.
-
-                </p>
-
                 <a
-                        class="btn-primary"
-                        href="/checkout.html">
+                        href="/checkout.html"
+                        class="btn-primary">
 
                     Pre-Order Now
 
@@ -213,34 +245,34 @@
             </div>
         </section>
 
-        <!-- Inline Waitlist (same function as home, unique form id OK) -->
-        <section class="waitlist" id="waitlist">
-            <h2>Get first access</h2>
-            <p>Join the waitlist for colour drops and launch-day perks.</p>
-            <form id="product-waitlist-form" class="waitlist__form" novalidate>
-                <div class="field">
-                    <label for="pname">Full name</label>
-                    <input id="pname" name="name" type="text" required placeholder="e.g., Gitika Yadav" autocomplete="name"/>
-                </div>
-                <div class="field">
-                    <label for="pemail">Email</label>
-                    <input id="pemail" name="email" type="email" required placeholder="you@example.com" autocomplete="email"/>
-                </div>
-                <div class="field">
-                    <label for="pphone">Phone (10-digit)</label>
-                    <input id="pphone" name="phone" type="tel" required placeholder="9XXXXXXXXX" pattern="[0-9]{10}" inputmode="numeric" autocomplete="tel"/>
-                </div>
-                <!-- Hidden from bots -->
-                <input type="text" name="nickname" class="honeypot" aria-hidden="true" tabindex="-1" autocomplete="off"/>
+<!--        &lt;!&ndash; Inline Waitlist (same function as home, unique form id OK) &ndash;&gt;-->
+<!--        <section class="waitlist" id="waitlist">-->
+<!--            <h2>Get first access</h2>-->
+<!--            <p>Join the waitlist for colour drops and launch-day perks.</p>-->
+<!--            <form id="product-waitlist-form" class="waitlist__form" novalidate>-->
+<!--                <div class="field">-->
+<!--                    <label for="pname">Full name</label>-->
+<!--                    <input id="pname" name="name" type="text" required placeholder="e.g., Gitika Yadav" autocomplete="name"/>-->
+<!--                </div>-->
+<!--                <div class="field">-->
+<!--                    <label for="pemail">Email</label>-->
+<!--                    <input id="pemail" name="email" type="email" required placeholder="you@example.com" autocomplete="email"/>-->
+<!--                </div>-->
+<!--                <div class="field">-->
+<!--                    <label for="pphone">Phone (10-digit)</label>-->
+<!--                    <input id="pphone" name="phone" type="tel" required placeholder="9XXXXXXXXX" pattern="[0-9]{10}" inputmode="numeric" autocomplete="tel"/>-->
+<!--                </div>-->
+<!--                &lt;!&ndash; Hidden from bots &ndash;&gt;-->
+<!--                <input type="text" name="nickname" class="honeypot" aria-hidden="true" tabindex="-1" autocomplete="off"/>-->
 
-                <!-- Pre-fill chosen options -->
-                <input type="hidden" name="color" id="chosen-color" value="Peach"/>
-                <input type="hidden" name="weight" id="chosen-weight" value="1 kg"/>
+<!--                &lt;!&ndash; Pre-fill chosen options &ndash;&gt;-->
+<!--                <input type="hidden" name="color" id="chosen-color" value="Peach"/>-->
+<!--                <input type="hidden" name="weight" id="chosen-weight" value="1 kg"/>-->
 
-                <button class="btn-primary">Join the waitlist</button>
-                <div id="p-confirm" class="confirm" style="display:none;">✅ You’re on the list! We’ll email you first when we launch.</div>
-            </form>
-        </section>
+<!--                <button class="btn-primary">Join the waitlist</button>-->
+<!--                <div id="p-confirm" class="confirm" style="display:none;">✅ You’re on the list! We’ll email you first when we launch.</div>-->
+<!--            </form>-->
+<!--        </section>-->
     </main>
 
     <div id="footer-placeholder"></div>
