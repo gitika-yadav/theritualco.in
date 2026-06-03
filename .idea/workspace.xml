@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="Add launch offer">
-      <change afterPath="$PROJECT_DIR$/css/checkout.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javascript/checkout.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/products/capsule-dumbbell.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/checkout.html" beforeDir="false" afterPath="$PROJECT_DIR$/checkout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/capsule-dumbbell.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/capsule-dumbbell.html" afterDir="false" />
-    </list>
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="Add launch offer" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -171,22 +164,6 @@
       <workItem from="1748379420413" duration="3000" />
       <workItem from="1779547815911" duration="29068000" />
       <workItem from="1779695741143" duration="8369000" />
-    </task>
-    <task id="LOCAL-00004" summary="Adding navbar fix with js files">
-      <option name="closed" value="true" />
-      <created>1748791108176</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1748791108176</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Adding navbar fix + log">
-      <option name="closed" value="true" />
-      <created>1748791869206</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1748791869206</updated>
     </task>
     <task id="LOCAL-00006" summary="Adding navbar fix + log new">
       <option name="closed" value="true" />
@@ -564,16 +541,29 @@
       <option name="project" value="LOCAL" />
       <updated>1779729290366</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="Optimize images with webp">
+      <option name="closed" value="true" />
+      <created>1780506734444</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1780506734444</updated>
+    </task>
+    <task id="LOCAL-00054" summary="update blog struct">
+      <option name="closed" value="true" />
+      <created>1780506770679</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1780506770679</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="adding pinterest tag validation to index" />
-    <MESSAGE value="adding capsule dumbbell blog post" />
-    <MESSAGE value="adding best dumbbell for women in india blog" />
     <MESSAGE value="updating capsule dumbbell page" />
     <MESSAGE value="automating sitemap generation with generate-sitemap.js" />
     <MESSAGE value="automating feed generation with generate-feed.js" />
@@ -596,7 +586,10 @@
     <MESSAGE value="update payment" />
     <MESSAGE value="update checkout validation" />
     <MESSAGE value="Add launch offer" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add launch offer" />
+    <MESSAGE value="Update blog pages" />
+    <MESSAGE value="Optimize images with webp" />
+    <MESSAGE value="update blog struct" />
+    <option name="LAST_COMMIT_MESSAGE" value="update blog struct" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
