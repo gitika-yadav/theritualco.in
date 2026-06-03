@@ -4,7 +4,7 @@ const path = require("path");
 const { JSDOM } = require("jsdom");
 
 const BASE_URL = "https://theritualco.in";
-const BLOG_DIR = path.join(__dirname, "blog"); // blog folders are inside /category
+const BLOG_DIR = path.join(__dirname, "category"); // blog folders are inside /category
 const OUTPUT_PATH = path.join(__dirname, "feed.xml");
 
 function walk(dir) {
