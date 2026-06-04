@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="add gtags for analytics">
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="add gtag events &#10;&#10;Product page → should show view_item&#10;Click Pre-Order → should show add_to_cart&#10;Checkout page → should show begin_checkout">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/checkout.html" beforeDir="false" afterPath="$PROJECT_DIR$/checkout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/partials/head.html" beforeDir="false" afterPath="$PROJECT_DIR$/partials/head.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/products/capsule-dumbbell.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/capsule-dumbbell.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -34,61 +32,61 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0" />
-      <entry key="S5" value="1.0" />
-      <entry key="S10" value="1.0000000000000662" />
-      <entry key="S30" value="1.0001614373784193" />
-      <entry key="S60" value="1.0359274719664286" />
-      <entry key="M2" value="1.5360782924072192" />
-      <entry key="M5" value="3.7142790904211167" />
-      <entry key="M10" value="5.958039321496986" />
-      <entry key="M15" value="8.87665563959569" />
-      <entry key="M30" value="27.13228856628146" />
-      <entry key="H1" value="73.72734093762172" />
-      <entry key="H2" value="140.84807054589885" />
-      <entry key="H4" value="206.18929396716754" />
-      <entry key="D1" value="335.36693192462087" />
-      <entry key="W1" value="411.02768569543446" />
+      <entry key="MS100" value="1.114228957223214" />
+      <entry key="MS500" value="1.6829459693439475" />
+      <entry key="S2" value="3.0383711310022186" />
+      <entry key="S5" value="4.916027222078025" />
+      <entry key="S10" value="6.160548500356805" />
+      <entry key="S30" value="7.303803454296055" />
+      <entry key="S60" value="7.642762442867705" />
+      <entry key="M2" value="7.893155122031153" />
+      <entry key="M5" value="9.042434703862865" />
+      <entry key="M10" value="11.229286677089636" />
+      <entry key="M15" value="13.921235474781781" />
+      <entry key="M30" value="30.193776614876704" />
+      <entry key="H1" value="74.69323360198864" />
+      <entry key="H2" value="141.96385371873862" />
+      <entry key="H4" value="209.08799930234815" />
+      <entry key="D1" value="341.9697514318837" />
+      <entry key="W1" value="418.7826287561232" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
       <entry key="S2" value="0.0" />
       <entry key="S5" value="0.0" />
-      <entry key="S10" value="1.1319743296029516E-270" />
-      <entry key="S30" value="1.2059837049619164E-90" />
-      <entry key="S60" value="1.4266227929859495E-45" />
-      <entry key="M2" value="5.2100528688225493E-23" />
-      <entry key="M5" value="1.839565993146804E-9" />
-      <entry key="M10" value="6.160260501163875E-5" />
-      <entry key="M15" value="0.0020887276936654704" />
-      <entry key="M30" value="0.08327799163603697" />
-      <entry key="H1" value="0.6107795563476702" />
-      <entry key="H2" value="1.792867711599407" />
-      <entry key="H4" value="3.201992642800202" />
-      <entry key="D1" value="5.380736964187812" />
-      <entry key="W1" value="5.906650557447287" />
+      <entry key="S10" value="2.463297300045441E-286" />
+      <entry key="S30" value="7.2538436512896765E-96" />
+      <entry key="S60" value="3.4988275203142366E-48" />
+      <entry key="M2" value="2.5801729509411086E-24" />
+      <entry key="M5" value="5.528891247912913E-10" />
+      <entry key="M10" value="3.3772282643109514E-5" />
+      <entry key="M15" value="0.001399123496114154" />
+      <entry key="M30" value="0.06815808119149956" />
+      <entry key="H1" value="0.5525582256794338" />
+      <entry key="H2" value="1.705277351513226" />
+      <entry key="H4" value="3.1227967504665246" />
+      <entry key="D1" value="5.358324287549925" />
+      <entry key="W1" value="5.903129510680536" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.0013340236882367139" />
-      <entry key="MS500" value="0.26609254561333995" />
-      <entry key="S2" value="0.7182211286579361" />
-      <entry key="S5" value="0.8759983150671258" />
-      <entry key="S10" value="0.9359478164231431" />
-      <entry key="S30" value="0.9783378941279858" />
-      <entry key="S60" value="1.0249540092051443" />
-      <entry key="M2" value="1.530565952800807" />
-      <entry key="M5" value="3.712051261564712" />
-      <entry key="M10" value="5.956757290355489" />
-      <entry key="M15" value="8.876837901580473" />
-      <entry key="M30" value="27.210245534506825" />
-      <entry key="H1" value="74.3296443352136" />
-      <entry key="H2" value="142.63256034421164" />
-      <entry key="H4" value="209.38516286576194" />
-      <entry key="D1" value="340.7461564152787" />
-      <entry key="W1" value="416.9340970479345" />
+      <entry key="MS100" value="1.077041689305751" />
+      <entry key="MS500" value="1.67226472716331" />
+      <entry key="S2" value="3.0339718425641053" />
+      <entry key="S5" value="4.913357158745648" />
+      <entry key="S10" value="6.158913221230738" />
+      <entry key="S30" value="7.30316624710249" />
+      <entry key="S60" value="7.642403447725824" />
+      <entry key="M2" value="7.892712531975196" />
+      <entry key="M5" value="9.041696401498164" />
+      <entry key="M10" value="11.228549323535587" />
+      <entry key="M15" value="13.921334523592604" />
+      <entry key="M30" value="30.257568219184396" />
+      <entry key="H1" value="75.23811786960331" />
+      <entry key="H2" value="143.66115957194918" />
+      <entry key="H4" value="212.20482232530625" />
+      <entry key="D1" value="347.3265693052231" />
+      <entry key="W1" value="424.68551917006823" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -170,14 +168,6 @@
       <workItem from="1748379420413" duration="3000" />
       <workItem from="1779547815911" duration="29068000" />
       <workItem from="1779695741143" duration="8369000" />
-    </task>
-    <task id="LOCAL-00013" summary="automating sitemap generation with generate-sitemap.js">
-      <option name="closed" value="true" />
-      <created>1749066588810</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1749066588810</updated>
     </task>
     <task id="LOCAL-00014" summary="automating feed generation with generate-feed.js">
       <option name="closed" value="true" />
@@ -563,14 +553,21 @@
       <option name="project" value="LOCAL" />
       <updated>1780592382909</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="add gtag events &#10;&#10;Product page → should show view_item&#10;Click Pre-Order → should show add_to_cart&#10;Checkout page → should show begin_checkout">
+      <option name="closed" value="true" />
+      <created>1780593334974</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1780593334975</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="adding organisation and product schema" />
     <MESSAGE value="adding blog schema and writing script to automate it" />
     <MESSAGE value="Improving the faq page" />
     <MESSAGE value="Improving the about page" />
@@ -595,7 +592,8 @@
     <MESSAGE value="update readibilty of privacy policy" />
     <MESSAGE value="fix of privacy policy" />
     <MESSAGE value="add gtags for analytics" />
-    <option name="LAST_COMMIT_MESSAGE" value="add gtags for analytics" />
+    <MESSAGE value="add gtag events &#10;&#10;Product page → should show view_item&#10;Click Pre-Order → should show add_to_cart&#10;Checkout page → should show begin_checkout" />
+    <option name="LAST_COMMIT_MESSAGE" value="add gtag events &#10;&#10;Product page → should show view_item&#10;Click Pre-Order → should show add_to_cart&#10;Checkout page → should show begin_checkout" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
