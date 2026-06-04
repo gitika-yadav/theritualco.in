@@ -3,7 +3,7 @@ const path = require("path");
 const { JSDOM } = require("jsdom");
 
 const BASE_URL = "https://theritualco.in";
-const BLOG_DIR = path.join(__dirname, "category"); // update if your path differs
+const BLOG_DIR = path.join(__dirname, "blog"); // update if your path differs
 
 function walk(dir) {
   let files = [];
