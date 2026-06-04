@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="Add launch offer">
-      <change afterPath="$PROJECT_DIR$/css/checkout.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javascript/checkout.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/products/capsule-dumbbell.js" afterDir="false" />
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="Revert &quot;fix&quot;&#10;&#10;This reverts commit da69303b8fe5c08c027bcccd7483c1877a5bd828.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/checkout.html" beforeDir="false" afterPath="$PROJECT_DIR$/checkout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/capsule-dumbbell.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/capsule-dumbbell.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/partials/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/partials/footer.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,23 +32,23 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.2398160298313161" />
-      <entry key="MS500" value="1.7515807390327813" />
-      <entry key="S2" value="1.9311019198100379" />
-      <entry key="S5" value="1.9839433687071355" />
-      <entry key="S10" value="2.139028993180978" />
-      <entry key="S30" value="3.056729523494058" />
-      <entry key="S60" value="4.6643825768887375" />
-      <entry key="M2" value="7.597677619916257" />
-      <entry key="M5" value="13.504276706658883" />
-      <entry key="M10" value="19.49949020770616" />
-      <entry key="M15" value="23.150752627104733" />
-      <entry key="M30" value="28.552598409042776" />
-      <entry key="H1" value="32.30582787635399" />
-      <entry key="H2" value="35.280166063729915" />
-      <entry key="H4" value="41.34610362955317" />
-      <entry key="D1" value="82.64308487513017" />
-      <entry key="W1" value="107.48024151164286" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.0" />
+      <entry key="S30" value="1.0" />
+      <entry key="S60" value="1.0" />
+      <entry key="M2" value="1.0" />
+      <entry key="M5" value="1.0" />
+      <entry key="M10" value="1.0" />
+      <entry key="M15" value="1.0" />
+      <entry key="M30" value="1.000000013678994" />
+      <entry key="H1" value="1.0007071069953732" />
+      <entry key="H2" value="1.1650565450015504" />
+      <entry key="H4" value="3.8280406880993723" />
+      <entry key="D1" value="53.8504104064017" />
+      <entry key="W1" value="101.83046133042915" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -73,23 +70,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.0733092111649576" />
-      <entry key="MS500" value="1.7023362197416498" />
-      <entry key="S2" value="1.9174187363300346" />
-      <entry key="S5" value="1.9783338525814593" />
-      <entry key="S10" value="2.136134229000723" />
-      <entry key="S30" value="3.0555101289049653" />
-      <entry key="S60" value="4.662754050190727" />
-      <entry key="M2" value="7.592986507795204" />
-      <entry key="M5" value="13.494614119654232" />
-      <entry key="M10" value="19.489628642756248" />
-      <entry key="M15" value="23.142194995311183" />
-      <entry key="M30" value="28.546952434195383" />
-      <entry key="H1" value="32.30256816223242" />
-      <entry key="H2" value="35.27840900342278" />
-      <entry key="H4" value="41.34518290014488" />
-      <entry key="D1" value="82.64291681875841" />
-      <entry key="W1" value="107.48021658529602" />
+      <entry key="MS100" value="0.9395227492140118" />
+      <entry key="MS500" value="0.9876008614453725" />
+      <entry key="S2" value="0.9968856972203758" />
+      <entry key="S5" value="0.9987531130852756" />
+      <entry key="S10" value="0.9993763620805105" />
+      <entry key="S30" value="0.9997920774647191" />
+      <entry key="S60" value="0.9998960333278251" />
+      <entry key="M2" value="0.9999480153127087" />
+      <entry key="M5" value="0.9999792058007856" />
+      <entry key="M10" value="0.9999896028463424" />
+      <entry key="M15" value="0.999993068552217" />
+      <entry key="M30" value="0.9999965479463917" />
+      <entry key="H1" value="1.0007053027805997" />
+      <entry key="H2" value="1.1650474582465624" />
+      <entry key="H4" value="3.8279772777213723" />
+      <entry key="D1" value="53.85030286182858" />
+      <entry key="W1" value="101.8304379359555" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -171,22 +168,6 @@
       <workItem from="1748379420413" duration="3000" />
       <workItem from="1779547815911" duration="29068000" />
       <workItem from="1779695741143" duration="8369000" />
-    </task>
-    <task id="LOCAL-00004" summary="Adding navbar fix with js files">
-      <option name="closed" value="true" />
-      <created>1748791108176</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1748791108176</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Adding navbar fix + log">
-      <option name="closed" value="true" />
-      <created>1748791869206</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1748791869206</updated>
     </task>
     <task id="LOCAL-00006" summary="Adding navbar fix + log new">
       <option name="closed" value="true" />
@@ -564,15 +545,29 @@
       <option name="project" value="LOCAL" />
       <updated>1779729290366</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="fix">
+      <option name="closed" value="true" />
+      <created>1780508649642</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1780508649642</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Revert &quot;fix&quot;&#10;&#10;This reverts commit da69303b8fe5c08c027bcccd7483c1877a5bd828.">
+      <option name="closed" value="true" />
+      <created>1780508720418</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1780508720418</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="adding pinterest tag validation to index" />
-    <MESSAGE value="adding capsule dumbbell blog post" />
     <MESSAGE value="adding best dumbbell for women in india blog" />
     <MESSAGE value="updating capsule dumbbell page" />
     <MESSAGE value="automating sitemap generation with generate-sitemap.js" />
@@ -596,7 +591,9 @@
     <MESSAGE value="update payment" />
     <MESSAGE value="update checkout validation" />
     <MESSAGE value="Add launch offer" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add launch offer" />
+    <MESSAGE value="fix" />
+    <MESSAGE value="Revert &quot;fix&quot;&#10;&#10;This reverts commit da69303b8fe5c08c027bcccd7483c1877a5bd828." />
+    <option name="LAST_COMMIT_MESSAGE" value="Revert &quot;fix&quot;&#10;&#10;This reverts commit da69303b8fe5c08c027bcccd7483c1877a5bd828." />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
