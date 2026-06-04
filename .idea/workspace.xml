@@ -4,11 +4,36 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="add window datalayer">
-      <change afterPath="$PROJECT_DIR$/blog/dumbbells/silicone-dumbbells-vs-pvc-dumbbells.html" afterDir="false" />
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="patch fixes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/privacy-policy.html" beforeDir="false" afterPath="$PROJECT_DIR$/privacy-policy.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/products.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/products.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/dumbbells/capsule-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/capsule-dumbbells.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/dumbbells/dumbbell-bloglist.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/dumbbell-bloglist.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/dumbbells/dumbbell-exercises-for-arms.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/dumbbell-exercises-for-arms.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/dumbbells/dumbbell-for-beginners.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/dumbbell-for-beginners.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/dumbbells/silicone-dumbbells-vs-pvc-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/silicone-dumbbells-vs-pvc-dumbbells.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/dumbbells/weightloss-with-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/weightloss-with-dumbbells.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/dumbbells/womens-dumbbell.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/womens-dumbbell.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/homegym/home-gym-design-small-spaces.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/homegym/home-gym-design-small-spaces.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/homegym/home-gym-equipment-for-women.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/homegym/home-gym-equipment-for-women.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/homegym/homegym-bloglist.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/homegym/homegym-bloglist.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/homegym/pinterest-worthy-home-gym-setup.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/homegym/pinterest-worthy-home-gym-setup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/ritual-mindset/how-to-make-fitness-a-ritual.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/ritual-mindset/how-to-make-fitness-a-ritual.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/weightloss/weightloss-with-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/weightloss/weightloss-with-dumbbells.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/womens-wellness/best-dumbbell-for-women.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/womens-wellness/best-dumbbell-for-women.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/womens-wellness/dumbbell-exercises-for-arms.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/womens-wellness/dumbbell-exercises-for-arms.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/womens-wellness/dumbbell-for-beginners.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/womens-wellness/dumbbell-for-beginners.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/womens-wellness/home-gym-equipment-for-women.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/womens-wellness/home-gym-equipment-for-women.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/womens-wellness/weightloss-with-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/womens-wellness/weightloss-with-dumbbells.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/womens-wellness/womens-dumbbell.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/womens-wellness/womens-dumbbell.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/womens-wellness/womens-wellness-bloglist.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/womens-wellness/womens-wellness-bloglist.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/faq.html" beforeDir="false" afterPath="$PROJECT_DIR$/faq.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/feed.xml" beforeDir="false" afterPath="$PROJECT_DIR$/feed.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/partials/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/partials/footer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/partials/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/partials/navbar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/products/capsule-dumbbell.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/capsule-dumbbell.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sitemap.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sitemap.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,23 +58,23 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0003133364007721" />
-      <entry key="MS500" value="1.1994615647533475" />
-      <entry key="S2" value="1.882473384653412" />
-      <entry key="S5" value="2.8383717106211948" />
-      <entry key="S10" value="3.6254572953973496" />
-      <entry key="S30" value="4.451402413720002" />
-      <entry key="S60" value="4.712302142989305" />
-      <entry key="M2" value="4.852618666038543" />
-      <entry key="M5" value="4.94017509919294" />
-      <entry key="M10" value="4.969950295230396" />
-      <entry key="M15" value="4.981249550740781" />
-      <entry key="M30" value="5.269795920119875" />
-      <entry key="H1" value="12.000953664746806" />
-      <entry key="H2" value="48.466950496250654" />
-      <entry key="H4" value="121.38213493069864" />
-      <entry key="D1" value="318.43607426471874" />
-      <entry key="W1" value="422.67264928824864" />
+      <entry key="MS100" value="1.000000399834198" />
+      <entry key="MS500" value="1.073346831471753" />
+      <entry key="S2" value="2.0834044035253285" />
+      <entry key="S5" value="2.978067482308199" />
+      <entry key="S10" value="3.4322209187060344" />
+      <entry key="S30" value="3.7963840411016645" />
+      <entry key="S60" value="3.9000394389175153" />
+      <entry key="M2" value="4.104085184657376" />
+      <entry key="M5" value="5.670511808778933" />
+      <entry key="M10" value="7.856708864230441" />
+      <entry key="M15" value="9.108389100771618" />
+      <entry key="M30" value="10.977304366973694" />
+      <entry key="H1" value="17.77059708701699" />
+      <entry key="H2" value="52.48814890307858" />
+      <entry key="H4" value="124.47600612070393" />
+      <entry key="D1" value="324.286864667533" />
+      <entry key="W1" value="430.2648655125697" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -57,37 +82,37 @@
       <entry key="S2" value="0.0" />
       <entry key="S5" value="0.0" />
       <entry key="S10" value="0.0" />
-      <entry key="S30" value="4.140620650418641E-223" />
-      <entry key="S60" value="8.35932403828938E-112" />
-      <entry key="M2" value="3.9881651238835813E-56" />
-      <entry key="M5" value="1.0430083202011944E-22" />
-      <entry key="M10" value="1.466848556899357E-11" />
-      <entry key="M15" value="8.024277853082737E-8" />
-      <entry key="M30" value="5.16169465368238E-4" />
-      <entry key="H1" value="0.04808565382305174" />
-      <entry key="H2" value="0.5030530223691622" />
-      <entry key="H4" value="1.6961063810628345" />
-      <entry key="D1" value="4.8400207319688855" />
-      <entry key="W1" value="5.81795864344571" />
+      <entry key="S30" value="1.675864058576928E-231" />
+      <entry key="S60" value="5.318116318324074E-116" />
+      <entry key="M2" value="3.1810204941534507E-58" />
+      <entry key="M5" value="1.5100979123876515E-23" />
+      <entry key="M10" value="5.5814102432639765E-12" />
+      <entry key="M15" value="4.213520098369929E-8" />
+      <entry key="M30" value="3.740346749996822E-4" />
+      <entry key="H1" value="0.04093316286118919" />
+      <entry key="H2" value="0.46413428624177605" />
+      <entry key="H4" value="1.6291761080692797" />
+      <entry key="D1" value="4.807652244713564" />
+      <entry key="W1" value="5.81238427198786" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.047747281512461465" />
-      <entry key="MS500" value="0.6830731721665664" />
-      <entry key="S2" value="1.6276615846322784" />
-      <entry key="S5" value="2.6474145194520813" />
-      <entry key="S10" value="3.492301844216232" />
-      <entry key="S30" value="4.39382179199805" />
-      <entry key="S60" value="4.681429644405785" />
-      <entry key="M2" value="4.8366227559993815" />
-      <entry key="M5" value="4.933637083651442" />
-      <entry key="M10" value="4.966657553113518" />
-      <entry key="M15" value="4.979049085294708" />
-      <entry key="M30" value="5.269176064587543" />
-      <entry key="H1" value="12.04781909383412" />
-      <entry key="H2" value="48.96737525977888" />
-      <entry key="H4" value="123.07485819783922" />
-      <entry key="D1" value="323.2747111549883" />
-      <entry key="W1" value="428.49036897734663" />
+      <entry key="MS100" value="0.9726553390180148" />
+      <entry key="MS500" value="1.0675125926846203" />
+      <entry key="S2" value="2.08089321695242" />
+      <entry key="S5" value="2.976690634183924" />
+      <entry key="S10" value="3.431437984726719" />
+      <entry key="S30" value="3.7960978016106535" />
+      <entry key="S60" value="3.899890740558257" />
+      <entry key="M2" value="4.10388086621008" />
+      <entry key="M5" value="5.669526867084036" />
+      <entry key="M10" value="7.855432421947156" />
+      <entry key="M15" value="9.107216428779708" />
+      <entry key="M30" value="10.97684562946077" />
+      <entry key="H1" value="17.810486457349842" />
+      <entry key="H2" value="52.949855653025075" />
+      <entry key="H4" value="126.10193128953009" />
+      <entry key="D1" value="329.09314210118987" />
+      <entry key="W1" value="436.0770110270815" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -169,14 +194,6 @@
       <workItem from="1748379420413" duration="3000" />
       <workItem from="1779547815911" duration="29068000" />
       <workItem from="1779695741143" duration="8369000" />
-    </task>
-    <task id="LOCAL-00015" summary="fixing unversioned files">
-      <option name="closed" value="true" />
-      <created>1749067460483</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1749067460483</updated>
     </task>
     <task id="LOCAL-00016" summary="adding from the blog and shop our gear sections to homepage">
       <option name="closed" value="true" />
@@ -562,14 +579,21 @@
       <option name="project" value="LOCAL" />
       <updated>1780594091923</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="patch fixes">
+      <option name="closed" value="true" />
+      <created>1780606268373</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1780606268373</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Improving the faq page" />
     <MESSAGE value="Improving the about page" />
     <MESSAGE value="Improving the capsule dumbbell product page" />
     <MESSAGE value="Improving the products page" />
@@ -594,7 +618,8 @@
     <MESSAGE value="add gtags for analytics" />
     <MESSAGE value="add gtag events &#10;&#10;Product page → should show view_item&#10;Click Pre-Order → should show add_to_cart&#10;Checkout page → should show begin_checkout" />
     <MESSAGE value="add window datalayer" />
-    <option name="LAST_COMMIT_MESSAGE" value="add window datalayer" />
+    <MESSAGE value="patch fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="patch fixes" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

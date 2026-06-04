@@ -41,35 +41,35 @@
         <section class="blog-grid">
 
             <article class="blog-card">
-                <a href="/blog/dumbbells/dumbbell-for-beginners.html">
+                <a href="/blog/dumbbells/dumbbell-for-beginners">
                     <h2>Dumbbell for Beginners: Where to Start</h2>
                     <p>New to strength training? Learn how to build consistency, not bulk — with the right weights and routine.</p>
                 </a>
             </article>
 
             <article class="blog-card">
-                <a href="/blog/dumbbells/dumbbell-exercises-for-arms.html">
+                <a href="/blog/dumbbells/dumbbell-exercises-for-arms">
                     <h2>Top 5 Dumbbell Exercises for Toned Arms</h2>
                     <p>Say hello to graceful arms — no heavy lifting needed. These dumbbell moves sculpt and tone mindfully.</p>
                 </a>
             </article>
 
             <article class="blog-card">
-                <a href="/blog/dumbbells/womens-dumbbell.html">
+                <a href="/blog/dumbbells/womens-dumbbell">
                     <h2>The Women’s Dumbbell Guide</h2>
                     <p>How to choose the best dumbbell weight for you. A pastel roadmap to strength, comfort, and results.</p>
                 </a>
             </article>
 
             <article class="blog-card">
-                <a href="/blog/dumbbells/weightloss-with-dumbbells.html">
+                <a href="/blog/dumbbells/weightloss-with-dumbbells">
                     <h2>Dumbbells for Women: A Mind-Body Approach</h2>
                     <p>Toning, metabolism, posture — here's how light dumbbells fit into your weight loss and wellness journey.</p>
                 </a>
             </article>
 
             <article class="blog-card">
-                <a href="/blog/dumbbells/capsule-dumbbells.html">
+                <a href="/blog/dumbbells/capsule-dumbbells">
                     <h2>What Is a Capsule Dumbbell?</h2>
                     <p>Meet the Capsule Dumbbell — A Revolution in Fitness Design</p>
                 </a>
@@ -83,7 +83,7 @@
 
 <!-- Load Navbar and Footer -->
 <script>
-    fetch("/partials/navbar.html")
+    fetch("/partials/navbar")
       .then(res => res.text())
       .then(data => {
         document.getElementById("navbar-placeholder").innerHTML = data;
@@ -93,7 +93,7 @@
         document.body.appendChild(script);
       });
 
-    fetch("/partials/footer.html")
+    fetch("/partials/footer")
       .then(res => res.text())
       .then(data => {
         document.getElementById("footer-placeholder").innerHTML = data;
