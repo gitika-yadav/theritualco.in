@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="add policy pages + founder + press page + update sitemap.xml">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="update readibilty of privacy policy">
       <change beforePath="$PROJECT_DIR$/privacy-policy.html" beforeDir="false" afterPath="$PROJECT_DIR$/privacy-policy.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -31,61 +30,61 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.023847800140009" />
-      <entry key="MS500" value="1.4744745474339245" />
-      <entry key="S2" value="2.064121086891458" />
-      <entry key="S5" value="3.212110880444869" />
-      <entry key="S10" value="5.217691946665376" />
-      <entry key="S30" value="12.875713964561347" />
-      <entry key="S60" value="22.93479770025211" />
-      <entry key="M2" value="38.138232298558165" />
-      <entry key="M5" value="61.472137870704294" />
-      <entry key="M10" value="76.79119859393809" />
-      <entry key="M15" value="85.41755338868384" />
-      <entry key="M30" value="107.17123545137909" />
-      <entry key="H1" value="142.92145902416115" />
-      <entry key="H2" value="183.9317067779589" />
-      <entry key="H4" value="219.87310229542834" />
-      <entry key="D1" value="307.17671168674053" />
-      <entry key="W1" value="371.415176170064" />
+      <entry key="MS100" value="1.0960546988305044" />
+      <entry key="MS500" value="1.6271957740866072" />
+      <entry key="S2" value="2.0813839967486003" />
+      <entry key="S5" value="2.5787451528866003" />
+      <entry key="S10" value="3.2540009305885285" />
+      <entry key="S30" value="5.249376438202307" />
+      <entry key="S60" value="8.298261915698925" />
+      <entry key="M2" value="18.055511591494337" />
+      <entry key="M5" value="48.40151291421488" />
+      <entry key="M10" value="76.8692813776452" />
+      <entry key="M15" value="92.73272924172862" />
+      <entry key="M30" value="123.24509507194557" />
+      <entry key="H1" value="164.33079610640527" />
+      <entry key="H2" value="209.16795875095065" />
+      <entry key="H4" value="247.85280290076838" />
+      <entry key="D1" value="338.2531643728985" />
+      <entry key="W1" value="403.25689589797287" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
       <entry key="S2" value="0.0" />
-      <entry key="S5" value="2.7963729465912718E-229" />
-      <entry key="S10" value="5.309170724309482E-115" />
-      <entry key="S30" value="9.369968782567114E-39" />
-      <entry key="S60" value="1.2574986009081005E-19" />
-      <entry key="M2" value="4.891491535879786E-10" />
-      <entry key="M5" value="2.8428571853191827E-4" />
-      <entry key="M10" value="0.024216920325507322" />
-      <entry key="M15" value="0.11208866975224649" />
-      <entry key="M30" value="0.61005668163266" />
-      <entry key="H1" value="1.653120321864128" />
-      <entry key="H2" value="2.94956677241132" />
-      <entry key="H4" value="4.107005863061983" />
-      <entry key="D1" value="5.608661903794858" />
-      <entry key="W1" value="5.941761382109583" />
+      <entry key="S5" value="1.0666203625575458E-250" />
+      <entry key="S10" value="1.0368933285646229E-125" />
+      <entry key="S30" value="2.5233293569143265E-42" />
+      <entry key="S60" value="2.0635994751396776E-21" />
+      <entry key="M2" value="6.266142332786592E-11" />
+      <entry key="M5" value="1.2496218849878055E-4" />
+      <entry key="M10" value="0.01605575390069091" />
+      <entry key="M15" value="0.08522550336085176" />
+      <entry key="M30" value="0.531954047934797" />
+      <entry key="H1" value="1.5436769866533944" />
+      <entry key="H2" value="2.850258271503071" />
+      <entry key="H4" value="4.037274828851997" />
+      <entry key="D1" value="5.59267728112187" />
+      <entry key="W1" value="5.939339286038638" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.02669407387356055" />
-      <entry key="MS500" value="0.6220641461524575" />
-      <entry key="S2" value="1.621097020091549" />
-      <entry key="S5" value="2.9223342486404476" />
-      <entry key="S10" value="4.986448355636861" />
-      <entry key="S30" value="12.674132042175444" />
-      <entry key="S60" value="22.744176248079835" />
-      <entry key="M2" value="37.974324085024264" />
-      <entry key="M5" value="61.36514944784638" />
-      <entry key="M10" value="76.74839141324367" />
-      <entry key="M15" value="85.48015389966444" />
-      <entry key="M30" value="107.75096255112082" />
-      <entry key="H1" value="144.55500605735406" />
-      <entry key="H2" value="186.8690533683886" />
-      <entry key="H4" value="223.97301275733022" />
-      <entry key="D1" value="312.7839209750135" />
-      <entry key="W1" value="377.3567145707174" />
+      <entry key="MS100" value="0.11254131150599676" />
+      <entry key="MS500" value="0.9985220640306507" />
+      <entry key="S2" value="1.8184916638351742" />
+      <entry key="S5" value="2.427988536818053" />
+      <entry key="S10" value="3.148984164191993" />
+      <entry key="S30" value="5.187655921061806" />
+      <entry key="S60" value="8.251936379320801" />
+      <entry key="M2" value="18.00103372143376" />
+      <entry key="M5" value="48.332828203531314" />
+      <entry key="M10" value="76.82761930435655" />
+      <entry key="M15" value="92.77080422782394" />
+      <entry key="M30" value="123.74546985010798" />
+      <entry key="H1" value="165.85352890333704" />
+      <entry key="H2" value="212.0050487990051" />
+      <entry key="H4" value="251.88241639862719" />
+      <entry key="D1" value="343.8442778423756" />
+      <entry key="W1" value="409.19599579379695" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -167,14 +166,6 @@
       <workItem from="1748379420413" duration="3000" />
       <workItem from="1779547815911" duration="29068000" />
       <workItem from="1779695741143" duration="8369000" />
-    </task>
-    <task id="LOCAL-00010" summary="adding capsule dumbbell blog post">
-      <option name="closed" value="true" />
-      <created>1749061420431</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1749061420431</updated>
     </task>
     <task id="LOCAL-00011" summary="adding best dumbbell for women in india blog">
       <option name="closed" value="true" />
@@ -560,14 +551,21 @@
       <option name="project" value="LOCAL" />
       <updated>1780583931809</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="update readibilty of privacy policy">
+      <option name="closed" value="true" />
+      <created>1780587783206</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1780587783206</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fixing unversioned files" />
     <MESSAGE value="adding from the blog and shop our gear sections to homepage" />
     <MESSAGE value="updating about" />
     <MESSAGE value="adding organisation and product schema" />
@@ -592,7 +590,8 @@
     <MESSAGE value="Improve blog url make it cleaner" />
     <MESSAGE value="update sitemap.xml" />
     <MESSAGE value="add policy pages + founder + press page + update sitemap.xml" />
-    <option name="LAST_COMMIT_MESSAGE" value="add policy pages + founder + press page + update sitemap.xml" />
+    <MESSAGE value="update readibilty of privacy policy" />
+    <option name="LAST_COMMIT_MESSAGE" value="update readibilty of privacy policy" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
