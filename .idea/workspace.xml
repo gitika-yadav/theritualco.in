@@ -4,19 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="fix of privacy policy">
-      <change beforePath="$PROJECT_DIR$/blog/dumbbells/weightloss-with-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/weightloss-with-dumbbells.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/dumbbells/womens-dumbbell.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/womens-dumbbell.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/homegym/home-gym-design-small-spaces.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/homegym/home-gym-design-small-spaces.html" afterDir="false" />
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="add gtags for analytics">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/checkout.html" beforeDir="false" afterPath="$PROJECT_DIR$/checkout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/founder.html" beforeDir="false" afterPath="$PROJECT_DIR$/founder.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/press.html" beforeDir="false" afterPath="$PROJECT_DIR$/press.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/privacy-policy.html" beforeDir="false" afterPath="$PROJECT_DIR$/privacy-policy.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/partials/head.html" beforeDir="false" afterPath="$PROJECT_DIR$/partials/head.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/products/capsule-dumbbell.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/capsule-dumbbell.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/products.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/products.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/refund-policy.html" beforeDir="false" afterPath="$PROJECT_DIR$/refund-policy.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shipping-policy.html" beforeDir="false" afterPath="$PROJECT_DIR$/shipping-policy.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terms-and-conditions.html" beforeDir="false" afterPath="$PROJECT_DIR$/terms-and-conditions.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,60 +35,60 @@
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
       <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.000000056796916" />
-      <entry key="S2" value="1.0284494220355385" />
-      <entry key="S5" value="1.4631236073914464" />
-      <entry key="S10" value="2.3789925508373146" />
-      <entry key="S30" value="4.942960866041265" />
-      <entry key="S60" value="8.191914451551288" />
-      <entry key="M2" value="17.808868734996274" />
-      <entry key="M5" value="48.036003256599585" />
-      <entry key="M10" value="76.77720080582489" />
-      <entry key="M15" value="92.85233479418818" />
-      <entry key="M30" value="123.65866210447965" />
-      <entry key="H1" value="164.93936508338675" />
-      <entry key="H2" value="209.91869432816029" />
-      <entry key="H4" value="248.70507639621556" />
-      <entry key="D1" value="339.21955479290773" />
-      <entry key="W1" value="404.2511715836286" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.0000000000000662" />
+      <entry key="S30" value="1.0001614373784193" />
+      <entry key="S60" value="1.0359274719664286" />
+      <entry key="M2" value="1.5360782924072192" />
+      <entry key="M5" value="3.7142790904211167" />
+      <entry key="M10" value="5.958039321496986" />
+      <entry key="M15" value="8.87665563959569" />
+      <entry key="M30" value="27.13228856628146" />
+      <entry key="H1" value="73.72734093762172" />
+      <entry key="H2" value="140.84807054589885" />
+      <entry key="H4" value="206.18929396716754" />
+      <entry key="D1" value="335.36693192462087" />
+      <entry key="W1" value="411.02768569543446" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
       <entry key="S2" value="0.0" />
-      <entry key="S5" value="1.915571492095192E-251" />
-      <entry key="S10" value="4.394184902230231E-126" />
-      <entry key="S30" value="1.8953468137738494E-42" />
-      <entry key="S60" value="1.788474627366674E-21" />
-      <entry key="M2" value="5.833496515060304E-11" />
-      <entry key="M5" value="1.214367392936233E-4" />
-      <entry key="M10" value="0.015827650078375593" />
-      <entry key="M15" value="0.08441638169947861" />
-      <entry key="M30" value="0.5294228689803419" />
-      <entry key="H1" value="1.539999994413275" />
-      <entry key="H2" value="2.846861632806149" />
-      <entry key="H4" value="4.0348685115079705" />
-      <entry key="D1" value="5.592121580379821" />
-      <entry key="W1" value="5.9392549758993285" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="1.1319743296029516E-270" />
+      <entry key="S30" value="1.2059837049619164E-90" />
+      <entry key="S60" value="1.4266227929859495E-45" />
+      <entry key="M2" value="5.2100528688225493E-23" />
+      <entry key="M5" value="1.839565993146804E-9" />
+      <entry key="M10" value="6.160260501163875E-5" />
+      <entry key="M15" value="0.0020887276936654704" />
+      <entry key="M30" value="0.08327799163603697" />
+      <entry key="H1" value="0.6107795563476702" />
+      <entry key="H2" value="1.792867711599407" />
+      <entry key="H4" value="3.201992642800202" />
+      <entry key="D1" value="5.380736964187812" />
+      <entry key="W1" value="5.906650557447287" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9726549474122855" />
-      <entry key="MS500" value="0.9944702035264108" />
-      <entry key="S2" value="1.0234707411421422" />
-      <entry key="S5" value="1.4354944671710899" />
-      <entry key="S10" value="2.33421093667972" />
-      <entry key="S30" value="4.896508356954378" />
-      <entry key="S60" value="8.151718956373395" />
-      <entry key="M2" value="17.758129185011928" />
-      <entry key="M5" value="47.969247045817234" />
-      <entry key="M10" value="76.73612600393162" />
-      <entry key="M15" value="92.89004521985645" />
-      <entry key="M30" value="124.156654425933" />
-      <entry key="H1" value="166.45847000634632" />
-      <entry key="H2" value="212.75240304494292" />
-      <entry key="H4" value="252.73228795053544" />
-      <entry key="D1" value="344.8101126849364" />
-      <entry key="W1" value="410.19018716812724" />
+      <entry key="MS100" value="0.0013340236882367139" />
+      <entry key="MS500" value="0.26609254561333995" />
+      <entry key="S2" value="0.7182211286579361" />
+      <entry key="S5" value="0.8759983150671258" />
+      <entry key="S10" value="0.9359478164231431" />
+      <entry key="S30" value="0.9783378941279858" />
+      <entry key="S60" value="1.0249540092051443" />
+      <entry key="M2" value="1.530565952800807" />
+      <entry key="M5" value="3.712051261564712" />
+      <entry key="M10" value="5.956757290355489" />
+      <entry key="M15" value="8.876837901580473" />
+      <entry key="M30" value="27.210245534506825" />
+      <entry key="H1" value="74.3296443352136" />
+      <entry key="H2" value="142.63256034421164" />
+      <entry key="H4" value="209.38516286576194" />
+      <entry key="D1" value="340.7461564152787" />
+      <entry key="W1" value="416.9340970479345" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -177,14 +170,6 @@
       <workItem from="1748379420413" duration="3000" />
       <workItem from="1779547815911" duration="29068000" />
       <workItem from="1779695741143" duration="8369000" />
-    </task>
-    <task id="LOCAL-00012" summary="updating capsule dumbbell page">
-      <option name="closed" value="true" />
-      <created>1749065160352</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1749065160352</updated>
     </task>
     <task id="LOCAL-00013" summary="automating sitemap generation with generate-sitemap.js">
       <option name="closed" value="true" />
@@ -570,14 +555,21 @@
       <option name="project" value="LOCAL" />
       <updated>1780588008484</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="add gtags for analytics">
+      <option name="closed" value="true" />
+      <created>1780592382909</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1780592382909</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="updating about" />
     <MESSAGE value="adding organisation and product schema" />
     <MESSAGE value="adding blog schema and writing script to automate it" />
     <MESSAGE value="Improving the faq page" />
@@ -602,7 +594,8 @@
     <MESSAGE value="add policy pages + founder + press page + update sitemap.xml" />
     <MESSAGE value="update readibilty of privacy policy" />
     <MESSAGE value="fix of privacy policy" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix of privacy policy" />
+    <MESSAGE value="add gtags for analytics" />
+    <option name="LAST_COMMIT_MESSAGE" value="add gtags for analytics" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

@@ -335,75 +335,43 @@ Total
                 handler:
                     async function(response){
 
-                        const verify=
+                        gtag('event', 'purchase', {
+                            transaction_id: response.razorpay_payment_id,
+                            value: 1999,
+                            currency: 'INR'
+                        });
 
-                            await fetch(
-
-                                "/.netlify/functions/verify-payment",
-
-                                {
-
-                                    method:"POST",
-
-                                    headers:{
-
+                        const verify= await fetch("/.netlify/functions/verify-payment",
+                            {     method:"POST",
+                                  headers:{
                                         "Content-Type":
-
                                             "application/json"
-
                                     },
-
                                     body:
-
                                         JSON.stringify({
-
-                                            razorpay_order_id:
-
-                                            response
-                                                .razorpay_order_id,
-
-                                            razorpay_payment_id:
-
-                                            response
-                                                .razorpay_payment_id,
-
-                                            razorpay_signature:
-
-                                            response
-                                                .razorpay_signature
-
+                                            razorpay_order_id: response.razorpay_order_id,
+                                            razorpay_payment_id: response.razorpay_payment_id,
+                                            razorpay_signature: response.razorpay_signature
                                         })
-
                                 }
 
                             );
 
-                        const verified=
-
-                            await verify.json();
-
+                        const verified= await verify.json();
                         if(
                             !verified.success
                         ){
-
                             alert(
                                 "Payment verification failed"
                             );
-
                             return;
-
                         }
 
                         await fetch(
-
                             "https://script.google.com/macros/s/AKfycbx0MAr86D_9PcUEm6hLmhYHExZK4JdFxZB-VuixvPNAJ1xDE7PqvRxu6F1ncpqViNSN/exec",
-
                             {
-
                                 method:"POST",
-
                                 body:
-
                                     JSON.stringify({
                                         name,
                                         email,
@@ -413,33 +381,27 @@ Total
                                         product: "Capsule Dumbbells",
                                         weight: amount==="1999" ? "2 KG" : "1 KG",
                                         amount,
-                                        paymentId:
-                                        response
-                                            .razorpay_payment_id,
-                                        orderId:
-                                        response
-                                            .razorpay_order_id
-
+                                        paymentId: response.razorpay_payment_id,
+                                        orderId: response.razorpay_order_id
                                     })
-
                             }
-
                         );
-
                         window.location=
-
                             "/thank-you.html";
-
                     }
-
             });
-
         razorpay.open();
 
     };
 
 </script>
 <script src="/javascript/checkout.js"></script>
+<script>
+    gtag('event', 'begin_checkout', {
+        currency: 'INR',
+        value: 1999
+    });
+</script>
 </body>
 
 </html>

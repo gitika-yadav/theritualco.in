@@ -325,8 +325,8 @@
           .then((r) => r.json())
 
           .then(() => {
+            gtag('event', 'waitlist_signup');
             form.style.display = "none";
-
             document.getElementById("confirmation").style.display = "block";
           })
 
@@ -336,15 +336,11 @@
       }
 
       document
-
         .getElementById("waitlist-form")
-
         .addEventListener(
           "submit",
-
           function (e) {
             e.preventDefault();
-
             grecaptcha.execute();
           }
         );

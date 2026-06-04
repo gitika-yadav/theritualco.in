@@ -199,13 +199,7 @@
 
                 </div>
 
-                <a
-                        href="/checkout.html"
-                        class="btn-primary">
-
-                    Pre-Order Now
-
-                </a>
+                <a href="/checkout.html" class="btn-primary" id="buy-now-btn">Order Now</a>
 
                 <!-- Trust strip -->
                 <div class="trust">
@@ -353,6 +347,34 @@
         console.error(err);
         alert('Something went wrong. Please try again.');
       });
+    });
+</script>
+
+<script>
+    gtag('event', 'view_item', {
+        currency: 'INR',
+        value: 1999,
+        items: [{
+            item_id: 'capsule-dumbbell-1kg',
+            item_name: 'Capsule Dumbbell 1kg',
+            price: 1999
+        }]
+    });
+</script>
+
+<script>
+    document.getElementById("buy-now-btn").addEventListener("click", function() {
+
+        gtag('event', 'add_to_cart', {
+            currency: 'INR',
+            value: 1999,
+            items: [{
+                item_id: 'capsule-dumbbell-1kg',
+                item_name: 'Capsule Dumbbell 1kg',
+                price: 1999
+            }]
+        });
+
     });
 </script>
 </body>
