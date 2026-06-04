@@ -4,33 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="Add pinterest to footer">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/category-dumbbells/bloglist/capsule-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/capsule-dumbbells.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/category-dumbbells/bloglist/dumbbell-exercises-for-arms.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/dumbbell-exercises-for-arms.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/category-dumbbells/bloglist/dumbbell-for-beginners.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/dumbbell-for-beginners.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/category-dumbbells/bloglist/weightloss-with-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/weightloss-with-dumbbells.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/category-dumbbells/bloglist/womens-dumbbell.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/womens-dumbbell.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/category-dumbbells/dumbbell-bloglist.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/dumbbell-bloglist.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/category-homegym/bloglist/home-gym-design-small-spaces.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/homegym/home-gym-design-small-spaces.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/category-homegym/bloglist/home-gym-equipment-for-women.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/homegym/home-gym-equipment-for-women.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/category-homegym/bloglist/pinterest-worthy-home-gym-setup.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/homegym/pinterest-worthy-home-gym-setup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/category-homegym/homegym-bloglist.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/homegym/homegym-bloglist.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/category-ritual-mindset/bloglist/how-to-make-fitness-a-ritual.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/ritual-mindset/how-to-make-fitness-a-ritual.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/category-ritual-mindset/ritual-mindset-bloglist.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/ritual-mindset/ritual-mindset-bloglist.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/category-weightloss/bloglist/weightloss-with-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/weightloss/weightloss-with-dumbbells.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/category-weightloss/weightloss-bloglist.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/weightloss/weightloss-bloglist.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/category-wellness/wellness-bloglist.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/wellness/wellness-bloglist.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/category-womens-wellness/bloglist/best-dumbbell-for-women.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/womens-wellness/best-dumbbell-for-women.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/category-womens-wellness/bloglist/dumbbell-exercises-for-arms.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/womens-wellness/dumbbell-exercises-for-arms.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/category-womens-wellness/bloglist/dumbbell-for-beginners.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/womens-wellness/dumbbell-for-beginners.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/category-womens-wellness/bloglist/home-gym-equipment-for-women.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/womens-wellness/home-gym-equipment-for-women.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/category-womens-wellness/bloglist/weightloss-with-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/womens-wellness/weightloss-with-dumbbells.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/category-womens-wellness/bloglist/womens-dumbbell.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/womens-wellness/womens-dumbbell.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/category-womens-wellness/womens-wellness-bloglist.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/womens-wellness/womens-wellness-bloglist.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/feed.xml" beforeDir="false" afterPath="$PROJECT_DIR$/feed.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javascript/generate-blog-schema.js" beforeDir="false" afterPath="$PROJECT_DIR$/javascript/generate-blog-schema.js" afterDir="false" />
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="Improve blog url make it cleaner">
       <change beforePath="$PROJECT_DIR$/sitemap.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sitemap.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -56,23 +30,23 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0363979245771393" />
-      <entry key="MS500" value="1.5154841593973942" />
-      <entry key="S2" value="1.8473324349461184" />
-      <entry key="S5" value="1.9358829437124094" />
-      <entry key="S10" value="1.967410431881117" />
-      <entry key="S30" value="1.9890166179168078" />
-      <entry key="S60" value="1.9945331728121478" />
-      <entry key="M2" value="2.0119358479001592" />
-      <entry key="M5" value="2.6446976439123464" />
-      <entry key="M10" value="4.692819674785111" />
-      <entry key="M15" value="6.472296869807435" />
-      <entry key="M30" value="9.557285328180859" />
-      <entry key="H1" value="11.890101840201877" />
-      <entry key="H2" value="13.467439758313866" />
-      <entry key="H4" value="16.69484591395468" />
-      <entry key="D1" value="66.82875437495031" />
-      <entry key="W1" value="115.56944731212525" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.0" />
+      <entry key="S30" value="1.0000000340195134" />
+      <entry key="S60" value="1.0004148964837982" />
+      <entry key="M2" value="1.0476685950270466" />
+      <entry key="M5" value="1.9373427857892431" />
+      <entry key="M10" value="4.159219594649146" />
+      <entry key="M15" value="6.288466541178554" />
+      <entry key="M30" value="10.732098802682643" />
+      <entry key="H1" value="14.756262807097029" />
+      <entry key="H2" value="17.649451042922497" />
+      <entry key="H4" value="21.584210665385786" />
+      <entry key="D1" value="72.16886842810604" />
+      <entry key="W1" value="121.40917422688628" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -94,23 +68,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9342822763783732" />
-      <entry key="MS500" value="1.4849963380125788" />
-      <entry key="S2" value="1.8380459957515343" />
-      <entry key="S5" value="1.9319910512444587" />
-      <entry key="S10" value="1.9654329258460648" />
-      <entry key="S30" value="1.9883502402080013" />
-      <entry key="S60" value="1.9941990691139804" />
-      <entry key="M2" value="2.0117681998439187" />
-      <entry key="M5" value="2.64460979514903" />
-      <entry key="M10" value="4.6927216687733395" />
-      <entry key="M15" value="6.472194847835475" />
-      <entry key="M30" value="9.557200060137" />
-      <entry key="H1" value="11.890045620889829" />
-      <entry key="H2" value="13.467400671750337" />
-      <entry key="H4" value="16.69477154965388" />
-      <entry key="D1" value="66.8286456028016" />
-      <entry key="W1" value="115.56942353964291" />
+      <entry key="MS100" value="0.9592641193252643" />
+      <entry key="MS500" value="0.9917167307382933" />
+      <entry key="S2" value="0.9979227189990506" />
+      <entry key="S5" value="0.999168569213607" />
+      <entry key="S10" value="0.9995841981612189" />
+      <entry key="S30" value="0.999861414189649" />
+      <entry key="S60" value="1.0003455694241128" />
+      <entry key="M2" value="1.0476329621515028" />
+      <entry key="M5" value="1.9373178272367368" />
+      <entry key="M10" value="4.1591806941367455" />
+      <entry key="M15" value="6.2884144932790855" />
+      <entry key="M30" value="10.732038048225329" />
+      <entry key="H1" value="14.756214351555025" />
+      <entry key="H2" value="17.649414226143676" />
+      <entry key="H4" value="21.584139409393572" />
+      <entry key="D1" value="72.16876050934572" />
+      <entry key="W1" value="121.40915046236134" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -192,14 +166,6 @@
       <workItem from="1748379420413" duration="3000" />
       <workItem from="1779547815911" duration="29068000" />
       <workItem from="1779695741143" duration="8369000" />
-    </task>
-    <task id="LOCAL-00007" summary="Adding home gym design on a budgett blog">
-      <option name="closed" value="true" />
-      <created>1748807320008</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1748807320008</updated>
     </task>
     <task id="LOCAL-00008" summary="pinterest-worthy-home-gym-setup.html">
       <option name="closed" value="true" />
@@ -585,14 +551,21 @@
       <option name="project" value="LOCAL" />
       <updated>1780564367381</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="Improve blog url make it cleaner">
+      <option name="closed" value="true" />
+      <created>1780566509298</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1780566509298</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="updating capsule dumbbell page" />
     <MESSAGE value="automating sitemap generation with generate-sitemap.js" />
     <MESSAGE value="automating feed generation with generate-feed.js" />
     <MESSAGE value="fixing unversioned files" />
@@ -617,7 +590,8 @@
     <MESSAGE value="fix" />
     <MESSAGE value="Revert &quot;fix&quot;&#10;&#10;This reverts commit da69303b8fe5c08c027bcccd7483c1877a5bd828." />
     <MESSAGE value="Add pinterest to footer" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add pinterest to footer" />
+    <MESSAGE value="Improve blog url make it cleaner" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improve blog url make it cleaner" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
