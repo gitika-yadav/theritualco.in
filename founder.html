@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/founder.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Founder | The Ritual Co</title>
+    <meta name="description" content="Meet Gitika Yadav, founder of The Ritual Co, a fitness brand creating premium silicone dumbbells and wellness products designed to make movement a ritual.">
+</head>
+<body>
+<main>
+    <header>    <div id="navbar-placeholder"></div>
+    </header>
+
+    <section class="container">
+        <h1>Meet the Founder</h1>
+
+        <p>Hi, I'm <strong>Gitika Yadav</strong>, founder of The Ritual Co.</p>
+
+        <p>
+            I'm a software engineer, fitness enthusiast, and entrepreneur who believes
+            that movement should be an enjoyable and sustainable part of everyday life.
+        </p>
+
+        <p>
+            The Ritual Co was born from a simple observation: most fitness equipment
+            is either highly functional but unattractive, or aesthetically pleasing but
+            lacks quality and durability.
+        </p>
+
+        <p>
+            I wanted to create fitness products that people would be proud to keep in
+            their homes and excited to use every day.
+        </p>
+
+        <p>
+            Our mission is to design premium fitness equipment that blends performance,
+            durability, and aesthetics—helping people turn movement into a daily ritual.
+        </p>
+
+        <p>
+            We are starting with thoughtfully designed silicone dumbbells and plan to
+            expand into a broader collection of wellness and fitness essentials.
+        </p>
+
+        <blockquote>
+            "Because Movement Is A Ritual."
+        </blockquote>
+
+        <p>
+            Thank you for being part of our journey.
+        </p>
+
+        <p>
+            <strong>Gitika Yadav</strong><br>
+            Founder, The Ritual Co
+        </p>
+    </section>
+    <footer>     <div id="footer-placeholder"></div>
+    </footer>
+</main>
+
+</body>
+
+<!-- Load Navbar and Footer -->
+<script>
+    fetch("/partials/navbar.html")
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById("navbar-placeholder").innerHTML = data;
+            // ✅ Load the JS only after navbar is injected
+            const script = document.createElement('script');
+            script.src = '/js/navbar.js';
+            document.body.appendChild(script);
+        });
+
+    fetch("/partials/footer.html")
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById("footer-placeholder").innerHTML = data;
+        });
+</script>
+</html>

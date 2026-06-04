@@ -1,0 +1,32 @@
+main {
+    padding-top: 100px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 80px auto;
+    padding: 0 24px;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.8;
+    color: #222;
+}
+
+/* Cards (optional for press page) */
+.card {
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 16px;
+    padding: 24px;
+    margin: 20px 0;
+}
+
+/* Links */
+a {
+    color: #111;
+    text-decoration: underline;
+    transition: opacity 0.2s ease;
+}
+
+a:hover {
+    opacity: 0.7;
+}

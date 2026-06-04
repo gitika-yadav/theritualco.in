@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refund & Return Policy | The Ritual Co</title>
+    <meta name="description" content="Refund and Return Policy for The Ritual Co. Learn about returns, refunds, replacements and eligibility requirements.">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/policy.css">
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<main>
+    <header>
+        <div id="navbar-placeholder"></div>
+    </header>
+
+    <section class="container">
+
+        <h1>Refund & Return Policy</h1>
+
+        <p>Last Updated: June 2026</p>
+
+        <h2>Returns</h2>
+
+        <p>
+            We want you to be satisfied with your purchase. If you receive a damaged,
+            defective, or incorrect product, please contact us within 7 days of
+            delivery.
+        </p>
+
+        <p>
+            To be eligible for a return, the product must be unused and returned in
+            its original packaging with all included accessories and materials.
+        </p>
+
+        <h2>Non-Returnable Items</h2>
+
+        <p>
+            Products showing signs of misuse, intentional damage, modification, or
+            excessive wear may not be eligible for return or refund.
+        </p>
+
+        <h2>Damaged or Defective Products</h2>
+
+        <p>
+            If you receive a damaged or defective item, please email us with:
+        </p>
+
+        <ul>
+            <li>Your order number</li>
+            <li>Photographs of the product</li>
+            <li>Photographs of the packaging</li>
+        </ul>
+
+        <p>
+            Once reviewed, we may offer a replacement, store credit, or refund,
+            depending on the circumstances.
+        </p>
+
+        <h2>Refund Process</h2>
+
+        <p>
+            Approved refunds will be processed to the original payment method.
+        </p>
+
+        <p>
+            Refund processing times may vary depending on your payment provider and
+            banking institution.
+        </p>
+
+        <h2>Order Cancellations</h2>
+
+        <p>
+            Orders may be cancelled before shipment. Once an order has been shipped,
+            it may no longer be eligible for cancellation.
+        </p>
+
+        <h2>Exchanges</h2>
+
+        <p>
+            Exchanges are subject to product availability and eligibility.
+        </p>
+
+        <h2>Contact Us</h2>
+
+        <p>
+            For return, refund, or replacement requests, contact:
+        </p>
+
+        <p>
+            theritualcoofficial@gmail.com
+        </p>
+
+
+
+</section>
+    <div id="footer-placeholder"></div>
+</main>
+</body>
+
+<!-- Load Navbar and Footer -->
+<script>
+    fetch("/partials/navbar.html")
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById("navbar-placeholder").innerHTML = data;
+            // ✅ Load the JS only after navbar is injected
+            const script = document.createElement('script');
+            script.src = '/js/navbar.js';
+            document.body.appendChild(script);
+        });
+
+    fetch("/partials/footer.html")
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById("footer-placeholder").innerHTML = data;
+        });
+</script>
+</html>

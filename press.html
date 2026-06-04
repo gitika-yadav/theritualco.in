@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/press.css">
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Press & Media | The Ritual Co</title>
+    <meta name="description" content="Press information, founder story, media mentions and partnership opportunities for The Ritual Co.">
+</head>
+<body>
+<main>
+    <header>
+        <div id="navbar-placeholder"></div>
+    </header>
+
+
+    <section class="container">
+
+        <h1>Press & Media</h1>
+
+        <p>
+            The Ritual Co is a fitness and wellness brand creating thoughtfully
+            designed fitness equipment for modern lifestyles.
+        </p>
+
+        <h2>About The Ritual Co</h2>
+
+        <p>
+            Founded in India, The Ritual Co focuses on premium fitness products
+            that combine durability, functionality and aesthetic design.
+        </p>
+
+        <p>
+            Our mission is to help people build consistent fitness habits by making
+            movement feel like a daily ritual.
+        </p>
+
+        <h2>Founder</h2>
+
+        <p>
+            The Ritual Co was founded by <strong>Gitika Yadav</strong>, a software
+            engineer and fitness enthusiast passionate about creating better fitness
+            experiences for modern consumers.
+        </p>
+
+        <h2>Media Mentions</h2>
+
+        <ul>
+            <li>Featured in Radio City India Interview</li>
+            <li>Selected for the Cult Fit Accelerator Program</li>
+        </ul>
+
+        <h2>Partnerships</h2>
+
+        <p>
+            We actively collaborate with Pilates studios, fitness creators,
+            wellness communities and fitness professionals.
+        </p>
+
+        <h2>Contact</h2>
+
+        <p>Email: theritualcoofficial@gmail.com</p>
+        <p>Website: https://theritualco.in</p>
+        <p>Instagram: @theritualco.in</p>
+
+    </section>
+    <footer><div id="footer-placeholder"></div></footer>
+</main>
+</body>
+
+<!-- Load Navbar and Footer -->
+<script>
+    fetch("/partials/navbar.html")
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById("navbar-placeholder").innerHTML = data;
+            // ✅ Load the JS only after navbar is injected
+            const script = document.createElement('script');
+            script.src = '/js/navbar.js';
+            document.body.appendChild(script);
+        });
+
+    fetch("/partials/footer.html")
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById("footer-placeholder").innerHTML = data;
+        });
+</script>
+</html>
+

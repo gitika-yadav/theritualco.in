@@ -4,7 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="Improve blog url make it cleaner">
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="update sitemap.xml">
+      <change afterPath="$PROJECT_DIR$/css/founder.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/css/policy.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/css/press.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/founder.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/partials/head.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/press.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/privacy-policy.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/refund-policy.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shipping-policy.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/terms-and-conditions.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/checkout.html" beforeDir="false" afterPath="$PROJECT_DIR$/checkout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/footer.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/footer.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/partials/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/partials/footer.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sitemap.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sitemap.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -32,59 +47,59 @@
     <decayedCancelled>
       <entry key="MS100" value="1.0" />
       <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0" />
-      <entry key="S5" value="1.0" />
-      <entry key="S10" value="1.0" />
-      <entry key="S30" value="1.0000000340195134" />
-      <entry key="S60" value="1.0004148964837982" />
-      <entry key="M2" value="1.0476685950270466" />
-      <entry key="M5" value="1.9373427857892431" />
-      <entry key="M10" value="4.159219594649146" />
-      <entry key="M15" value="6.288466541178554" />
-      <entry key="M30" value="10.732098802682643" />
-      <entry key="H1" value="14.756262807097029" />
-      <entry key="H2" value="17.649451042922497" />
-      <entry key="H4" value="21.584210665385786" />
-      <entry key="D1" value="72.16886842810604" />
-      <entry key="W1" value="121.40917422688628" />
+      <entry key="S2" value="1.0000747310425735" />
+      <entry key="S5" value="1.0227872481196574" />
+      <entry key="S10" value="1.1740712373240738" />
+      <entry key="S30" value="1.9652695717293718" />
+      <entry key="S60" value="2.6598063287400366" />
+      <entry key="M2" value="3.453333114451595" />
+      <entry key="M5" value="6.481874441648917" />
+      <entry key="M10" value="14.089042922893526" />
+      <entry key="M15" value="23.12744829793818" />
+      <entry key="M30" value="46.71003480662684" />
+      <entry key="H1" value="73.4998696169282" />
+      <entry key="H2" value="97.324079805992" />
+      <entry key="H4" value="117.07905941396525" />
+      <entry key="D1" value="184.23207353848363" />
+      <entry key="W1" value="242.70954803970002" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
       <entry key="S2" value="0.0" />
-      <entry key="S5" value="0.0" />
-      <entry key="S10" value="0.0" />
-      <entry key="S30" value="0.0" />
-      <entry key="S60" value="0.0" />
-      <entry key="M2" value="0.0" />
-      <entry key="M5" value="0.0" />
-      <entry key="M10" value="0.0" />
-      <entry key="M15" value="0.0" />
-      <entry key="M30" value="0.0" />
-      <entry key="H1" value="0.0" />
-      <entry key="H2" value="0.0" />
-      <entry key="H4" value="0.0" />
-      <entry key="D1" value="0.0" />
-      <entry key="W1" value="0.0" />
+      <entry key="S5" value="3.1890235547543456E-216" />
+      <entry key="S10" value="2.297194606724448E-108" />
+      <entry key="S30" value="2.0553931567671025E-36" />
+      <entry key="S60" value="2.1309970266275357E-18" />
+      <entry key="M2" value="2.34736412167543E-9" />
+      <entry key="M5" value="6.663558574049631E-4" />
+      <entry key="M10" value="0.04449898190667289" />
+      <entry key="M15" value="0.18091419334785655" />
+      <entry key="M30" value="0.7382211304126836" />
+      <entry key="H1" value="1.5299446100031178" />
+      <entry key="H2" value="2.3209217940349873" />
+      <entry key="H4" value="2.9745287610938234" />
+      <entry key="D1" value="3.79134594777255" />
+      <entry key="W1" value="3.9690481616901425" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9592641193252643" />
-      <entry key="MS500" value="0.9917167307382933" />
-      <entry key="S2" value="0.9979227189990506" />
-      <entry key="S5" value="0.999168569213607" />
-      <entry key="S10" value="0.9995841981612189" />
-      <entry key="S30" value="0.999861414189649" />
-      <entry key="S60" value="1.0003455694241128" />
-      <entry key="M2" value="1.0476329621515028" />
-      <entry key="M5" value="1.9373178272367368" />
-      <entry key="M10" value="4.1591806941367455" />
-      <entry key="M15" value="6.2884144932790855" />
-      <entry key="M30" value="10.732038048225329" />
-      <entry key="H1" value="14.756214351555025" />
-      <entry key="H2" value="17.649414226143676" />
-      <entry key="H4" value="21.584139409393572" />
-      <entry key="D1" value="72.16876050934572" />
-      <entry key="W1" value="121.40915046236134" />
+      <entry key="MS100" value="1.2654412014990862E-5" />
+      <entry key="MS500" value="0.10482102305511638" />
+      <entry key="S2" value="0.569038356241928" />
+      <entry key="S5" value="0.815573030554496" />
+      <entry key="S10" value="1.0459963535011179" />
+      <entry key="S30" value="1.8874615654691649" />
+      <entry key="S60" value="2.605868889837804" />
+      <entry key="M2" value="3.4202347628535312" />
+      <entry key="M5" value="6.466652596211361" />
+      <entry key="M10" value="14.122641115109738" />
+      <entry key="M15" value="23.29786689844508" />
+      <entry key="M30" value="47.43781371443609" />
+      <entry key="H1" value="75.02139200212213" />
+      <entry key="H2" value="99.63945635341705" />
+      <entry key="H4" value="120.05034046085325" />
+      <entry key="D1" value="188.02271196374045" />
+      <entry key="W1" value="246.6784831826751" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -166,14 +181,6 @@
       <workItem from="1748379420413" duration="3000" />
       <workItem from="1779547815911" duration="29068000" />
       <workItem from="1779695741143" duration="8369000" />
-    </task>
-    <task id="LOCAL-00008" summary="pinterest-worthy-home-gym-setup.html">
-      <option name="closed" value="true" />
-      <created>1748808292727</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1748808292727</updated>
     </task>
     <task id="LOCAL-00009" summary="adding pinterest tag validation to index">
       <option name="closed" value="true" />
@@ -559,14 +566,21 @@
       <option name="project" value="LOCAL" />
       <updated>1780566509298</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="update sitemap.xml">
+      <option name="closed" value="true" />
+      <created>1780567309922</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1780567309922</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="automating sitemap generation with generate-sitemap.js" />
     <MESSAGE value="automating feed generation with generate-feed.js" />
     <MESSAGE value="fixing unversioned files" />
     <MESSAGE value="adding from the blog and shop our gear sections to homepage" />
@@ -591,7 +605,8 @@
     <MESSAGE value="Revert &quot;fix&quot;&#10;&#10;This reverts commit da69303b8fe5c08c027bcccd7483c1877a5bd828." />
     <MESSAGE value="Add pinterest to footer" />
     <MESSAGE value="Improve blog url make it cleaner" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improve blog url make it cleaner" />
+    <MESSAGE value="update sitemap.xml" />
+    <option name="LAST_COMMIT_MESSAGE" value="update sitemap.xml" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

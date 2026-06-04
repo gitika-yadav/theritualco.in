@@ -1,0 +1,101 @@
+
+/* Page Layout */
+.container {
+    max-width: 900px;
+    margin: 80px auto;
+    padding: 0 24px;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.8;
+    color: #222;
+}
+
+/* Main Heading */
+h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #111;
+    letter-spacing: -1px;
+}
+
+/* Section Headings */
+h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 50px;
+    margin-bottom: 15px;
+    color: #111;
+}
+
+/* Paragraphs */
+p {
+    margin-bottom: 18px;
+    font-size: 1.05rem;
+    color: #444;
+}
+
+/* Lists */
+ul,
+ol {
+    margin: 15px 0 25px 25px;
+}
+
+li {
+    margin-bottom: 10px;
+    color: #444;
+}
+
+/* Links */
+a {
+    color: #111;
+    text-decoration: underline;
+    transition: opacity 0.2s ease;
+}
+
+a:hover {
+    opacity: 0.7;
+}
+
+
+/* Last Updated Text */
+.last-updated {
+    color: #777;
+    font-size: 0.9rem;
+    margin-bottom: 40px;
+}
+
+/* Divider */
+hr {
+    border: none;
+    height: 1px;
+    background: #eee;
+    margin: 50px 0;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+    .container {
+        margin: 50px auto;
+        padding: 0 20px;
+    }
+
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    p,
+    li {
+        font-size: 1rem;
+    }
+
+    blockquote {
+        font-size: 1.1rem;
+        padding: 20px;
+    }
+}
+

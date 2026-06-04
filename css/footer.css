@@ -22,3 +22,142 @@
 .social-icons a:hover {
   color: #c98a76;
 }
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+  background: #fafafa;
+  border-top: 1px solid #ececec;
+  padding: 60px 40px 30px;
+  margin-top: 80px;
+}
+
+.footer-brand {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.footer-brand h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #111;
+}
+
+.footer-brand p {
+  color: #666;
+  margin: 6px 0;
+  font-size: 0.95rem;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  min-width: 180px;
+}
+
+.footer-column h4 {
+  margin-bottom: 16px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111;
+}
+
+.footer-column a {
+  color: #666;
+  text-decoration: none;
+  margin-bottom: 10px;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.footer-column a:hover {
+  color: #111;
+  transform: translateX(2px);
+}
+
+.footer-bottom {
+  border-top: 1px solid #ececec;
+  padding-top: 25px;
+  text-align: center;
+}
+
+.footer-bottom p {
+  color: #888;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* =========================
+   SOCIAL ICONS
+========================= */
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.social-icons a {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid #e5e5e5;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #444;
+  text-decoration: none;
+
+  transition: all 0.25s ease;
+}
+
+.social-icons a:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  color: #111;
+}
+
+.social-icons i {
+  font-size: 1rem;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+  .footer {
+    padding: 50px 20px 25px;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    gap: 35px;
+    text-align: center;
+  }
+
+  .footer-column {
+    align-items: center;
+  }
+
+  .footer-brand h3 {
+    font-size: 1.3rem;
+  }
+}
+
