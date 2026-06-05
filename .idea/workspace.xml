@@ -4,36 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="patch fixes">
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="fix cannonical urls">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/dumbbells/capsule-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/capsule-dumbbells.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/dumbbells/dumbbell-bloglist.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/dumbbell-bloglist.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/dumbbells/dumbbell-exercises-for-arms.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/dumbbell-exercises-for-arms.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/dumbbells/dumbbell-for-beginners.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/dumbbell-for-beginners.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/dumbbells/silicone-dumbbells-vs-pvc-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/silicone-dumbbells-vs-pvc-dumbbells.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/dumbbells/weightloss-with-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/weightloss-with-dumbbells.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/dumbbells/womens-dumbbell.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/womens-dumbbell.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/homegym/home-gym-design-small-spaces.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/homegym/home-gym-design-small-spaces.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/homegym/home-gym-equipment-for-women.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/homegym/home-gym-equipment-for-women.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/homegym/homegym-bloglist.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/homegym/homegym-bloglist.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/homegym/pinterest-worthy-home-gym-setup.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/homegym/pinterest-worthy-home-gym-setup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/ritual-mindset/how-to-make-fitness-a-ritual.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/ritual-mindset/how-to-make-fitness-a-ritual.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/weightloss/weightloss-with-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/weightloss/weightloss-with-dumbbells.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/womens-wellness/best-dumbbell-for-women.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/womens-wellness/best-dumbbell-for-women.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/womens-wellness/dumbbell-exercises-for-arms.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/womens-wellness/dumbbell-exercises-for-arms.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/womens-wellness/dumbbell-for-beginners.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/womens-wellness/dumbbell-for-beginners.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/womens-wellness/home-gym-equipment-for-women.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/womens-wellness/home-gym-equipment-for-women.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/womens-wellness/weightloss-with-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/womens-wellness/weightloss-with-dumbbells.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/womens-wellness/womens-dumbbell.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/womens-wellness/womens-dumbbell.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/womens-wellness/womens-wellness-bloglist.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/womens-wellness/womens-wellness-bloglist.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/faq.html" beforeDir="false" afterPath="$PROJECT_DIR$/faq.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/feed.xml" beforeDir="false" afterPath="$PROJECT_DIR$/feed.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/partials/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/partials/footer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/partials/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/partials/navbar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/capsule-dumbbell.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/capsule-dumbbell.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sitemap.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sitemap.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -194,14 +166,6 @@
       <workItem from="1748379420413" duration="3000" />
       <workItem from="1779547815911" duration="29068000" />
       <workItem from="1779695741143" duration="8369000" />
-    </task>
-    <task id="LOCAL-00016" summary="adding from the blog and shop our gear sections to homepage">
-      <option name="closed" value="true" />
-      <created>1749068203996</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1749068203996</updated>
     </task>
     <task id="LOCAL-00017" summary="updating about">
       <option name="closed" value="true" />
@@ -587,14 +551,21 @@
       <option name="project" value="LOCAL" />
       <updated>1780606268373</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="fix cannonical urls">
+      <option name="closed" value="true" />
+      <created>1780607499837</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1780607499837</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Improving the about page" />
     <MESSAGE value="Improving the capsule dumbbell product page" />
     <MESSAGE value="Improving the products page" />
     <MESSAGE value="improving content organisation" />
@@ -619,7 +590,8 @@
     <MESSAGE value="add gtag events &#10;&#10;Product page → should show view_item&#10;Click Pre-Order → should show add_to_cart&#10;Checkout page → should show begin_checkout" />
     <MESSAGE value="add window datalayer" />
     <MESSAGE value="patch fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="patch fixes" />
+    <MESSAGE value="fix cannonical urls" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix cannonical urls" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
