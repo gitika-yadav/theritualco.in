@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="add new artices for silicone , pvc and neoprene" />
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="update sitemap.xml" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,61 +28,61 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.000000310456259" />
-      <entry key="MS500" value="1.0673960100406101" />
-      <entry key="S2" value="2.456424577517633" />
-      <entry key="S5" value="5.034319036864778" />
-      <entry key="S10" value="7.220437908574659" />
-      <entry key="S30" value="9.792650979624886" />
-      <entry key="S60" value="10.830176420227355" />
-      <entry key="M2" value="12.195049333459432" />
-      <entry key="M5" value="17.4162076611437" />
-      <entry key="M10" value="25.62758643537732" />
-      <entry key="M15" value="31.900808469155475" />
-      <entry key="M30" value="42.77372163151773" />
-      <entry key="H1" value="51.251854388102366" />
-      <entry key="H2" value="56.63640061366771" />
-      <entry key="H4" value="59.7148316991099" />
-      <entry key="D1" value="141.84436006402086" />
-      <entry key="W1" value="417.395419354218" />
+      <entry key="MS100" value="2.484359382981086E-10" />
+      <entry key="MS500" value="0.0204694331553183" />
+      <entry key="S2" value="0.8268080917802949" />
+      <entry key="S5" value="1.784569935594617" />
+      <entry key="S10" value="2.3122612442263897" />
+      <entry key="S30" value="2.756547223069713" />
+      <entry key="S60" value="3.148451715262198" />
+      <entry key="M2" value="4.882706091478029" />
+      <entry key="M5" value="11.3348340957817" />
+      <entry key="M10" value="20.74339837332233" />
+      <entry key="M15" value="27.96984020161584" />
+      <entry key="M30" value="40.845106885415625" />
+      <entry key="H1" value="51.20935125005623" />
+      <entry key="H2" value="57.92975899830627" />
+      <entry key="H4" value="61.80828575722029" />
+      <entry key="D1" value="144.48330014202838" />
+      <entry key="W1" value="420.2434979474847" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="0.0" />
-      <entry key="S2" value="0.0" />
-      <entry key="S5" value="0.0" />
-      <entry key="S10" value="0.0" />
-      <entry key="S30" value="0.0" />
-      <entry key="S60" value="0.0" />
-      <entry key="M2" value="0.0" />
-      <entry key="M5" value="1.0179191550974807E-201" />
-      <entry key="M10" value="4.5824531652112096E-101" />
-      <entry key="M15" value="1.7148039020913998E-67" />
-      <entry key="M30" value="7.54564835341284E-34" />
-      <entry key="H1" value="5.813901260461221E-17" />
-      <entry key="H2" value="1.7492014379733625E-8" />
-      <entry key="H4" value="3.1627591409154115E-4" />
-      <entry key="D1" value="1.1568651202248534" />
-      <entry key="W1" value="4.742154529559245" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.0" />
+      <entry key="S30" value="1.0" />
+      <entry key="S60" value="1.0" />
+      <entry key="M2" value="1.0" />
+      <entry key="M5" value="1.0" />
+      <entry key="M10" value="1.0" />
+      <entry key="M15" value="1.0" />
+      <entry key="M30" value="1.0" />
+      <entry key="H1" value="1.0" />
+      <entry key="H2" value="1.000000016965258" />
+      <entry key="H4" value="1.0003114773299193" />
+      <entry key="D1" value="2.1539210992884446" />
+      <entry key="W1" value="5.740428652021586" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.972655253593092" />
-      <entry key="MS500" value="1.0616327870860933" />
-      <entry key="S2" value="2.435135764604273" />
-      <entry key="S5" value="4.992423966936372" />
-      <entry key="S10" value="7.183834244133485" />
-      <entry key="S30" value="9.774803341454728" />
-      <entry key="S60" value="10.820327408163239" />
-      <entry key="M2" value="12.189801850194488" />
-      <entry key="M5" value="17.413760315023392" />
-      <entry key="M10" value="25.625768719081446" />
-      <entry key="M15" value="31.899124935610455" />
-      <entry key="M30" value="42.77236073801083" />
-      <entry key="H1" value="51.25093977056831" />
-      <entry key="H2" value="56.635863887499625" />
-      <entry key="H4" value="59.71485578219737" />
-      <entry key="D1" value="143.0008421841269" />
-      <entry key="W1" value="422.13737153417276" />
+      <entry key="MS100" value="1.5218439835147986E-7" />
+      <entry key="MS500" value="0.06368555531296129" />
+      <entry key="S2" value="1.282187831938672" />
+      <entry key="S5" value="2.514439051545063" />
+      <entry key="S10" value="3.1665419050650847" />
+      <entry key="S30" value="3.70537961859869" />
+      <entry key="S60" value="4.122285254607296" />
+      <entry key="M2" value="5.868825058654098" />
+      <entry key="M5" value="12.328421310499081" />
+      <entry key="M10" value="21.73951653252873" />
+      <entry key="M15" value="28.96677294157845" />
+      <entry key="M30" value="41.84302775689431" />
+      <entry key="H1" value="52.2080533396452" />
+      <entry key="H2" value="58.92901963650423" />
+      <entry key="H4" value="62.8082000695729" />
+      <entry key="D1" value="146.63682098080776" />
+      <entry key="W1" value="425.9837217185166" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -164,14 +164,6 @@
       <workItem from="1748379420413" duration="3000" />
       <workItem from="1779547815911" duration="29068000" />
       <workItem from="1779695741143" duration="8369000" />
-    </task>
-    <task id="LOCAL-00019" summary="adding blog schema and writing script to automate it">
-      <option name="closed" value="true" />
-      <created>1749069674420</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1749069674420</updated>
     </task>
     <task id="LOCAL-00020" summary="Improving the faq page">
       <option name="closed" value="true" />
@@ -557,7 +549,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780784571710</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="update sitemap.xml">
+      <option name="closed" value="true" />
+      <created>1780784702443</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1780784702443</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -578,7 +578,6 @@
     <MESSAGE value="Revert &quot;fix&quot;&#10;&#10;This reverts commit da69303b8fe5c08c027bcccd7483c1877a5bd828." />
     <MESSAGE value="Add pinterest to footer" />
     <MESSAGE value="Improve blog url make it cleaner" />
-    <MESSAGE value="update sitemap.xml" />
     <MESSAGE value="add policy pages + founder + press page + update sitemap.xml" />
     <MESSAGE value="update readibilty of privacy policy" />
     <MESSAGE value="fix of privacy policy" />
@@ -589,7 +588,8 @@
     <MESSAGE value="fix cannonical urls" />
     <MESSAGE value="add indexnow key" />
     <MESSAGE value="add new artices for silicone , pvc and neoprene" />
-    <option name="LAST_COMMIT_MESSAGE" value="add new artices for silicone , pvc and neoprene" />
+    <MESSAGE value="update sitemap.xml" />
+    <option name="LAST_COMMIT_MESSAGE" value="update sitemap.xml" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
