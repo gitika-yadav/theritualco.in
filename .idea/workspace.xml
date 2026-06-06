@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="add indexnow key">
-      <change afterPath="$PROJECT_DIR$/blog/article-format.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog/dumbbells/best-dumbbells-for-women-india.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog/dumbbells/silicone-dumbbells.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog/dumbbells/silicone-vs-neoprene-dumbbells.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/dumbbells/dumbbell-bloglist.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/dumbbell-bloglist.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/dumbbells/silicone-dumbbells-vs-pvc-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/silicone-dumbbells-vs-pvc-dumbbells.html" afterDir="false" />
-    </list>
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="add new artices for silicone , pvc and neoprene" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,23 +28,23 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0000995651236986" />
-      <entry key="S2" value="1.0998911031759786" />
-      <entry key="S5" value="1.3979337095588125" />
-      <entry key="S10" value="1.6309577214800246" />
-      <entry key="S30" value="2.027033095776485" />
-      <entry key="S60" value="3.168544445079656" />
-      <entry key="M2" value="5.877294276906749" />
-      <entry key="M5" value="12.308833004961373" />
-      <entry key="M10" value="20.246642001142654" />
-      <entry key="M15" value="25.857130567896398" />
-      <entry key="M30" value="35.04935938288358" />
-      <entry key="H1" value="41.88317062977083" />
-      <entry key="H2" value="46.106624906528175" />
-      <entry key="H4" value="48.493867705945554" />
-      <entry key="D1" value="130.19361413713617" />
-      <entry key="W1" value="405.55071796055284" />
+      <entry key="MS100" value="1.000000310456259" />
+      <entry key="MS500" value="1.0673960100406101" />
+      <entry key="S2" value="2.456424577517633" />
+      <entry key="S5" value="5.034319036864778" />
+      <entry key="S10" value="7.220437908574659" />
+      <entry key="S30" value="9.792650979624886" />
+      <entry key="S60" value="10.830176420227355" />
+      <entry key="M2" value="12.195049333459432" />
+      <entry key="M5" value="17.4162076611437" />
+      <entry key="M10" value="25.62758643537732" />
+      <entry key="M15" value="31.900808469155475" />
+      <entry key="M30" value="42.77372163151773" />
+      <entry key="H1" value="51.251854388102366" />
+      <entry key="H2" value="56.63640061366771" />
+      <entry key="H4" value="59.7148316991099" />
+      <entry key="D1" value="141.84436006402086" />
+      <entry key="W1" value="417.395419354218" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -63,38 +55,38 @@
       <entry key="S30" value="0.0" />
       <entry key="S60" value="0.0" />
       <entry key="M2" value="0.0" />
-      <entry key="M5" value="2.2016416246761596E-201" />
-      <entry key="M10" value="6.739298693591495E-101" />
-      <entry key="M15" value="2.217646111312886E-67" />
-      <entry key="M30" value="8.580951596142894E-34" />
-      <entry key="H1" value="6.199934434367509E-17" />
-      <entry key="H2" value="1.8063402040929205E-8" />
-      <entry key="H4" value="3.2140008024204197E-4" />
-      <entry key="D1" value="1.1599680771062035" />
-      <entry key="W1" value="4.743969510156827" />
+      <entry key="M5" value="1.0179191550974807E-201" />
+      <entry key="M10" value="4.5824531652112096E-101" />
+      <entry key="M15" value="1.7148039020913998E-67" />
+      <entry key="M30" value="7.54564835341284E-34" />
+      <entry key="H1" value="5.813901260461221E-17" />
+      <entry key="H2" value="1.7492014379733625E-8" />
+      <entry key="H4" value="3.1627591409154115E-4" />
+      <entry key="D1" value="1.1568651202248534" />
+      <entry key="W1" value="4.742154529559245" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9330329915368074" />
-      <entry key="MS500" value="0.9863279493029506" />
-      <entry key="S2" value="1.0953296586741172" />
-      <entry key="S5" value="1.3947869950119987" />
-      <entry key="S10" value="1.628867080599203" />
-      <entry key="S30" value="2.0261234729491986" />
-      <entry key="S60" value="3.167902608271008" />
-      <entry key="M2" value="5.87673363167099" />
-      <entry key="M5" value="12.308144231260327" />
-      <entry key="M10" value="20.24554988632867" />
-      <entry key="M15" value="25.855883379291953" />
-      <entry key="M30" value="35.04822203809129" />
-      <entry key="H1" value="41.88238796708896" />
-      <entry key="H2" value="46.10616402016922" />
-      <entry key="H4" value="48.493938140214674" />
-      <entry key="D1" value="131.35320574772194" />
-      <entry key="W1" value="410.2944861213729" />
+      <entry key="MS100" value="0.972655253593092" />
+      <entry key="MS500" value="1.0616327870860933" />
+      <entry key="S2" value="2.435135764604273" />
+      <entry key="S5" value="4.992423966936372" />
+      <entry key="S10" value="7.183834244133485" />
+      <entry key="S30" value="9.774803341454728" />
+      <entry key="S60" value="10.820327408163239" />
+      <entry key="M2" value="12.189801850194488" />
+      <entry key="M5" value="17.413760315023392" />
+      <entry key="M10" value="25.625768719081446" />
+      <entry key="M15" value="31.899124935610455" />
+      <entry key="M30" value="42.77236073801083" />
+      <entry key="H1" value="51.25093977056831" />
+      <entry key="H2" value="56.635863887499625" />
+      <entry key="H4" value="59.71485578219737" />
+      <entry key="D1" value="143.0008421841269" />
+      <entry key="W1" value="422.13737153417276" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -172,14 +164,6 @@
       <workItem from="1748379420413" duration="3000" />
       <workItem from="1779547815911" duration="29068000" />
       <workItem from="1779695741143" duration="8369000" />
-    </task>
-    <task id="LOCAL-00018" summary="adding organisation and product schema">
-      <option name="closed" value="true" />
-      <created>1749069406012</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1749069406012</updated>
     </task>
     <task id="LOCAL-00019" summary="adding blog schema and writing script to automate it">
       <option name="closed" value="true" />
@@ -565,14 +549,21 @@
       <option name="project" value="LOCAL" />
       <updated>1780652065615</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="add new artices for silicone , pvc and neoprene">
+      <option name="closed" value="true" />
+      <created>1780784571710</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1780784571710</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Improving the products page" />
     <MESSAGE value="improving content organisation" />
     <MESSAGE value="refactor products page" />
     <MESSAGE value="refactor homepage" />
@@ -597,7 +588,8 @@
     <MESSAGE value="patch fixes" />
     <MESSAGE value="fix cannonical urls" />
     <MESSAGE value="add indexnow key" />
-    <option name="LAST_COMMIT_MESSAGE" value="add indexnow key" />
+    <MESSAGE value="add new artices for silicone , pvc and neoprene" />
+    <option name="LAST_COMMIT_MESSAGE" value="add new artices for silicone , pvc and neoprene" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
