@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm run generate-sitemap && your-original-build-command",
+    "build": "npm run generate-sitemap",
     "generate-sitemap": "node generate-sitemap.js",
     "generate-feed": "node generate-feed.js",
     "generate-blog-schema": "node generate-blog-schema.js"
@@ -24,7 +24,8 @@
     "googleapis": "^149.0.0",
     "jsdom": "^26.1.0",
     "node-fetch": "^2.7.0",
-    "razorpay": "^2.9.6"
+    "razorpay": "^2.9.6",
+    "@supabase/supabase-js": "^2.45.0"
   },
   "devDependencies": {
     "prettier": "^3.8.3"
