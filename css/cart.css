@@ -596,3 +596,20 @@
     .cart-item-qty { grid-column: 2; }
     .cart-item-remove { grid-column: 2; justify-self: end; }
 }
+
+@media (max-width: 600px) {
+    #cd-footer {
+        padding-bottom: calc(20px + env(safe-area-inset-bottom));
+    }
+
+    #cart-drawer {
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+}
+
+@media (max-width: 600px) {
+    #cd-items {
+        max-height: calc(100vh - 200px);
+        overflow-y: auto;
+    }
+}
