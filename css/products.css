@@ -243,23 +243,35 @@ PRODUCTS LIST PAGE
 
 .products .btn-primary,
 .products .btn-secondary{
-
     display:inline-flex;
-
-    padding:
-
-            16px 28px;
-
+    padding: 16px 28px;
     border-radius:999px;
-
     text-decoration:none;
-
     font-size:12px;
-
     letter-spacing:.14em;
-
     text-transform:uppercase;
 
+}
+
+button.btn-primary {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    background: #171717;
+    color: white;
+    text-align: center;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    margin-bottom: 18px;
+    transition: background 0.2s;
+}
+
+button.btn-primary:hover {
+    background: #3a3330;
 }
 
 .products .btn-primary{

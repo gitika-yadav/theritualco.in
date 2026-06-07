@@ -104,7 +104,7 @@
     fetch("/partials/navbar.html").then(res => res.text()).then(data => {{
         document.getElementById("navbar-placeholder").innerHTML = data;
         const script = document.createElement("script");
-        script.src = "/js/navbar.js";
+        script.src = "/javascript/navbar.js";
         document.body.appendChild(script);
     }});
     fetch("/partials/footer.html").then(res => res.text()).then(data => {{

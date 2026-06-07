@@ -198,7 +198,7 @@
         <div class="auth-form" id="form-signup">
             <div class="auth-field">
                 <label for="signup-name">Full name</label>
-                <input type="text" id="signup-name" placeholder="Gitika Yadav" autocomplete="name"/>
+                <input type="text" id="signup-name" placeholder="Name" autocomplete="name"/>
             </div>
             <div class="auth-field">
                 <label for="signup-email">Email</label>
@@ -344,7 +344,7 @@
 <script>
     fetch("/partials/navbar.html").then(r=>r.text()).then(html=>{
         document.getElementById("navbar-placeholder").innerHTML = html;
-        const s = document.createElement("script"); s.src="/js/navbar.js"; document.body.appendChild(s);
+        const s = document.createElement("script"); s.src="/javascript/navbar.js"; document.body.appendChild(s);
     });
     fetch("/partials/footer.html").then(r=>r.text()).then(html=>{
         document.getElementById("footer-placeholder").innerHTML = html;

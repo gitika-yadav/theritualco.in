@@ -18,7 +18,7 @@
 .nav-left{
   display:flex;
   align-items:center;
-  gap:16px;
+  gap:24px;
 }
 
 .nav-logo{
@@ -28,7 +28,10 @@
   text-decoration:none;
   color:#171717;
   letter-spacing:.04em;
+  /*margin-left: 16px;*/
+  margin-right: 32px;
 }
+
 
 .nav-links{
   display:flex;

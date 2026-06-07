@@ -205,7 +205,7 @@
 
                 </div>
 
-                <a href="/checkout" class="btn-primary" id="buy-now-btn">Order Now</a>
+                <button id="buy-now-btn" class="btn-primary">Add to Cart</button>
 
                 <!-- Trust strip -->
                 <div class="trust">
@@ -284,11 +284,13 @@
 <!-- Partials -->
 <script>
     fetch("/partials/navbar.html")
-      .then(r=>r.text())
-      .then(html=>{
-        document.getElementById("navbar-placeholder").innerHTML = html;
-        const s=document.createElement("script"); s.src="/js/navbar.js"; document.body.appendChild(s);
-      });
+        .then(r=>r.text())
+        .then(html=>{
+            document.getElementById("navbar-placeholder").innerHTML = html;
+            const s = document.createElement("script");
+            s.src = "/javascript/navbar.js";
+            document.body.appendChild(s);
+        });
 
     fetch("/partials/footer.html")
       .then(r=>r.text())
@@ -332,28 +334,36 @@
     });
 
     // Submit to same Netlify function as home
-    document.getElementById('product-waitlist-form').addEventListener('submit', (e)=>{
-      e.preventDefault();
-      const f = e.currentTarget;
-      const fd = new FormData(f);
-      const data = {};
-      for (let [k,v] of fd.entries()){ data[k]=(v||'').toString().trim(); }
-      if (data.nickname){ console.warn('Spam submission'); return; }
+    const waitlistForm = document.getElementById('product-waitlist-form');
+    if (waitlistForm) {
+        waitlistForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const f = e.currentTarget;
+            const fd = new FormData(f);
+            const data = {};
+            for (let [k, v] of fd.entries()) {
+                data[k] = (v || '').toString().trim();
+            }
+            if (data.nickname) {
+                console.warn('Spam submission');
+                return;
+            }
 
-      fetch('/.netlify/functions/submit-to-sheet', {
-        method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data)
-      })
-      .then(async r=>{
-        const result = await r.json();
-        if(!r.ok) throw new Error(result.message||'Submission failed');
-        f.reset();
-        document.getElementById('p-confirm').style.display='block';
-      })
-      .catch(err=>{
-        console.error(err);
-        alert('Something went wrong. Please try again.');
-      });
-    });
+            fetch('/.netlify/functions/submit-to-sheet', {
+                method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data)
+            })
+                .then(async r => {
+                    const result = await r.json();
+                    if (!r.ok) throw new Error(result.message || 'Submission failed');
+                    f.reset();
+                    document.getElementById('p-confirm').style.display = 'block';
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert('Something went wrong. Please try again.');
+                });
+        });
+    }
 </script>
 
 <script>
@@ -369,18 +379,40 @@
 </script>
 
 <script>
-    document.getElementById("buy-now-btn").addEventListener("click", function() {
+    document.addEventListener("DOMContentLoaded", function() {
+        var btn = document.getElementById("buy-now-btn");
+        if (!btn) return;
 
-        gtag('event', 'add_to_cart', {
-            currency: 'INR',
-            value: 1999,
-            items: [{
-                item_id: 'capsule-dumbbell-1kg',
-                item_name: 'Capsule Dumbbell 1kg',
-                price: 1999
-            }]
+        btn.addEventListener("click", function(e) {
+            e.preventDefault();
+
+            var activeSwatch = document.querySelector(".swatch.is-selected");
+            var activeWeight = document.querySelector(".weight.is-selected");
+
+            var color     = activeSwatch ? activeSwatch.dataset.color : "Peach";
+            var weightRaw = activeWeight ? activeWeight.dataset.weight : "1kg";
+            var weightKey = weightRaw.replace(" ", "").toLowerCase();
+
+            var priceMap = { "1kg": 1499, "2kg": 1999 };
+            var price    = priceMap[weightKey] || 1499;
+
+            Cart.add({
+                id:    "capsule-dumbbell",
+                name:  "Capsule Dumbbells",
+                weight: weightKey,
+                color:  color,
+                price:  price,
+                image:  "/images/capsule-dumbbell.jpg"
+            });
+
+            gtag("event", "add_to_cart", {
+                currency: "INR",
+                value: price,
+                items: [{ item_id: "capsule-dumbbell-" + weightKey, item_name: "Capsule Dumbbell " + weightRaw, price: price }]
+            });
+
+            if (window.CartDrawer) CartDrawer.open();
         });
-
     });
 </script>
 </body>

@@ -3,7 +3,7 @@ const { createClient } = require("@supabase/supabase-js");
 
 const supabase = createClient(
     process.env.SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_KEY  // service key — never expose to frontend
+    process.env.SUPABASE_SERVICE_KEY
 );
 
 const PRODUCT_MAP = {
@@ -18,113 +18,103 @@ exports.handler = async (event) => {
 
     try {
         const body = JSON.parse(event.body);
-        const { weight, color, name, email, phone, address, user_id } = body;
+        const { cart, name, email, phone, address, user_id } = body;
 
-        // ── Validate inputs ───────────────────────────────
-        if (!weight || !color || !name || !email || !phone || !address) {
-            return {
-                statusCode: 400,
-                body: JSON.stringify({ error: "Missing required fields" }),
-            };
+        if (!cart || !cart.length || !name || !email || !phone || !address) {
+            return { statusCode: 400, body: JSON.stringify({ error: "Missing required fields" }) };
         }
 
-        const product = PRODUCT_MAP[weight.toLowerCase()];
-        if (!product) {
-            return {
-                statusCode: 400,
-                body: JSON.stringify({ error: "Invalid weight" }),
-            };
+        // ── Calculate total from cart ─────────────
+        // Always validate price server-side against inventory
+        let totalPaise = 0;
+        const orderItems = [];
+
+        for (const item of cart) {
+            const product = PRODUCT_MAP[item.weight?.toLowerCase()];
+            if (!product) continue;
+
+            const { data: inv, error: invErr } = await supabase
+                .from("inventory")
+                .select("sold, early_bird_limit, early_bird_price_paise, price_paise, active")
+                .eq("product_id", product.id)
+                .single();
+
+            if (invErr || !inv || !inv.active) continue;
+
+            const isEarlyBird = inv.sold < inv.early_bird_limit;
+            const unitPaise   = isEarlyBird ? inv.early_bird_price_paise : inv.price_paise;
+            const qty         = Math.max(1, Math.min(10, parseInt(item.qty) || 1)); // cap at 10
+
+            totalPaise += unitPaise * qty;
+            orderItems.push({
+                product_id:   product.id,
+                product_name: product.name,
+                weight:       item.weight,
+                color:        item.color || "Not specified",
+                qty,
+                unit_paise:   unitPaise,
+                is_early_bird: isEarlyBird,
+            });
         }
 
-        // ── Check inventory ───────────────────────────────
-        const { data: inv, error: invErr } = await supabase
-            .from("inventory")
-            .select("sold, early_bird_limit, early_bird_price_paise, price_paise, active")
-            .eq("product_id", product.id)
-            .single();
-
-        if (invErr || !inv) {
-            return {
-                statusCode: 500,
-                body: JSON.stringify({ error: "Could not fetch inventory" }),
-            };
+        if (totalPaise === 0) {
+            return { statusCode: 400, body: JSON.stringify({ error: "No valid items in cart" }) };
         }
 
-        if (!inv.active) {
-            return {
-                statusCode: 400,
-                body: JSON.stringify({ error: "This product is currently unavailable" }),
-            };
-        }
-
-        // Determine price — early bird if under limit
-        const isEarlyBird = inv.sold < inv.early_bird_limit;
-        const amountPaise = isEarlyBird ? inv.early_bird_price_paise : inv.price_paise;
-
-        // ── Create Razorpay order ─────────────────────────
+        // ── Create Razorpay order ─────────────────
         const razorpay = new Razorpay({
-            key_id: process.env.RAZORPAY_KEY_ID,
+            key_id:     process.env.RAZORPAY_KEY_ID,
             key_secret: process.env.RAZORPAY_KEY_SECRET,
         });
 
         const rzOrder = await razorpay.orders.create({
-            amount: amountPaise,
+            amount:   totalPaise,
             currency: "INR",
-            receipt: "ritual_" + Date.now(),
-            notes: { product_id: product.id, weight, color, customer: name },
+            receipt:  "ritual_" + Date.now(),
+            notes:    { customer: name, items: orderItems.length },
         });
 
-        // ── Create pending order in Supabase ─────────────
-        const orderData = {
-            product_id: product.id,
-            product_name: product.name,
-            weight,
-            color,
-            quantity: 1,
-            amount_paise: amountPaise,
-            razorpay_order_id: rzOrder.id,
-            shipping_address: address,
-            status: "pending",
-        };
-
-        if (user_id) {
-            orderData.user_id = user_id;
-        } else {
-            orderData.guest_name = name;
-            orderData.guest_email = email;
-            orderData.guest_phone = phone;
-        }
-
-        const { data: order, error: orderErr } = await supabase
-            .from("orders")
-            .insert(orderData)
-            .select()
-            .single();
-
-        if (orderErr) {
-            console.error("Order insert error:", orderErr);
-            return {
-                statusCode: 500,
-                body: JSON.stringify({ error: "Could not create order" }),
+        // ── Save order to Supabase ────────────────
+        // For multi-item carts, create one order record per line item
+        const savedIds = [];
+        for (const item of orderItems) {
+            const orderData = {
+                product_id:       item.product_id,
+                product_name:     item.product_name,
+                weight:           item.weight,
+                color:            item.color,
+                quantity:         item.qty,
+                amount_paise:     item.unit_paise * item.qty,
+                razorpay_order_id: rzOrder.id,
+                shipping_address: address,
+                status:           "pending",
             };
+            if (user_id) {
+                orderData.user_id = user_id;
+            } else {
+                orderData.guest_name  = name;
+                orderData.guest_email = email;
+                orderData.guest_phone = phone;
+            }
+
+            const { data: order } = await supabase
+                .from("orders").insert(orderData).select("id").single();
+            if (order) savedIds.push(order.id);
         }
 
         return {
             statusCode: 200,
             body: JSON.stringify({
-                order_id: rzOrder.id,
-                amount: rzOrder.amount,
-                currency: rzOrder.currency,
-                internal_order_id: order.id,
-                is_early_bird: isEarlyBird,
-                slots_remaining: Math.max(0, inv.early_bird_limit - inv.sold),
+                order_id:          rzOrder.id,
+                amount:            rzOrder.amount,
+                currency:          rzOrder.currency,
+                internal_order_ids: savedIds,
+                items:             orderItems,
             }),
         };
+
     } catch (err) {
         console.error(err);
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ error: err.message }),
-        };
+        return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
     }
 };
