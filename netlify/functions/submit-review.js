@@ -39,7 +39,7 @@ exports.handler = async (event) => {
 
     const db = createClient(
         process.env.SUPABASE_URL,
-        process.env.SUPABASE_SERVICE_ROLE_KEY  // service role used only server-side
+        process.env.SUPABASE_SERVICE_KEY  // service role used only server-side
     );
 
     const { error } = await db.from('reviews').insert({
