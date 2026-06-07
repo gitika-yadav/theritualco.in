@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="fix">
-      <change beforePath="$PROJECT_DIR$/thank-you.html" beforeDir="false" afterPath="$PROJECT_DIR$/thank-you.html" afterDir="false" />
-    </list>
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="fix" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,61 +28,61 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="2.9073676376447772E-232" />
-      <entry key="S2" value="3.91112149213667E-58" />
-      <entry key="S5" value="2.823763273284928E-23" />
-      <entry key="S10" value="1.1855804003199573E-11" />
-      <entry key="S30" value="6.666742529010366E-4" />
-      <entry key="S60" value="0.05932830021840051" />
-      <entry key="M2" value="0.6790564944963825" />
-      <entry key="M5" value="4.765163742298003" />
-      <entry key="M10" value="12.063127429194708" />
-      <entry key="M15" value="17.50703631526332" />
-      <entry key="M30" value="26.479526498871873" />
-      <entry key="H1" value="33.15440672115633" />
-      <entry key="H2" value="38.260604339527376" />
-      <entry key="H4" value="47.773474645658716" />
-      <entry key="D1" value="145.27432295523275" />
-      <entry key="W1" value="443.29213561272013" />
+      <entry key="MS100" value="1.0000091654516647" />
+      <entry key="MS500" value="1.154615883970788" />
+      <entry key="S2" value="2.9000400881919868" />
+      <entry key="S5" value="4.684089452788502" />
+      <entry key="S10" value="5.678716928833272" />
+      <entry key="S30" value="6.516541131256938" />
+      <entry key="S60" value="6.752401749656674" />
+      <entry key="M2" value="6.874693974659396" />
+      <entry key="M5" value="6.949520432352641" />
+      <entry key="M10" value="6.9919155034172205" />
+      <entry key="M15" value="7.20508353776036" />
+      <entry key="M30" value="9.973149316507117" />
+      <entry key="H1" value="18.121048089902647" />
+      <entry key="H2" value="29.161295400324555" />
+      <entry key="H4" value="43.359388699739" />
+      <entry key="D1" value="145.81254079336998" />
+      <entry key="W1" value="447.42017080939837" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0000025134676143" />
-      <entry key="S2" value="1.043783365652505" />
-      <entry key="S5" value="1.4179823326443193" />
-      <entry key="S10" value="2.0407177547821442" />
-      <entry key="S30" value="3.0694134018833803" />
-      <entry key="S60" value="3.485684782159096" />
-      <entry key="M2" value="3.7291191355012048" />
-      <entry key="M5" value="3.8881445083992245" />
-      <entry key="M10" value="3.9434699380144944" />
-      <entry key="M15" value="3.962178039451199" />
-      <entry key="M30" value="3.9810211260775747" />
-      <entry key="H1" value="3.9907891363654384" />
-      <entry key="H2" value="4.0124377793038635" />
-      <entry key="H4" value="4.128791945619349" />
-      <entry key="D1" value="5.534858686109733" />
-      <entry key="W1" value="9.469313311096466" />
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="3.861819908164137E-171" />
+      <entry key="S30" value="3.7965728969266556E-57" />
+      <entry key="S60" value="1.2259035124854518E-28" />
+      <entry key="M2" value="2.21151733352559E-14" />
+      <entry key="M5" value="7.92457597624795E-6" />
+      <entry key="M10" value="0.005629830925348579" />
+      <entry key="M15" value="0.05023563139725938" />
+      <entry key="M30" value="0.44826354523276757" />
+      <entry key="H1" value="1.3391469945819556" />
+      <entry key="H2" value="2.324304621338452" />
+      <entry key="H4" value="3.1424282202485334" />
+      <entry key="D1" value="5.288675634924119" />
+      <entry key="W1" value="9.40796483670331" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="4.468034960771562E-5" />
-      <entry key="MS500" value="0.1349039006044019" />
-      <entry key="S2" value="0.6330152232282181" />
-      <entry key="S5" value="1.1601785622877996" />
-      <entry key="S10" value="1.8432701826768156" />
-      <entry key="S30" value="2.965873528046224" />
-      <entry key="S60" value="3.4849961462195638" />
-      <entry key="M2" value="4.375646654746952" />
-      <entry key="M5" value="8.638823006764078" />
-      <entry key="M10" value="15.998552295080898" />
-      <entry key="M15" value="21.46353201267672" />
-      <entry key="M30" value="30.457479720915615" />
-      <entry key="H1" value="37.143586389634166" />
-      <entry key="H2" value="42.27220301769132" />
-      <entry key="H4" value="51.901795396334144" />
-      <entry key="D1" value="150.80882561927612" />
-      <entry key="W1" value="452.76124359076397" />
+      <entry key="MS100" value="0.9794292063494616" />
+      <entry key="MS500" value="1.140308181431864" />
+      <entry key="S2" value="2.867008566145137" />
+      <entry key="S5" value="4.6621878354095285" />
+      <entry key="S10" value="5.665717359448435" />
+      <entry key="S30" value="6.511678643983345" />
+      <entry key="S60" value="6.7498991402210935" />
+      <entry key="M2" value="6.8734244142126935" />
+      <entry key="M5" value="6.949016067763802" />
+      <entry key="M10" value="6.997276975308634" />
+      <entry key="M15" value="7.2550757092196445" />
+      <entry key="M30" value="10.420981625058381" />
+      <entry key="H1" value="19.459612096464827" />
+      <entry key="H2" value="31.48509248828727" />
+      <entry key="H4" value="46.50144756012564" />
+      <entry key="D1" value="151.10087445261954" />
+      <entry key="W1" value="456.8279313877581" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -166,15 +164,7 @@
       <workItem from="1748379420413" duration="3000" />
       <workItem from="1779547815911" duration="29068000" />
       <workItem from="1779695741143" duration="8369000" />
-      <workItem from="1780831623909" duration="5987000" />
-    </task>
-    <task id="LOCAL-00024" summary="Improving the capsule dumbbell product page">
-      <option name="closed" value="true" />
-      <created>1757336816909</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1757336816909</updated>
+      <workItem from="1780831623909" duration="6304000" />
     </task>
     <task id="LOCAL-00025" summary="Improving the capsule dumbbell product page">
       <option name="closed" value="true" />
@@ -560,14 +550,21 @@
       <option name="project" value="LOCAL" />
       <updated>1780838037407</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="fix">
+      <option name="closed" value="true" />
+      <created>1780840567818</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1780840567818</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactor homepage" />
     <MESSAGE value="fix mobile hamburger" />
     <MESSAGE value="Install razorpay dependency" />
     <MESSAGE value="&quot;Fix Razorpay frontend key&quot;" />
@@ -591,6 +588,7 @@
     <MESSAGE value="update sitemap.xml" />
     <MESSAGE value="fix checkout bug + trust signals" />
     <MESSAGE value="fix checkout autofill values" />
+    <MESSAGE value="fix css for thank you" />
     <MESSAGE value="fix" />
     <option name="LAST_COMMIT_MESSAGE" value="fix" />
   </component>
