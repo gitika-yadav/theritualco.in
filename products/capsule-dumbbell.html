@@ -27,6 +27,10 @@
 
     <!-- Preload hero image -->
     <link rel="preload" as="image" href="/images/grey.png"/>
+    <link rel="preload" as="image" href="/images/grey.webp" type="image/webp"/>
+    <link rel="preload" as="image" href="/images/peach.webp" type="image/webp"/>
+    <link rel="preload" as="image" href="/images/cream.webp" type="image/webp"/>
+    <link rel="preload" as="image" href="/images/black.webp" type="image/webp"/>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <!-- Structured Data: Breadcrumbs -->
@@ -89,23 +93,23 @@
             <div class="gallery">
                 <div class="gallery__hero">
                     <picture>
-                        <source srcset="/images/grey.png" type="image/png"/>
-                        <source srcset="/images/grey.png" type="image/png"/>
+                        <source id="hero-source-webp" srcset="/images/grey.webp" type="image/webp"/>
+                        <source id="hero-source-png" srcset="/images/grey.png" type="image/png"/>
                         <img id="hero-image" src="/images/grey.png" alt="Capsule silicone dumbbells in pastel tones" width="900" height="700" fetchpriority="high" decoding="async"/>
                     </picture>
                 </div>
                 <div class="gallery__thumbs">
-                    <button class="thumb is-active" data-img="/images/grey.png" aria-label="Grey">
-                        <img src="/images/grey.png" alt="Capsule dumbbells—main view" width="120" height="90"/>
+                    <button class="thumb is-active" data-img="/images/grey.webp" aria-label="Grey">
+                        <img src="/images/grey.webp" alt="Capsule dumbbells—main view" width="120" height="90"/>
                     </button>
-                    <button class="thumb" data-img="/images/cream.png" aria-label="Cream">
-                        <img src="/images/cream.png" alt="Capsule dumbbells—lifestyle" width="120" height="90"/>
+                    <button class="thumb" data-img="/images/cream.webp" aria-label="Cream">
+                        <img src="/images/cream.webp" alt="Capsule dumbbells—lifestyle" width="120" height="90"/>
                     </button>
-                    <button class="thumb" data-img="/images/peach.png" aria-label="Peach">
-                        <img src="/images/peach.png" alt="Peach"/>
+                    <button class="thumb" data-img="/images/peach.webp" aria-label="Peach">
+                        <img src="/images/peach.webp" alt="Peach"/>
                     </button>
-                    <button class="thumb" data-img="/images/black.png" aria-label="Black">
-                        <img src="/images/black.png" alt="Grey"/>
+                    <button class="thumb" data-img="/images/black.webp" aria-label="Black">
+                        <img src="/images/black.webp" alt="Grey"/>
                     </button>
                 </div>
             </div>
@@ -388,14 +392,15 @@
                 s.setAttribute('aria-checked', 'true');
 
                 var color    = s.dataset.color.toLowerCase();
-                var imgPath  = '/images/' + color + '.png';
+                var imgPath  = '/images/' + color + '.webp';
 
                 // Update <source> for <picture> element
                 var source = document.querySelector('.gallery__hero picture source');
-                if (source) source.srcset = imgPath;
-
-                // Update <img> fallback
-                if (hero) hero.src = imgPath;
+                var source1 = document.getElementById('hero-source-webp');
+                var source2 = document.getElementById('hero-source-png');
+                if (source1) source1.srcset = '/images/' + color + '.webp';
+                if (source2) source2.srcset = '/images/' + color + '.png';
+                if (hero) hero.src = '/images/' + color + '.png';
 
                 // Highlight matching thumb
                 document.querySelectorAll('.thumb').forEach(function(t) {

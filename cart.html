@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/navbar.css"/>
     <link rel="stylesheet" href="/css/footer.css"/>
     <link rel="stylesheet" href="/css/cart.css"/>
-    <link rel="icon" type="image/png" href="/images/favicon.png"/>
+    <link rel="icon" type="image/webp" href="/images/favicon.webp"/>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet"/>
 </head>
 <body>
@@ -79,7 +79,7 @@
         itemsEl.innerHTML = cart.items.map(item => `
       <div class="cart-item" data-key="${item.key}">
         ${item.image
-            ? `<img src="${item.image}" alt="${item.name}" class="cart-item-img"/>`
+            ? `<img src="${item.image}" alt="${item.name}" class="cart-item-img" loading="lazy"/>`
             : `<div class="cart-item-img"></div>`}
         <div class="cart-item-info">
           <p class="cart-item-name">${item.name}</p>

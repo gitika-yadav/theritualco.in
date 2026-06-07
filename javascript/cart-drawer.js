@@ -23,7 +23,7 @@
         itemsEl.innerHTML = cart.items.map(item => `
       <div class="cd-item" data-key="${item.key}">
         ${item.image
-            ? `<img src="${item.image}" alt="${item.name}" class="cd-item-img"/>`
+            ? `<img src="${item.image}" alt="${item.name}" class="cd-item-img" loading="lazy"/>`
             : `<div class="cd-item-img cd-item-placeholder"></div>`}
         <div class="cd-item-info">
           <p class="cd-item-name">${item.name}</p>
