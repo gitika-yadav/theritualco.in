@@ -1,13 +1,68 @@
-<h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Order Confirmed – The Ritual Co.</title>
+    <link rel="stylesheet" href="/css/global.css"/>
+    <link rel="stylesheet" href="/css/navbar.css"/>
+    <link rel="stylesheet" href="/css/footer.css"/>
+    <link rel="icon" type="image/png" href="/images/favicon.png"/>
+    <link rel="stylesheet" href="/css/thank-you.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet"/>
+</head>
+<body>
+<div id="navbar-placeholder"></div>
 
-    Thank You.
+<div class="ty-wrap">
+    <div class="ty-inner">
 
-</h1>
+        <div class="ty-icon">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
 
-<p>
+        <p class="ty-label">The Ritual Co.</p>
+        <h1 class="ty-title">Your order is confirmed.</h1>
+        <p class="ty-body">
+            Thank you for being an early supporter. A confirmation email is on its way to you with your order details.
+        </p>
 
-    Your Ritual Co preorder is confirmed.
+        <hr class="ty-divider"/>
 
-    We'll email updates before shipping.
+        <p class="ty-what-next">What happens next</p>
+        <ul class="ty-steps">
+            <li>
+                <span class="ty-step-num">1</span>
+                <span>You'll receive an order confirmation email with your payment details shortly.</span>
+            </li>
+            <li>
+                <span class="ty-step-num">2</span>
+                <span>Your capsule dumbbells are reserved as part of our first production run, shipping June 2026.</span>
+            </li>
+            <li>
+                <span class="ty-step-num">3</span>
+                <span>We'll send a shipping notification with tracking details before dispatch.</span>
+            </li>
+        </ul>
 
-</p>
+        <div class="ty-actions">
+            <a href="/account/orders.html" class="ty-btn-primary">View my order</a>
+            <a href="/" class="ty-btn-secondary">Back to home</a>
+        </div>
+
+    </div>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script>
+    fetch("/partials/navbar.html").then(r=>r.text()).then(html=>{
+        document.getElementById("navbar-placeholder").innerHTML=html;
+        const s=document.createElement("script");s.src="/js/navbar.js";document.body.appendChild(s);
+    });
+    fetch("/partials/footer.html").then(r=>r.text()).then(html=>{
+        document.getElementById("footer-placeholder").innerHTML=html;
+    });
+</script>
+</body>
+</html>

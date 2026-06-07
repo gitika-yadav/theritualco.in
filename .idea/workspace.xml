@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="fix checkout autofill values">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="fix">
+      <change beforePath="$PROJECT_DIR$/thank-you.html" beforeDir="false" afterPath="$PROJECT_DIR$/thank-you.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,15 +166,7 @@
       <workItem from="1748379420413" duration="3000" />
       <workItem from="1779547815911" duration="29068000" />
       <workItem from="1779695741143" duration="8369000" />
-      <workItem from="1780831623909" duration="5178000" />
-    </task>
-    <task id="LOCAL-00023" summary="Improving the about page">
-      <option name="closed" value="true" />
-      <created>1757335278226</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1757335278226</updated>
+      <workItem from="1780831623909" duration="5987000" />
     </task>
     <task id="LOCAL-00024" summary="Improving the capsule dumbbell product page">
       <option name="closed" value="true" />
@@ -563,7 +552,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780836415530</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="fix">
+      <option name="closed" value="true" />
+      <created>1780838037406</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1780838037407</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -592,10 +589,10 @@
     <MESSAGE value="add indexnow key" />
     <MESSAGE value="add new artices for silicone , pvc and neoprene" />
     <MESSAGE value="update sitemap.xml" />
-    <MESSAGE value="fix" />
     <MESSAGE value="fix checkout bug + trust signals" />
     <MESSAGE value="fix checkout autofill values" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix checkout autofill values" />
+    <MESSAGE value="fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

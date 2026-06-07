@@ -1,0 +1,188 @@
+/* ─────────────────────────────────────────────
+   THE RITUAL CO. — Thank You Page
+   /css/thank-you.css
+───────────────────────────────────────────── */
+
+.ty-wrap {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 24px;
+    text-align: center;
+    background: #faf8f6;
+}
+
+.ty-inner {
+    max-width: 480px;
+    width: 100%;
+    animation: ty-fade-up 0.6s ease both;
+}
+
+@keyframes ty-fade-up {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Check icon ────────────────────────────── */
+.ty-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #f0f7ee;
+    border: 1px solid #c0dab8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 28px;
+}
+
+.ty-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: #2a6b3a;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* ── Header ────────────────────────────────── */
+.ty-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #a09890;
+    margin: 0 0 12px;
+}
+
+.ty-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 38px;
+    font-weight: 400;
+    color: #3a3330;
+    margin: 0 0 16px;
+    line-height: 1.15;
+}
+
+.ty-body {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: #7a6f68;
+    line-height: 1.75;
+    margin: 0 0 36px;
+}
+
+/* ── Divider ───────────────────────────────── */
+.ty-divider {
+    border: none;
+    border-top: 1px solid #e8e2dc;
+    margin: 0 0 32px;
+}
+
+/* ── What happens next ─────────────────────── */
+.ty-what-next {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #a09890;
+    margin: 0 0 20px;
+}
+
+.ty-steps {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 36px;
+    text-align: left;
+}
+
+.ty-steps li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: #7a6f68;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0ece8;
+    line-height: 1.6;
+}
+
+.ty-steps li:last-child {
+    border-bottom: none;
+}
+
+.ty-step-num {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #f0ece8;
+    color: #8a7f78;
+    font-size: 11px;
+    font-family: 'DM Sans', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+/* ── Actions ───────────────────────────────── */
+.ty-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.ty-btn-primary {
+    padding: 13px 28px;
+    background: #3a3330;
+    color: #fff;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.ty-btn-primary:hover {
+    background: #5a4f48;
+}
+
+.ty-btn-secondary {
+    padding: 13px 28px;
+    background: transparent;
+    color: #7a6f68;
+    border: 1px solid #e8e2dc;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.ty-btn-secondary:hover {
+    border-color: #c0b8b0;
+    color: #5a4f48;
+}
+
+/* ── Mobile ────────────────────────────────── */
+@media (max-width: 480px) {
+    .ty-title { font-size: 30px; }
+    .ty-actions { flex-direction: column; }
+    .ty-btn-primary,
+    .ty-btn-secondary { text-align: center; }
+}
