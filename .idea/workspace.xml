@@ -4,21 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="minor fix">
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="switch to webp images + compressed images">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/cart.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/black.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/black.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/cream.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/cream.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/flat-dumbbell.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/flat-dumbbell.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/flat-dumbbell.webp" beforeDir="false" afterPath="$PROJECT_DIR$/images/flat-dumbbell.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/founder.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/founder.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/founder.webp" beforeDir="false" afterPath="$PROJECT_DIR$/images/founder.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/grey.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/grey.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/peach.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/peach.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javascript/cart-drawer.js" beforeDir="false" afterPath="$PROJECT_DIR$/javascript/cart-drawer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/capsule-dumbbell.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/capsule-dumbbell.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/products.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/products.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/dumbbells/best-dumbbells-for-women-india.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/best-dumbbells-for-women-india.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/dumbbells/silicone-dumbbells-vs-pvc-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/silicone-dumbbells-vs-pvc-dumbbells.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/dumbbells/silicone-vs-neoprene-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/silicone-vs-neoprene-dumbbells.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/partials/head.html" beforeDir="false" afterPath="$PROJECT_DIR$/partials/head.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/privacy-policy.html" beforeDir="false" afterPath="$PROJECT_DIR$/privacy-policy.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/refund-policy.html" beforeDir="false" afterPath="$PROJECT_DIR$/refund-policy.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shipping-policy.html" beforeDir="false" afterPath="$PROJECT_DIR$/shipping-policy.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/terms-and-conditions.html" beforeDir="false" afterPath="$PROJECT_DIR$/terms-and-conditions.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,23 +38,23 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0000000000001221" />
-      <entry key="S2" value="1.0005910876328084" />
-      <entry key="S5" value="1.053955475924039" />
-      <entry key="S10" value="1.3533226044095994" />
-      <entry key="S30" value="3.526327327136262" />
-      <entry key="S60" value="5.6909459648154685" />
-      <entry key="M2" value="7.7126897929129" />
-      <entry key="M5" value="11.529860618251377" />
-      <entry key="M10" value="17.847437680488273" />
-      <entry key="M15" value="23.889475143643395" />
-      <entry key="M30" value="37.594069266324084" />
-      <entry key="H1" value="55.38333580963484" />
-      <entry key="H2" value="87.24488420255393" />
-      <entry key="H4" value="140.35569350402093" />
-      <entry key="D1" value="331.2994470627513" />
-      <entry key="W1" value="672.7634546033256" />
+      <entry key="MS100" value="1.000000011610457" />
+      <entry key="MS500" value="1.0258803331667046" />
+      <entry key="S2" value="1.4010905848813389" />
+      <entry key="S5" value="1.6942111463310572" />
+      <entry key="S10" value="1.8508221128513385" />
+      <entry key="S30" value="2.2788085788191927" />
+      <entry key="S60" value="2.923719057804746" />
+      <entry key="M2" value="3.8284524833204263" />
+      <entry key="M5" value="4.887781894115015" />
+      <entry key="M10" value="5.479661750223733" />
+      <entry key="M15" value="6.333965730268541" />
+      <entry key="M30" value="13.13967518145031" />
+      <entry key="H1" value="32.39541366799473" />
+      <entry key="H2" value="68.9569901408322" />
+      <entry key="H4" value="128.26142365522213" />
+      <entry key="D1" value="339.93789519601455" />
+      <entry key="W1" value="691.6245016485972" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -67,37 +62,37 @@
       <entry key="S2" value="0.0" />
       <entry key="S5" value="0.0" />
       <entry key="S10" value="0.0" />
-      <entry key="S30" value="1.9647330209516744E-140" />
-      <entry key="S60" value="1.4016893453799525E-70" />
-      <entry key="M2" value="1.1839296719556135E-35" />
-      <entry key="M5" value="1.0710874384049554E-14" />
-      <entry key="M10" value="1.0698943967443755E-7" />
-      <entry key="M15" value="2.4496230617822294E-5" />
-      <entry key="M30" value="0.006614819755590113" />
-      <entry key="H1" value="0.1312196465717096" />
-      <entry key="H2" value="0.7235848158528053" />
-      <entry key="H4" value="2.0549553497731936" />
-      <entry key="D1" value="6.7573646725128365" />
-      <entry key="W1" value="12.026548914660536" />
+      <entry key="S30" value="3.702215770272274E-193" />
+      <entry key="S60" value="6.084583609641896E-97" />
+      <entry key="M2" value="7.800374441343699E-49" />
+      <entry key="M5" value="5.71927190468121E-20" />
+      <entry key="M10" value="2.4722866409178297E-10" />
+      <entry key="M15" value="4.2815846498556823E-7" />
+      <entry key="M30" value="8.7452182244153E-4" />
+      <entry key="H1" value="0.04771173195117552" />
+      <entry key="H2" value="0.43631747154593803" />
+      <entry key="H4" value="1.5957283816485244" />
+      <entry key="D1" value="6.478435216614522" />
+      <entry key="W1" value="11.954342718835386" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9265880618903709" />
-      <entry key="MS500" value="0.9848664428956698" />
-      <entry key="S2" value="0.9967825635756994" />
-      <entry key="S5" value="1.0523064468340018" />
-      <entry key="S10" value="1.3521775327029524" />
-      <entry key="S30" value="3.5252157227084124" />
-      <entry key="S60" value="5.690020528649517" />
-      <entry key="M2" value="7.712047037976678" />
-      <entry key="M5" value="11.529504035370012" />
-      <entry key="M10" value="17.847127428435495" />
-      <entry key="M15" value="23.889125299628876" />
-      <entry key="M30" value="37.60014855832303" />
-      <entry key="H1" value="55.513580072111715" />
-      <entry key="H2" value="87.96694722206085" />
-      <entry key="H4" value="142.40910176810243" />
-      <entry key="D1" value="338.0560970475822" />
-      <entry key="W1" value="684.7897351328711" />
+      <entry key="MS100" value="0.8888426912740601" />
+      <entry key="MS500" value="1.0018811630575009" />
+      <entry key="S2" value="1.3924456211325138" />
+      <entry key="S5" value="1.6899352966235779" />
+      <entry key="S10" value="1.8484707796686437" />
+      <entry key="S30" value="2.27786404512141" />
+      <entry key="S60" value="2.923142036049793" />
+      <entry key="M2" value="3.82809352564205" />
+      <entry key="M5" value="4.88760572352509" />
+      <entry key="M10" value="5.47956486069509" />
+      <entry key="M15" value="6.333892043769918" />
+      <entry key="M30" value="13.14043861659176" />
+      <entry key="H1" value="32.442744981229175" />
+      <entry key="H2" value="69.39237429973892" />
+      <entry key="H4" value="129.85594184669014" />
+      <entry key="D1" value="346.415643580004" />
+      <entry key="W1" value="703.5785773538089" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -180,15 +175,7 @@
       <workItem from="1748379420413" duration="3000" />
       <workItem from="1779547815911" duration="29068000" />
       <workItem from="1779695741143" duration="8369000" />
-      <workItem from="1780831623909" duration="27994000" />
-    </task>
-    <task id="LOCAL-00038" summary="fix mobile hamburger">
-      <option name="closed" value="true" />
-      <created>1779631303105</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1779631303105</updated>
+      <workItem from="1780831623909" duration="29664000" />
     </task>
     <task id="LOCAL-00039" summary="fix mobile hamburger">
       <option name="closed" value="true" />
@@ -574,14 +561,21 @@
       <option name="project" value="LOCAL" />
       <updated>1780870358992</updated>
     </task>
-    <option name="localTasksCounter" value="87" />
+    <task id="LOCAL-00087" summary="switch to webp images + compressed images">
+      <option name="closed" value="true" />
+      <created>1780871282648</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1780871282648</updated>
+    </task>
+    <option name="localTasksCounter" value="88" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Improve blog url make it cleaner" />
     <MESSAGE value="add policy pages + founder + press page + update sitemap.xml" />
     <MESSAGE value="update readibilty of privacy policy" />
     <MESSAGE value="fix of privacy policy" />
@@ -606,7 +600,8 @@
     <MESSAGE value="title fix" />
     <MESSAGE value="fixed swatches + add images" />
     <MESSAGE value="minor fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="minor fix" />
+    <MESSAGE value="switch to webp images + compressed images" />
+    <option name="LAST_COMMIT_MESSAGE" value="switch to webp images + compressed images" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
