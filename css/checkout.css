@@ -1,3 +1,11 @@
+/* ── Early bird badge ────────────────────── */
+.early-bird-badge{display:inline-block;background:#f9f0e8;border:1px solid #e8d8c8;border-radius:100px;font-size:11px;color:#8b5e3a;padding:4px 12px;margin-bottom:12px;letter-spacing:.04em}
+.slots-remaining{font-size:12px;color:#a09890;margin-top:4px}
+
+/* ── Logged-in greeting ──────────────────── */
+.auth-greeting{font-size:13px;color:#7a6f68;margin-bottom:16px;padding:10px 14px;background:#faf8f6;border:1px solid #e8e2dc;border-radius:8px}
+.auth-greeting a{color:#3a3330;text-decoration:underline;text-underline-offset:2px}
+
 body{
     background:#F7F2EC;
     color:#171717;
@@ -98,6 +106,7 @@ select{
 
 
 /* ── Trust signals ─────────────────────────────── */
+
 .trust-section {
     margin-top: 24px;
     border-top: 1px solid #e8e2dc;

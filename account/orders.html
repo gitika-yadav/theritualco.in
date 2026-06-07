@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>My Orders – The Ritual Co.</title>
+    <link rel="stylesheet" href="/css/global.css"/>
+    <link rel="stylesheet" href="/css/navbar.css"/>
+    <link rel="stylesheet" href="/css/footer.css"/>
+    <link rel="icon" type="image/png" href="/images/favicon.png"/>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&display=swap" rel="stylesheet"/>
+    <style>
+        body{background:#faf8f6}
+        .account-wrap{max-width:720px;margin:0 auto;padding:60px 24px 80px}
+        .account-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#a09890;margin:0 0 8px}
+        .account-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:32px;font-weight:400;color:#3a3330;margin:0 0 4px}
+        .account-email{font-size:13px;color:#a09890;margin:0 0 40px}
+        .account-nav{display:flex;gap:24px;border-bottom:1px solid #e8e2dc;margin-bottom:40px}
+        .account-nav a{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#a09890;text-decoration:none;padding-bottom:12px;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+        .account-nav a.active{color:#3a3330;border-bottom-color:#3a3330}
+        .signout-btn{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#a09890;background:none;border:none;cursor:pointer;margin-left:auto;padding-bottom:12px}
+        .signout-btn:hover{color:#3a3330}
+
+        /* Orders */
+        .orders-empty{text-align:center;padding:60px 0}
+        .orders-empty p{font-size:15px;color:#a09890;margin:0 0 20px}
+        .orders-empty a{display:inline-block;padding:12px 28px;background:#3a3330;color:#fff;border-radius:8px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none}
+        .order-card{background:#fff;border:1px solid #e8e2dc;border-radius:12px;padding:20px 24px;margin-bottom:16px}
+        .order-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+        .order-id{font-size:11px;color:#a09890;font-family:monospace}
+        .order-status{font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:100px}
+        .status-paid{background:#f0f7ee;color:#2a6b3a}
+        .status-pending{background:#fef9ee;color:#7a5a1a}
+        .status-shipped{background:#eef4fe;color:#1a4a8b}
+        .status-delivered{background:#f0f7ee;color:#2a6b3a}
+        .status-cancelled{background:#fdf0ee;color:#8b3a2a}
+        .order-details{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px}
+        .order-detail{font-size:13px}
+        .order-detail span:first-child{color:#a09890;display:block;font-size:11px;margin-bottom:2px;letter-spacing:.04em;text-transform:uppercase}
+        .order-detail span:last-child{color:#3a3330}
+        .order-date{font-size:12px;color:#c0b8b0;margin-top:14px;padding-top:14px;border-top:1px solid #e8e2dc}
+
+        /* Profile section */
+        .profile-card{background:#fff;border:1px solid #e8e2dc;border-radius:12px;padding:24px}
+        .profile-field{margin-bottom:16px}
+        .profile-field label{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#7a6f68;margin-bottom:6px}
+        .profile-field input{width:100%;padding:10px 14px;border:1px solid #e8e2dc;border-radius:8px;font-size:14px;color:#3a3330;background:#faf8f6;box-sizing:border-box;outline:none}
+        .profile-field input:focus{border-color:#c0a898}
+        .profile-save{padding:10px 24px;background:#3a3330;color:#fff;border:none;border-radius:8px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+        .profile-save:disabled{background:#c0b8b0}
+        .profile-msg{font-size:13px;color:#2a6b3a;margin-top:12px;display:none}
+
+        .loading{text-align:center;padding:40px;color:#a09890;font-size:14px}
+    </style>
+</head>
+<body>
+<div id="navbar-placeholder"></div>
+
+<div class="account-wrap">
+    <p class="account-label">The Ritual Co.</p>
+    <h1 class="account-title">My account</h1>
+    <p class="account-email" id="account-email">Loading…</p>
+
+    <nav class="account-nav">
+        <a href="#orders" class="active" onclick="showTab('orders',this)">Orders</a>
+        <a href="#profile" onclick="showTab('profile',this)">Profile</a>
+        <button class="signout-btn" id="signout-btn">Sign out</button>
+    </nav>
+
+    <!-- ORDERS TAB -->
+    <div id="tab-orders">
+        <div class="loading" id="orders-loading">Loading orders…</div>
+        <div id="orders-list" style="display:none"></div>
+    </div>
+
+    <!-- PROFILE TAB -->
+    <div id="tab-profile" style="display:none">
+        <div class="profile-card">
+            <div class="profile-field">
+                <label>Full name</label>
+                <input type="text" id="profile-name" placeholder="Your name"/>
+            </div>
+            <div class="profile-field">
+                <label>Phone</label>
+                <input type="tel" id="profile-phone" placeholder="10-digit mobile"/>
+            </div>
+            <div class="profile-field">
+                <label>Default shipping address</label>
+                <input type="text" id="profile-address" placeholder="Flat, street, city, pincode"/>
+            </div>
+            <button class="profile-save" id="profile-save-btn" onclick="saveProfile()">Save changes</button>
+            <p class="profile-msg" id="profile-msg">Saved!</p>
+        </div>
+    </div>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script type="module">
+    import { supabase, getUser, signOut } from "/javascript/auth.js";
+
+    // ── Auth guard ───────────────────────────────────
+    const user = await getUser();
+    if (!user) {
+        window.location.href = "/account/login.html?next=/account/orders.html";
+    }
+
+    document.getElementById("account-email").textContent = user.email;
+    document.getElementById("signout-btn").addEventListener("click", signOut);
+
+    // ── Tab switching ────────────────────────────────
+    window.showTab = (tab, el) => {
+        document.querySelectorAll(".account-nav a").forEach(a => a.classList.remove("active"));
+        el.classList.add("active");
+        document.getElementById("tab-orders").style.display  = tab === "orders"  ? "block" : "none";
+        document.getElementById("tab-profile").style.display = tab === "profile" ? "block" : "none";
+        if (tab === "profile") loadProfile();
+    };
+
+    // ── Load orders ──────────────────────────────────
+    const { data: { session } } = await supabase.auth.getSession();
+
+    const res = await fetch("/.netlify/functions/get-orders", {
+        headers: { Authorization: `Bearer ${session.access_token}` }
+    });
+    const { orders } = await res.json();
+
+    document.getElementById("orders-loading").style.display = "none";
+    const list = document.getElementById("orders-list");
+    list.style.display = "block";
+
+    if (!orders || orders.length === 0) {
+        list.innerHTML = `
+      <div class="orders-empty">
+        <p>No orders yet.</p>
+        <a href="/products/capsule-dumbbell.html">Shop now</a>
+      </div>`;
+    } else {
+        list.innerHTML = orders.map(o => {
+            const amount  = (o.amount_paise / 100).toLocaleString("en-IN");
+            const date    = new Date(o.created_at).toLocaleDateString("en-IN", { day:"numeric", month:"long", year:"numeric" });
+            const shortId = o.id.split("-")[0].toUpperCase();
+            return `
+        <div class="order-card">
+          <div class="order-card-header">
+            <span class="order-id">#${shortId}</span>
+            <span class="order-status status-${o.status}">${o.status}</span>
+          </div>
+          <div class="order-details">
+            <div class="order-detail"><span>Product</span><span>${o.product_name}</span></div>
+            <div class="order-detail"><span>Weight</span><span>${o.weight}</span></div>
+            <div class="order-detail"><span>Colour</span><span>${o.color}</span></div>
+            <div class="order-detail"><span>Amount paid</span><span>₹${amount}</span></div>
+          </div>
+          <p class="order-date">Ordered on ${date}</p>
+        </div>`;
+        }).join("");
+    }
+
+    // ── Load profile ─────────────────────────────────
+    async function loadProfile() {
+        const { data } = await supabase
+            .from("profiles")
+            .select("full_name, phone, address")
+            .eq("id", user.id)
+            .single();
+        if (data) {
+            document.getElementById("profile-name").value    = data.full_name || "";
+            document.getElementById("profile-phone").value   = data.phone     || "";
+            document.getElementById("profile-address").value = data.address   || "";
+        }
+    }
+
+    window.loadProfile = loadProfile;
+
+    window.saveProfile = async () => {
+        const btn = document.getElementById("profile-save-btn");
+        btn.disabled = true; btn.textContent = "Saving…";
+        const { error } = await supabase.from("profiles").upsert({
+            id:        user.id,
+            full_name: document.getElementById("profile-name").value.trim(),
+            phone:     document.getElementById("profile-phone").value.trim(),
+            address:   document.getElementById("profile-address").value.trim(),
+        });
+        btn.disabled = false; btn.textContent = "Save changes";
+        if (!error) {
+            const msg = document.getElementById("profile-msg");
+            msg.style.display = "block";
+            setTimeout(() => msg.style.display = "none", 3000);
+        }
+    };
+</script>
+
+<script>
+    fetch("/partials/navbar.html").then(r=>r.text()).then(html=>{
+        document.getElementById("navbar-placeholder").innerHTML=html;
+        const s=document.createElement("script");s.src="/js/navbar.js";document.body.appendChild(s);
+    });
+    fetch("/partials/footer.html").then(r=>r.text()).then(html=>{document.getElementById("footer-placeholder").innerHTML=html;});
+</script>
+</body>
+</html>

@@ -4,10 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="fix">
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="fix checkout autofill values">
+      <change afterPath="$PROJECT_DIR$/account/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/account/orders.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/account/reset-password.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/javascript/auth.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/netlify/functions/get-inventory.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/netlify/functions/get-orders.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/checkout.html" beforeDir="false" afterPath="$PROJECT_DIR$/checkout.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/checkout.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/checkout.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/netlify.toml" beforeDir="false" afterPath="$PROJECT_DIR$/netlify.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/netlify/functions/create-order.js" beforeDir="false" afterPath="$PROJECT_DIR$/netlify/functions/create-order.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/netlify/functions/verify-payment.js" beforeDir="false" afterPath="$PROJECT_DIR$/netlify/functions/verify-payment.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,61 +44,61 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0" />
-      <entry key="S5" value="1.0" />
-      <entry key="S10" value="1.0" />
-      <entry key="S30" value="1.0000239842080252" />
-      <entry key="S60" value="1.0201298754045562" />
-      <entry key="M2" value="1.5856467548274216" />
-      <entry key="M5" value="5.588125511775747" />
-      <entry key="M10" value="10.593892044730351" />
-      <entry key="M15" value="13.475999877811514" />
-      <entry key="M30" value="17.43358533761859" />
-      <entry key="H1" value="19.9901494410633" />
-      <entry key="H2" value="22.53121557262077" />
-      <entry key="H4" value="30.824619144632397" />
-      <entry key="D1" value="127.37537023467745" />
-      <entry key="W1" value="424.7823709993619" />
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="2.9073676376447772E-232" />
+      <entry key="S2" value="3.91112149213667E-58" />
+      <entry key="S5" value="2.823763273284928E-23" />
+      <entry key="S10" value="1.1855804003199573E-11" />
+      <entry key="S30" value="6.666742529010366E-4" />
+      <entry key="S60" value="0.05932830021840051" />
+      <entry key="M2" value="0.6790564944963825" />
+      <entry key="M5" value="4.765163742298003" />
+      <entry key="M10" value="12.063127429194708" />
+      <entry key="M15" value="17.50703631526332" />
+      <entry key="M30" value="26.479526498871873" />
+      <entry key="H1" value="33.15440672115633" />
+      <entry key="H2" value="38.260604339527376" />
+      <entry key="H4" value="47.773474645658716" />
+      <entry key="D1" value="145.27432295523275" />
+      <entry key="W1" value="443.29213561272013" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="0.0" />
-      <entry key="S2" value="0.0" />
-      <entry key="S5" value="0.0" />
-      <entry key="S10" value="0.0" />
-      <entry key="S30" value="0.0" />
-      <entry key="S60" value="1.3967743538434064E-207" />
-      <entry key="M2" value="3.73734445006532E-104" />
-      <entry key="M5" value="4.256231587236566E-42" />
-      <entry key="M10" value="2.063063641101884E-21" />
-      <entry key="M15" value="1.62059719729345E-14" />
-      <entry key="M30" value="1.2730267857721805E-7" />
-      <entry key="H1" value="3.5679500918204827E-4" />
-      <entry key="H2" value="0.018889018536924766" />
-      <entry key="H4" value="0.13748013329555148" />
-      <entry key="D1" value="1.547321544726672" />
-      <entry key="W1" value="5.475490207720818" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0000025134676143" />
+      <entry key="S2" value="1.043783365652505" />
+      <entry key="S5" value="1.4179823326443193" />
+      <entry key="S10" value="2.0407177547821442" />
+      <entry key="S30" value="3.0694134018833803" />
+      <entry key="S60" value="3.485684782159096" />
+      <entry key="M2" value="3.7291191355012048" />
+      <entry key="M5" value="3.8881445083992245" />
+      <entry key="M10" value="3.9434699380144944" />
+      <entry key="M15" value="3.962178039451199" />
+      <entry key="M30" value="3.9810211260775747" />
+      <entry key="H1" value="3.9907891363654384" />
+      <entry key="H2" value="4.0124377793038635" />
+      <entry key="H4" value="4.128791945619349" />
+      <entry key="D1" value="5.534858686109733" />
+      <entry key="W1" value="9.469313311096466" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.8766057213160351" />
-      <entry key="MS500" value="0.974004268543241" />
-      <entry key="S2" value="0.9934367347173356" />
-      <entry key="S5" value="0.9973695065410157" />
-      <entry key="S10" value="0.9986838871940489" />
-      <entry key="S30" value="0.9995850721857636" />
-      <entry key="S60" value="1.0199039553167684" />
-      <entry key="M2" value="1.5854425940251753" />
-      <entry key="M5" value="5.587786468640929" />
-      <entry key="M10" value="10.593564560596363" />
-      <entry key="M15" value="13.475721961725466" />
-      <entry key="M30" value="17.43340612302106" />
-      <entry key="H1" value="19.990403292922654" />
-      <entry key="H2" value="22.550035751528583" />
-      <entry key="H4" value="30.96201627169039" />
-      <entry key="D1" value="128.92239935201275" />
-      <entry key="W1" value="430.2576650790321" />
+      <entry key="MS100" value="4.468034960771562E-5" />
+      <entry key="MS500" value="0.1349039006044019" />
+      <entry key="S2" value="0.6330152232282181" />
+      <entry key="S5" value="1.1601785622877996" />
+      <entry key="S10" value="1.8432701826768156" />
+      <entry key="S30" value="2.965873528046224" />
+      <entry key="S60" value="3.4849961462195638" />
+      <entry key="M2" value="4.375646654746952" />
+      <entry key="M5" value="8.638823006764078" />
+      <entry key="M10" value="15.998552295080898" />
+      <entry key="M15" value="21.46353201267672" />
+      <entry key="M30" value="30.457479720915615" />
+      <entry key="H1" value="37.143586389634166" />
+      <entry key="H2" value="42.27220301769132" />
+      <entry key="H4" value="51.901795396334144" />
+      <entry key="D1" value="150.80882561927612" />
+      <entry key="W1" value="452.76124359076397" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -168,14 +180,7 @@
       <workItem from="1748379420413" duration="3000" />
       <workItem from="1779547815911" duration="29068000" />
       <workItem from="1779695741143" duration="8369000" />
-    </task>
-    <task id="LOCAL-00021" summary="Improving the faq page">
-      <option name="closed" value="true" />
-      <created>1757333379820</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1757333379820</updated>
+      <workItem from="1780831623909" duration="4029000" />
     </task>
     <task id="LOCAL-00022" summary="Improving the faq page">
       <option name="closed" value="true" />
@@ -561,15 +566,21 @@
       <option name="project" value="LOCAL" />
       <updated>1780784958213</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="fix checkout bug + trust signals">
+      <option name="closed" value="true" />
+      <created>1780826179063</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1780826179063</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="improving content organisation" />
-    <MESSAGE value="refactor products page" />
     <MESSAGE value="refactor homepage" />
     <MESSAGE value="fix mobile hamburger" />
     <MESSAGE value="Install razorpay dependency" />
@@ -593,7 +604,9 @@
     <MESSAGE value="add new artices for silicone , pvc and neoprene" />
     <MESSAGE value="update sitemap.xml" />
     <MESSAGE value="fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix" />
+    <MESSAGE value="fix checkout bug + trust signals" />
+    <MESSAGE value="fix checkout autofill values" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix checkout autofill values" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
