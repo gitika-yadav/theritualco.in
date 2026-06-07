@@ -4,20 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="improve index spacing">
-      <change afterPath="$PROJECT_DIR$/css/reviews.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/netlify/functions/get-reviews.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/netlify/functions/submit-reviews.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/blog.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/blog.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/cart.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/cart.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/faq.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/faq.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/footer.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/footer.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/global.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/global.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/navbar.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/navbar.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/products.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/products.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/netlify.toml" beforeDir="false" afterPath="$PROJECT_DIR$/netlify.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/partials/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/partials/navbar.html" afterDir="false" />
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="add reviews">
       <change beforePath="$PROJECT_DIR$/products/capsule-dumbbell.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/capsule-dumbbell.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,60 +31,60 @@
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
       <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0006171890730766" />
-      <entry key="S2" value="1.1634748409777205" />
-      <entry key="S5" value="1.7589230290468831" />
-      <entry key="S10" value="2.8704857659077216" />
-      <entry key="S30" value="5.688810105462059" />
-      <entry key="S60" value="7.357445930808152" />
-      <entry key="M2" value="8.520187946504201" />
-      <entry key="M5" value="9.435831145485123" />
-      <entry key="M10" value="10.463789633247869" />
-      <entry key="M15" value="12.125647644660956" />
-      <entry key="M30" value="20.336519440879353" />
-      <entry key="H1" value="41.84438576806203" />
-      <entry key="H2" value="78.53089439522358" />
-      <entry key="H4" value="122.19509044940838" />
-      <entry key="D1" value="268.8479747372341" />
-      <entry key="W1" value="588.5302975717204" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.000000051742317" />
+      <entry key="S10" value="1.0003904091479388" />
+      <entry key="S30" value="1.2014365811412393" />
+      <entry key="S60" value="2.260780003179728" />
+      <entry key="M2" value="4.480554738694929" />
+      <entry key="M5" value="8.551227234139633" />
+      <entry key="M10" value="12.563693055729901" />
+      <entry key="M15" value="15.51256963699023" />
+      <entry key="M30" value="24.442732881386306" />
+      <entry key="H1" value="45.54056048446481" />
+      <entry key="H2" value="82.53694298203996" />
+      <entry key="H4" value="127.68332814641872" />
+      <entry key="D1" value="277.8071861110026" />
+      <entry key="W1" value="598.8926146556825" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.112286575649341E-90" />
-      <entry key="MS500" value="1.0215116856516533E-18" />
-      <entry key="S2" value="3.1791486480963783E-5" />
-      <entry key="S5" value="0.015882700040158106" />
-      <entry key="S10" value="0.12602658465640537" />
-      <entry key="S30" value="0.5013650494305402" />
-      <entry key="S60" value="0.7080713589960704" />
-      <entry key="M2" value="0.8414697980364206" />
-      <entry key="M5" value="0.9343508329992459" />
-      <entry key="M10" value="0.9992713560347926" />
-      <entry key="M15" value="1.086411312251104" />
-      <entry key="M30" value="1.3930462108401807" />
-      <entry key="H1" value="1.9042440968268188" />
-      <entry key="H2" value="2.7564576342107365" />
-      <entry key="H4" value="4.010821446305767" />
-      <entry key="D1" value="7.554096238773724" />
-      <entry key="W1" value="12.21957339745558" />
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="4.0866818929510876E-147" />
+      <entry key="S5" value="2.783225106843385E-59" />
+      <entry key="S10" value="5.275628025973199E-30" />
+      <entry key="S30" value="1.7408367871445903E-10" />
+      <entry key="S60" value="1.3194077410507332E-5" />
+      <entry key="M2" value="0.00363236542297393" />
+      <entry key="M5" value="0.10582063836833513" />
+      <entry key="M10" value="0.33628975637561886" />
+      <entry key="M15" value="0.525631131280467" />
+      <entry key="M30" value="0.9689668588041631" />
+      <entry key="H1" value="1.5881602356231828" />
+      <entry key="H2" value="2.517312729287872" />
+      <entry key="H4" value="3.832889098625677" />
+      <entry key="D1" value="7.4971810867910955" />
+      <entry key="W1" value="12.206378378296995" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.8888426811665702" />
-      <entry key="MS500" value="0.9773121790222598" />
-      <entry key="S2" value="1.1544910215720556" />
-      <entry key="S5" value="1.697933300376984" />
-      <entry key="S10" value="2.7995077991340844" />
-      <entry key="S30" value="5.947094667559138" />
-      <entry key="S60" value="7.887458402424606" />
-      <entry key="M2" value="9.252581082621102" />
-      <entry key="M5" value="10.320609221946915" />
-      <entry key="M10" value="11.436575727973604" />
-      <entry key="M15" value="13.19327787975889" />
-      <entry key="M30" value="21.71849004136207" />
-      <entry key="H1" value="43.741900562861794" />
-      <entry key="H2" value="81.28331149828787" />
-      <entry key="H4" value="126.20354870925723" />
-      <entry key="D1" value="276.4013617329293" />
-      <entry key="W1" value="600.7496107117181" />
+      <entry key="MS100" value="6.624044567615586E-4" />
+      <entry key="MS500" value="0.23132610700946302" />
+      <entry key="S2" value="0.6935154845656926" />
+      <entry key="S5" value="0.8638184694732731" />
+      <entry key="S10" value="0.9297717721919273" />
+      <entry key="S30" value="1.1725560781567268" />
+      <entry key="S60" value="2.2369154993321803" />
+      <entry key="M2" value="4.463842359337896" />
+      <entry key="M5" value="8.639537282164348" />
+      <entry key="M10" value="12.884159920310573" />
+      <entry key="M15" value="16.024263716333888" />
+      <entry key="M30" value="25.401440227578522" />
+      <entry key="H1" value="47.121796303489894" />
+      <entry key="H2" value="85.04990087937271" />
+      <entry key="H4" value="131.5136242447381" />
+      <entry key="D1" value="285.303607211281" />
+      <entry key="W1" value="611.0987250374425" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -180,15 +167,7 @@
       <workItem from="1748379420413" duration="3000" />
       <workItem from="1779547815911" duration="29068000" />
       <workItem from="1779695741143" duration="8369000" />
-      <workItem from="1780831623909" duration="22120000" />
-    </task>
-    <task id="LOCAL-00031" summary="improving content organisation">
-      <option name="closed" value="true" />
-      <created>1758634212870</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1758634212870</updated>
+      <workItem from="1780831623909" duration="22447000" />
     </task>
     <task id="LOCAL-00032" summary="improving content organisation">
       <option name="closed" value="true" />
@@ -574,14 +553,21 @@
       <option name="project" value="LOCAL" />
       <updated>1780852803751</updated>
     </task>
-    <option name="localTasksCounter" value="80" />
+    <task id="LOCAL-00080" summary="add reviews">
+      <option name="closed" value="true" />
+      <created>1780858015999</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1780858015999</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update checkout validation" />
     <MESSAGE value="Add launch offer" />
     <MESSAGE value="Revert &quot;fix&quot;&#10;&#10;This reverts commit da69303b8fe5c08c027bcccd7483c1877a5bd828." />
     <MESSAGE value="Add pinterest to footer" />
@@ -606,7 +592,8 @@
     <MESSAGE value="minor fix" />
     <MESSAGE value="minor fix hamburger" />
     <MESSAGE value="improve index spacing" />
-    <option name="LAST_COMMIT_MESSAGE" value="improve index spacing" />
+    <MESSAGE value="add reviews" />
+    <option name="LAST_COMMIT_MESSAGE" value="add reviews" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
