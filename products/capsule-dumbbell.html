@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="/css/reviews.css">
 
     <!-- Preload hero image -->
-    <link rel="preload" as="image" href="/images/capsule-dumbbell.jpg"/>
+    <link rel="preload" as="image" href="/images/grey.png"/>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <!-- Structured Data: Breadcrumbs -->
@@ -89,17 +89,23 @@
             <div class="gallery">
                 <div class="gallery__hero">
                     <picture>
-                        <source srcset="/images/capsule-dumbbell.jpg" type="image/jpg"/>
-                        <source srcset="/images/capsule-dumbbell.jpg" type="image/jpg"/>
-                        <img id="hero-image" src="/images/capsule-dumbbell.jpg" alt="Capsule silicone dumbbells in pastel tones" width="900" height="700" fetchpriority="high" decoding="async"/>
+                        <source srcset="/images/grey.png" type="image/png"/>
+                        <source srcset="/images/grey.png" type="image/png"/>
+                        <img id="hero-image" src="/images/grey.png" alt="Capsule silicone dumbbells in pastel tones" width="900" height="700" fetchpriority="high" decoding="async"/>
                     </picture>
                 </div>
                 <div class="gallery__thumbs">
-                    <button class="thumb is-active" data-img="/images/capsule-dumbbell.jpg" aria-label="Main view">
-                        <img src="/images/capsule-dumbbell.jpg" alt="Capsule dumbbells—main view" width="120" height="90"/>
+                    <button class="thumb is-active" data-img="/images/grey.png" aria-label="Grey">
+                        <img src="/images/grey.png" alt="Capsule dumbbells—main view" width="120" height="90"/>
                     </button>
-                    <button class="thumb" data-img="/images/capsule-dumbbell-2.jpg" aria-label="Lifestyle view">
-                        <img src="/images/capsule-dumbbell.jpg" alt="Capsule dumbbells—lifestyle" width="120" height="90"/>
+                    <button class="thumb" data-img="/images/cream.png" aria-label="Cream">
+                        <img src="/images/cream.png" alt="Capsule dumbbells—lifestyle" width="120" height="90"/>
+                    </button>
+                    <button class="thumb" data-img="/images/peach.png" aria-label="Peach">
+                        <img src="/images/peach.png" alt="Peach"/>
+                    </button>
+                    <button class="thumb" data-img="/images/black.png" aria-label="Black">
+                        <img src="/images/black.png" alt="Grey"/>
                     </button>
                 </div>
             </div>
@@ -357,38 +363,66 @@
 
 <!-- Behaviour: gallery, swatches, weight, submit -->
 <script>
-    // Gallery thumbs
-    const hero = document.getElementById('hero-image');
-    document.querySelectorAll('.thumb').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        document.querySelectorAll('.thumb').forEach(b=>b.classList.remove('is-active'));
-        btn.classList.add('is-active');
-        hero.src = btn.dataset.img;
-      });
-    });
+    document.addEventListener("DOMContentLoaded", function() {
 
-    // Swatches
-    const chosenColor = document.getElementById('chosen-color');
-    document.querySelectorAll('.swatch').forEach(s=>{
-      s.addEventListener('click', ()=>{
-        document.querySelectorAll('.swatch').forEach(x=>{
-          x.classList.remove('is-selected'); x.setAttribute('aria-checked','false');
+        // ── Gallery thumbs ──────────────────────────
+        var hero = document.getElementById('hero-image');
+        document.querySelectorAll('.thumb').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.thumb').forEach(function(b) {
+                    b.classList.remove('is-active');
+                });
+                btn.classList.add('is-active');
+                hero.src = btn.dataset.img;
+            });
         });
-        s.classList.add('is-selected'); s.setAttribute('aria-checked','true');
-        chosenColor.value = s.dataset.color;
-      });
-    });
 
-    // Weights
-    const chosenWeight = document.getElementById('chosen-weight');
-    document.querySelectorAll('.weight').forEach(w=>{
-      w.addEventListener('click', ()=>{
-        document.querySelectorAll('.weight').forEach(x=>{
-          x.classList.remove('is-selected'); x.setAttribute('aria-checked','false');
+        // ── Swatches ────────────────────────────────
+        document.querySelectorAll('.swatch').forEach(function(s) {
+            s.addEventListener('click', function() {
+                document.querySelectorAll('.swatch').forEach(function(x) {
+                    x.classList.remove('is-selected');
+                    x.setAttribute('aria-checked', 'false');
+                });
+                s.classList.add('is-selected');
+                s.setAttribute('aria-checked', 'true');
+
+                var color    = s.dataset.color.toLowerCase();
+                var imgPath  = '/images/' + color + '.png';
+
+                // Update <source> for <picture> element
+                var source = document.querySelector('.gallery__hero picture source');
+                if (source) source.srcset = imgPath;
+
+                // Update <img> fallback
+                if (hero) hero.src = imgPath;
+
+                // Highlight matching thumb
+                document.querySelectorAll('.thumb').forEach(function(t) {
+                    t.classList.remove('is-active');
+                    if (t.dataset.img.endsWith(color + '.png')) t.classList.add('is-active');
+                });
+
+                // Highlight matching thumb
+                document.querySelectorAll('.thumb').forEach(function(t) {
+                    t.classList.remove('is-active');
+                    if (t.dataset.img === imgPath) t.classList.add('is-active');
+                });
+            });
         });
-        w.classList.add('is-selected'); w.setAttribute('aria-checked','true');
-        chosenWeight.value = w.dataset.weight;
-      });
+
+        // ── Weights ──────────────────────────────────
+        document.querySelectorAll('.weight').forEach(function(w) {
+            w.addEventListener('click', function() {
+                document.querySelectorAll('.weight').forEach(function(x) {
+                    x.classList.remove('is-selected');
+                    x.setAttribute('aria-checked', 'false');
+                });
+                w.classList.add('is-selected');
+                w.setAttribute('aria-checked', 'true');
+            });
+        });
+
     });
 
     // Submit to same Netlify function as home
@@ -460,7 +494,7 @@
                 weight: weightKey,
                 color:  color,
                 price:  price,
-                image:  "/images/capsule-dumbbell.jpg"
+                image:  "/images/${color.toLowerCase()}.png"
             });
 
             gtag("event", "add_to_cart", {

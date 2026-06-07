@@ -4,8 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="fix thank you">
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="title fix">
+      <change afterPath="$PROJECT_DIR$/images/black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/cream.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/grey.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/peach.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/capsule-dumbbell.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/images/pink.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/products/capsule-dumbbell.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/capsule-dumbbell.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,61 +36,61 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0000000027108407" />
-      <entry key="MS500" value="1.035788252557884" />
-      <entry key="S2" value="2.119946413322213" />
-      <entry key="S5" value="3.3774768373949464" />
-      <entry key="S10" value="4.07770643099304" />
-      <entry key="S30" value="4.6636927067560805" />
-      <entry key="S60" value="4.8279354522371225" />
-      <entry key="M2" value="4.912965757747772" />
-      <entry key="M5" value="4.9654721211545825" />
-      <entry key="M10" value="5.08470630137365" />
-      <entry key="M15" value="5.645529935941416" />
-      <entry key="M30" value="10.241329900429054" />
-      <entry key="H1" value="26.24291138571733" />
-      <entry key="H2" value="61.76743994106206" />
-      <entry key="H4" value="112.16890570357515" />
-      <entry key="D1" value="279.1322548645523" />
-      <entry key="W1" value="607.5903976277475" />
+      <entry key="MS100" value="1.0000000000000016" />
+      <entry key="MS500" value="1.0010941374538118" />
+      <entry key="S2" value="1.1938388713293602" />
+      <entry key="S5" value="1.7938338432953245" />
+      <entry key="S10" value="2.616130732866644" />
+      <entry key="S30" value="3.8925556911442585" />
+      <entry key="S60" value="4.476784281639407" />
+      <entry key="M2" value="5.868369445872452" />
+      <entry key="M5" value="11.307272365504579" />
+      <entry key="M10" value="18.535829966471848" />
+      <entry key="M15" value="23.736988806555825" />
+      <entry key="M30" value="33.04942183870328" />
+      <entry key="H1" value="46.03938780513034" />
+      <entry key="H2" value="75.45233254947584" />
+      <entry key="H4" value="126.61633891966856" />
+      <entry key="D1" value="311.5084599643926" />
+      <entry key="W1" value="650.0107785213938" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
       <entry key="S2" value="0.0" />
       <entry key="S5" value="0.0" />
-      <entry key="S10" value="9.941672030061954E-174" />
-      <entry key="S30" value="2.1502377260166524E-58" />
-      <entry key="S60" value="1.4663688915196816E-29" />
-      <entry key="M2" value="3.829319808975418E-15" />
-      <entry key="M5" value="1.7129442135728856E-6" />
-      <entry key="M10" value="0.0013530070504355713" />
-      <entry key="M15" value="0.013296541491266219" />
-      <entry key="M30" value="0.1541124520017185" />
-      <entry key="H1" value="0.6333717976040272" />
-      <entry key="H2" value="1.5897153717691612" />
-      <entry key="H4" value="3.045912017355338" />
-      <entry key="D1" value="7.215446059709252" />
-      <entry key="W1" value="12.13976908398115" />
+      <entry key="S10" value="0.0" />
+      <entry key="S30" value="8.5327873798723E-124" />
+      <entry key="S60" value="2.9210935246705697E-62" />
+      <entry key="M2" value="1.7091207624078916E-31" />
+      <entry key="M5" value="4.938597860774858E-13" />
+      <entry key="M10" value="7.264910728175481E-7" />
+      <entry key="M15" value="8.78399691665248E-5" />
+      <entry key="M30" value="0.012526059522958797" />
+      <entry key="H1" value="0.18057062109383626" />
+      <entry key="H2" value="0.8488160030008056" />
+      <entry key="H4" value="2.225688833828091" />
+      <entry key="D1" value="6.847852015194602" />
+      <entry key="W1" value="12.049424618314385" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9794203002419792" />
-      <entry key="MS500" value="1.0314885879454805" />
-      <entry key="S2" value="2.117688276372736" />
-      <entry key="S5" value="3.376006026659877" />
-      <entry key="S10" value="4.076810594668602" />
-      <entry key="S30" value="4.663349015593285" />
-      <entry key="S60" value="4.8277572658706855" />
-      <entry key="M2" value="4.912875021349443" />
-      <entry key="M5" value="4.96543685091431" />
-      <entry key="M10" value="5.08597701340175" />
-      <entry key="M15" value="5.658460870701964" />
-      <entry key="M30" value="10.393802459995321" />
-      <entry key="H1" value="26.873516319944365" />
-      <entry key="H2" value="63.35440192374904" />
-      <entry key="H4" value="115.21275529480387" />
-      <entry key="D1" value="286.34696915952065" />
-      <entry key="W1" value="619.7299001285" />
+      <entry key="MS100" value="0.9012504626108316" />
+      <entry key="MS500" value="0.9804919180176707" />
+      <entry key="S2" value="1.1876519047391314" />
+      <entry key="S5" value="1.7901621345980998" />
+      <entry key="S10" value="2.613508791593433" />
+      <entry key="S30" value="3.8912822437348153" />
+      <entry key="S60" value="4.476055035978282" />
+      <entry key="M2" value="5.867885325980377" />
+      <entry key="M5" value="11.306783918239981" />
+      <entry key="M10" value="18.53509668771026" />
+      <entry key="M15" value="23.736250423829706" />
+      <entry key="M30" value="33.06108055240981" />
+      <entry key="H1" value="46.21867174974977" />
+      <entry key="H2" value="76.29938756674518" />
+      <entry key="H4" value="128.84036342030998" />
+      <entry key="D1" value="318.3555894986963" />
+      <entry key="W1" value="662.059934495498" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -112,7 +118,7 @@
     "go.import.settings.migrated": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/gitikayadav/Documents/GitHub/theritualco.in/category/category-dumbbells/bloglist",
+    "last_opened_file_path": "/Users/gitikayadav/IdeaProjects/theritualco.in/images",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -126,11 +132,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/images" />
       <recent name="$PROJECT_DIR$/category/category-dumbbells/bloglist" />
       <recent name="$PROJECT_DIR$/category/category-womens-wellness/bloglist" />
       <recent name="$PROJECT_DIR$/category/category-weightloss/bloglist" />
       <recent name="$PROJECT_DIR$/category/category-ritual-mindset/bloglist" />
-      <recent name="$PROJECT_DIR$/category/category-homegym/bloglist" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/blog/womens-wellness" />
@@ -167,15 +173,7 @@
       <workItem from="1748379420413" duration="3000" />
       <workItem from="1779547815911" duration="29068000" />
       <workItem from="1779695741143" duration="8369000" />
-      <workItem from="1780831623909" duration="24458000" />
-    </task>
-    <task id="LOCAL-00035" summary="refactor homepage">
-      <option name="closed" value="true" />
-      <created>1779630382150</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1779630382150</updated>
+      <workItem from="1780831623909" duration="27043000" />
     </task>
     <task id="LOCAL-00036" summary="refactor homepage">
       <option name="closed" value="true" />
@@ -561,14 +559,21 @@
       <option name="project" value="LOCAL" />
       <updated>1780862915994</updated>
     </task>
-    <option name="localTasksCounter" value="84" />
+    <task id="LOCAL-00084" summary="title fix">
+      <option name="closed" value="true" />
+      <created>1780867833469</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1780867833469</updated>
+    </task>
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Revert &quot;fix&quot;&#10;&#10;This reverts commit da69303b8fe5c08c027bcccd7483c1877a5bd828." />
     <MESSAGE value="Add pinterest to footer" />
     <MESSAGE value="Improve blog url make it cleaner" />
     <MESSAGE value="add policy pages + founder + press page + update sitemap.xml" />
@@ -593,7 +598,8 @@
     <MESSAGE value="add reviews" />
     <MESSAGE value="minor fix" />
     <MESSAGE value="fix thank you" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix thank you" />
+    <MESSAGE value="title fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="title fix" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
