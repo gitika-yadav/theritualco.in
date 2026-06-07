@@ -1391,3 +1391,30 @@ repeat(
     opacity:.7;
 
 }
+
+@media (max-width: 900px) {
+    .spec {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .spec span:first-child {
+        color: var(--muted);
+        font-size: 12px;
+        letter-spacing: 0.04em;
+    }
+
+    .spec span:last-child {
+        color: var(--ink);
+    }
+}
+
+@media (max-width: 900px) {
+    .product {
+        padding-bottom: 40px;
+    }
+
+    .specs {
+        margin-bottom: 24px;
+    }
+}

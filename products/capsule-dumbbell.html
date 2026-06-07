@@ -23,10 +23,12 @@
     <link rel="stylesheet" href="/css/navbar.css"/>
     <link rel="stylesheet" href="/css/footer.css"/>
     <link rel="stylesheet" href="/css/products.css"/>
+    <link rel="stylesheet" href="/css/reviews.css">
 
     <!-- Preload hero image -->
     <link rel="preload" as="image" href="/images/capsule-dumbbell.jpg"/>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <!-- Structured Data: Breadcrumbs -->
     <script type="application/ld+json">
         {
@@ -247,6 +249,62 @@
             </div>
         </section>
 
+        <section>
+            <!-- Header -->
+            <p class="rc-label">Reviews</p>
+            <h2 class="rc-heading">What our community says</h2>
+
+            <!-- Summary bar (updates dynamically) -->
+            <div class="rc-summary">
+                <div class="rc-score" id="rc-avg">—</div>
+                <div>
+                    <div class="rc-stars" id="rc-stars-display">☆☆☆☆☆</div>
+                    <div class="rc-count" id="rc-count">Loading reviews...</div>
+                </div>
+            </div>
+
+            <!-- Review cards injected here -->
+            <div id="rc-list">
+                <div class="rc-loading">Loading reviews...</div>
+            </div>
+
+            <div class="rc-divider"></div>
+
+            <!-- Write a review form -->
+            <h3 class="rc-form-heading">Write a review</h3>
+
+            <span class="rc-star-label">Your rating</span>
+            <div class="rc-star-picker" id="rc-star-picker">
+                <button data-v="1" aria-label="1 star">★</button>
+                <button data-v="2" aria-label="2 stars">★</button>
+                <button data-v="3" aria-label="3 stars">★</button>
+                <button data-v="4" aria-label="4 stars">★</button>
+                <button data-v="5" aria-label="5 stars">★</button>
+            </div>
+
+            <div class="rc-field">
+                <label for="rc-name">Your name</label>
+                <input type="text" id="rc-name" placeholder="e.g. Priya M." maxlength="80" />
+            </div>
+            <div class="rc-field">
+                <label for="rc-product">Product purchased</label>
+                <input type="text" id="rc-product" placeholder="e.g. Capsule Dumbbells 2 kg" maxlength="120" />
+            </div>
+            <div class="rc-field">
+                <label for="rc-body">Your review</label>
+                <textarea id="rc-body" placeholder="Tell us about your experience..." maxlength="1000"></textarea>
+            </div>
+
+            <button class="rc-submit" id="rc-submit-btn" onclick="rcSubmit()">Submit review</button>
+
+            <div class="rc-success" id="rc-success">
+                Thank you! Your review has been received. It will appear here once approved — usually within 24 hours.
+            </div>
+            <div class="rc-error" id="rc-error">
+                Something went wrong. Please try again or email us at heritualcoofficial@gmail.com
+            </div>
+        </section>
+
 <!--        &lt;!&ndash; Inline Waitlist (same function as home, unique form id OK) &ndash;&gt;-->
 <!--        <section class="waitlist" id="waitlist">-->
 <!--            <h2>Get first access</h2>-->
@@ -414,6 +472,105 @@
             if (window.CartDrawer) CartDrawer.open();
         });
     });
+</script>
+
+<script>
+    let rcRating = 0;
+
+    const pickerBtns = document.querySelectorAll('#rc-star-picker button');
+    pickerBtns.forEach(btn => {
+        btn.addEventListener('mouseenter', () => rcHighlight(+btn.dataset.v));
+        btn.addEventListener('mouseleave', () => rcHighlight(rcRating));
+        btn.addEventListener('click', () => { rcRating = +btn.dataset.v; rcHighlight(rcRating); });
+    });
+    function rcHighlight(n) {
+        pickerBtns.forEach(b => b.classList.toggle('on', +b.dataset.v <= n));
+    }
+
+    async function rcLoad() {
+        try {
+            const res = await fetch('/.netlify/functions/get-reviews');
+            const data = await res.json();
+            const list = document.getElementById('rc-list');
+
+            if (!data.length) {
+                list.innerHTML = '<div class="rc-empty">No reviews yet — be the first!</div>';
+                document.getElementById('rc-avg').textContent = '—';
+                document.getElementById('rc-count').textContent = '0 reviews';
+                return;
+            }
+
+            const avg = data.reduce((s, r) => s + r.rating, 0) / data.length;
+            document.getElementById('rc-avg').textContent = avg.toFixed(1);
+            document.getElementById('rc-stars-display').textContent = rcStars(Math.round(avg));
+            document.getElementById('rc-count').textContent =
+                'Based on ' + data.length + ' review' + (data.length !== 1 ? 's' : '');
+
+            list.innerHTML = data.map(r =>
+                '<div class="rc-card">' +
+                '<div class="rc-card-top">' +
+                '<div>' +
+                '<div class="rc-name">' + rcEsc(r.name) + '</div>' +
+                (r.product ? '<div class="rc-product">' + rcEsc(r.product) + '</div>' : '') +
+                '</div>' +
+                '<div class="rc-card-stars">' + rcStars(r.rating) + '</div>' +
+                '</div>' +
+                '<p class="rc-body">"' + rcEsc(r.body) + '"</p>' +
+                '<div class="rc-date">' + rcDate(r.created_at) + '</div>' +
+                '</div>'
+            ).join('');
+        } catch(e) {
+            document.getElementById('rc-list').innerHTML =
+                '<div class="rc-empty">Could not load reviews.</div>';
+        }
+    }
+
+    async function rcSubmit() {
+        const name = document.getElementById('rc-name').value.trim();
+        const product = document.getElementById('rc-product').value.trim();
+        const body = document.getElementById('rc-body').value.trim();
+
+        document.getElementById('rc-success').style.display = 'none';
+        document.getElementById('rc-error').style.display = 'none';
+
+        if (!rcRating) { alert('Please choose a star rating.'); return; }
+        if (!name)     { alert('Please enter your name.'); return; }
+        if (!body)     { alert('Please write your review.'); return; }
+
+        const btn = document.getElementById('rc-submit-btn');
+        btn.disabled = true;
+        btn.textContent = 'Submitting...';
+
+        try {
+            const res = await fetch('/.netlify/functions/submit-review', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, product: product || null, rating: rcRating, body })
+            });
+            if (!res.ok) throw new Error();
+            document.getElementById('rc-success').style.display = 'block';
+            document.getElementById('rc-name').value = '';
+            document.getElementById('rc-product').value = '';
+            document.getElementById('rc-body').value = '';
+            rcRating = 0;
+            rcHighlight(0);
+        } catch(e) {
+            document.getElementById('rc-error').style.display = 'block';
+        }
+
+        btn.disabled = false;
+        btn.textContent = 'Submit review';
+    }
+
+    function rcStars(n) { return '★'.repeat(n) + '☆'.repeat(5 - n); }
+    function rcDate(iso) {
+        return new Date(iso).toLocaleDateString('en-IN', { month: 'long', year: 'numeric' });
+    }
+    function rcEsc(s) {
+        return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    rcLoad();
 </script>
 </body>
 </html>

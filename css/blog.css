@@ -6,7 +6,7 @@
 /* ===== BLOG ===== */
 .blog-article {
   background: #fff9f9;
-  padding: 60px 30px;
+  padding: 108px 30px;
   border-radius: 24px;
   max-width: 900px;
   margin: 40px auto;
@@ -159,6 +159,7 @@
 .breadcrumbs {
   font-size: 1.4rem;
   font-weight: 200;
+  padding-top: 60px;
   margin-bottom: 20px;
   color: #999;
   width: 100%;

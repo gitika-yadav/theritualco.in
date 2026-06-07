@@ -23,8 +23,8 @@
 
 .nav-logo{
   font-family:"Cormorant Garamond",serif;
-  font-size:28px;
-  font-weight:600;
+  font-size:24px;
+  font-weight:400;
   text-decoration:none;
   color:#171717;
   letter-spacing:.04em;
@@ -72,53 +72,36 @@
 @media(max-width:900px){
 
   .nav-links{
-
     position:fixed;
-
     top:88px;
-
     left:0;
-
     width:100vw;
-
     height:calc(100vh - 88px);
-
     background:#F7F2EC;
-
     display:flex;
-
     flex-direction:column;
-
     align-items:flex-start;
-
     padding:48px 40px;
-
     gap:42px;
-
     z-index:999999;
-
     transform:translateX(-100%);
-
     transition:transform .3s ease;
-
     overflow-y:auto;
-
     margin:0;
 
   }
 
   #nav-links.active{
-
     transform:translateX(0)!important;
-
   }
 
   .nav-links a{
-
     font-size:15px;
-
     letter-spacing:.12em;
+  }
 
+  .nav-toggle {
+    display: flex;
   }
 
 }

@@ -1,6 +1,7 @@
 [build]
  publish = "."
  functions = "netlify/functions"
+ ignore_secrets = ["SUPABASE_ANON_KEY"]
 
 [dev]
  command = ""
