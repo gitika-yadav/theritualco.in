@@ -548,31 +548,19 @@ repeat(4,1fr);
 }
 
 .waitlist input{
-
   padding:22px;
-
   border:none;
-
   border-radius:16px;
-
   font-size:16px;
-
 }
 
 .waitlist button{
-
   padding:22px;
-
   border:none;
-
   border-radius:999px;
-
   background:#171717;
-
   color:white;
-
   cursor:pointer;
-
 }
 
 /* MOBILE */
@@ -589,86 +577,94 @@ repeat(4,1fr);
   }
 
   .hero {
-
     padding-top: 150px;
-
   }
 
   .hero h1 {
-
     font-size: 60px;
-
   }
 
   .philosophy h2 {
-
     font-size: 48px;
-
   }
 
   .signature-product h2 {
-
     font-size: 52px;
-
   }
 
   .craftsmanship {
-
     grid-template-columns:1fr;
-
   }
 }
 
-.pricing-preview{
-
+.pricing-preview{=
   display:flex;
-
   gap:18px;
-
   margin:28px 0 12px;
-
   flex-wrap:wrap;
-
 }
 
 .pricing-preview div{
 
   padding:14px 18px;
-
   background:#F7F2EC;
-
   border-radius:14px;
-
   font-size:12px;
-
   letter-spacing:.12em;
-
 }
 
 .pricing-preview span{
-
   display:block;
-
   font-size:24px;
-
   font-weight:600;
-
   margin-top:6px;
-
   letter-spacing:0;
-
 }
 
 .early-bird{
 
   font-size:12px;
-
   letter-spacing:.18em;
-
   text-transform:uppercase;
-
   opacity:.65;
-
   margin-bottom:28px;
+}
 
+@media (max-width: 900px) {
+  .philosophy,
+  .signature-product,
+  .founder,
+  .waitlist {
+    padding: 60px 6%;
+  }
+
+  .craftsmanship {
+    padding: 60px 6%;
+  }
+
+  .hero {
+    padding: 120px 6% 60px;
+    gap: 40px;
+  }
+
+  .proof-strip {
+    gap: 24px;
+    padding: 24px 6%;
+  }
+
+  .founder img {
+    width: 100%;
+  }
+
+  .philosophy {
+    gap: 40px;
+  }
+
+  .signature-product {
+    gap: 40px;
+  }
+
+  .founder {
+    gap: 40px;
+  }
 }
