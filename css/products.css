@@ -321,55 +321,33 @@ CAPSULE DETAIL PAGE
 ========================== */
 
 .product{
-
     max-width:1080px;
-
     margin:auto;
-
     padding:140px 24px 80px;
-
     font-family:'Inter',sans-serif;
-
     color:var(--ink);
-
 }
 
 .product__top{
-
     display:grid;
-
     grid-template-columns:
-
-minmax(
-0,
-1fr
-)
-
-minmax(
-360px,
-420px
-);
-
+    minmax(0, 1fr)
+    minmax(
+    360px,
+    420px
+    );
     gap:48px;
-
     align-items:start;
-
     margin-bottom:56px;
-
 }
 
 .product .gallery{
-
     position:sticky;
-
     top:100px;
-
     align-self:start;
-
 }
 
 .gallery__hero img{
-
     width:100%;
 
     border-radius:24px;
@@ -811,85 +789,65 @@ repeat(3,1fr);
 @media(max-width:900px){
 
     .products{
-
         padding-top:110px;
-
     }
 
     .product{
-
         padding-top:110px;
-
     }
 
     .products .grid{
-
         grid-template-columns:1fr;
-
     }
 
     .products .featured .card__img{
-
         height:440px;
-
     }
 
     .products .secondary .card__img{
-
         height:320px;
-
     }
 
     .products .materials{
-
-        grid-template-columns:
-
-1fr 1fr;
-
+        grid-template-columns: 1fr 1fr;
     }
 
     .product__top{
-
         grid-template-columns:1fr;
-
     }
 
     .product .gallery{
-
         position:relative;
-
         top:0;
-
     }
 
     .panel{
-
         max-width:none;
-
     }
 
     .cards{
-
         grid-template-columns:1fr;
-
     }
 
     .specs__grid{
-
         grid-template-columns:1fr;
-
     }
 
     .waitlist__form{
-
         grid-template-columns:1fr;
-
     }
 
     .waitlist{
-
         padding:34px;
+    }
 
+    @media (max-width: 900px) {
+        .gallery__hero img {
+            max-height: 65vw;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
     }
 
 }
@@ -897,23 +855,16 @@ repeat(3,1fr);
 .luxury-flow{
 
     display:flex;
-
     flex-direction:column;
-
     gap:160px;
-
     padding-top:90px;
-
 }
 
 .statement{
 
     max-width:760px;
-
     margin:auto;
-
     text-align:center;
-
 }
 
 .statement h2{

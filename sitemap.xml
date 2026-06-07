@@ -170,4 +170,13 @@
     <loc>https://theritualco.in/refund-policy</loc>
     <priority>0.5</priority>
   </url>
+
+  <url>
+    <loc>https://theritualco.in/checkout</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theritualco.in/cart</loc>
+    <priority>0.4</priority>
+  </url>
 </urlset>

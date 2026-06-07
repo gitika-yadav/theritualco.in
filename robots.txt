@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+Disallow: /account/
+Disallow: /thank-you.html
+Disallow: /cart.html
+Disallow: /checkout.html
+Disallow: /thankyou.html
+
+Sitemap: https://theritualco.in/sitemap.xml
