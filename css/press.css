@@ -30,3 +30,13 @@ a {
 a:hover {
     opacity: 0.7;
 }
+
+.featured {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width: 100%;
+    padding: 40px 0;
+    gap: 24px;
+    flex-wrap: wrap;
+}

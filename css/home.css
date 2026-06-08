@@ -87,15 +87,10 @@ main{
 }
 
 .hero-right{
-
   flex:1;
-
   display:flex;
-
   justify-content:center;
-
   z-index:2;
-
 }
 
 .hero-right img{
@@ -246,27 +241,14 @@ main{
 .proof-strip{
 
   display:flex;
-
   justify-content:center;
-
   gap:60px;
-
   padding:34px;
-
   background:white;
-
-  border-top:
-
-          1px solid var(--sand);
-
-  border-bottom:
-
-          1px solid var(--sand);
-
+  border-top: 1px solid var(--sand);
+  border-bottom: 1px solid var(--sand);
   font-size:13px;
-
   letter-spacing:.08em;
-
   flex-wrap:wrap;
 
 }
@@ -373,6 +355,16 @@ main{
 
 }
 
+.featured {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  width: 100%;
+  padding: 40px 0;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
 /* MATERIALS */
 .craftsmanship{
 
@@ -469,24 +461,16 @@ repeat(4,1fr);
 
 .founder{
 
-  padding:
-
-          160px 8%;
-
+  padding: 160px 8%;
   display:flex;
-
   gap:90px;
-
   align-items:center;
 
 }
 
 .founder img{
-
   width:340px;
-
   border-radius:28px;
-
 }
 
 .founder h2{
