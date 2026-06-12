@@ -12,8 +12,8 @@
 
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Capsule Silicone Dumbbells (1 kg & 2 kg) – The Ritual Co.</title>
-    <meta name="description" content="Soft-touch, skin-safe silicone capsule dumbbells in pastel colours. Ergonomic ~35 mm grip, cast-iron core. Available in 1 kg & 2 kg."/>
+    <title>Yoga Belt – The Ritual Co.</title>
+    <meta name="description" content="Organic cotton yoga belt with adjustable metal buckle. Stretch deeper, correct alignment, improve posture. Minimal wellness design."/>
     <link rel="icon" type="image/png" href="/images/favicon.png"/>
 
     <!-- Fonts -->
@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="/css/product-page.css"/>
 
     <!-- Preload hero image -->
-    <link rel="preload" as="image" href="/images/img.webp"/>
+    <link rel="preload" as="image" href="/images/yoga-belt.webp"/>
 
     <!-- Structured Data: Breadcrumbs -->
     <script type="application/ld+json">
@@ -37,42 +37,34 @@
             "itemListElement":[
                 {"@type":"ListItem","position":1,"name":"Home","item":"https://theritualco.in/"},
                 {"@type":"ListItem","position":2,"name":"Products","item":"https://theritualco.in/products/"},
-                {"@type":"ListItem","position":3,"name":"Capsule Dumbbells","item":"https://theritualco.in/products/capsule-dumbbell"}
+                {"@type":"ListItem","position":3,"name":"Yoga Belt","item":"https://theritualco.in/products/yoga-belt"}
             ]
         }
     </script>
-    <!-- Structured Data: Product with variants -->
+    <!-- Structured Data: Product -->
     <script type="application/ld+json">
         {
             "@context":"https://schema.org",
             "@type":"Product",
-            "name":"Capsule Silicone Dumbbells",
+            "name":"Yoga Belt",
             "brand":{"@type":"Brand","name":"The Ritual Co."},
-            "description":"Soft-touch, skin-safe silicone over cast-iron core. Ergonomic ~35 mm grip in 1 kg & 2 kg. Pastel colours.",
-            "image":[
-                "https://theritualco.in/images/capsule-dumbbell.jpg",
-                "https://theritualco.in/images/capsule-dumbbell-2.jpg"
-            ],
-            "sku":"TRC-CAPSULE",
+            "description":"Organic cotton yoga belt with adjustable metal buckle. 96 inch long, 1.5 inch wide. Stretch deeper, correct alignment, improve posture.",
+            "image":["https://theritualco.in/images/yoga-belt.webp"],
+            "sku":"TRC-YOGA-BELT",
             "category":"SportingGoods",
-            "material":"Silicone, Cast iron",
-            "color":"Peach, Grey, Cream, Black",
+            "material":"Organic cotton",
+            "color":"Sage, Blush, Ivory",
             "additionalProperty":[
-                {"@type":"PropertyValue","name":"Grip diameter","value":"~35 mm"},
-                {"@type":"PropertyValue","name":"Finish","value":"Silk-matte silicone"},
-                {"@type":"PropertyValue","name":"Weights","value":"1 kg, 2 kg"}
+                {"@type":"PropertyValue","name":"Length","value":"96 inches"},
+                {"@type":"PropertyValue","name":"Width","value":"1.5 inches"},
+                {"@type":"PropertyValue","name":"Buckle","value":"Adjustable metal D-ring"}
             ],
             "offers":{
-                "@type":"AggregateOffer",
-                "offerCount":"2",
-                "lowPrice":"0.00",
-                "highPrice":"0.00",
+                "@type":"Offer",
+                "sku":"TRC-YOGA-BELT",
+                "price":"499.00",
                 "priceCurrency":"INR",
-                "availability":"https://schema.org/PreOrder",
-                "offers":[
-                    {"@type":"Offer","sku":"TRC-CAPSULE-1KG","price":"0.00","priceCurrency":"INR","availability":"https://schema.org/PreOrder"},
-                    {"@type":"Offer","sku":"TRC-CAPSULE-2KG","price":"0.00","priceCurrency":"INR","availability":"https://schema.org/PreOrder"}
-                ]
+                "availability":"https://schema.org/InStock"
             }
         }
     </script>
@@ -85,82 +77,53 @@
 
     <!-- IMAGE -->
     <div class="product__visual" role="region" aria-label="Product image">
-        <span class="badge">Early Bird · First 100 Orders</span>
         <img
                 id="main-img"
-                src="/images/img.webp"
-                alt="Capsule Dumbbells in pastel silicone – The Ritual Co."
+                src="/images/yoga-belt.webp"
+                alt="Yoga Belt in Sage – The Ritual Co."
                 loading="eager"/>
     </div>
 
     <!-- INFO -->
     <section class="product__info" aria-label="Product details">
 
-        <p class="eyebrow">The Ritual Co. &nbsp;·&nbsp; Signature Product</p>
+        <p class="eyebrow">The Ritual Co. &nbsp;·&nbsp; Yoga</p>
 
-        <h1 class="product__title">Capsule<br>Dumbbells</h1>
+        <h1 class="product__title">Yoga<br>Belt</h1>
 
-        <p class="product__tagline">Soft, strong, and<br>unapologetically minimal.</p>
+        <p class="product__tagline">Stretch deeper.<br>Move with intention.</p>
 
-        <p class="option-heading">Colour &mdash; <em id="colour-name">Peach</em></p>
+        <p class="option-heading">Colour &mdash; <em id="colour-name">Ivory</em></p>
         <div class="swatches" role="group" aria-label="Colour options">
-            <button class="swatch color-option active selected" style="background:#F2C4AD;" data-name="Peach" data-color="peach"
-                    data-img="/images/capsule-dumbbell-peach.webp"
-                    aria-label="Peach" aria-pressed="true" onclick="selectColour(this)"></button>
-            <button class="swatch color-option" style="background:#B9B5B0;" data-name="Grey" data-color="grey"
-                    data-img="/images/capsule-dumbbell-grey.webp"
-                    aria-label="Grey" aria-pressed="false" onclick="selectColour(this)"></button>
-            <button class="swatch color-option" style="background:#EFE9DE;" data-name="Cream" data-color="cream"
-                    data-img="/images/capsule-dumbbell-cream.webp"
-                    aria-label="Cream" aria-pressed="false" onclick="selectColour(this)"></button>
-            <button class="swatch color-option" style="background:#2B2B29;" data-name="Black" data-color="black"
-                    data-img="/images/capsule-dumbbell-black.webp"
-                    aria-label="Black" aria-pressed="false" onclick="selectColour(this)"></button>
-<!--            <button class="swatch color-option" style="background:#E9B7C4;" data-name="Pink" data-color="pink"-->
-<!--                    data-img="/images/capsule-dumbbell-pink.webp"-->
-<!--                    aria-label="Pink" aria-pressed="false" onclick="selectColour(this)"></button>-->
-        </div>
-
-        <p class="option-heading">Weight &mdash; <em id="weight-name">1 kg set</em></p>
-        <div class="weight-picker" role="group" aria-label="Weight options">
-            <button class="weight-option active selected" data-name="1 kg set" data-weight="1kg"
-                    data-launch="₹1,499" data-retail="₹1,999"
-                    aria-pressed="true" onclick="selectWeight(this)">
-                <span class="weight-option__kg">1 kg</span>
-                <span class="weight-option__detail">
-                    <span class="weight-option__launch">&#8377;1,499</span>
-                    <span class="weight-option__retail">&#8377;1,999</span>
-                </span>
-            </button>
-            <button class="weight-option" data-name="2 kg set" data-weight="2kg"
-                    data-launch="₹1,999" data-retail="₹2,499"
-                    aria-pressed="false" onclick="selectWeight(this)">
-                <span class="weight-option__kg">2 kg</span>
-                <span class="weight-option__detail">
-                    <span class="weight-option__launch">&#8377;1,999</span>
-                    <span class="weight-option__retail">&#8377;2,499</span>
-                </span>
-            </button>
+<!--            <button class="swatch color-option active selected" style="background:#8FA688;" data-name="Sage" data-color="sage"-->
+<!--                    data-img="/images/yoga-belt-sage.webp"-->
+<!--                    aria-label="Sage" aria-pressed="true" onclick="selectColour(this)"></button>-->
+<!--            <button class="swatch color-option" style="background:#D9BCB3;" data-name="Blush" data-color="blush"-->
+<!--                    data-img="/images/yoga-belt-blush.webp"-->
+<!--                    aria-label="Blush" aria-pressed="false" onclick="selectColour(this)"></button>-->
+            <button class="swatch color-option" style="background:#EAE5DC;" data-name="Ivory" data-color="ivory"
+                    data-img="/images/yoga-belt-ivory.webp"
+                    aria-label="Ivory" aria-pressed="false" onclick="selectColour(this)"></button>
         </div>
 
         <ul class="features" aria-label="Key features">
-            <li>Skin-safe, soft-touch silicone over a cast-iron core</li>
-            <li>Ergonomic ~35 mm grip designed for women's hands</li>
-            <li>Balanced weight distribution — no wrist roll mid-rep</li>
-            <li>Silk-matte pastel finish that lives beautifully at home</li>
-            <li>Gentle on floors — use a mat for delicate surfaces</li>
+            <li>100% organically sourced cotton</li>
+            <li>Adjustable metal D-ring buckle — holds any pose</li>
+            <li>Extra-wide 1.5&Prime; strap for even pressure and grip</li>
+            <li>96&Prime; length — works for every height and flexibility level</li>
+            <li>Woven tight enough to hold; soft enough to touch skin</li>
         </ul>
 
         <div class="price-block">
             <div class="price-row">
-                <span class="price" id="price-launch">&#8377;1,499</span>
-                <span class="price-retail" id="price-retail">&#8377;1,999</span>
+                <span class="price" id="price-launch">&#8377;399</span>
+                <span class="price-retail" id="price-retail">&#8377;499</span>
             </div>
-            <span class="price-note"><strong>Early Bird</strong> · First 100 orders only</span>
+            <span class="price-note">Free shipping on orders above &#8377;999</span>
         </div>
 
         <button type="button" class="btn-primary" id="preorder-btn">Add to cart</button>
-        <a href="/#waitlist" class="btn-secondary">Join Waitlist for Restocks</a>
+        <a href="/#waitlist" class="btn-secondary">Join Waitlist for New Colours</a>
 
         <div class="trust">
             <span class="trust__item"><span class="trust__dot"></span>Pan-India delivery</span>
@@ -178,8 +141,8 @@
                 </button>
                 <div class="accordion__body">
                     <div class="accordion__inner">
-                        <p>Designed to live beautifully in your space and feel secure in your hands. The capsule silhouette and silk-matte silicone make these the rare dumbbells you won't want to hide in a cupboard.</p>
-                        <p>Ideal for intentional workouts, warm-ups, mobility work, and toning — at a weight range built for daily ritual, not occasional punishment.</p>
+                        <p>The Yoga Belt extends your reach so you can hold poses longer, sink deeper into stretches, and correct alignment — without forcing your body before it's ready.</p>
+                        <p>Use it for hamstring stretches, shoulder openers, hip flexor work, seated forward folds, or any pose where your hands can't yet find each other. Equally at home in a morning Yin session or a physiotherapy routine.</p>
                     </div>
                 </div>
             </div>
@@ -193,11 +156,12 @@
                     <div class="accordion__inner">
                         <table class="specs-table">
                             <tbody>
-                            <tr><td>Weights</td><td>1 kg, 2 kg (sold as pairs)</td></tr>
-                            <tr><td>Grip</td><td>~35 mm ergonomic</td></tr>
-                            <tr><td>Core</td><td>Cast iron</td></tr>
-                            <tr><td>Coating</td><td>Skin-safe silicone, silk-matte</td></tr>
-                            <tr><td>Colours</td><td>Peach, Grey, Cream, Black</td></tr>
+                            <tr><td>Material</td><td>100% organic cotton</td></tr>
+                            <tr><td>Length</td><td>96 inches &nbsp;(244 cm)</td></tr>
+                            <tr><td>Width</td><td>1.5 inches &nbsp;(3.8 cm)</td></tr>
+                            <tr><td>Buckle</td><td>Adjustable metal D-ring</td></tr>
+                            <tr><td>Colours</td><td> Ivory</td></tr>
+<!--                            <tr><td>Colours</td><td>Sage, Blush, Ivory</td></tr>-->
                             </tbody>
                         </table>
                     </div>
@@ -206,13 +170,12 @@
 
             <div class="accordion__item">
                 <button class="accordion__trigger" aria-expanded="false" onclick="toggleAcc(this)">
-                    Care &amp; safety
+                    Care
                     <span class="accordion__icon" aria-hidden="true">+</span>
                 </button>
                 <div class="accordion__body">
                     <div class="accordion__inner">
-                        <p>Wipe with a damp cloth and mild soap; dry fully before storing. Avoid harsh solvents and prolonged direct sun.</p>
-                        <p>Use on a stable, non-slip surface. For delicate floors, place a mat underneath. Stop use if any irritation from materials occurs.</p>
+                        <p>Hand wash with mild soap and cool water, or machine wash on a gentle cold cycle. Lay flat or hang to air dry — do not tumble dry. The natural cotton softens further with every wash.</p>
                     </div>
                 </div>
             </div>
@@ -224,7 +187,7 @@
                 </button>
                 <div class="accordion__body">
                     <div class="accordion__inner">
-                        <p>Ships pan-India. Standard delivery 2–5 working days once in stock. Waitlist members get first access and launch perks.</p>
+                        <p>Ships pan-India. Standard delivery 2–5 working days. Free shipping on orders above &#8377;999.</p>
                         <p>Returns accepted within 7 days of delivery for unused items in original condition. Write to us — no questions asked.</p>
                     </div>
                 </div>
@@ -237,7 +200,7 @@
 <!-- REVIEWS -->
 <section class="reviews" aria-label="Customer reviews">
     <p class="reviews__eyebrow">Reviews</p>
-    <h2 class="reviews__title">From their rituals</h2>
+    <h2 class="reviews__title">From their practice</h2>
     <div class="reviews__summary">
         <div class="stars" aria-hidden="true">
             <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.9 4.2 4.6.4-3.5 3 1 4.5L8 10.7 4 13.1l1-4.5-3.5-3 4.6-.4z"/></svg>
@@ -287,26 +250,26 @@
 <!-- TICKER -->
 <div class="ticker" aria-hidden="true">
     <div class="ticker__track">
-        <span class="ticker__item">Morning toning</span>
-        <span class="ticker__item">Pilates &amp; barre</span>
-        <span class="ticker__item">Warm-ups</span>
-        <span class="ticker__item">Mobility work</span>
-        <span class="ticker__item">Strength rituals</span>
-        <span class="ticker__item">Desk-break resets</span>
-        <span class="ticker__item">Arm sculpting</span>
-        <span class="ticker__item">Mindful movement</span>
-        <span class="ticker__item">Morning toning</span>
-        <span class="ticker__item">Pilates &amp; barre</span>
-        <span class="ticker__item">Warm-ups</span>
-        <span class="ticker__item">Mobility work</span>
-        <span class="ticker__item">Strength rituals</span>
-        <span class="ticker__item">Desk-break resets</span>
-        <span class="ticker__item">Arm sculpting</span>
-        <span class="ticker__item">Mindful movement</span>
+        <span class="ticker__item">Hamstring stretches</span>
+        <span class="ticker__item">Shoulder openers</span>
+        <span class="ticker__item">Hip flexor release</span>
+        <span class="ticker__item">Seated forward folds</span>
+        <span class="ticker__item">Yin yoga holds</span>
+        <span class="ticker__item">Posture correction</span>
+        <span class="ticker__item">Physiotherapy</span>
+        <span class="ticker__item">Flexibility training</span>
+        <span class="ticker__item">Hamstring stretches</span>
+        <span class="ticker__item">Shoulder openers</span>
+        <span class="ticker__item">Hip flexor release</span>
+        <span class="ticker__item">Seated forward folds</span>
+        <span class="ticker__item">Yin yoga holds</span>
+        <span class="ticker__item">Posture correction</span>
+        <span class="ticker__item">Physiotherapy</span>
+        <span class="ticker__item">Flexibility training</span>
     </div>
 </div>
 
-<!-- Page behaviour: options, accordion, star picker, footer partial -->
+<!-- Page behaviour: options, accordion, star picker, checkout, footer partial -->
 <script>
     function selectColour(btn) {
         document.querySelectorAll('.swatch').forEach(s => {
@@ -331,23 +294,11 @@
             img.style.opacity = '0';
             setTimeout(function() {
                 img.src = newSrc;
-                img.alt = 'Capsule Dumbbells in ' + btn.dataset.name + ' – The Ritual Co.';
+                img.alt = 'Yoga Belt in ' + btn.dataset.name + ' – The Ritual Co.';
                 img.style.opacity = '1';
             }, 200);
         };
         probe.src = newSrc; /* onerror: do nothing, keep current image */
-    }
-
-    function selectWeight(btn) {
-        document.querySelectorAll('.weight-option').forEach(w => {
-            w.classList.remove('active', 'selected');
-            w.setAttribute('aria-pressed', 'false');
-        });
-        btn.classList.add('active', 'selected');
-        btn.setAttribute('aria-pressed', 'true');
-        document.getElementById('weight-name').textContent = btn.dataset.name;
-        document.getElementById('price-launch').textContent = btn.dataset.launch;
-        document.getElementById('price-retail').textContent = btn.dataset.retail;
     }
 
     function toggleAcc(trigger) {
@@ -373,6 +324,8 @@
         });
     });
 
+    /* Checkout redirect removed — now uses Cart.add() below */
+
     fetch('/partials/footer.html')
         .then(r => r.text())
         .then(html => {
@@ -392,37 +345,31 @@
 <!-- Add to cart: uses your Cart.add() API from cart.js -->
 <script>
     document.getElementById('preorder-btn').addEventListener('click', function() {
-        /* Wait for cart.js to be loaded */
         if (typeof Cart === 'undefined') {
             window.location = '/cart.html';
             return;
         }
 
-        const weight = document.querySelector('.weight-option.selected');
-        const color  = document.querySelector('.color-option.selected');
-
-        const weightVal = weight ? weight.dataset.weight : '1kg';
-        const colorVal  = color  ? color.dataset.color   : 'peach';
-        const priceVal  = weight ? parseInt(weight.dataset.launch.replace(/[^\d]/g, ''), 10) : 1499;
-        const nameVal   = 'Capsule Dumbbells · ' + weightVal.toUpperCase();
+        const color = document.querySelector('.color-option.selected');
+        const colorVal = color ? color.dataset.color : 'sage';
 
         Cart.add({
-            id:     'capsule-dumbbell',
-            name:   nameVal,
-            weight: weightVal,
+            id:     'yoga-belt',
+            name:   'Yoga Belt',
+            weight: '96in',
             color:  colorVal,
-            price:  priceVal,
-            image:  '/images/img.webp'
+            price:  499,
+            image:  '/images/yoga-belt.webp'
         });
 
         /* GA4 add_to_cart */
         gtag('event', 'add_to_cart', {
             currency: 'INR',
-            value: priceVal,
+            value: 499,
             items: [{
-                item_id: 'capsule-dumbbell-' + weightVal,
-                item_name: nameVal,
-                price: priceVal
+                item_id: 'yoga-belt',
+                item_name: 'Yoga Belt',
+                price: 499
             }]
         });
 
@@ -431,18 +378,18 @@
 </script>
 
 <!-- Reviews via Netlify functions -->
-<script>window.PRODUCT_SLUG = 'capsule-dumbbell';</script>
+<script>window.PRODUCT_SLUG = 'yoga-belt';</script>
 <script src="/javascript/reviews.js"></script>
 
 <!-- GA4 view_item -->
 <script>
     gtag('event', 'view_item', {
         currency: 'INR',
-        value: 1499,
+        value: 499,
         items: [{
-            item_id: 'capsule-dumbbell-1kg',
-            item_name: 'Capsule Dumbbells',
-            price: 1499
+            item_id: 'yoga-belt',
+            item_name: 'Yoga Belt',
+            price: 499
         }]
     });
 </script>
