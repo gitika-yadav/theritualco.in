@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D366Q7R3XB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-D366Q7R3XB');
+    </script>
+
+    <title>Yoga – Blog – The Ritual Co.</title>
+    <meta name="description" content="Yoga guides, tips, and prop recommendations from The Ritual Co. Learn about yoga belts, poses for beginners, flexibility routines, and mindful movement.">
+    <link rel="canonical" href="https://theritualco.in/blog/yoga/yoga-bloglist">
+
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/blog.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet"/>
+</head>
+<body>
+<div class="page-wrapper">
+    <div id="navbar-placeholder"></div>
+
+    <main class="main-content blog-article">
+
+        <nav class="breadcrumbs">
+            <a href="/">Home</a> › <a href="/blog">Blog</a> › Yoga
+        </nav>
+
+        <h1>Yoga</h1>
+
+        <p class="intro">
+            Guides, routines, and prop recommendations for a practice that moves with intention.
+        </p>
+
+        <div class="blog-list">
+
+            <article class="blog-card">
+                <a href="/blog/yoga/yoga-belt-guide">
+                    <img src="/images/yoga-belt.webp" alt="Yoga Belt Guide" loading="lazy"/>
+                </a>
+                <div class="blog-card-body">
+                    <p class="blog-card-category">Yoga Props</p>
+                    <h2><a href="/blog/yoga/yoga-belt-guide">Yoga Belt: The Complete Guide to Benefits, Poses &amp; How to Choose (2026)</a></h2>
+                    <p>Everything you need to know about yoga belts — benefits, 7 essential poses, a 10-minute daily routine, buying guide, and FAQs.</p>
+                </div>
+            </article>
+
+            <!-- Add future yoga articles here following the same pattern -->
+
+        </div>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+</div>
+
+<script>
+    fetch("/partials/navbar.html").then(r=>r.text()).then(html=>{
+        document.getElementById("navbar-placeholder").innerHTML=html;
+        const s=document.createElement("script");s.src="/javascript/navbar.js";document.body.appendChild(s);
+        const s2=document.createElement("script");s2.src="/javascript/cart.js";document.body.appendChild(s2);
+        const s3=document.createElement("script");s3.src="/javascript/cart-drawer.js";document.body.appendChild(s3);
+    });
+    fetch("/partials/footer.html").then(r=>r.text()).then(html=>{
+        document.getElementById("footer-placeholder").innerHTML=html;
+    });
+</script>
+</body>
+</html>
