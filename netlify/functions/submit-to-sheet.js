@@ -164,11 +164,12 @@ exports.handler = async function (event) {
 
   const signupTime = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
 
-  // ── Notify you ────────────────────────────────────────────────────────
-  sendEmail({
-    to: "theritualcoofficial@gmail.com", // ← your email
-    subject: `🛎 New waitlist signup — ${cleanName}`,
-    html: `
+  // ── Send both emails, await so they complete before function exits ────
+  const results = await Promise.allSettled([
+    sendEmail({
+      to: "theritualcoofficial@gmail.com",
+      subject: `🛎 New waitlist signup — ${cleanName}`,
+      html: `
 <h2 style="font-family:sans-serif">New Waitlist Signup</h2>
 <table style="font-family:sans-serif;font-size:14px;border-collapse:collapse">
   <tr><td style="padding:6px 20px 6px 0;color:#888">Name</td><td><strong>${cleanName}</strong></td></tr>
@@ -178,18 +179,17 @@ exports.handler = async function (event) {
   <tr><td style="padding:6px 20px 6px 0;color:#888">Time</td><td>${signupTime} IST</td></tr>
   <tr><td style="padding:6px 20px 6px 0;color:#888">IP</td><td>${ip}</td></tr>
 </table>`,
-  }).catch((e) => console.error(`[EMAIL_NOTIFY_ERROR] ${e.message}`));
-
-  // ── Welcome email to user ─────────────────────────────────────────────
-  sendEmail({
-    to: cleanEmail,
-    subject: "You're on the list — The Ritual Co.",
-    html: `
+    }),
+    sendEmail({
+      to: cleanEmail,
+      reply_to: "theritualcoofficial@gmail.com",
+      subject: "You're on the list — The Ritual Co.",
+      html: `
 <div style="font-family:Georgia,serif;max-width:520px;margin:0 auto;color:#3a3330;padding:40px 24px;">
   <p style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#a09890;margin:0 0 32px;">The Ritual Co.</p>
   <h1 style="font-size:24px;font-weight:400;margin:0 0 8px;">You're on the list.</h1>
   <p style="font-size:15px;color:#7a6f68;line-height:1.7;margin:0 0 24px;">
-    Hi ${cleanName}, you've secured early access to our upcoming drop.
+    Hi ${cleanName}, you've secured early access to the Capsule Dumbbells drop.
     We'll reach out as soon as your spot is ready — with early bird pricing locked in.
   </p>
   <p style="font-size:15px;color:#7a6f68;line-height:1.7;margin:0 0 32px;">
@@ -203,7 +203,14 @@ exports.handler = async function (event) {
     <a href="mailto:theritualcoofficial@gmail.com?subject=Unsubscribe" style="color:#c0b8b0;">Unsubscribe</a>
   </p>
 </div>`,
-  }).catch((e) => console.error(`[EMAIL_WELCOME_ERROR] ${e.message}`));
+    }),
+  ]);
+
+  results.forEach((r, i) => {
+    if (r.status === "rejected") {
+      console.error(`[EMAIL_ERROR_${i}] ${r.reason?.message}`);
+    }
+  });
 
   console.info(`[SUCCESS] ${cleanName} | ${cleanEmail} | ${ip}`);
   return { statusCode: 200, body: JSON.stringify({ message: "Success" }) };
