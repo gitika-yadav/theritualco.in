@@ -39,7 +39,7 @@
     <link rel="stylesheet" href="/css/responsive.css" />
     <link rel="icon" type="image/png" href="/images/favicon.png" />
 
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LeMNRwtAAAAAL9_NEzYlsCerZMcL9mYZwWbJnZh"></script>
 
     <!--    ahref-->
     <script src="https://analytics.ahrefs.com/analytics.js" data-key="Ci2PhEwnfsEPLwbx8jr3zw" async></script>
@@ -197,21 +197,11 @@
 
           <form id="waitlist-form">
             <input id="name" name="name" required placeholder="Name" />
-
             <input id="email" name="email" type="email" required placeholder="Email" />
-
             <input id="phone" name="phone" required placeholder="Phone" />
-
-            <input name="nickname" style="display: none" />
-
-            <button
-              class="g-recaptcha"
-              data-sitekey="6Lc6HkwrAAAAAIQyjR2X878GppjvEWySgfG8QRIm"
-              data-callback="onSubmit"
-              data-size="invisible"
-            >
-              Reserve Your Spot
-            </button>
+            <input name="nickname" style="display:none" tabindex="-1" autocomplete="off" />
+            <button type="submit">Reserve Your Spot</button>
+          </form>
           </form>
 
           <div id="confirmation" style="display: none">You're on the list.</div>
@@ -232,39 +222,22 @@
               .then((r)=>r.text())
 
               .then((data)=>{
-
-                document.getElementById(
-                        "navbar-placeholder"
-                ).innerHTML=data;
-
+                document.getElementById("navbar-placeholder").innerHTML=data;
                 requestAnimationFrame(()=>{
-
-                  const script=
-                          document.createElement(
-                                  "script"
-                          );
-
-                  script.src=
-                          "/javascript/navbar.js";
+                  const script= document.createElement("script");
+                  script.src= "/javascript/navbar.js";
 
                   document.body.appendChild(
                           script
                   );
-
                 });
-
               });
 
       fetch("/partials/footer.html")
 
               .then((r)=>r.text())
-
               .then((data)=>{
-
-                document.getElementById(
-                        "footer-placeholder"
-                ).innerHTML=data;
-
+                document.getElementById("footer-placeholder").innerHTML=data;
               });
 
     </script>
@@ -272,48 +245,41 @@
     <script>
       function onSubmit(token) {
         const form = document.getElementById("waitlist-form");
-
-        const formData = new FormData(form);
-
-        formData.append("g-recaptcha-response", token);
-
-        const data = {};
-
-        for (let [k, v] of formData.entries()) {
-          data[k] = v.trim();
-        }
+        const data = {
+          name: form.name.value.trim(),
+          email: form.email.value.trim(),
+          phone: form.phone.value.trim(),
+          nickname: form.nickname.value,
+          "g-recaptcha-response": token,
+        };
 
         fetch("/.netlify/functions/submit-to-sheet", {
           method: "POST",
-
-          headers: {
-            "Content-Type": "application/json",
-          },
-
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         })
-          .then((r) => r.json())
-
-          .then(() => {
-            gtag('event', 'waitlist_signup');
-            form.style.display = "none";
-            document.getElementById("confirmation").style.display = "block";
-          })
-
-          .catch(() => {
-            alert("Please try again.");
-          });
+                .then((r) => r.json())
+                .then(() => {
+                  gtag("event", "waitlist_signup");
+                  form.style.display = "none";
+                  document.getElementById("confirmation").style.display = "block";
+                })
+                .catch(() => {
+                  alert("Something went wrong. Please try again.");
+                });
       }
 
-      document
-        .getElementById("waitlist-form")
-        .addEventListener(
-          "submit",
-          function (e) {
-            e.preventDefault();
-            grecaptcha.execute();
-          }
-        );
+      document.getElementById("waitlist-form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        grecaptcha.ready(function () {
+          grecaptcha
+                  .execute("6LeMNRwtAAAAAL9_NEzYlsCerZMcL9mYZwWbJnZh", { action: "waitlist" })
+                  .then(function (token) {
+                    onSubmit(token);
+                  });
+        });
+      });
+    </script>
     </script>
   </body>
 </html>

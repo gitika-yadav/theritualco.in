@@ -87,8 +87,8 @@ exports.handler = async function (event) {
     return { statusCode: 500, body: "Captcha verification failed" };
   }
 
-  if (!recaptchaData.success) {
-    console.warn(`[CAPTCHA_FAIL] IP: ${ip}, errors: ${recaptchaData["error-codes"]}`);
+  if (!recaptchaData.success || recaptchaData.score < 0.5) {
+    console.warn(`[CAPTCHA_FAIL] IP: ${ip}, score: ${recaptchaData.score}, errors: ${recaptchaData["error-codes"]}`);
     return { statusCode: 403, body: "Captcha failed" };
   }
 
