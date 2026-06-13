@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="fix">
-      <change beforePath="$PROJECT_DIR$/netlify/functions/submit-to-sheet.js" beforeDir="false" afterPath="$PROJECT_DIR$/netlify/functions/submit-to-sheet.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/netlify/functions/send-newsletter.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,15 +182,7 @@
       <workItem from="1748379420413" duration="3000" />
       <workItem from="1779547815911" duration="29068000" />
       <workItem from="1779695741143" duration="8369000" />
-      <workItem from="1780831623909" duration="74843000" />
-    </task>
-    <task id="LOCAL-00050" summary="update checkout validation">
-      <option name="closed" value="true" />
-      <created>1779726123285</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1779726123286</updated>
+      <workItem from="1780831623909" duration="75817000" />
     </task>
     <task id="LOCAL-00051" summary="update checkout validation">
       <option name="closed" value="true" />
@@ -576,7 +568,15 @@
       <option name="project" value="LOCAL" />
       <updated>1781313012745</updated>
     </task>
-    <option name="localTasksCounter" value="99" />
+    <task id="LOCAL-00099" summary="fix">
+      <option name="closed" value="true" />
+      <created>1781313771915</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1781313771915</updated>
+    </task>
+    <option name="localTasksCounter" value="100" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
