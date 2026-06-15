@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Discount Codes — The Ritual Co.</title>
+    <meta name="robots" content="noindex, nofollow"/>
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0;}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f2ee;color:#3a3330;min-height:100vh;font-size:14px;}
+
+        #lock{position:fixed;inset:0;background:#f5f2ee;display:flex;align-items:center;justify-content:center;z-index:100;}
+        .lock-card{background:#fff;border:0.5px solid #e0dbd4;border-radius:12px;padding:40px;width:320px;text-align:center;}
+        .lock-wordmark{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#a09890;margin-bottom:20px;}
+        .lock-title{font-size:20px;font-weight:400;margin-bottom:20px;color:#1a1714;}
+        .lock-input{width:100%;padding:10px 12px;border:0.5px solid #d0cbc4;border-radius:8px;font-size:14px;font-family:inherit;margin-bottom:10px;background:#faf8f5;}
+        .lock-input:focus{outline:none;border-color:#3a3330;}
+        .lock-btn{width:100%;padding:11px;background:#3a3330;color:#fff;border:none;border-radius:8px;font-size:14px;font-family:inherit;cursor:pointer;}
+        .lock-err{font-size:12px;color:#c0392b;margin-top:8px;display:none;}
+
+        #app{display:none;}
+        .topbar{background:#fff;border-bottom:0.5px solid #e0dbd4;padding:0 28px;height:52px;display:flex;align-items:center;justify-content:space-between;}
+        .topbar-left{display:flex;align-items:center;gap:20px;}
+        .topbar-brand{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#a09890;}
+        .topbar-title{font-size:14px;font-weight:500;color:#1a1714;}
+        .nav-link{font-size:12px;color:#a09890;text-decoration:none;padding:4px 10px;border-radius:6px;}
+        .nav-link:hover{background:#f5f2ee;color:#3a3330;}
+        .logout-btn{font-size:12px;color:#a09890;background:none;border:none;cursor:pointer;}
+
+        .content{padding:24px 28px;}
+
+        .top-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+        .page-title{font-size:16px;font-weight:500;color:#1a1714;}
+        .btn-primary{padding:9px 20px;background:#3a3330;color:#fff;border:none;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;}
+        .btn-primary:hover{background:#1a1714;}
+        .btn-primary:disabled{background:#d0cbc4;cursor:not-allowed;}
+
+        /* Stats */
+        .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
+        .stat{background:#fff;border:0.5px solid #e0dbd4;border-radius:10px;padding:16px 18px;}
+        .stat-val{font-size:22px;font-weight:500;color:#1a1714;margin-bottom:2px;}
+        .stat-lbl{font-size:11px;color:#a09890;}
+
+        /* Table */
+        table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;border:0.5px solid #e0dbd4;overflow:hidden;}
+        th{padding:10px 14px;text-align:left;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#a09890;border-bottom:0.5px solid #e0dbd4;font-weight:500;white-space:nowrap;}
+        td{padding:12px 14px;border-bottom:0.5px solid #f0ebe5;vertical-align:middle;}
+        tr:last-child td{border-bottom:none;}
+        tr:hover td{background:#faf8f5;}
+
+        .code-pill{font-family:monospace;font-size:13px;font-weight:600;background:#f0ebe5;padding:3px 8px;border-radius:4px;color:#1a1714;letter-spacing:.06em;}
+        .badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:500;}
+        .badge-active{background:#eaf3de;color:#3b6d11;}
+        .badge-inactive{background:#f0ebe5;color:#a09890;}
+        .type-badge{font-size:11px;color:#7a6f68;background:#f5f2ee;padding:2px 8px;border-radius:4px;}
+        .btn-sm{padding:5px 10px;border:0.5px solid #d0cbc4;border-radius:6px;font-size:12px;font-family:inherit;cursor:pointer;background:#fff;color:#3a3330;}
+        .btn-sm:hover{background:#f5f2ee;}
+        .btn-danger{color:#c0392b;border-color:#f5c6c6;}
+        .btn-danger:hover{background:#fdf0f0;}
+        .empty{text-align:center;padding:60px;color:#a09890;}
+
+        /* Modal */
+        .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;z-index:200;}
+        .modal{background:#fff;border-radius:12px;padding:28px;width:480px;max-width:92vw;max-height:90vh;overflow-y:auto;}
+        .modal-title{font-size:16px;font-weight:500;color:#1a1714;margin-bottom:20px;}
+        .field-group{margin-bottom:14px;}
+        .field-label{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#a09890;margin-bottom:5px;display:block;}
+        .field-hint{font-size:11px;color:#c0b8b0;margin-top:3px;}
+        .modal input,.modal select,.modal textarea{width:100%;padding:9px 12px;border:0.5px solid #d0cbc4;border-radius:8px;font-size:13px;font-family:inherit;background:#faf8f5;color:#3a3330;}
+        .modal input:focus,.modal select:focus{outline:none;border-color:#3a3330;}
+        .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+        .toggle-row{display:flex;align-items:center;gap:8px;font-size:13px;color:#7a6f68;}
+        .toggle-row input{width:auto;}
+        .modal-footer{display:flex;gap:10px;margin-top:20px;}
+        .btn-outline{padding:9px 16px;background:#fff;border:0.5px solid #d0cbc4;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;color:#7a6f68;}
+        .btn-outline:hover{background:#f5f2ee;}
+        .modal-status{font-size:12px;margin-top:8px;}
+        .modal-status.success{color:#27ae60;}
+        .modal-status.error{color:#c0392b;}
+        .value-field{display:none;}
+    </style>
+</head>
+<body>
+
+<div id="lock">
+    <div class="lock-card">
+        <div class="lock-wordmark">The Ritual Co.</div>
+        <div class="lock-title">Discount Codes</div>
+        <input class="lock-input" type="password" id="lock-pass" placeholder="Admin password" onkeydown="if(event.key==='Enter')unlock()"/>
+        <button class="lock-btn" onclick="unlock()">Enter</button>
+        <div class="lock-err" id="lock-err">Incorrect password</div>
+    </div>
+</div>
+
+<div id="app">
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="topbar-brand">The Ritual Co.</div>
+            <div class="topbar-title">Discount Codes</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+            <a href="/admin/orders" class="nav-link">Orders</a>
+            <a href="/admin/newsletter" class="nav-link">Newsletter</a>
+            <button class="logout-btn" onclick="logout()">Sign out</button>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="top-row">
+            <div class="page-title">All discount codes</div>
+            <button class="btn-primary" onclick="openCreate()">+ Create code</button>
+        </div>
+
+        <div class="stats">
+            <div class="stat"><div class="stat-val" id="s-total">—</div><div class="stat-lbl">Total codes</div></div>
+            <div class="stat"><div class="stat-val" id="s-active">—</div><div class="stat-lbl">Active</div></div>
+            <div class="stat"><div class="stat-val" id="s-used">—</div><div class="stat-lbl">Total uses</div></div>
+        </div>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Code</th>
+                <th>Type</th>
+                <th>Value</th>
+                <th>Uses</th>
+                <th>Min order</th>
+                <th>Expires</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody id="codes-tbody">
+            <tr><td colspan="8" class="empty">Loading...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Create modal -->
+<div class="modal-overlay" id="create-modal">
+    <div class="modal">
+        <div class="modal-title">Create discount code</div>
+
+        <div class="field-group">
+            <label class="field-label">Code</label>
+            <input type="text" id="f-code" placeholder="e.g. LAUNCH20" style="text-transform:uppercase;font-family:monospace;font-weight:600;"/>
+            <div class="field-hint">Leave blank to auto-generate</div>
+        </div>
+
+        <div class="field-group">
+            <label class="field-label">Description <span style="font-size:10px;color:#c0b8b0;">(internal note)</span></label>
+            <input type="text" id="f-desc" placeholder="e.g. Launch campaign 20% off"/>
+        </div>
+
+        <div class="field-group">
+            <label class="field-label">Type</label>
+            <select id="f-type" onchange="updateTypeFields()">
+                <option value="percentage">Percentage off (%)</option>
+                <option value="fixed">Fixed amount off (₹)</option>
+                <option value="free_shipping">Free shipping</option>
+            </select>
+        </div>
+
+        <div class="row2">
+            <div class="field-group value-field" id="vf-value">
+                <label class="field-label" id="value-label">Value</label>
+                <input type="number" id="f-value" placeholder="e.g. 20" min="1"/>
+            </div>
+            <div class="field-group value-field" id="vf-max">
+                <label class="field-label">Max discount (₹) <span style="font-size:10px;color:#c0b8b0;">optional</span></label>
+                <input type="number" id="f-max" placeholder="e.g. 500" min="1"/>
+            </div>
+        </div>
+
+        <div class="row2">
+            <div class="field-group">
+                <label class="field-label">Min order amount (₹) <span style="font-size:10px;color:#c0b8b0;">optional</span></label>
+                <input type="number" id="f-min" placeholder="e.g. 999" min="0"/>
+            </div>
+            <div class="field-group">
+                <label class="field-label">Usage limit <span style="font-size:10px;color:#c0b8b0;">optional</span></label>
+                <input type="number" id="f-limit" placeholder="e.g. 100" min="1"/>
+            </div>
+        </div>
+
+        <div class="field-group">
+            <label class="field-label">Expiry date <span style="font-size:10px;color:#c0b8b0;">optional</span></label>
+            <input type="date" id="f-expires"/>
+        </div>
+
+        <div class="field-group">
+            <label class="toggle-row">
+                <input type="checkbox" id="f-firstorder"/>
+                First order only
+            </label>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn-primary" id="create-btn" onclick="createCode()">Create code</button>
+            <button class="btn-outline" onclick="closeModal()">Cancel</button>
+        </div>
+        <div class="modal-status" id="create-status"></div>
+    </div>
+</div>
+
+<script>
+    let SESSION_TOKEN = null;
+    let allCodes = [];
+
+    async function unlock() {
+        const pass = document.getElementById("lock-pass").value;
+        if (!pass) return;
+        try {
+            const res = await fetch("/.netlify/functions/admin-auth", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ password: pass }),
+            });
+            if (!res.ok) { document.getElementById("lock-err").style.display = "block"; document.getElementById("lock-pass").value = ""; return; }
+            const { token } = await res.json();
+            SESSION_TOKEN = token;
+            sessionStorage.setItem("rc_admin_token", token);
+            document.getElementById("lock").style.display = "none";
+            document.getElementById("app").style.display = "block";
+            loadCodes();
+        } catch { document.getElementById("lock-err").style.display = "block"; }
+    }
+
+    function logout() { sessionStorage.removeItem("rc_admin_token"); SESSION_TOKEN = null; location.reload(); }
+
+    const saved = sessionStorage.getItem("rc_admin_token");
+    if (saved) {
+        const [expires] = saved.split(".");
+        if (Date.now() < parseInt(expires)) {
+            SESSION_TOKEN = saved;
+            document.getElementById("lock").style.display = "none";
+            document.getElementById("app").style.display = "block";
+            loadCodes();
+        } else sessionStorage.removeItem("rc_admin_token");
+    }
+    document.getElementById("lock-pass").addEventListener("keydown", e => { if (e.key === "Enter") unlock(); });
+
+    async function loadCodes() {
+        const res = await fetch("/.netlify/functions/admin-manage-discounts", {
+            headers: { "x-admin-token": SESSION_TOKEN }
+        });
+        const data = await res.json();
+        allCodes = data.codes || [];
+        updateStats();
+        renderCodes();
+    }
+
+    function updateStats() {
+        document.getElementById("s-total").textContent = allCodes.length;
+        document.getElementById("s-active").textContent = allCodes.filter(c => c.active).length;
+        document.getElementById("s-used").textContent = allCodes.reduce((s, c) => s + (c.used_count || 0), 0);
+    }
+
+    function renderCodes() {
+        if (!allCodes.length) {
+            document.getElementById("codes-tbody").innerHTML = `<tr><td colspan="8" class="empty">No codes yet — create your first one</td></tr>`;
+            return;
+        }
+        document.getElementById("codes-tbody").innerHTML = allCodes.map(c => {
+            const typeLabel = c.type === "percentage" ? "%" : c.type === "fixed" ? "₹ off" : "Free shipping";
+            const value = c.type === "percentage" ? `${c.value}%` : c.type === "fixed" ? `₹${c.value}` : "—";
+            const limit = c.usage_limit ? `${c.used_count}/${c.usage_limit}` : c.used_count || 0;
+            const min = c.min_order_amount ? `₹${c.min_order_amount}` : "—";
+            const expires = c.expires_at ? new Date(c.expires_at).toLocaleDateString("en-IN", {day:"numeric",month:"short",year:"numeric"}) : "Never";
+            const isExpired = c.expires_at && new Date(c.expires_at) < new Date();
+            const badge = c.active && !isExpired
+                ? `<span class="badge badge-active">Active</span>`
+                : `<span class="badge badge-inactive">${isExpired ? "Expired" : "Inactive"}</span>`;
+
+            return `<tr>
+      <td>
+        <span class="code-pill">${c.code}</span>
+        ${c.description ? `<div style="font-size:11px;color:#a09890;margin-top:3px;">${c.description}</div>` : ""}
+        ${c.first_order_only ? `<div style="font-size:10px;color:#a09890;">First order only</div>` : ""}
+      </td>
+      <td><span class="type-badge">${typeLabel}</span></td>
+      <td style="font-weight:500;">${value}${c.max_discount ? `<div style="font-size:11px;color:#a09890;">max ₹${c.max_discount}</div>` : ""}</td>
+      <td>${limit}</td>
+      <td>${min}</td>
+      <td style="color:${isExpired ? "#c0392b" : "#a09890"}">${expires}</td>
+      <td>${badge}</td>
+      <td>
+        <div style="display:flex;gap:6px;">
+          <button class="btn-sm" onclick="toggleCode('${c.id}')">${c.active ? "Deactivate" : "Activate"}</button>
+          <button class="btn-sm btn-danger" onclick="deleteCode('${c.id}', '${c.code}')">Delete</button>
+        </div>
+      </td>
+    </tr>`;
+        }).join("");
+    }
+
+    function updateTypeFields() {
+        const type = document.getElementById("f-type").value;
+        const showValue = type !== "free_shipping";
+        document.querySelectorAll(".value-field").forEach(el => el.style.display = showValue ? "block" : "none");
+        if (showValue) {
+            document.getElementById("value-label").textContent = type === "percentage" ? "Discount %" : "Amount off (₹)";
+            document.getElementById("f-value").placeholder = type === "percentage" ? "e.g. 20" : "e.g. 200";
+        }
+    }
+
+    function openCreate() {
+        document.getElementById("f-code").value = "";
+        document.getElementById("f-desc").value = "";
+        document.getElementById("f-type").value = "percentage";
+        document.getElementById("f-value").value = "";
+        document.getElementById("f-max").value = "";
+        document.getElementById("f-min").value = "";
+        document.getElementById("f-limit").value = "";
+        document.getElementById("f-expires").value = "";
+        document.getElementById("f-firstorder").checked = false;
+        document.getElementById("create-status").textContent = "";
+        document.getElementById("create-btn").disabled = false;
+        updateTypeFields();
+        document.getElementById("create-modal").style.display = "flex";
+    }
+
+    function closeModal() { document.getElementById("create-modal").style.display = "none"; }
+
+    function generateCode() {
+        return Math.random().toString(36).substring(2, 8).toUpperCase();
+    }
+
+    async function createCode() {
+        const btn = document.getElementById("create-btn");
+        const status = document.getElementById("create-status");
+        btn.disabled = true;
+
+        const code = document.getElementById("f-code").value.trim().toUpperCase() || generateCode();
+        const type = document.getElementById("f-type").value;
+        const value = document.getElementById("f-value").value;
+
+        if (type !== "free_shipping" && !value) {
+            status.textContent = "Enter a discount value";
+            status.className = "modal-status error";
+            btn.disabled = false;
+            return;
+        }
+
+        try {
+            const res = await fetch("/.netlify/functions/admin-manage-discounts", {
+                method: "POST",
+                headers: { "Content-Type": "application/json", "x-admin-token": SESSION_TOKEN },
+                body: JSON.stringify({
+                    action: "create",
+                    code,
+                    type,
+                    value: value || 0,
+                    description: document.getElementById("f-desc").value.trim(),
+                    max_discount: document.getElementById("f-max").value || null,
+                    min_order_amount: document.getElementById("f-min").value || null,
+                    usage_limit: document.getElementById("f-limit").value || null,
+                    expires_at: document.getElementById("f-expires").value || null,
+                    first_order_only: document.getElementById("f-firstorder").checked,
+                }),
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error);
+            allCodes.unshift(data.code);
+            updateStats();
+            renderCodes();
+            status.textContent = `Code ${data.code.code} created!`;
+            status.className = "modal-status success";
+            setTimeout(closeModal, 1200);
+        } catch (e) {
+            status.textContent = "Error: " + e.message;
+            status.className = "modal-status error";
+            btn.disabled = false;
+        }
+    }
+
+    async function toggleCode(id) {
+        await fetch("/.netlify/functions/admin-manage-discounts", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "x-admin-token": SESSION_TOKEN },
+            body: JSON.stringify({ action: "toggle", id }),
+        });
+        const c = allCodes.find(x => x.id === id);
+        if (c) c.active = !c.active;
+        updateStats();
+        renderCodes();
+    }
+
+    async function deleteCode(id, code) {
+        if (!confirm(`Delete code ${code}? This cannot be undone.`)) return;
+        await fetch("/.netlify/functions/admin-manage-discounts", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "x-admin-token": SESSION_TOKEN },
+            body: JSON.stringify({ action: "delete", id }),
+        });
+        allCodes = allCodes.filter(x => x.id !== id);
+        updateStats();
+        renderCodes();
+    }
+
+    document.getElementById("create-modal").addEventListener("click", e => { if (e.target === document.getElementById("create-modal")) closeModal(); });
+    updateTypeFields();
+</script>
+</body>
+</html>

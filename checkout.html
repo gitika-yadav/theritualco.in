@@ -61,6 +61,19 @@
             <span>Shipping</span>
             <span>Free</span>
         </div>
+        <!-- DISCOUNT CODE -->
+        <div class="line" style="flex-direction:column;gap:8px;align-items:stretch;">
+            <div style="display:flex;gap:8px;">
+                <input id="discount-input" placeholder="Discount code" style="flex:1;padding:9px 12px;border:0.5px solid #d0cbc4;border-radius:6px;font-size:13px;text-transform:uppercase;font-family:inherit;"/>
+                <button type="button" id="apply-discount-btn" onclick="applyDiscount()" style="padding:9px 16px;background:#3a3330;color:#fff;border:none;border-radius:6px;font-size:13px;font-family:inherit;cursor:pointer;">Apply</button>
+            </div>
+            <div id="discount-msg" style="font-size:12px;min-height:14px;"></div>
+        </div>
+        <div class="line" id="discount-line" style="display:none;color:#27ae60;">
+            <span>Discount (<span id="code-display"></span>)</span>
+            <span id="discount-display"></span>
+        </div>
+        <!-- END DISCOUNT CODE -->
         <div class="line total">
             <span>Total</span>
             <span id="total"></span>
@@ -186,6 +199,9 @@
 
         const btn = document.getElementById("payBtn");
         btn.disabled = true; btn.textContent = "Creating order…";
+        const finalAmount = appliedDiscount
+            ? Math.max(0, Cart.total() - (appliedDiscount.discount_amount || 0))
+            : Cart.total();
 
         try {
             const orderRes = await fetch("/.netlify/functions/create-order", {
@@ -194,7 +210,10 @@
                 body: JSON.stringify({
                     cart: cart.items,
                     name, email, phone, address,
-                    user_id: user ? user.id : null
+                    user_id: user ? user.id : null,
+                    amount: finalAmount,
+                    discount_code: appliedDiscount ? appliedDiscount.code : null,
+                    discount_amount: appliedDiscount ? appliedDiscount.discount_amount : 0
                 })
             });
 
@@ -241,6 +260,13 @@
                         value: order.amount / 100,
                         currency: "INR"
                     });
+                    if (appliedDiscount) {
+                        await fetch("/.netlify/functions/apply-discount", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ code: appliedDiscount.code })
+                        }).catch(() => {});
+                    }
                     Cart.clear();
                     window.location.href = "/thank-you.html";
                 },
@@ -270,6 +296,48 @@
     fetch("/partials/footer.html").then(r=>r.text()).then(html=>{
         document.getElementById("footer-placeholder").innerHTML = html;
     });
+</script>
+
+<script>
+    let appliedDiscount = null;
+
+    async function applyDiscount() {
+        const code = document.getElementById("discount-input").value.trim();
+        const btn = document.getElementById("apply-discount-btn");
+        const msg = document.getElementById("discount-msg");
+        if (!code) return;
+        btn.disabled = true;
+        btn.textContent = "Checking...";
+        msg.textContent = "";
+        try {
+            const res = await fetch("/.netlify/functions/validate-discount", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ code, cart_total: Cart.total(), email: "" })
+            });
+            const data = await res.json();
+            if (!res.ok) {
+                msg.textContent = data.error || "Invalid code";
+                msg.style.color = "#c0392b";
+                appliedDiscount = null;
+                document.getElementById("discount-line").style.display = "none";
+            } else {
+                appliedDiscount = data;
+                const final = Math.max(0, Cart.total() - (data.discount_amount || 0));
+                document.getElementById("code-display").textContent = data.code;
+                document.getElementById("discount-display").textContent = data.free_shipping ? "Free shipping" : "−₹" + (data.discount_amount || 0).toLocaleString("en-IN");
+                document.getElementById("discount-line").style.display = "flex";
+                document.getElementById("total").innerText = "₹" + final.toLocaleString("en-IN");
+                msg.textContent = data.free_shipping ? "Free shipping applied!" : "You save ₹" + data.discount_amount.toLocaleString("en-IN");
+                msg.style.color = "#27ae60";
+            }
+        } catch {
+            msg.textContent = "Something went wrong.";
+            msg.style.color = "#c0392b";
+        }
+        btn.disabled = false;
+        btn.textContent = "Apply";
+    }
 </script>
 </body>
 </html>

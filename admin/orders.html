@@ -171,6 +171,7 @@
         <button class="filter-btn" onclick="setFilter('delivered', this)">Delivered</button>
         <button class="filter-btn" onclick="setFilter('refunded', this)">Refunded</button>
         <input class="search-input" type="text" id="search" placeholder="Search name, email, order ID..." oninput="renderOrders()"/>
+        <button class="filter-btn" id="clear-pending-btn" onclick="clearAllPending()" style="color:#c0392b;border-color:#f5c6c6;margin-left:4px;">Clear all pending</button>
     </div>
 
     <!-- Table -->
@@ -294,7 +295,7 @@
 
     async function loadOrders() {
         try {
-            const res = await fetch("/.netlify/functions/get-orders", {
+            const res = await fetch("/.netlify/functions/admin-get-orders", {
                 headers: { "x-admin-token": SESSION_TOKEN }
             });
             const data = await res.json();
@@ -308,8 +309,9 @@
 
     function updateStats() {
         const total = allOrders.length;
+        const PAID_STATUSES = ["paid", "shipped", "delivered"];
         const revenue = allOrders
-            .filter(o => o.status !== "refunded")
+            .filter(o => PAID_STATUSES.includes(o.status))
             .reduce((sum, o) => sum + (o.amount_paise || 0), 0) / 100;
         const toShip = allOrders.filter(o => o.status === "paid").length;
         const shipped = allOrders.filter(o => o.status === "shipped" || o.status === "delivered").length;
@@ -360,7 +362,9 @@
                 ? `<button class="btn-sm btn-ship" onclick="openShip('${o.id}', event)">Mark shipped</button>`
                 : status === "shipped"
                     ? `<button class="btn-sm" onclick="markDelivered('${o.id}')">Mark delivered</button>`
-                    : "";
+                    : status === "pending"
+                        ? `<button class="btn-sm" style="color:#c0392b;border-color:#f5c6c6;" onclick="deleteSingle('${o.id}', event)">Delete</button>`
+                        : "";
             const name = o.guest_name || o.customer_name || "—";
             const email = o.guest_email || o.customer_email || "";
             const product = o.product_name || "—";
@@ -499,6 +503,52 @@
     document.getElementById("ship-modal").addEventListener("click", function(e) {
         if (e.target === this) closeModal();
     });
+
+    async function clearAllPending() {
+        const pendingCount = allOrders.filter(o => o.status === "pending").length;
+        if (pendingCount === 0) { alert("No pending orders to clear."); return; }
+        if (!confirm(`Delete all ${pendingCount} pending orders? This cannot be undone.`)) return;
+
+        const btn = document.getElementById("clear-pending-btn");
+        btn.textContent = "Deleting...";
+        btn.disabled = true;
+
+        try {
+            const res = await fetch("/.netlify/functions/admin-delete-orders", {
+                method: "POST",
+                headers: { "Content-Type": "application/json", "x-admin-token": SESSION_TOKEN },
+                body: JSON.stringify({ bulk_delete_pending: true }),
+            });
+            if (!res.ok) throw new Error(await res.text());
+            allOrders = allOrders.filter(o => o.status !== "pending");
+            updateStats();
+            renderOrders();
+            btn.textContent = "Clear all pending";
+            btn.disabled = false;
+        } catch (e) {
+            alert("Error: " + e.message);
+            btn.textContent = "Clear all pending";
+            btn.disabled = false;
+        }
+    }
+
+    async function deleteSingle(id, e) {
+        e && e.stopPropagation();
+        if (!confirm("Delete this pending order?")) return;
+        try {
+            const res = await fetch("/.netlify/functions/admin-delete-orders", {
+                method: "POST",
+                headers: { "Content-Type": "application/json", "x-admin-token": SESSION_TOKEN },
+                body: JSON.stringify({ order_ids: [id] }),
+            });
+            if (!res.ok) throw new Error(await res.text());
+            allOrders = allOrders.filter(o => o.id !== id);
+            updateStats();
+            renderOrders();
+        } catch (e) {
+            alert("Error: " + e.message);
+        }
+    }
 </script>
 </body>
 </html>
