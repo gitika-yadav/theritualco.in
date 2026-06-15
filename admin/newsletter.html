@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Newsletter — The Ritual Co.</title>
+    <meta name="robots" content="noindex, nofollow"/>
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f2ee;color:#3a3330;min-height:100vh;}
+
+        /* Lock screen */
+        #lock-screen{position:fixed;inset:0;background:#f5f2ee;display:flex;align-items:center;justify-content:center;z-index:100;}
+        .lock-card{background:#fff;border:0.5px solid #e0dbd4;border-radius:12px;padding:40px;width:340px;text-align:center;}
+        .lock-wordmark{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#a09890;margin-bottom:24px;}
+        .lock-title{font-size:20px;font-weight:400;margin-bottom:8px;color:#1a1714;}
+        .lock-sub{font-size:13px;color:#a09890;margin-bottom:28px;}
+        .lock-input{width:100%;padding:10px 14px;border:0.5px solid #d0cbc4;border-radius:8px;font-size:14px;font-family:inherit;margin-bottom:12px;background:#faf8f5;color:#3a3330;}
+        .lock-input:focus{outline:none;border-color:#3a3330;}
+        .lock-btn{width:100%;padding:11px;background:#3a3330;color:#fff;border:none;border-radius:8px;font-size:14px;font-family:inherit;cursor:pointer;letter-spacing:.03em;}
+        .lock-btn:hover{background:#1a1714;}
+        .lock-error{font-size:12px;color:#c0392b;margin-top:8px;display:none;}
+
+        /* App */
+        #app{display:none;min-height:100vh;}
+
+        .topbar{background:#fff;border-bottom:0.5px solid #e0dbd4;padding:0 32px;height:52px;display:flex;align-items:center;justify-content:space-between;}
+        .topbar-brand{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#a09890;}
+        .topbar-title{font-size:14px;font-weight:500;color:#1a1714;}
+        .topbar-right{display:flex;align-items:center;gap:16px;}
+        .subscribers-pill{font-size:12px;color:#a09890;background:#f5f2ee;padding:4px 12px;border-radius:20px;}
+        .logout-btn{font-size:12px;color:#a09890;background:none;border:none;cursor:pointer;padding:4px 8px;}
+        .logout-btn:hover{color:#3a3330;}
+
+        .layout{display:grid;grid-template-columns:200px 1fr 360px;height:calc(100vh - 52px);}
+
+        /* Sidebar */
+        .sidebar{background:#fff;border-right:0.5px solid #e0dbd4;padding:24px 0;overflow-y:auto;}
+        .sidebar-section{margin-bottom:24px;}
+        .sidebar-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#a09890;padding:0 20px 8px;}
+        .tpl-btn{display:block;width:100%;text-align:left;padding:9px 20px;font-size:13px;color:#7a6f68;background:none;border:none;border-left:2px solid transparent;cursor:pointer;transition:all .12s;}
+        .tpl-btn:hover{background:#faf8f5;color:#3a3330;}
+        .tpl-btn.active{background:#faf8f5;color:#1a1714;border-left-color:#3a3330;font-weight:500;}
+        .tpl-desc{font-size:11px;color:#c0b8b0;margin-top:2px;}
+
+        /* Composer */
+        .composer{padding:28px 32px;overflow-y:auto;background:#faf8f5;}
+        .composer-title{font-size:16px;font-weight:500;color:#1a1714;margin-bottom:24px;}
+        .field-group{margin-bottom:18px;}
+        .field-label{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#a09890;margin-bottom:6px;display:block;}
+        .composer input[type=text],.composer input[type=password],.composer textarea,.composer select{width:100%;padding:9px 12px;border:0.5px solid #d0cbc4;border-radius:8px;font-size:13px;font-family:inherit;background:#fff;color:#3a3330;resize:none;}
+        .composer input:focus,.composer textarea:focus{outline:none;border-color:#3a3330;}
+        .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+        .product-toggles{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:18px;}
+        .toggle-label{display:flex;align-items:center;gap:7px;font-size:13px;color:#7a6f68;cursor:pointer;user-select:none;}
+        .toggle-label input{accent-color:#3a3330;width:14px;height:14px;}
+        .divider{border:none;border-top:0.5px solid #e0dbd4;margin:20px 0;}
+        .send-bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+        .btn-primary{padding:10px 24px;background:#3a3330;color:#fff;border:none;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;letter-spacing:.03em;}
+        .btn-primary:hover{background:#1a1714;}
+        .btn-primary:disabled{background:#d0cbc4;cursor:not-allowed;}
+        .btn-outline{padding:10px 16px;background:#fff;border:0.5px solid #d0cbc4;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;color:#7a6f68;}
+        .btn-outline:hover{border-color:#3a3330;color:#3a3330;}
+        .send-status{font-size:12px;}
+        .send-status.error{color:#c0392b;}
+        .send-status.success{color:#27ae60;}
+        .send-status.sending{color:#2980b9;}
+
+        .result-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:20px;}
+        .result-card{background:#fff;border:0.5px solid #e0dbd4;border-radius:8px;padding:14px 16px;}
+        .result-num{font-size:24px;font-weight:500;color:#1a1714;}
+        .result-lbl{font-size:11px;color:#a09890;margin-top:2px;}
+
+        /* Preview */
+        .preview-pane{background:#e8e2dc;padding:20px;overflow-y:auto;}
+        .preview-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#a09890;margin-bottom:14px;display:flex;justify-content:space-between;}
+        .email-shell{background:#fff;border-radius:8px;overflow:hidden;font-family:Georgia,serif;color:#3a3330;font-size:13px;line-height:1.7;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+        .e-topbar{background:#f9f6f2;padding:10px 16px;border-bottom:1px solid #e8e2dc;}
+        .e-from{font-size:10px;color:#a09890;font-family:sans-serif;margin-bottom:2px;}
+        .e-subject{font-size:12px;font-weight:500;color:#1a1714;font-family:sans-serif;}
+        .e-body{padding:24px 20px;}
+        .e-wordmark{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#a09890;margin-bottom:20px;font-family:sans-serif;}
+        .e-headline{font-size:22px;font-weight:400;line-height:1.3;margin-bottom:14px;color:#1a1714;}
+        .e-text{font-size:13px;color:#7a6f68;line-height:1.8;margin-bottom:16px;}
+        .e-section{padding-top:16px;border-top:1px solid #e8e2dc;margin-top:16px;}
+        .e-eyebrow{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#a09890;margin-bottom:6px;font-family:sans-serif;}
+        .e-product-name{font-size:15px;font-weight:500;color:#1a1714;margin-bottom:4px;}
+        .e-product-desc{font-size:12px;color:#7a6f68;margin-bottom:10px;}
+        .e-price-row{display:flex;align-items:center;gap:7px;margin-bottom:8px;font-family:sans-serif;font-size:12px;}
+        .e-old{text-decoration:line-through;color:#c0b8b0;}
+        .e-new{font-weight:500;color:#1a1714;font-size:13px;}
+        .e-tag{font-size:9px;background:#f0ebe5;color:#7a6f68;padding:2px 6px;border-radius:3px;}
+        .e-cta{display:inline-block;background:#3a3330;color:#fff;text-decoration:none;padding:9px 18px;border-radius:4px;font-size:11px;letter-spacing:.06em;font-family:sans-serif;margin-top:4px;}
+        .e-bundle{background:#f9f6f2;border-radius:6px;padding:12px 14px;margin-top:14px;}
+        .e-bundle-title{font-size:12px;font-weight:500;color:#3a3330;margin-bottom:3px;font-family:sans-serif;}
+        .e-bundle-text{font-size:11px;color:#7a6f68;font-family:sans-serif;}
+        .e-closing{margin-top:20px;font-size:12px;color:#7a6f68;}
+        .e-sig{margin-top:8px;font-size:12px;color:#a09890;}
+        .e-footer{padding:12px 20px;border-top:1px solid #e8e2dc;font-size:10px;color:#c0b8b0;font-family:sans-serif;}
+    </style>
+</head>
+<body>
+
+<!-- Lock screen -->
+<div id="lock-screen">
+    <div class="lock-card">
+        <div class="lock-wordmark">The Ritual Co.</div>
+        <div class="lock-title">Admin access</div>
+        <div class="lock-sub">Newsletter broadcast dashboard</div>
+        <input class="lock-input" type="password" id="lock-pass" placeholder="Enter password" onkeydown="if(event.key==='Enter')unlock()"/>
+        <button class="lock-btn" onclick="unlock()">Enter</button>
+        <div class="lock-error" id="lock-error">Incorrect password</div>
+    </div>
+</div>
+
+<!-- App -->
+<div id="app">
+    <div class="topbar">
+        <div style="display:flex;align-items:center;gap:16px;">
+            <div class="topbar-brand">The Ritual Co.</div>
+            <div class="topbar-title">Newsletter</div>
+        </div>
+        <div class="topbar-right">
+            <span class="subscribers-pill" id="sub-count">Loading subscribers...</span>
+            <button class="logout-btn" onclick="logout()">Sign out</button>
+        </div>
+    </div>
+
+    <div class="layout">
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-label">Templates</div>
+                <button class="tpl-btn active" onclick="loadTemplate('launch')" id="t-launch">
+                    Launch announcement
+                    <div class="tpl-desc">Both products, early bird</div>
+                </button>
+                <button class="tpl-btn" onclick="loadTemplate('restock')" id="t-restock">
+                    Restock alert
+                    <div class="tpl-desc">Dumbbells back in stock</div>
+                </button>
+                <button class="tpl-btn" onclick="loadTemplate('newproduct')" id="t-newproduct">
+                    New product drop
+                    <div class="tpl-desc">Introduce something new</div>
+                </button>
+                <button class="tpl-btn" onclick="loadTemplate('earlybird')" id="t-earlybird">
+                    Early bird reminder
+                    <div class="tpl-desc">Urgency — spots filling up</div>
+                </button>
+                <button class="tpl-btn" onclick="loadTemplate('custom')" id="t-custom">
+                    Custom
+                    <div class="tpl-desc">Start from scratch</div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Composer -->
+        <div class="composer">
+            <div class="composer-title">Compose broadcast</div>
+
+            <div class="field-group">
+                <label class="field-label">Subject line</label>
+                <input type="text" id="f-subject" oninput="updatePreview()" placeholder="We launched — you're first in line ✦"/>
+            </div>
+
+            <div class="field-group">
+                <label class="field-label">Preheader <span style="font-size:10px;text-transform:none;letter-spacing:0;color:#c0b8b0;">(preview text in inbox)</span></label>
+                <input type="text" id="f-preheader" oninput="updatePreview()" placeholder="You signed up early. Now it's your turn."/>
+            </div>
+
+            <div class="field-group">
+                <label class="field-label">Headline</label>
+                <input type="text" id="f-headline" oninput="updatePreview()" placeholder="The wait is over."/>
+            </div>
+
+            <div class="field-group">
+                <label class="field-label">Opening message</label>
+                <textarea id="f-body" rows="5" oninput="updatePreview()" placeholder="Write your message here..."></textarea>
+            </div>
+
+            <div class="field-label">Products to feature</div>
+            <div class="product-toggles">
+                <label class="toggle-label"><input type="checkbox" id="p-dumbbells" checked onchange="updatePreview()"> Capsule Dumbbells</label>
+                <label class="toggle-label"><input type="checkbox" id="p-yogabelt" checked onchange="updatePreview()"> Yoga Belt</label>
+                <label class="toggle-label"><input type="checkbox" id="p-bundle" checked onchange="updatePreview()"> Bundle tip</label>
+            </div>
+
+            <div class="row2">
+                <div class="field-group">
+                    <label class="field-label">CTA button text</label>
+                    <input type="text" id="f-cta" oninput="updatePreview()" placeholder="Shop now"/>
+                </div>
+                <div class="field-group">
+                    <label class="field-label">CTA URL</label>
+                    <input type="text" id="f-url" placeholder="https://theritualco.in/..."/>
+                </div>
+            </div>
+
+            <hr class="divider"/>
+
+            <div class="field-group">
+                <label class="field-label">Custom recipients <span style="font-size:10px;text-transform:none;letter-spacing:0;color:#c0b8b0;">(leave empty to send to all subscribers)</span></label>
+                <textarea id="f-custom-emails" rows="3" placeholder="theritualcoofficial@gmail.com&#10;Gitika &lt;gitikayaadav@gmail.com&gt;&#10;One email per line — or paste the 16 failed ones"></textarea>
+                <div style="font-size:11px;color:#a09890;margin-top:5px;" id="recipient-hint">Sending to: <strong id="recipient-count">all subscribers</strong></div>
+            </div>
+
+            <div class="send-bar">
+                <button class="btn-primary" id="send-btn" onclick="sendNewsletter()">Send</button>
+                <button class="btn-outline" onclick="updatePreview()">Refresh preview</button>
+                <span class="send-status" id="send-status"></span>
+            </div>
+
+            <div id="result-grid" style="display:none;" class="result-grid">
+                <div class="result-card"><div class="result-num" id="r-sent">0</div><div class="result-lbl">Sent</div></div>
+                <div class="result-card"><div class="result-num" id="r-failed">0</div><div class="result-lbl">Failed</div></div>
+                <div class="result-card"><div class="result-num" id="r-total">0</div><div class="result-lbl">Total</div></div>
+            </div>
+        </div>
+
+        <!-- Preview -->
+        <div class="preview-pane">
+            <div class="preview-label"><span>Live preview</span><span>theritualco.in</span></div>
+            <div class="email-shell">
+                <div class="e-topbar">
+                    <div class="e-from">hello@theritualco.in → [subscriber]</div>
+                    <div class="e-subject" id="prev-subject">Subject line</div>
+                </div>
+                <div class="e-body">
+                    <div class="e-wordmark">The Ritual Co.</div>
+                    <div class="e-headline" id="prev-headline">Headline, [Name].</div>
+                    <div class="e-text" id="prev-body">Opening message will appear here.</div>
+
+                    <div id="prev-dumbbells" class="e-section">
+                        <div class="e-eyebrow">Signature product</div>
+                        <div class="e-product-name">Capsule Silicone Dumbbells</div>
+                        <div class="e-product-desc">Cast-iron core, skin-safe silicone, ergonomic 35mm grip. Peach, Grey, Cream, Black & Pink.</div>
+                        <div class="e-price-row"><span>1kg</span><span class="e-old">₹1,999</span><span class="e-new">₹1,499</span><span class="e-tag">early bird · first 100</span></div>
+                        <div class="e-price-row"><span>2kg</span><span class="e-old">₹2,499</span><span class="e-new">₹1,999</span><span class="e-tag">early bird · first 100</span></div>
+                        <a class="e-cta" href="https://theritualco.in/products/capsule-dumbbell">Shop Capsule Dumbbells</a>
+                    </div>
+
+                    <div id="prev-yogabelt" class="e-section">
+                        <div class="e-eyebrow">Also new</div>
+                        <div class="e-product-name">Yoga Belt</div>
+                        <div class="e-product-desc">100% organic cotton, 96" long, adjustable metal D-ring buckle. In Ivory.</div>
+                        <div class="e-price-row"><span class="e-old">₹499</span><span class="e-new">₹399</span></div>
+                        <a class="e-cta" href="https://theritualco.in/products/yoga-belt">Shop Yoga Belt</a>
+                    </div>
+
+                    <div id="prev-bundle" class="e-bundle">
+                        <div class="e-bundle-title">Order both, get free shipping.</div>
+                        <div class="e-bundle-text">1kg dumbbells (₹1,499) + Yoga Belt (₹399) = ₹1,898 with free pan-India delivery.</div>
+                    </div>
+
+                    <div class="e-closing">Thank you for believing in this before it existed. Can't wait for you to have these.</div>
+                    <div class="e-sig">— Gitika & the Ritual Co. team</div>
+                </div>
+                <div class="e-footer">
+                    You're receiving this because you signed up at theritualco.in &nbsp;·&nbsp; <u>Unsubscribe</u>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    const ADMIN_PASSWORD = "Gitika@26";
+
+    const TEMPLATES = {
+        launch: {
+            subject:"We launched — you're first in line ✦",
+            preheader:"You signed up early. Now it's your turn.",
+            headline:"The wait is over.",
+            body:"You signed up early — so you hear it first. The Ritual Co. is officially live, and both products are ready to order today.\n\nEarly bird pricing is available for the first 100 customers only. Once those spots are gone, prices go back to regular.",
+            cta:"Shop now", url:"https://theritualco.in/products/products",
+            dumbbells:true, yogabelt:true, bundle:true
+        },
+        restock: {
+            subject:"Back in stock — grab yours before it's gone again",
+            preheader:"You asked. We restocked.",
+            headline:"They're back.",
+            body:"We sold out fast. Your waitlist spot held your place — the Capsule Dumbbells are available again right now.\n\nNo guarantees on how long stock will last this time.",
+            cta:"Shop now", url:"https://theritualco.in/products/capsule-dumbbell",
+            dumbbells:true, yogabelt:false, bundle:false
+        },
+        newproduct: {
+            subject:"Something new just dropped ✦ The Ritual Co.",
+            preheader:"Made for the way you move.",
+            headline:"Meet the Yoga Belt.",
+            body:"We've added something new to The Ritual Co. — and as a waitlist member, you get first look.\n\nThe Yoga Belt is 100% organic cotton, 96 inches long, and designed to help you move deeper without forcing it.",
+            cta:"Shop Yoga Belt", url:"https://theritualco.in/products/yoga-belt",
+            dumbbells:false, yogabelt:true, bundle:false
+        },
+        earlybird: {
+            subject:"Early bird pricing ends at 100 orders — don't miss it",
+            preheader:"Spots are filling up.",
+            headline:"The first 100 are almost gone.",
+            body:"We're getting close to 100 early bird orders. Once we hit that number, prices go back to regular — ₹1,999 for the 1kg set and ₹2,499 for 2kg.\n\nIf you've been thinking about it, now is the time.",
+            cta:"Lock in early bird pricing", url:"https://theritualco.in/products/capsule-dumbbell",
+            dumbbells:true, yogabelt:false, bundle:true
+        },
+        custom: {
+            subject:"", preheader:"", headline:"", body:"", cta:"", url:"",
+            dumbbells:true, yogabelt:true, bundle:false
+        }
+    };
+
+    function unlock() {
+        const pass = document.getElementById('lock-pass').value;
+        if (pass === ADMIN_PASSWORD) {
+            document.getElementById('lock-screen').style.display = 'none';
+            document.getElementById('app').style.display = 'block';
+            sessionStorage.setItem('rc_admin', '1');
+            loadTemplate('launch');
+            loadSubCount();
+        } else {
+            document.getElementById('lock-error').style.display = 'block';
+            document.getElementById('lock-pass').value = '';
+            document.getElementById('lock-pass').focus();
+        }
+    }
+
+    function logout() {
+        sessionStorage.removeItem('rc_admin');
+        document.getElementById('lock-screen').style.display = 'flex';
+        document.getElementById('app').style.display = 'none';
+    }
+
+    // Auto-unlock if already authenticated this session
+    if (sessionStorage.getItem('rc_admin')) {
+        document.getElementById('lock-screen').style.display = 'none';
+        document.getElementById('app').style.display = 'block';
+        loadTemplate('launch');
+        loadSubCount();
+    }
+
+    document.getElementById('lock-pass').addEventListener('keydown', e => {
+        if (e.key === 'Enter') unlock();
+    });
+
+    function loadTemplate(key) {
+        document.querySelectorAll('.tpl-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('t-' + key).classList.add('active');
+        const t = TEMPLATES[key];
+        document.getElementById('f-subject').value = t.subject;
+        document.getElementById('f-preheader').value = t.preheader;
+        document.getElementById('f-headline').value = t.headline;
+        document.getElementById('f-body').value = t.body;
+        document.getElementById('f-cta').value = t.cta;
+        document.getElementById('f-url').value = t.url;
+        document.getElementById('p-dumbbells').checked = t.dumbbells;
+        document.getElementById('p-yogabelt').checked = t.yogabelt;
+        document.getElementById('p-bundle').checked = t.bundle;
+        updatePreview();
+    }
+
+    function updatePreview() {
+        document.getElementById('prev-subject').textContent = document.getElementById('f-subject').value || 'Subject line';
+        document.getElementById('prev-headline').textContent = (document.getElementById('f-headline').value || 'Headline') + ', [Name].';
+        document.getElementById('prev-body').innerHTML = (document.getElementById('f-body').value || '').replace(/\n/g,'<br>');
+        document.getElementById('prev-dumbbells').style.display = document.getElementById('p-dumbbells').checked ? '' : 'none';
+        document.getElementById('prev-yogabelt').style.display = document.getElementById('p-yogabelt').checked ? '' : 'none';
+        document.getElementById('prev-bundle').style.display = document.getElementById('p-bundle').checked ? '' : 'none';
+    }
+
+    async function loadSubCount() {
+        document.getElementById('sub-count').textContent = 'Loading...';
+        try {
+            const res = await fetch('/.netlify/functions/get-sub-count');
+            const data = await res.json();
+            document.getElementById('sub-count').textContent = (data.count || '—') + ' subscribers';
+        } catch {
+            document.getElementById('sub-count').textContent = 'Subscribers';
+        }
+    }
+
+    async function sendNewsletter() {
+        const subject  = document.getElementById('f-subject').value.trim();
+        const headline = document.getElementById('f-headline').value.trim();
+        const body     = document.getElementById('f-body').value.trim();
+        const cta      = document.getElementById('f-cta').value.trim();
+        const url      = document.getElementById('f-url').value.trim();
+        const preheader = document.getElementById('f-preheader').value.trim();
+
+        if (!subject || !headline || !body) {
+            setStatus('Fill in subject, headline, and message', 'error');
+            return;
+        }
+
+        const customEmails = document.getElementById('f-custom-emails').value
+            .split('\n').map(l => l.trim()).filter(l => l.length > 0);
+        const audience = customEmails.length > 0
+            ? customEmails.length + ' custom recipient(s)'
+            : 'all subscribers';
+        const confirmed = confirm(`Send to ${audience}?\n\nSubject: ${subject}\n\nThis cannot be undone.`);
+        if (!confirmed) return;
+
+        const btn = document.getElementById('send-btn');
+        btn.disabled = true;
+        setStatus('Sending...', 'sending');
+
+        try {
+            const res = await fetch('/.netlify/functions/send-newsletter', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-newsletter-secret': ADMIN_PASSWORD
+                },
+                body: JSON.stringify({
+                    subject, preheader, headline, body,
+                    cta_text: cta, cta_url: url,
+                    show_dumbbells: document.getElementById('p-dumbbells').checked,
+                    show_yogabelt:  document.getElementById('p-yogabelt').checked,
+                    show_bundle:    document.getElementById('p-bundle').checked,
+                    custom_emails: document.getElementById('f-custom-emails').value
+                        .split('\n').map(l => l.trim()).filter(l => l.length > 0)
+                })
+            });
+
+            const data = await res.json();
+            if (!res.ok) { setStatus(data.error || 'Something went wrong', 'error'); btn.disabled = false; return; }
+
+            document.getElementById('r-sent').textContent   = data.sent;
+            document.getElementById('r-failed').textContent = data.failed;
+            document.getElementById('r-total').textContent  = data.sent + data.failed;
+            document.getElementById('result-grid').style.display = 'grid';
+            setStatus(`Done — ${data.sent} emails sent`, 'success');
+        } catch (e) {
+            setStatus('Network error', 'error');
+        }
+        btn.disabled = false;
+    }
+
+    document.getElementById('f-custom-emails').addEventListener('input', function() {
+        const lines = this.value.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+        const hint = document.getElementById('recipient-count');
+        if (lines.length === 0) {
+            hint.textContent = 'all subscribers';
+        } else {
+            hint.textContent = lines.length + ' custom recipient' + (lines.length > 1 ? 's' : '');
+        }
+    });
+
+    function setStatus(msg, type) {
+        const el = document.getElementById('send-status');
+        el.textContent = msg;
+        el.className = 'send-status ' + type;
+    }
+</script>
+</body>
+</html>
