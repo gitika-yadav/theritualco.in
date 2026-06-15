@@ -206,7 +206,7 @@
             </div>
 
             <div class="send-bar">
-                <button class="btn-primary" id="send-btn" onclick="sendNewsletter()">Send</button>
+                <button class="btn-primary" id="send-btn" onclick="sendNewsletter()">Queue & send</button>
                 <button class="btn-outline" onclick="updatePreview()">Refresh preview</button>
                 <span class="send-status" id="send-status"></span>
             </div>
@@ -266,7 +266,6 @@
 </div>
 
 <script>
-    const ADMIN_PASSWORD = "Gitika@26";
 
     const TEMPLATES = {
         launch: {
@@ -309,7 +308,7 @@
 
     function unlock() {
         const pass = document.getElementById('lock-pass').value;
-        if (pass === ADMIN_PASSWORD) {
+        if (false) { // removed - handled server side
             document.getElementById('lock-screen').style.display = 'none';
             document.getElementById('app').style.display = 'block';
             sessionStorage.setItem('rc_admin', '1');
@@ -402,11 +401,11 @@
         setStatus('Sending...', 'sending');
 
         try {
-            const res = await fetch('/.netlify/functions/send-newsletter', {
+            const res = await fetch('/.netlify/functions/queue-newsletter', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'x-newsletter-secret': ADMIN_PASSWORD
+                    'x-newsletter-secret': SESSION_TOKEN
                 },
                 body: JSON.stringify({
                     subject, preheader, headline, body,

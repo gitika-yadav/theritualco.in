@@ -234,7 +234,7 @@ exports.handler = async (event) => {
         }
 
         // 200ms delay between sends to stay within Resend rate limits
-        await new Promise((r) => setTimeout(r, 600));
+        await new Promise((r) => setTimeout(r, 1000));
     }
 
     console.info(`[NEWSLETTER_DONE] sent: ${sent}, failed: ${failed}`);

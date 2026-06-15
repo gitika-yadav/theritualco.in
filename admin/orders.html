@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Orders — The Ritual Co.</title>
+    <meta name="robots" content="noindex, nofollow"/>
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0;}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f2ee;color:#3a3330;min-height:100vh;font-size:14px;}
+
+        /* Lock */
+        #lock{position:fixed;inset:0;background:#f5f2ee;display:flex;align-items:center;justify-content:center;z-index:100;}
+        .lock-card{background:#fff;border:0.5px solid #e0dbd4;border-radius:12px;padding:40px;width:320px;text-align:center;}
+        .lock-wordmark{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#a09890;margin-bottom:20px;}
+        .lock-title{font-size:20px;font-weight:400;margin-bottom:20px;color:#1a1714;}
+        .lock-input{width:100%;padding:10px 12px;border:0.5px solid #d0cbc4;border-radius:8px;font-size:14px;font-family:inherit;margin-bottom:10px;background:#faf8f5;}
+        .lock-input:focus{outline:none;border-color:#3a3330;}
+        .lock-btn{width:100%;padding:11px;background:#3a3330;color:#fff;border:none;border-radius:8px;font-size:14px;font-family:inherit;cursor:pointer;}
+        .lock-btn:hover{background:#1a1714;}
+        .lock-err{font-size:12px;color:#c0392b;margin-top:8px;display:none;}
+
+        /* App */
+        #app{display:none;}
+        .topbar{background:#fff;border-bottom:0.5px solid #e0dbd4;padding:0 28px;height:52px;display:flex;align-items:center;justify-content:space-between;}
+        .topbar-left{display:flex;align-items:center;gap:20px;}
+        .topbar-brand{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#a09890;}
+        .topbar-title{font-size:14px;font-weight:500;color:#1a1714;}
+        .topbar-right{display:flex;align-items:center;gap:12px;}
+        .logout-btn{font-size:12px;color:#a09890;background:none;border:none;cursor:pointer;}
+        .logout-btn:hover{color:#3a3330;}
+        .nav-link{font-size:12px;color:#a09890;text-decoration:none;padding:4px 10px;border-radius:6px;}
+        .nav-link:hover{background:#f5f2ee;color:#3a3330;}
+
+        /* Stats */
+        .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:20px 28px;}
+        .stat{background:#fff;border:0.5px solid #e0dbd4;border-radius:10px;padding:16px 18px;}
+        .stat-val{font-size:24px;font-weight:500;color:#1a1714;margin-bottom:2px;}
+        .stat-lbl{font-size:11px;color:#a09890;}
+        .stat-sub{font-size:11px;color:#a09890;margin-top:4px;}
+
+        /* Filters */
+        .filters{padding:0 28px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+        .filter-btn{padding:6px 14px;border:0.5px solid #d0cbc4;border-radius:20px;background:#fff;font-size:12px;font-family:inherit;cursor:pointer;color:#7a6f68;}
+        .filter-btn:hover{border-color:#3a3330;color:#3a3330;}
+        .filter-btn.active{background:#3a3330;color:#fff;border-color:#3a3330;}
+        .search-input{padding:7px 12px;border:0.5px solid #d0cbc4;border-radius:8px;font-size:13px;font-family:inherit;background:#fff;color:#3a3330;width:220px;margin-left:auto;}
+        .search-input:focus{outline:none;border-color:#3a3330;}
+
+        /* Table */
+        .table-wrap{padding:0 28px 28px;overflow-x:auto;}
+        table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;border:0.5px solid #e0dbd4;overflow:hidden;}
+        th{padding:10px 14px;text-align:left;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#a09890;border-bottom:0.5px solid #e0dbd4;font-weight:500;white-space:nowrap;}
+        td{padding:12px 14px;border-bottom:0.5px solid #f0ebe5;vertical-align:middle;}
+        tr:last-child td{border-bottom:none;}
+        tr:hover td{background:#faf8f5;}
+
+        .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:500;}
+        .badge-paid{background:#eaf3de;color:#3b6d11;}
+        .badge-shipped{background:#e6f1fb;color:#185fa5;}
+        .badge-delivered{background:#e1f5ee;color:#0f6e56;}
+        .badge-pending{background:#faeeda;color:#854f0b;}
+        .badge-refunded{background:#fcebeb;color:#a32d2d;}
+
+        .dot{width:6px;height:6px;border-radius:50%;display:inline-block;}
+        .dot-paid{background:#639922;}
+        .dot-shipped{background:#378add;}
+        .dot-delivered{background:#1d9e75;}
+        .dot-pending{background:#ef9f27;}
+        .dot-refunded{background:#e24b4a;}
+
+        .btn-sm{padding:5px 12px;border:0.5px solid #d0cbc4;border-radius:6px;font-size:12px;font-family:inherit;cursor:pointer;background:#fff;color:#3a3330;}
+        .btn-sm:hover{background:#f5f2ee;}
+        .btn-ship{background:#3a3330;color:#fff;border-color:#3a3330;}
+        .btn-ship:hover{background:#1a1714;}
+
+        .order-id{font-family:monospace;font-size:11px;color:#a09890;}
+        .customer-name{font-weight:500;color:#1a1714;}
+        .customer-email{font-size:12px;color:#a09890;}
+        .amount{font-weight:500;}
+        .empty{text-align:center;padding:60px 20px;color:#a09890;}
+
+        /* Modal */
+        .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;z-index:200;display:none;}
+        .modal{background:#fff;border-radius:12px;padding:28px;width:440px;max-width:90vw;}
+        .modal-title{font-size:16px;font-weight:500;color:#1a1714;margin-bottom:4px;}
+        .modal-sub{font-size:13px;color:#a09890;margin-bottom:20px;}
+        .modal-field{margin-bottom:14px;}
+        .modal-label{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#a09890;margin-bottom:5px;display:block;}
+        .modal input,.modal select{width:100%;padding:9px 12px;border:0.5px solid #d0cbc4;border-radius:8px;font-size:13px;font-family:inherit;background:#faf8f5;color:#3a3330;}
+        .modal input:focus,.modal select:focus{outline:none;border-color:#3a3330;}
+        .modal-footer{display:flex;gap:10px;margin-top:20px;}
+        .btn-primary{padding:10px 20px;background:#3a3330;color:#fff;border:none;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;}
+        .btn-primary:hover{background:#1a1714;}
+        .btn-primary:disabled{background:#d0cbc4;cursor:not-allowed;}
+        .btn-outline{padding:10px 16px;background:#fff;border:0.5px solid #d0cbc4;border-radius:8px;font-size:13px;font-family:inherit;cursor:pointer;color:#7a6f68;}
+        .btn-outline:hover{background:#f5f2ee;}
+        .modal-status{font-size:12px;margin-top:8px;}
+        .modal-status.success{color:#27ae60;}
+        .modal-status.error{color:#c0392b;}
+
+        /* Order detail panel */
+        .detail-overlay{position:fixed;inset:0;background:rgba(0,0,0,.25);z-index:150;display:none;}
+        .detail-panel{position:fixed;right:0;top:0;bottom:0;width:380px;background:#fff;border-left:0.5px solid #e0dbd4;overflow-y:auto;z-index:160;transform:translateX(100%);transition:transform .2s ease;}
+        .detail-panel.open{transform:translateX(0);}
+        .detail-header{padding:20px;border-bottom:0.5px solid #e0dbd4;display:flex;align-items:center;justify-content:space-between;}
+        .detail-header h2{font-size:15px;font-weight:500;}
+        .close-btn{background:none;border:none;font-size:18px;cursor:pointer;color:#a09890;padding:4px;}
+        .close-btn:hover{color:#3a3330;}
+        .detail-body{padding:20px;}
+        .detail-section{margin-bottom:20px;}
+        .detail-section-title{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#a09890;margin-bottom:10px;}
+        .detail-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:0.5px solid #f5f2ee;font-size:13px;}
+        .detail-row:last-child{border-bottom:none;}
+        .detail-key{color:#a09890;}
+        .detail-val{color:#1a1714;font-weight:500;text-align:right;max-width:220px;word-break:break-word;}
+    </style>
+</head>
+<body>
+
+<!-- Lock -->
+<div id="lock">
+    <div class="lock-card">
+        <div class="lock-wordmark">The Ritual Co.</div>
+        <div class="lock-title">Orders</div>
+        <input class="lock-input" type="password" id="lock-pass" placeholder="Admin password" onkeydown="if(event.key==='Enter')unlock()"/>
+        <button class="lock-btn" onclick="unlock()">Enter</button>
+        <div class="lock-err" id="lock-err">Incorrect password</div>
+    </div>
+</div>
+
+<!-- App -->
+<div id="app">
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="topbar-brand">The Ritual Co.</div>
+            <div class="topbar-title">Order Management</div>
+        </div>
+        <div class="topbar-right">
+            <a href="/admin/newsletter" class="nav-link">Newsletter</a>
+            <button class="logout-btn" onclick="logout()">Sign out</button>
+        </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+        <div class="stat">
+            <div class="stat-val" id="s-total">—</div>
+            <div class="stat-lbl">Total orders</div>
+        </div>
+        <div class="stat">
+            <div class="stat-val" id="s-revenue">—</div>
+            <div class="stat-lbl">Total revenue</div>
+            <div class="stat-sub" id="s-revenue-sub"></div>
+        </div>
+        <div class="stat">
+            <div class="stat-val" id="s-pending">—</div>
+            <div class="stat-lbl">To ship</div>
+        </div>
+        <div class="stat">
+            <div class="stat-val" id="s-shipped">—</div>
+            <div class="stat-lbl">Shipped</div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters">
+        <button class="filter-btn active" onclick="setFilter('all', this)">All</button>
+        <button class="filter-btn" onclick="setFilter('paid', this)">To ship</button>
+        <button class="filter-btn" onclick="setFilter('shipped', this)">Shipped</button>
+        <button class="filter-btn" onclick="setFilter('delivered', this)">Delivered</button>
+        <button class="filter-btn" onclick="setFilter('refunded', this)">Refunded</button>
+        <input class="search-input" type="text" id="search" placeholder="Search name, email, order ID..." oninput="renderOrders()"/>
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrap">
+        <table>
+            <thead>
+            <tr>
+                <th>Order</th>
+                <th>Customer</th>
+                <th>Product</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody id="orders-tbody">
+            <tr><td colspan="7" class="empty">Loading orders...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Ship modal -->
+<div class="modal-overlay" id="ship-modal">
+    <div class="modal">
+        <div class="modal-title">Mark as shipped</div>
+        <div class="modal-sub" id="ship-modal-sub">Order #—</div>
+        <div class="modal-field">
+            <label class="modal-label">Courier / carrier</label>
+            <select id="ship-courier">
+                <option value="Delhivery">Delhivery</option>
+                <option value="Shiprocket">Shiprocket</option>
+                <option value="Blue Dart">Blue Dart</option>
+                <option value="DTDC">DTDC</option>
+                <option value="Ekart">Ekart</option>
+                <option value="India Post">India Post</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        <div class="modal-field">
+            <label class="modal-label">Tracking number <span style="color:#c0b8b0;font-size:10px;">(optional)</span></label>
+            <input type="text" id="ship-tracking" placeholder="e.g. 1234567890"/>
+        </div>
+        <div class="modal-field">
+            <label class="modal-label">Note to customer <span style="color:#c0b8b0;font-size:10px;">(optional — appended to email)</span></label>
+            <input type="text" id="ship-note" placeholder="e.g. Your order will arrive by Friday"/>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-primary" id="ship-confirm-btn" onclick="confirmShip()">Send shipping email & mark shipped</button>
+            <button class="btn-outline" onclick="closeModal()">Cancel</button>
+        </div>
+        <div class="modal-status" id="ship-status"></div>
+    </div>
+</div>
+
+<!-- Detail panel -->
+<div class="detail-overlay" id="detail-overlay" onclick="closeDetail()"></div>
+<div class="detail-panel" id="detail-panel">
+    <div class="detail-header">
+        <h2>Order details</h2>
+        <button class="close-btn" onclick="closeDetail()">×</button>
+    </div>
+    <div class="detail-body" id="detail-body"></div>
+</div>
+
+<script>
+    let allOrders = [];
+    let currentFilter = "all";
+    let shipOrderId = null;
+
+    let SESSION_TOKEN = null;
+
+    async function unlock() {
+        const pass = document.getElementById("lock-pass").value;
+        if (!pass) return;
+        try {
+            const res = await fetch("/.netlify/functions/admin-auth", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ password: pass }),
+            });
+            if (!res.ok) {
+                document.getElementById("lock-err").style.display = "block";
+                document.getElementById("lock-pass").value = "";
+                return;
+            }
+            const { token } = await res.json();
+            SESSION_TOKEN = token;
+            sessionStorage.setItem("rc_admin_token", token);
+            document.getElementById("lock").style.display = "none";
+            document.getElementById("app").style.display = "block";
+            loadOrders();
+        } catch {
+            document.getElementById("lock-err").style.display = "block";
+        }
+    }
+
+    function logout() {
+        sessionStorage.removeItem("rc_admin_token");
+        SESSION_TOKEN = null;
+        location.reload();
+    }
+
+    // Auto-restore session
+    const saved = sessionStorage.getItem("rc_admin_token");
+    if (saved) {
+        const [expires] = saved.split(".");
+        if (Date.now() < parseInt(expires)) {
+            SESSION_TOKEN = saved;
+            document.getElementById("lock").style.display = "none";
+            document.getElementById("app").style.display = "block";
+            loadOrders();
+        } else {
+            sessionStorage.removeItem("rc_admin_token");
+        }
+    }
+
+    document.getElementById("lock-pass").addEventListener("keydown", e => { if (e.key === "Enter") unlock(); });
+
+
+    async function loadOrders() {
+        try {
+            const res = await fetch("/.netlify/functions/get-orders", {
+                headers: { "x-admin-token": SESSION_TOKEN }
+            });
+            const data = await res.json();
+            allOrders = data.orders || [];
+            updateStats();
+            renderOrders();
+        } catch (e) {
+            document.getElementById("orders-tbody").innerHTML = `<tr><td colspan="7" class="empty">Failed to load orders. Check console.</td></tr>`;
+        }
+    }
+
+    function updateStats() {
+        const total = allOrders.length;
+        const revenue = allOrders
+            .filter(o => o.status !== "refunded")
+            .reduce((sum, o) => sum + (o.amount_paise || 0), 0) / 100;
+        const toShip = allOrders.filter(o => o.status === "paid").length;
+        const shipped = allOrders.filter(o => o.status === "shipped" || o.status === "delivered").length;
+
+        document.getElementById("s-total").textContent = total;
+        document.getElementById("s-revenue").textContent = "₹" + revenue.toLocaleString("en-IN");
+        document.getElementById("s-revenue-sub").textContent = `avg ₹${total ? Math.round(revenue / total).toLocaleString("en-IN") : 0}`;
+        document.getElementById("s-pending").textContent = toShip;
+        document.getElementById("s-shipped").textContent = shipped;
+    }
+
+    function setFilter(f, btn) {
+        currentFilter = f;
+        document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        renderOrders();
+    }
+
+    function renderOrders() {
+        const q = document.getElementById("search").value.toLowerCase();
+        let orders = allOrders;
+
+        if (currentFilter !== "all") {
+            if (currentFilter === "paid") orders = orders.filter(o => o.status === "paid");
+            else orders = orders.filter(o => o.status === currentFilter);
+        }
+
+        if (q) {
+            orders = orders.filter(o =>
+                (o.guest_name || "").toLowerCase().includes(q) ||
+                (o.guest_email || "").toLowerCase().includes(q) ||
+                (o.razorpay_order_id || "").toLowerCase().includes(q) ||
+                (o.razorpay_payment_id || "").toLowerCase().includes(q)
+            );
+        }
+
+        if (orders.length === 0) {
+            document.getElementById("orders-tbody").innerHTML = `<tr><td colspan="7" class="empty">No orders found</td></tr>`;
+            return;
+        }
+
+        document.getElementById("orders-tbody").innerHTML = orders.map(o => {
+            const date = new Date(o.created_at).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
+            const amount = "₹" + ((o.amount_paise || 0) / 100).toLocaleString("en-IN");
+            const status = o.status || "paid";
+            const badge = `<span class="badge badge-${status}"><span class="dot dot-${status}"></span>${status}</span>`;
+            const shipBtn = status === "paid"
+                ? `<button class="btn-sm btn-ship" onclick="openShip('${o.id}', event)">Mark shipped</button>`
+                : status === "shipped"
+                    ? `<button class="btn-sm" onclick="markDelivered('${o.id}')">Mark delivered</button>`
+                    : "";
+            const name = o.guest_name || o.customer_name || "—";
+            const email = o.guest_email || o.customer_email || "";
+            const product = o.product_name || "—";
+            const shortId = (o.razorpay_payment_id || o.id || "").slice(-8);
+
+            return `<tr onclick="openDetail('${o.id}')" style="cursor:pointer;">
+      <td><span class="order-id">#${shortId}</span></td>
+      <td>
+        <div class="customer-name">${name}</div>
+        <div class="customer-email">${email}</div>
+      </td>
+      <td>${product}${o.weight ? ` · ${o.weight}` : ""}${o.color ? ` · ${o.color}` : ""}</td>
+      <td class="amount">${amount}</td>
+      <td>${badge}</td>
+      <td style="color:#a09890;">${date}</td>
+      <td onclick="event.stopPropagation()">${shipBtn}</td>
+    </tr>`;
+        }).join("");
+    }
+
+    function openShip(id, e) {
+        e && e.stopPropagation();
+        shipOrderId = id;
+        const order = allOrders.find(o => o.id === id);
+        document.getElementById("ship-modal-sub").textContent =
+            `${order.guest_name || "Customer"} · ${order.product_name || "Order"} · ₹${((order.amount_paise||0)/100).toLocaleString("en-IN")}`;
+        document.getElementById("ship-tracking").value = "";
+        document.getElementById("ship-note").value = "";
+        document.getElementById("ship-status").textContent = "";
+        document.getElementById("ship-confirm-btn").disabled = false;
+        document.getElementById("ship-modal").style.display = "flex";
+    }
+
+    function closeModal() {
+        document.getElementById("ship-modal").style.display = "none";
+        shipOrderId = null;
+    }
+
+    async function confirmShip() {
+        if (!shipOrderId) return;
+        const btn = document.getElementById("ship-confirm-btn");
+        const status = document.getElementById("ship-status");
+        btn.disabled = true;
+        btn.textContent = "Sending...";
+        status.textContent = "";
+
+        try {
+            const res = await fetch("/.netlify/functions/update-order", {
+                method: "POST",
+                headers: { "Content-Type": "application/json", "x-admin-token": SESSION_TOKEN },
+                body: JSON.stringify({
+                    order_id: shipOrderId,
+                    status: "shipped",
+                    tracking_number: document.getElementById("ship-tracking").value.trim(),
+                    courier: document.getElementById("ship-courier").value,
+                }),
+            });
+            if (!res.ok) throw new Error(await res.text());
+            status.textContent = "Marked as shipped & email sent.";
+            status.className = "modal-status success";
+            // Update local state
+            const o = allOrders.find(x => x.id === shipOrderId);
+            if (o) { o.status = "shipped"; o.tracking_number = document.getElementById("ship-tracking").value; }
+            updateStats();
+            renderOrders();
+            setTimeout(closeModal, 1500);
+        } catch (e) {
+            status.textContent = "Error: " + e.message;
+            status.className = "modal-status error";
+            btn.disabled = false;
+            btn.textContent = "Send shipping email & mark shipped";
+        }
+    }
+
+    async function markDelivered(id) {
+        if (!confirm("Mark this order as delivered?")) return;
+        await fetch("/.netlify/functions/update-order", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "x-admin-token": SESSION_TOKEN },
+            body: JSON.stringify({ order_id: id, status: "delivered" }),
+        });
+        const o = allOrders.find(x => x.id === id);
+        if (o) o.status = "delivered";
+        updateStats();
+        renderOrders();
+    }
+
+    function openDetail(id) {
+        const o = allOrders.find(x => x.id === id);
+        if (!o) return;
+        const date = new Date(o.created_at).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
+        const amount = "₹" + ((o.amount_paise || 0) / 100).toLocaleString("en-IN");
+
+        document.getElementById("detail-body").innerHTML = `
+    <div class="detail-section">
+      <div class="detail-section-title">Customer</div>
+      <div class="detail-row"><span class="detail-key">Name</span><span class="detail-val">${o.guest_name || o.customer_name || "—"}</span></div>
+      <div class="detail-row"><span class="detail-key">Email</span><span class="detail-val">${o.guest_email || o.customer_email || "—"}</span></div>
+      <div class="detail-row"><span class="detail-key">Phone</span><span class="detail-val">${o.guest_phone || "—"}</span></div>
+      <div class="detail-row"><span class="detail-key">Address</span><span class="detail-val">${o.shipping_address || "—"}</span></div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-section-title">Order</div>
+      <div class="detail-row"><span class="detail-key">Product</span><span class="detail-val">${o.product_name || "—"}</span></div>
+      <div class="detail-row"><span class="detail-key">Weight</span><span class="detail-val">${o.weight || "—"}</span></div>
+      <div class="detail-row"><span class="detail-key">Colour</span><span class="detail-val">${o.color || "—"}</span></div>
+      <div class="detail-row"><span class="detail-key">Amount</span><span class="detail-val">${amount}</span></div>
+      <div class="detail-row"><span class="detail-key">Status</span><span class="detail-val">${o.status || "—"}</span></div>
+      <div class="detail-row"><span class="detail-key">Date</span><span class="detail-val">${date} IST</span></div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-section-title">Payment</div>
+      <div class="detail-row"><span class="detail-key">Payment ID</span><span class="detail-val" style="font-size:11px;">${o.razorpay_payment_id || "—"}</span></div>
+      <div class="detail-row"><span class="detail-key">Order ID</span><span class="detail-val" style="font-size:11px;">${o.razorpay_order_id || "—"}</span></div>
+    </div>
+    ${o.tracking_number ? `<div class="detail-section">
+      <div class="detail-section-title">Shipping</div>
+      <div class="detail-row"><span class="detail-key">Courier</span><span class="detail-val">${o.courier || "—"}</span></div>
+      <div class="detail-row"><span class="detail-key">Tracking</span><span class="detail-val">${o.tracking_number}</span></div>
+      ${o.shipped_at ? `<div class="detail-row"><span class="detail-key">Shipped at</span><span class="detail-val">${new Date(o.shipped_at).toLocaleString("en-IN",{timeZone:"Asia/Kolkata"})} IST</span></div>` : ""}
+    </div>` : ""}
+    ${o.status === "paid" ? `<button class="btn-primary" style="width:100%;margin-top:8px;" onclick="openShip('${o.id}')">Mark as shipped</button>` : ""}
+    ${o.status === "shipped" ? `<button class="btn-outline" style="width:100%;margin-top:8px;" onclick="markDelivered('${o.id}')">Mark as delivered</button>` : ""}
+  `;
+
+        document.getElementById("detail-overlay").style.display = "block";
+        document.getElementById("detail-panel").classList.add("open");
+    }
+
+    function closeDetail() {
+        document.getElementById("detail-overlay").style.display = "none";
+        document.getElementById("detail-panel").classList.remove("open");
+    }
+
+    // Close modal on overlay click
+    document.getElementById("ship-modal").addEventListener("click", function(e) {
+        if (e.target === this) closeModal();
+    });
+</script>
+</body>
+</html>
