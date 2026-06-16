@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Analytics — The Ritual Co.</title>
+    <meta name="robots" content="noindex,nofollow"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0;}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f2ee;color:#3a3330;min-height:100vh;font-size:14px;}
+
+        #lock{position:fixed;inset:0;background:#f5f2ee;display:flex;align-items:center;justify-content:center;z-index:100;}
+        .lock-card{background:#fff;border:0.5px solid #e0dbd4;border-radius:12px;padding:40px;width:320px;text-align:center;}
+        .lock-wordmark{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#a09890;margin-bottom:20px;}
+        .lock-title{font-size:20px;font-weight:400;margin-bottom:20px;color:#1a1714;}
+        .lock-input{width:100%;padding:10px 12px;border:0.5px solid #d0cbc4;border-radius:8px;font-size:14px;font-family:inherit;margin-bottom:10px;background:#faf8f5;}
+        .lock-input:focus{outline:none;border-color:#3a3330;}
+        .lock-btn{width:100%;padding:11px;background:#3a3330;color:#fff;border:none;border-radius:8px;font-size:14px;font-family:inherit;cursor:pointer;}
+        .lock-err{font-size:12px;color:#c0392b;margin-top:8px;display:none;}
+
+        #app{display:none;}
+        .topbar{background:#fff;border-bottom:0.5px solid #e0dbd4;padding:0 28px;height:52px;display:flex;align-items:center;justify-content:space-between;}
+        .topbar-left{display:flex;align-items:center;gap:20px;}
+        .topbar-brand{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#a09890;}
+        .topbar-title{font-size:14px;font-weight:500;color:#1a1714;}
+        .nav-link{font-size:12px;color:#a09890;text-decoration:none;padding:4px 10px;border-radius:6px;}
+        .nav-link:hover{background:#f5f2ee;color:#3a3330;}
+        .logout-btn{font-size:12px;color:#a09890;background:none;border:none;cursor:pointer;}
+        .refresh-btn{font-size:12px;padding:6px 14px;background:#3a3330;color:#fff;border:none;border-radius:6px;cursor:pointer;font-family:inherit;}
+
+        .content{padding:24px 28px;}
+
+        /* KPI row */
+        .kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:28px;}
+        .kpi{background:#fff;border:0.5px solid #e0dbd4;border-radius:10px;padding:16px 18px;}
+        .kpi-val{font-size:22px;font-weight:500;color:#1a1714;margin-bottom:2px;line-height:1;}
+        .kpi-lbl{font-size:11px;color:#a09890;margin-top:4px;}
+        .kpi-sub{font-size:11px;color:#c0b8b0;margin-top:2px;}
+        .kpi.highlight{background:#3a3330;}
+        .kpi.highlight .kpi-val{color:#fff;}
+        .kpi.highlight .kpi-lbl{color:#a09890;}
+
+        /* Charts */
+        .charts-row{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px;}
+        .chart-card{background:#fff;border:0.5px solid #e0dbd4;border-radius:10px;padding:20px;}
+        .chart-title{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#a09890;margin-bottom:16px;}
+        .chart-wrap{position:relative;height:200px;}
+
+        .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+        .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px;}
+
+        /* Tables */
+        table{width:100%;border-collapse:collapse;}
+        th{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#a09890;text-align:left;padding:8px 12px;border-bottom:0.5px solid #e0dbd4;font-weight:500;}
+        td{padding:10px 12px;border-bottom:0.5px solid #f0ebe5;font-size:13px;}
+        tr:last-child td{border-bottom:none;}
+        tr:hover td{background:#faf8f5;}
+
+        /* Bar chart custom */
+        .bar-list{display:flex;flex-direction:column;gap:10px;}
+        .bar-item{display:flex;align-items:center;gap:10px;}
+        .bar-label{font-size:12px;color:#7a6f68;width:80px;flex-shrink:0;}
+        .bar-track{flex:1;background:#f0ebe5;border-radius:4px;height:8px;overflow:hidden;}
+        .bar-fill{height:100%;border-radius:4px;background:#3a3330;transition:width .4s ease;}
+        .bar-val{font-size:12px;color:#a09890;width:40px;text-align:right;flex-shrink:0;}
+
+        /* Funnel */
+        .funnel{display:flex;flex-direction:column;gap:8px;}
+        .funnel-step{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-radius:8px;font-size:13px;}
+        .funnel-step:nth-child(1){background:#f5f2ee;}
+        .funnel-step:nth-child(2){background:#ede8e2;}
+        .funnel-step:nth-child(3){background:#e3dcd4;}
+        .funnel-step:nth-child(4){background:#d9d0c6;}
+        .funnel-label{color:#3a3330;}
+        .funnel-val{font-weight:500;color:#1a1714;}
+        .funnel-pct{font-size:11px;color:#a09890;margin-left:8px;}
+
+        /* Discount table */
+        .badge{display:inline-flex;padding:2px 8px;border-radius:20px;font-size:11px;}
+        .badge-active{background:#eaf3de;color:#3b6d11;}
+        .badge-inactive{background:#f0ebe5;color:#a09890;}
+
+        .empty-state{text-align:center;padding:40px;color:#a09890;font-size:13px;}
+        .loading-overlay{display:flex;align-items:center;justify-content:center;padding:60px;color:#a09890;}
+    </style>
+</head>
+<body>
+
+<div id="lock">
+    <div class="lock-card">
+        <div class="lock-wordmark">The Ritual Co.</div>
+        <div class="lock-title">Analytics</div>
+        <input class="lock-input" type="password" id="lock-pass" placeholder="Admin password" onkeydown="if(event.key==='Enter')unlock()"/>
+        <button class="lock-btn" onclick="unlock()">Enter</button>
+        <div class="lock-err" id="lock-err">Incorrect password</div>
+    </div>
+</div>
+
+<div id="app">
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="topbar-brand">The Ritual Co.</div>
+            <div class="topbar-title">Analytics</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+            <a href="/admin/orders" class="nav-link">Orders</a>
+            <a href="/admin/newsletter" class="nav-link">Newsletter</a>
+            <a href="/admin/discounts" class="nav-link">Discounts</a>
+            <button class="refresh-btn" onclick="loadData()">Refresh</button>
+            <button class="logout-btn" onclick="logout()">Sign out</button>
+        </div>
+    </div>
+
+    <div class="content" id="content">
+        <div class="loading-overlay">Loading analytics…</div>
+    </div>
+</div>
+
+<script>
+    let SESSION_TOKEN = null;
+    let revenueChart = null;
+
+    async function unlock() {
+        const pass = document.getElementById("lock-pass").value;
+        if (!pass) return;
+        try {
+            const res = await fetch("/.netlify/functions/admin-auth", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ password: pass }),
+            });
+            if (!res.ok) { document.getElementById("lock-err").style.display = "block"; document.getElementById("lock-pass").value = ""; return; }
+            const { token } = await res.json();
+            SESSION_TOKEN = token;
+            sessionStorage.setItem("rc_admin_token", token);
+            document.getElementById("lock").style.display = "none";
+            document.getElementById("app").style.display = "block";
+            loadData();
+        } catch { document.getElementById("lock-err").style.display = "block"; }
+    }
+
+    function logout() { sessionStorage.removeItem("rc_admin_token"); SESSION_TOKEN = null; location.reload(); }
+
+    const saved = sessionStorage.getItem("rc_admin_token");
+    if (saved) {
+        const [expires] = saved.split(".");
+        if (Date.now() < parseInt(expires)) {
+            SESSION_TOKEN = saved;
+            document.getElementById("lock").style.display = "none";
+            document.getElementById("app").style.display = "block";
+            loadData();
+        } else sessionStorage.removeItem("rc_admin_token");
+    }
+    document.getElementById("lock-pass").addEventListener("keydown", e => { if (e.key === "Enter") unlock(); });
+
+    async function loadData() {
+        document.getElementById("content").innerHTML = `<div class="loading-overlay">Loading analytics…</div>`;
+        if (revenueChart) { revenueChart.destroy(); revenueChart = null; }
+
+        try {
+            const res = await fetch("/.netlify/functions/admin-analytics", {
+                headers: { "x-admin-token": SESSION_TOKEN }
+            });
+            const data = await res.json();
+            render(data);
+        } catch (e) {
+            document.getElementById("content").innerHTML = `<div class="empty-state">Failed to load — ${e.message}</div>`;
+        }
+    }
+
+    function fmt(n) { return "₹" + Math.round(n).toLocaleString("en-IN"); }
+
+    function render(data) {
+        const { summary, revenue_by_day, orders_by_day, by_colour, by_weight, by_status, top_customers, discounts } = data;
+
+        // Revenue chart data
+        const days = Object.keys(revenue_by_day).sort();
+        const revenues = days.map(d => revenue_by_day[d]);
+        const orderCounts = days.map(d => orders_by_day[d] || 0);
+        const fmtDay = d => { const dt = new Date(d); return dt.toLocaleDateString("en-IN", { day:"numeric", month:"short" }); };
+
+        // Colour bars
+        const maxColour = Math.max(...Object.values(by_colour), 1);
+        const colourBars = Object.entries(by_colour).sort((a,b) => b[1]-a[1]).map(([c, n]) => `
+    <div class="bar-item">
+      <div class="bar-label">${c}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${(n/maxColour)*100}%"></div></div>
+      <div class="bar-val">${n}</div>
+    </div>`).join("") || `<div class="empty-state">No data yet</div>`;
+
+        // Weight bars
+        const maxWeight = Math.max(...Object.values(by_weight), 1);
+        const weightBars = Object.entries(by_weight).sort((a,b) => b[1]-a[1]).map(([w, n]) => `
+    <div class="bar-item">
+      <div class="bar-label">${w}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${(n/maxWeight)*100}%"></div></div>
+      <div class="bar-val">${n}</div>
+    </div>`).join("") || `<div class="empty-state">No data yet</div>`;
+
+        // Status bars
+        const STATUS_COLORS = { paid:"#27ae60", shipped:"#2980b9", delivered:"#1abc9c", pending:"#e67e22", refunded:"#e74c3c" };
+        const maxStatus = Math.max(...Object.values(by_status), 1);
+        const statusBars = Object.entries(by_status).sort((a,b) => b[1]-a[1]).map(([s, n]) => `
+    <div class="bar-item">
+      <div class="bar-label">${s}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${(n/maxStatus)*100}%;background:${STATUS_COLORS[s]||'#3a3330'}"></div></div>
+      <div class="bar-val">${n}</div>
+    </div>`).join("") || `<div class="empty-state">No data yet</div>`;
+
+        // Top customers
+        const customerRows = top_customers.length ? top_customers.map(c => `
+    <tr>
+      <td>${c.name}</td>
+      <td style="color:#a09890;font-size:12px;">${c.email}</td>
+      <td>${c.orders}</td>
+      <td style="font-weight:500;">${fmt(c.revenue)}</td>
+    </tr>`).join("") : `<tr><td colspan="4" class="empty-state">No orders yet</td></tr>`;
+
+        // Discount rows
+        const discountRows = discounts.length ? discounts.map(d => `
+    <tr>
+      <td><span style="font-family:monospace;font-weight:600;background:#f0ebe5;padding:2px 6px;border-radius:4px;">${d.code}</span></td>
+      <td>${d.type === "percentage" ? `${d.value}%` : d.type === "fixed" ? fmt(d.value) : "Free ship"}</td>
+      <td>${d.used_count || 0}</td>
+      <td>${d.used_count ? fmt((d.discount_amount || d.value) * d.used_count) : "—"}</td>
+    </tr>`).join("") : `<tr><td colspan="4" class="empty-state">No discount codes yet</td></tr>`;
+
+        document.getElementById("content").innerHTML = `
+    <!-- KPIs -->
+    <div class="kpi-grid">
+      <div class="kpi highlight">
+        <div class="kpi-val">${fmt(summary.total_revenue)}</div>
+        <div class="kpi-lbl">Total revenue</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">${summary.paid_orders}</div>
+        <div class="kpi-lbl">Orders placed</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">${fmt(summary.avg_order_value)}</div>
+        <div class="kpi-lbl">Avg order value</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">${summary.waitlist_count}</div>
+        <div class="kpi-lbl">Waitlist signups</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">${summary.conversion_rate}%</div>
+        <div class="kpi-lbl">Waitlist → order</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">${summary.pending_shipment}</div>
+        <div class="kpi-lbl">To ship</div>
+      </div>
+    </div>
+
+    <!-- Revenue chart + Funnel -->
+    <div class="charts-row">
+      <div class="chart-card">
+        <div class="chart-title">Revenue & orders over time</div>
+        <div class="chart-wrap"><canvas id="revenue-chart"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Conversion funnel</div>
+        <div class="funnel">
+          <div class="funnel-step">
+            <span class="funnel-label">Waitlist signups</span>
+            <span class="funnel-val">${summary.waitlist_count}</span>
+          </div>
+          <div class="funnel-step">
+            <span class="funnel-label">Total orders</span>
+            <span class="funnel-val">${summary.total_orders}<span class="funnel-pct">${summary.waitlist_count ? ((summary.total_orders/summary.waitlist_count)*100).toFixed(0) : 0}%</span></span>
+          </div>
+          <div class="funnel-step">
+            <span class="funnel-label">Paid orders</span>
+            <span class="funnel-val">${summary.paid_orders}<span class="funnel-pct">${summary.total_orders ? ((summary.paid_orders/summary.total_orders)*100).toFixed(0) : 0}%</span></span>
+          </div>
+          <div class="funnel-step">
+            <span class="funnel-label">Shipped</span>
+            <span class="funnel-val">${(by_status.shipped||0)+(by_status.delivered||0)}<span class="funnel-pct">${summary.paid_orders ? (((by_status.shipped||0)+(by_status.delivered||0))/summary.paid_orders*100).toFixed(0) : 0}%</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Colour, Weight, Status -->
+    <div class="grid3">
+      <div class="chart-card">
+        <div class="chart-title">Orders by colour</div>
+        <div class="bar-list">${colourBars}</div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Orders by weight</div>
+        <div class="bar-list">${weightBars}</div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Orders by status</div>
+        <div class="bar-list">${statusBars}</div>
+      </div>
+    </div>
+
+    <!-- Top customers + Discounts -->
+    <div class="grid2">
+      <div class="chart-card">
+        <div class="chart-title">Top customers</div>
+        <table>
+          <thead><tr><th>Name</th><th>Email</th><th>Orders</th><th>Revenue</th></tr></thead>
+          <tbody>${customerRows}</tbody>
+        </table>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Discount code performance</div>
+        <table>
+          <thead><tr><th>Code</th><th>Value</th><th>Uses</th><th>Savings given</th></tr></thead>
+          <tbody>${discountRows}</tbody>
+        </table>
+      </div>
+    </div>
+  `;
+
+        // Draw revenue chart
+        const ctx = document.getElementById("revenue-chart");
+        if (ctx && days.length) {
+            revenueChart = new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: days.map(fmtDay),
+                    datasets: [
+                        {
+                            label: "Revenue (₹)",
+                            data: revenues,
+                            backgroundColor: "#3a3330",
+                            borderRadius: 4,
+                            yAxisID: "y",
+                        },
+                        {
+                            label: "Orders",
+                            data: orderCounts,
+                            type: "line",
+                            borderColor: "#c0b8b0",
+                            backgroundColor: "transparent",
+                            pointBackgroundColor: "#c0b8b0",
+                            pointRadius: 3,
+                            tension: 0.3,
+                            yAxisID: "y1",
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { font: { size: 10 }, color: "#a09890" } },
+                        y: { position: "left", grid: { color: "#f0ebe5" }, ticks: { font: { size: 10 }, color: "#a09890", callback: v => "₹" + v.toLocaleString("en-IN") } },
+                        y1: { position: "right", grid: { display: false }, ticks: { font: { size: 10 }, color: "#c0b8b0" } }
+                    }
+                }
+            });
+        } else if (ctx) {
+            ctx.parentElement.innerHTML = `<div class="empty-state">No orders yet — chart will appear once orders come in</div>`;
+        }
+    }
+</script>
+</body>
+</html>
