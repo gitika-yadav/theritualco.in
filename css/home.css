@@ -355,6 +355,17 @@ main{
 
 }
 
+.price-old {
+  text-decoration: line-through;
+  color: #c0b8b0;
+  font-size: 0.85em;
+  margin-left: 4px;
+}
+.price-new {
+  color: #3a3330;
+  font-weight: 500;
+}
+
 .featured {
   display:flex;
   justify-content:center;
