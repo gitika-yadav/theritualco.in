@@ -19,6 +19,23 @@
     <link rel="icon" type="image/png" href="/images/favicon.png"/>
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Meta Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1372190218138137');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+                   src="https://www.facebook.com/tr?id=1372190218138137&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
 </head>
 <body>
 <div id="navbar-placeholder"></div>
@@ -225,6 +242,10 @@
             }
 
             gtag("event", "begin_checkout", { currency: "INR", value: order.amount / 100 });
+            fbq('track', 'InitiateCheckout', {
+                value: Cart.total(),
+                currency: 'INR'
+            });
 
             const rzp = new Razorpay({
                 key:         "rzp_live_StfKLLzsHxMey6",
@@ -268,6 +289,7 @@
                         }).catch(() => {});
                     }
                     Cart.clear();
+                    localStorage.setItem('rc_last_order_amount', finalAmount);
                     window.location.href = "/thank-you.html";
                 },
                 modal: {
