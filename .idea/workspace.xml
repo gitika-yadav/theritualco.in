@@ -5,15 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="enhancements">
-      <change afterPath="$PROJECT_DIR$/admin/agents.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/creators.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/outreach.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/netlify/functions/creator-agent.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/netlify/functions/creator-data.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/netlify/functions/finance-agent.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/netlify/functions/orchestrator.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/netlify/functions/outreach-data.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/netlify/functions/finance-agent.js" beforeDir="false" afterPath="$PROJECT_DIR$/netlify/functions/finance-agent.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -191,15 +183,7 @@
       <workItem from="1779547815911" duration="29068000" />
       <workItem from="1779695741143" duration="8369000" />
       <workItem from="1780831623909" duration="98941000" />
-      <workItem from="1781737896564" duration="1461000" />
-    </task>
-    <task id="LOCAL-00060" summary="fix of privacy policy">
-      <option name="closed" value="true" />
-      <created>1780588008484</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
-      <option name="project" value="LOCAL" />
-      <updated>1780588008484</updated>
+      <workItem from="1781737896564" duration="2040000" />
     </task>
     <task id="LOCAL-00061" summary="add gtags for analytics">
       <option name="closed" value="true" />
@@ -585,7 +569,15 @@
       <option name="project" value="LOCAL" />
       <updated>1781733270779</updated>
     </task>
-    <option name="localTasksCounter" value="109" />
+    <task id="LOCAL-00109" summary="enhancements">
+      <option name="closed" value="true" />
+      <created>1781739376846</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1781739376846</updated>
+    </task>
+    <option name="localTasksCounter" value="110" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

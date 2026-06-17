@@ -175,7 +175,7 @@ async function sendEmail(to, subject, html) {
 async function think(systemPrompt, userMessage, maxTokens) {
     maxTokens = maxTokens || 2000;
     const payload = JSON.stringify({
-        model: "claude-sonnet-4-6",
+        model: "claude-haiku-4-5-20251001",
         max_tokens: maxTokens,
         system: systemPrompt,
         messages: [{ role: "user", content: userMessage }],
@@ -198,45 +198,13 @@ async function think(systemPrompt, userMessage, maxTokens) {
     return data.content[0].text;
 }
 
-const SYSTEM_PROMPT = `You are the Finance & Compliance Agent for The Ritual Co, owned by Gitika Yadav.
+const SYSTEM_PROMPT = `Finance & Compliance Agent for The Ritual Co / IORO Movement Pvt Ltd (Gitika Yadav, Google engineer, limited time).
+Be extremely concise. Prioritise ruthlessly. Max 3 actions per response.
 
-Company: IORO Movement Private Limited
-CIN: U93110DL2026PTC461239
-Directors: Gitika Yadav (DIN 11470303) and Saksham Yadav (DIN 11470302)
-Registered: 7 January 2026, Delhi
-Brand: The Ritual Co — premium D2C women's wellness, silicone capsule dumbbells
+Return ONLY valid JSON, no other text:
+{"summary":"1-2 sentences","actions":[{"id":"snake_id","type":"alert|report|draft_for_approval","priority":"critical|high|medium|low","title":"short title","content":"1-2 sentence description only","requiresApproval":false,"estimatedPenalty":null}],"insights":[],"nextCheckIn":"tomorrow"}
 
-Your personality: Sharp, senior finance professional. You don't just report — you decide, draft, and act. You speak directly to Gitika. You know her time is limited (Google engineer). You prioritise ruthlessly. You know penalty amounts and cite them exactly.
-
-Your capabilities:
-- Analyse financial data and compliance deadlines
-- Draft complete CA instruction emails (ready to forward)
-- Draft escalation emails to directors
-- Identify exact tax/penalty exposure
-- Recommend next steps with exact portal links and actions
-
-Always return a JSON object:
-{
-  "summary": "2-3 sentence sharp assessment",
-  "actions": [
-    {
-      "id": "unique_snake_case_id",
-      "type": "send_email" | "draft_for_approval" | "alert" | "report",
-      "priority": "critical" | "high" | "medium" | "low",
-      "title": "short action title",
-      "content": "full drafted content — email body, instructions, analysis. Make this complete and usable.",
-      "requiresApproval": true | false,
-      "recipient": "email if sending, else null",
-      "subject": "email subject if applicable",
-      "estimatedPenalty": "exact penalty string or null"
-    }
-  ],
-  "insights": ["sharp insight 1", "sharp insight 2"],
-  "nextCheckIn": "specific time/date string"
-}
-
-Auto-execute (requiresApproval: false): alerts, reports, low-stakes notifications.
-Require approval (requiresApproval: true): emails to CA, external parties, anything with financial consequence.`;
+requiresApproval true only for emails to external parties.`;
 
 // ── EMAIL TEMPLATE ────────────────────────────────────────────────────────────
 function buildEmail(subject, decision, actions, isUrgent) {
@@ -334,8 +302,8 @@ async function morningBriefing() {
     ].join("\n");
 
     const raw = await think(SYSTEM_PROMPT,
-        "Analyse The Ritual Co's full financial and compliance state. Gitika is a Google engineer — be direct, specific, and draft everything ready to use.\n\n" + dataContext,
-        3000);
+        "Analyse The Ritual Co's financial and compliance state. Be extremely concise. Max 3 actions. No long drafts in content field — just 1-2 sentences per action.\n\n" + dataContext,
+        800);
 
     let decision;
     try { decision = JSON.parse(raw.replace(/```json|```/g, "").trim()); }
@@ -374,8 +342,8 @@ async function handleTask(context) {
         "USER: \"" + (context.message || "") + "\"\nINTENT: " + (context.intent || "") + "\nURGENCY: " + (context.urgency || "medium");
 
     const raw = await think(SYSTEM_PROMPT,
-        "Gitika has asked you something. Respond directly. Draft everything ready to use.\n\n" + dataContext,
-        2000);
+        "Gitika has asked you something. Respond directly and concisely. Max 2 actions.\n\n" + dataContext,
+        800);
 
     let decision;
     try { decision = JSON.parse(raw.replace(/```json|```/g, "").trim()); }

@@ -134,9 +134,9 @@ async function sendEmail(to, subject, html) {
 
 // ── CLAUDE BRAIN ──────────────────────────────────────────────────────────────
 async function think(systemPrompt, userMessage, maxTokens) {
-    maxTokens = maxTokens || 2000;
+    maxTokens = maxTokens || 800;
     const payload = JSON.stringify({
-        model: "claude-sonnet-4-6",
+        model: "claude-haiku-4-5-20251001",
         max_tokens: maxTokens,
         system: systemPrompt,
         messages: [{ role: "user", content: userMessage }],
@@ -159,56 +159,14 @@ async function think(systemPrompt, userMessage, maxTokens) {
     return data.content[0].text;
 }
 
-const SYSTEM_PROMPT = `You are the Creator & Partnerships Agent for The Ritual Co, owned by Gitika Yadav.
+const SYSTEM_PROMPT = `Creator Agent for The Ritual Co (Gitika Yadav). Premium D2C wellness brand. Silicone Capsule Dumbbells. Brand tone: aspirational, restrained luxury.
+Content requirements: dedicated reel, tag @theritualco.in, unique discount code, post within 14 days.
+Be concise. Max 3 actions.
 
-Brand: ${BRAND.name} (${BRAND.handle})
-Positioning: ${BRAND.positioning}
-Product: ${BRAND.product}
-Content requirements: ${BRAND.contentRequirements}
-Tone: ${BRAND.tone}
+Return ONLY valid JSON:
+{"summary":"1-2 sentences","actions":[{"id":"snake_id","type":"draft_for_approval|alert|report","priority":"critical|high|medium|low","title":"short title","content":"brief description or short draft","requiresApproval":true,"creatorHandle":"handle or null","recipient":"email or null","subject":"subject or null"}],"insights":[],"nextCheckIn":"tomorrow"}
 
-Your personality: You know the influencer marketing world inside out. You write DMs that feel personal, not templated. You track creators like a hawk — you know who's overdue, who's ghosting, who's a star. You speak directly to Gitika and draft everything ready to copy-paste.
-
-Your capabilities:
-- Analyse creator pipeline and identify what needs action
-- Draft personalised outreach emails to creators (not DMs — email is more formal for initial contact)
-- Draft follow-up messages for creators who haven't posted
-- Draft the creator brief with product details, content requirements, discount codes
-- Flag creators who are past deadline
-- Recommend which creators to prioritise
-
-Creator statuses:
-- shortlisted: identified, not yet contacted
-- contacted: outreach sent, awaiting response
-- agreed: confirmed participation
-- product_sent: product dispatched, 14-day posting clock started
-- posted: content live
-- completed: content saved, code tracked
-- dropped: not proceeding
-
-Always return JSON:
-{
-  "summary": "2-3 sentence sharp assessment of creator pipeline",
-  "actions": [
-    {
-      "id": "unique_snake_case_id",
-      "type": "send_email" | "draft_for_approval" | "alert" | "report",
-      "priority": "critical" | "high" | "medium" | "low",
-      "title": "short action title",
-      "content": "complete ready-to-use draft — full email body, DM text, brief, etc",
-      "requiresApproval": true | false,
-      "creatorId": "supabase id if action is about a specific creator",
-      "creatorHandle": "instagram handle",
-      "recipient": "email address if applicable",
-      "subject": "email subject if applicable"
-    }
-  ],
-  "insights": ["insight 1", "insight 2"],
-  "nextCheckIn": "specific time"
-}
-
-requiresApproval: true for all outreach emails and follow-ups (Gitika must approve before sending to creators).
-requiresApproval: false for internal reports and alerts to Gitika.`;
+requiresApproval true for all creator outreach. False for internal alerts only.`;
 
 // ── ANALYSE PIPELINE ──────────────────────────────────────────────────────────
 function analysePipeline(creators) {
@@ -326,7 +284,7 @@ async function morningBriefing() {
 
     const raw = await think(SYSTEM_PROMPT,
         "Analyse the creator pipeline for The Ritual Co. Stock arrives in ~10 days. Gitika needs to start contacting creators NOW so they're ready to receive and post immediately when stock lands. Draft outreach emails for the top priority creators — personalised, warm, on-brand.\n\n" + dataContext,
-        3000);
+        800);
 
     let decision;
     try { decision = JSON.parse(raw.replace(/```json|```/g, "").trim()); }
@@ -377,7 +335,7 @@ async function handleTask(context) {
 
     const raw = await think(SYSTEM_PROMPT,
         "Gitika has a request about her creator programme. Respond directly. Draft everything ready to use.\n\n" + snapshot,
-        2000);
+        800);
 
     let decision;
     try { decision = JSON.parse(raw.replace(/```json|```/g, "").trim()); }
