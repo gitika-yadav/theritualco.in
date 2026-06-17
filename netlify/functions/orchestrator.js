@@ -133,13 +133,13 @@ async function logAction({ agent, action_type, title, content, status, metadata 
     try { return JSON.parse(res.body)[0]; } catch { return null; }
 }
 
-// ── GET PENDING ACTIONS ───────────────────────────────────────────────────────
+// ── GET ACTIONS (all statuses for dashboard) ─────────────────────────────────
 async function getPendingActions(agent = null) {
     const filter = agent
-        ? `?agent=eq.${agent}&status=eq.pending&order=created_at.desc&limit=20`
-        : `?status=eq.pending&order=created_at.desc&limit=50`;
+        ? `?agent=eq.${agent}&order=created_at.desc&limit=50`
+        : `?order=created_at.desc&limit=100`;
     const res = await supabaseRequest("agent_actions", "GET", null, filter);
-    try { return JSON.parse(res.body); } catch { return []; }
+    try { const d = JSON.parse(res.body); return Array.isArray(d) ? d : []; } catch { return []; }
 }
 
 // ── UPDATE ACTION STATUS ──────────────────────────────────────────────────────

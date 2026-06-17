@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="enhancements">
-      <change beforePath="$PROJECT_DIR$/netlify/functions/finance-agent.js" beforeDir="false" afterPath="$PROJECT_DIR$/netlify/functions/finance-agent.js" afterDir="false" />
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="switch to haiku">
+      <change beforePath="$PROJECT_DIR$/netlify/functions/orchestrator.js" beforeDir="false" afterPath="$PROJECT_DIR$/netlify/functions/orchestrator.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,23 +37,23 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0119239000700044" />
-      <entry key="MS500" value="1.4123667743050408" />
-      <entry key="S2" value="1.8013475553682765" />
-      <entry key="S5" value="1.9152260366032419" />
-      <entry key="S10" value="1.956674467414722" />
-      <entry key="S30" value="1.98534441902259" />
-      <entry key="S60" value="1.992645162700315" />
-      <entry key="M2" value="1.9963180102572717" />
-      <entry key="M5" value="2.00399731571723" />
-      <entry key="M10" value="2.0732392959651493" />
-      <entry key="M15" value="2.17573210989056" />
-      <entry key="M30" value="2.41954453379658" />
-      <entry key="H1" value="2.647789446120261" />
-      <entry key="H2" value="2.8049950951490947" />
-      <entry key="H4" value="2.9571298780991278" />
-      <entry key="D1" value="18.933353058659087" />
-      <entry key="W1" value="371.7681589844969" />
+      <entry key="MS100" value="1.0069954170542166" />
+      <entry key="MS500" value="1.6431615849273664" />
+      <entry key="S2" value="3.968295411851652" />
+      <entry key="S5" value="5.467580755587961" />
+      <entry key="S10" value="6.165867911397859" />
+      <entry key="S30" value="6.7051584534148" />
+      <entry key="S60" value="6.850362630471426" />
+      <entry key="M2" value="6.924620153375509" />
+      <entry key="M5" value="6.975147340932699" />
+      <entry key="M10" value="7.0585655153837585" />
+      <entry key="M15" value="7.165719274961829" />
+      <entry key="M30" value="7.414267115614181" />
+      <entry key="H1" value="7.645024328543399" />
+      <entry key="H2" value="7.803569048147552" />
+      <entry key="H4" value="7.956395847476316" />
+      <entry key="D1" value="23.93286376805667" />
+      <entry key="W1" value="376.76693135931293" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -65,33 +65,33 @@
       <entry key="S60" value="0.0" />
       <entry key="M2" value="0.0" />
       <entry key="M5" value="0.0" />
-      <entry key="M10" value="1.566774364286356E-267" />
-      <entry key="M15" value="1.3659715795122896E-178" />
-      <entry key="M30" value="1.2966005041425101E-89" />
-      <entry key="H1" value="4.572285485171373E-45" />
-      <entry key="H2" value="9.250515896717952E-23" />
-      <entry key="H4" value="1.3482624156230361E-11" />
-      <entry key="D1" value="0.0361988821840875" />
-      <entry key="W1" value="5.973935151587694" />
+      <entry key="M10" value="1.5616008696138082E-267" />
+      <entry key="M15" value="1.3629629601497917E-178" />
+      <entry key="M30" value="1.2951718039290388E-89" />
+      <entry key="H1" value="4.56976573228307E-45" />
+      <entry key="H2" value="9.247966599821859E-23" />
+      <entry key="H4" value="1.348076622848534E-11" />
+      <entry key="D1" value="0.03619805075878171" />
+      <entry key="W1" value="5.973915549838956" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9839356442523051" />
-      <entry key="MS500" value="1.4022889153427192" />
-      <entry key="S2" value="1.7977434915088568" />
-      <entry key="S5" value="1.9136572170579533" />
-      <entry key="S10" value="1.9558669010640441" />
-      <entry key="S30" value="1.9850698901788755" />
-      <entry key="S60" value="1.992507218302311" />
-      <entry key="M2" value="1.9962488669499268" />
-      <entry key="M5" value="2.0039694529373753" />
-      <entry key="M10" value="2.0732243288992027" />
-      <entry key="M15" value="2.1757211066140325" />
-      <entry key="M30" value="2.4195378120864897" />
-      <entry key="H1" value="2.6477855140773414" />
-      <entry key="H2" value="2.8049929311494455" />
-      <entry key="H4" value="2.957128314489425" />
-      <entry key="D1" value="18.969512632654624" />
-      <entry key="W1" value="377.7419498311521" />
+      <entry key="MS100" value="0.986271689660253" />
+      <entry key="MS500" value="1.6340587631873729" />
+      <entry key="S2" value="3.954677741813546" />
+      <entry key="S5" value="5.458536059751691" />
+      <entry key="S10" value="6.160476333216011" />
+      <entry key="S30" value="6.703134535697506" />
+      <entry key="S60" value="6.849319966896624" />
+      <entry key="M2" value="6.924090956950766" />
+      <entry key="M5" value="6.974933587078002" />
+      <entry key="M10" value="7.058457292029602" />
+      <entry key="M15" value="7.165646032363135" />
+      <entry key="M30" value="7.4142292396252705" />
+      <entry key="H1" value="7.645004810342227" />
+      <entry key="H2" value="7.803559088710326" />
+      <entry key="H4" value="7.956390385597183" />
+      <entry key="D1" value="23.969021861717263" />
+      <entry key="W1" value="382.74070251186106" />
     </decayedShown>
   </component>
   <component name="OptimizeOnSaveOptions">
@@ -183,15 +183,7 @@
       <workItem from="1779547815911" duration="29068000" />
       <workItem from="1779695741143" duration="8369000" />
       <workItem from="1780831623909" duration="98941000" />
-      <workItem from="1781737896564" duration="2040000" />
-    </task>
-    <task id="LOCAL-00061" summary="add gtags for analytics">
-      <option name="closed" value="true" />
-      <created>1780592382909</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
-      <option name="project" value="LOCAL" />
-      <updated>1780592382909</updated>
+      <workItem from="1781737896564" duration="2480000" />
     </task>
     <task id="LOCAL-00062" summary="add gtag events &#10;&#10;Product page → should show view_item&#10;Click Pre-Order → should show add_to_cart&#10;Checkout page → should show begin_checkout">
       <option name="closed" value="true" />
@@ -577,14 +569,21 @@
       <option name="project" value="LOCAL" />
       <updated>1781739376846</updated>
     </task>
-    <option name="localTasksCounter" value="110" />
+    <task id="LOCAL-00110" summary="switch to haiku">
+      <option name="closed" value="true" />
+      <created>1781739988247</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1781739988247</updated>
+    </task>
+    <option name="localTasksCounter" value="111" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="sitemap + robot.txt + minor fix" />
     <MESSAGE value="minor fix hamburger" />
     <MESSAGE value="improve index spacing" />
     <MESSAGE value="add reviews" />
@@ -609,7 +608,8 @@
     <MESSAGE value="add metapixel" />
     <MESSAGE value="add analytics dashboard" />
     <MESSAGE value="enhancements" />
-    <option name="LAST_COMMIT_MESSAGE" value="enhancements" />
+    <MESSAGE value="switch to haiku" />
+    <option name="LAST_COMMIT_MESSAGE" value="switch to haiku" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
