@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compliance Tracker — IORO Movement Pvt Ltd</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --ink: #1a1814;
+            --ash: #6b6660;
+            --mist: #f2efe9;
+            --paper: #faf9f6;
+            --cream: #ece8df;
+            --blush: #c8b8a2;
+            --done: #3d6b52;
+            --done-bg: #edf4f0;
+            --warn: #8b5a2b;
+            --warn-bg: #fdf3e7;
+            --pending: #4a5568;
+            --pending-bg: #f0f1f3;
+            --urgent: #8b2e2e;
+            --urgent-bg: #fdeaea;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+            min-height: 100vh;
+            padding: 0 0 80px;
+        }
+
+        /* HEADER */
+        .header {
+            background: var(--ink);
+            color: #faf9f6;
+            padding: 36px 40px 32px;
+        }
+        .header-eyebrow {
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--blush);
+            margin-bottom: 10px;
+        }
+        .header h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 28px;
+            font-weight: 400;
+            line-height: 1.15;
+            margin-bottom: 6px;
+        }
+        .header-sub {
+            font-size: 13px;
+            color: #a09890;
+            font-weight: 300;
+        }
+        .header-meta {
+            margin-top: 20px;
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .meta-item {
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            color: var(--blush);
+            letter-spacing: 0.05em;
+        }
+        .meta-item span {
+            color: #d8d0c4;
+            font-size: 11px;
+        }
+
+        /* PROGRESS BAR */
+        .progress-strip {
+            background: var(--cream);
+            padding: 16px 40px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 1px solid #e0dbd2;
+        }
+        .progress-label {
+            font-size: 11px;
+            color: var(--ash);
+            white-space: nowrap;
+            font-weight: 500;
+        }
+        .progress-bar-track {
+            flex: 1;
+            height: 4px;
+            background: #ddd8ce;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--done);
+            border-radius: 2px;
+            transition: width 0.4s ease;
+        }
+        .progress-count {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            color: var(--ash);
+            white-space: nowrap;
+        }
+
+        /* CONTENT */
+        .content {
+            padding: 0 40px;
+            max-width: 900px;
+        }
+
+        /* SECTION */
+        .section {
+            margin-top: 40px;
+        }
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 4px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--cream);
+        }
+        .section-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 18px;
+            font-weight: 400;
+        }
+        .section-note {
+            font-size: 12px;
+            color: var(--ash);
+            font-weight: 300;
+        }
+
+        /* TASK CARD */
+        .task {
+            display: grid;
+            grid-template-columns: 28px 1fr auto;
+            gap: 12px;
+            align-items: start;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--cream);
+            cursor: pointer;
+        }
+        .task:last-child { border-bottom: none; }
+        .task:hover { background: #faf8f4; margin: 0 -8px; padding: 14px 8px; border-radius: 4px; }
+
+        .task-check {
+            width: 20px;
+            height: 20px;
+            border: 1.5px solid #c8c0b4;
+            border-radius: 4px;
+            margin-top: 1px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+            cursor: pointer;
+        }
+        .task-check.checked {
+            background: var(--done);
+            border-color: var(--done);
+        }
+        .task-check.checked::after {
+            content: '';
+            width: 10px;
+            height: 6px;
+            border-left: 2px solid white;
+            border-bottom: 2px solid white;
+            transform: rotate(-45deg) translateY(-1px);
+            display: block;
+        }
+
+        .task-body { min-width: 0; }
+        .task-name {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.4;
+            margin-bottom: 3px;
+        }
+        .task-name.done-text {
+            text-decoration: line-through;
+            color: var(--ash);
+        }
+        .task-desc {
+            font-size: 12px;
+            color: var(--ash);
+            line-height: 1.5;
+            font-weight: 300;
+        }
+        .task-links {
+            margin-top: 6px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .task-link {
+            font-size: 10px;
+            font-family: 'DM Mono', monospace;
+            color: var(--ink);
+            background: var(--cream);
+            padding: 2px 8px;
+            border-radius: 3px;
+            text-decoration: none;
+            letter-spacing: 0.03em;
+        }
+        .task-link:hover { background: var(--blush); color: white; }
+
+        .task-badge {
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 3px 8px;
+            border-radius: 3px;
+            white-space: nowrap;
+            margin-top: 2px;
+        }
+        .badge-done { background: var(--done-bg); color: var(--done); }
+        .badge-urgent { background: var(--urgent-bg); color: var(--urgent); }
+        .badge-pending { background: var(--pending-bg); color: var(--pending); }
+        .badge-warn { background: var(--warn-bg); color: var(--warn); }
+
+        /* NOTES BOX */
+        .notes-box {
+            margin-top: 40px;
+            background: var(--mist);
+            border: 1px solid var(--cream);
+            border-radius: 6px;
+            padding: 20px 24px;
+        }
+        .notes-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--ash);
+            margin-bottom: 10px;
+        }
+        .notes-area {
+            width: 100%;
+            border: none;
+            background: transparent;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            color: var(--ink);
+            resize: none;
+            outline: none;
+            line-height: 1.6;
+            min-height: 80px;
+        }
+        .notes-area::placeholder { color: var(--blush); }
+
+        /* PRINT */
+        .print-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--ink);
+            color: #faf9f6;
+            border: none;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 10px 18px;
+            border-radius: 4px;
+            cursor: pointer;
+            letter-spacing: 0.02em;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+        .print-btn:hover { background: #2d2a26; }
+
+        /* LOGIN OVERLAY */
+        #loginOverlay {
+            position: fixed; inset: 0;
+            background: var(--ink);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 9999;
+        }
+        .login-box {
+            background: var(--paper);
+            padding: 40px 36px;
+            border-radius: 8px;
+            width: 320px;
+            text-align: center;
+        }
+        .login-box .login-eyebrow {
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--ash);
+            margin-bottom: 10px;
+        }
+        .login-box h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 20px;
+            font-weight: 400;
+            margin-bottom: 24px;
+        }
+        .login-input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid var(--cream);
+            border-radius: 4px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            color: var(--ink);
+            background: var(--mist);
+            outline: none;
+            margin-bottom: 12px;
+        }
+        .login-input:focus { border-color: var(--blush); }
+        .login-btn {
+            width: 100%;
+            padding: 10px;
+            background: var(--ink);
+            color: #faf9f6;
+            border: none;
+            border-radius: 4px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            letter-spacing: 0.02em;
+        }
+        .login-btn:hover { background: #2d2a26; }
+        .login-error {
+            font-size: 12px;
+            color: var(--urgent);
+            margin-top: 10px;
+            min-height: 18px;
+        }
+
+        @media print {
+            .print-btn { display: none; }
+            body { padding: 20px; }
+            .header { padding: 20px; }
+        }
+
+        @media (max-width: 600px) {
+            .header { padding: 24px 20px 20px; }
+            .content { padding: 0 20px; }
+            .progress-strip { padding: 14px 20px; }
+            .header h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- LOGIN OVERLAY -->
+<div id="loginOverlay">
+    <div class="login-box">
+        <div class="login-eyebrow">Admin Access</div>
+        <h2>Compliance Tracker</h2>
+        <input class="login-input" type="password" id="passwordInput" placeholder="Enter admin password" />
+        <button class="login-btn" id="loginBtn">Unlock</button>
+        <div class="login-error" id="loginError"></div>
+    </div>
+</div>
+
+<div class="header">
+    <div class="header-eyebrow">Compliance Tracker</div>
+    <h1>IORO Movement Private Limited</h1>
+    <div class="header-sub">The Ritual Co. — Founder's compliance dashboard</div>
+    <div class="header-meta">
+        <div class="meta-item">CIN <span>U93110DL2026PTC461239</span></div>
+        <div class="meta-item">Incorporated <span>7 Jan 2026</span></div>
+        <div class="meta-item">Director 1 <span>Gitika Yadav · DIN 11470303</span></div>
+        <div class="meta-item">Director 2 <span>Saksham Yadav · DIN 11470302</span></div>
+    </div>
+</div>
+
+<div class="progress-strip">
+    <div class="progress-label">Overall progress</div>
+    <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="progressFill" style="width: 0%"></div>
+    </div>
+    <div class="progress-count" id="progressCount">0 / 0 done</div>
+</div>
+
+<div class="content">
+
+    <!-- GST -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-title">GST Registration</div>
+            <div class="section-note">One-time setup — do this first</div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+            <div class="task-check"></div>
+            <div class="task-body">
+                <div class="task-name">Open a current account in the company name</div>
+                <div class="task-desc">Required before GST can be filed. Use IORO Movement Pvt Ltd name. HDFC, Kotak, or ICICI are fastest for new companies. Bring COI, MOA/AOA, PAN, address proof, and board resolution.</div>
+                <div class="task-links">
+                    <a class="task-link" href="https://www.hdfcbank.com/content/bbp/repositories/723fb80a-2dde-42a3-9793-7ae1be57c87f/?folderPath=/Common/Business%20Banking/Current%20Account/Startup%20Current%20Account/" target="_blank">HDFC Startup CA</a>
+                </div>
+            </div>
+            <div class="task-badge badge-urgent">Urgent</div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+            <div class="task-check"></div>
+            <div class="task-body">
+                <div class="task-name">Apply for GST registration on GST portal</div>
+                <div class="task-desc">Apply under company PAN. You'll need: PAN card of company, COI, MOA/AOA, registered office address proof, bank statement/cancelled cheque, director photos + Aadhaar. ARN generated immediately; GSTIN in ~7 working days.</div>
+                <div class="task-links">
+                    <a class="task-link" href="https://www.gst.gov.in/registration" target="_blank">gst.gov.in/registration</a>
+                </div>
+            </div>
+            <div class="task-badge badge-urgent">Urgent</div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+            <div class="task-check"></div>
+            <div class="task-body">
+                <div class="task-name">Note your GSTIN — update on website & invoices</div>
+                <div class="task-desc">Once you receive your GSTIN, add it to your website footer, order confirmation emails, and all invoices. Also update Shiprocket and Razorpay merchant details.</div>
+            </div>
+            <div class="task-badge badge-pending">After GSTIN</div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+            <div class="task-check"></div>
+            <div class="task-body">
+                <div class="task-name">File GSTR-1 monthly (outward supplies)</div>
+                <div class="task-desc">Due by 11th of next month. Lists all B2B and B2C sales. If turnover is under ₹1.5 Cr you can opt for quarterly QRMP scheme. For D2C with Razorpay, export transactions and map to GSTR-1. Consider hiring a CA or using ClearTax.</div>
+                <div class="task-links">
+                    <a class="task-link" href="https://cleartax.in/s/gstr-1" target="_blank">ClearTax Guide</a>
+                </div>
+            </div>
+            <div class="task-badge badge-warn">Monthly · 11th</div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+            <div class="task-check"></div>
+            <div class="task-body">
+                <div class="task-name">File GSTR-3B monthly (summary + tax payment)</div>
+                <div class="task-desc">Due by 20th of next month. Pay GST liability (output tax minus input credit). Keep all purchase invoices from suppliers to claim ITC. Silicone dumbbells likely fall under HSN 9506 — 12% GST. Verify with your CA.</div>
+            </div>
+            <div class="task-badge badge-warn">Monthly · 20th</div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+            <div class="task-check"></div>
+            <div class="task-body">
+                <div class="task-name">File GSTR-9 annual return</div>
+                <div class="task-desc">Annual reconciliation. Due December 31 for previous FY. Not applicable for your first year if turnover is below ₹2 Cr (can opt out).</div>
+            </div>
+            <div class="task-badge badge-pending">Annual · Dec 31</div>
+        </div>
+    </div>
+
+    <!-- COMPANY ROC/MCA -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-title">Pvt Ltd — ROC / MCA Filings</div>
+            <div class="section-note">Ongoing annual obligations from incorporation date</div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+            <div class="task-check"></div>
+            <div class="task-body">
+                <div class="task-name">Appoint a Company Secretary (if needed) or CA</div>
+                <div class="task-desc">Mandatory only if paid-up capital exceeds ₹5 Cr or turnover > ₹2 Cr. Not required for you yet. But you do need a practicing CA to sign annual filings. Shortlist one early.</div>
+            </div>
+            <div class="task-badge badge-pending">Setup</div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+            <div class="task-check"></div>
+            <div class="task-body">
+                <div class="task-name">Hold first Board Meeting within 30 days of incorporation</div>
+                <div class="task-desc">Legally required within 30 days of incorporation. You incorporated Jan 7, 2026 — this should have been held by ~Feb 7. If missed, note it and do it now. Agenda: appoint auditor, open bank account, approve business plan. Keep minutes on file.</div>
+            </div>
+            <div class="task-badge badge-urgent">Check Status</div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+            <div class="task-check"></div>
+            <div class="task-body">
+                <div class="task-name">Appoint statutory auditor — ADT-1 filing</div>
+                <div class="task-desc">Appoint a CA firm as statutory auditor within 30 days of incorporation. File ADT-1 on MCA portal within 15 days of appointment. Penalty for non-filing is ₹300/day.</div>
+                <div class="task-links">
+                    <a class="task-link" href="https://www.mca.gov.in/content/mca/global/en/mca/fo-llp/filing-of-forms.html" target="_blank">MCA Portal</a>
+                </div>
+            </div>
+            <div class="task-badge badge-urgent">Urgent</div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+            <div class="task-check"></div>
+            <div class="task-body">
+                <div class="task-name">Hold minimum 4 Board Meetings per year</div>
+                <div class="task-desc">Gap between two meetings cannot exceed 120 days. For a 2-director startup, meetings can be informal but must be minuted and signed. Typically held quarterly. Keep a register of minutes.</div>
+            </div>
+            <div class="task-badge badge-warn">Quarterly</div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+            <div class="task-check"></div>
+            <div class="task-body">
+                <div class="task-name">File MGT-7A (Annual Return) — MCA</div>
+                <div class="task-desc">Abridged annual return for small companies. Due within 60 days of AGM. AGM must be held before Sep 30 every year. So filing typically due by Nov 29. First AGM: within 9 months of your first financial year end (March 31, 2027) — so by Dec 31, 2027.</div>
+            </div>
+            <div class="task-badge badge-pending">Annual</div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+            <div class="task-check"></div>
+            <div class="task-body">
+                <div class="task-name">File AOC-4 (Financial Statements) — MCA</div>
+                <div class="task-desc">File audited P&L and balance sheet within 30 days of AGM. Due annually. Your CA prepares this. Late filing fee: ₹200/day per form. First filing: by Oct 30, 2027 (if AGM held Sep 30).</div>
+            </div>
+            <div class="task-badge badge-pending">Annual</div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+            <div class="task-check"></div>
+            <div class="task-body">
+                <div class="task-name">File DIR-3 KYC for both directors annually</div>
+                <div class="task-desc">Both Gitika (DIN 11470303) and Saksham (DIN 11470302) must file DIR-3 KYC every year by September 30. Costs ₹500/person if filed on time; ₹5,000 if late (and DIN gets deactivated). Do not miss this.</div>
+            </div>
+            <div class="task-badge badge-warn">Annual · Sep 30</div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+            <div class="task-check"></div>
+            <div class="task-body">
+                <div class="task-name">Income Tax Return — ITR-6 (Company)</div>
+                <div class="task-desc">File company ITR annually by October 31 (if audit required) or July 31 (if not). Your CA prepares. Keep all expense records, Razorpay payouts, and supplier invoices throughout the year.</div>
+            </div>
+            <div class="task-badge badge-pending">Annual · Oct 31</div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+            <div class="task-check"></div>
+            <div class="task-body">
+                <div class="task-name">Maintain statutory registers</div>
+                <div class="task-desc">Required by Companies Act: Register of Members, Register of Directors, Register of Charges, Minutes Book. These can be maintained digitally. Your CA or a secretarial firm can set these up. One-time setup, then updated as needed.</div>
+            </div>
+            <div class="task-badge badge-pending">One-time setup</div>
+        </div>
+
+        <div class="task" onclick="toggleTask(this)">
+            <div class="task-check"></div>
+            <div class="task-body">
+                <div class="task-name">Migrate Razorpay to merchant/company account</div>
+                <div class="task-desc">Required once you have GST + current account. Update KYC on Razorpay dashboard with company PAN, GSTIN, and bank account. Until then, settlements may be held or flagged.</div>
+                <div class="task-links">
+                    <a class="task-link" href="https://dashboard.razorpay.com/app/kyc" target="_blank">Razorpay KYC</a>
+                </div>
+            </div>
+            <div class="task-badge badge-urgent">Urgent</div>
+        </div>
+    </div>
+
+    <!-- QUICK REFERENCE -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-title">Key Deadlines at a Glance</div>
+        </div>
+        <div style="margin-top: 12px; font-size: 12px; color: var(--ash); line-height: 2; font-family: 'DM Mono', monospace;">
+            <div style="display: grid; grid-template-columns: 140px 1fr; gap: 4px 0;">
+                <span style="color: var(--urgent);">NOW</span><span>Open current a/c · Apply for GST · File ADT-1 (auditor)</span>
+                <span>11th each month</span><span>GSTR-1 (outward sales)</span>
+                <span>20th each month</span><span>GSTR-3B (tax payment)</span>
+                <span>Sep 30 annually</span><span>DIR-3 KYC for both directors · Company AGM</span>
+                <span>Oct 30 annually</span><span>AOC-4 (financial statements)</span>
+                <span>Nov 29 annually</span><span>MGT-7A (annual return)</span>
+                <span>Oct 31 annually</span><span>ITR-6 (company income tax)</span>
+                <span>Dec 31 annually</span><span>GSTR-9 (annual GST return)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTES -->
+    <div class="notes-box">
+        <div class="notes-label">Your notes</div>
+        <textarea class="notes-area" id="notesArea" placeholder="CA name, GST ARN, bank account details, deadlines to remember..." rows="5"></textarea>
+    </div>
+
+</div>
+
+<button class="print-btn" onclick="window.print()">Save as PDF</button>
+
+<script>
+    // ── AUTH ──────────────────────────────────────────────────────────────
+    const TOKEN_KEY = 'admin_token';
+
+    function validateToken(token) {
+        if (!token) return false;
+        const [expires] = token.split('.');
+        return Date.now() < parseInt(expires, 10);
+    }
+
+    async function login() {
+        const password = document.getElementById('passwordInput').value;
+        const errEl = document.getElementById('loginError');
+        const btn = document.getElementById('loginBtn');
+        if (!password) return;
+        btn.textContent = 'Checking…';
+        btn.disabled = true;
+        errEl.textContent = '';
+        try {
+            const res = await fetch('/.netlify/functions/admin-auth', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password })
+            });
+            const data = await res.json();
+            if (res.ok && data.token) {
+                sessionStorage.setItem(TOKEN_KEY, data.token);
+                document.getElementById('loginOverlay').style.display = 'none';
+                initApp();
+            } else {
+                errEl.textContent = data.error || 'Incorrect password';
+                btn.textContent = 'Unlock';
+                btn.disabled = false;
+            }
+        } catch {
+            errEl.textContent = 'Network error — try again';
+            btn.textContent = 'Unlock';
+            btn.disabled = false;
+        }
+    }
+
+    document.getElementById('loginBtn').addEventListener('click', login);
+    document.getElementById('passwordInput').addEventListener('keydown', e => {
+        if (e.key === 'Enter') login();
+    });
+
+    // Check existing session on load
+    window.addEventListener('DOMContentLoaded', () => {
+        const token = sessionStorage.getItem(TOKEN_KEY);
+        if (validateToken(token)) {
+            document.getElementById('loginOverlay').style.display = 'none';
+            initApp();
+        }
+        // else: overlay stays visible
+    });
+
+    // ── APP ───────────────────────────────────────────────────────────────
+    const STORAGE_KEY = 'ioro-compliance-v1';
+
+    function getState() {
+        try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; }
+    }
+    function saveState(state) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function toggleTask(task) {
+        const check = task.querySelector('.task-check');
+        const name = task.querySelector('.task-name');
+        const checked = check.classList.toggle('checked');
+        name.classList.toggle('done-text', checked);
+        const state = getState();
+        state[task.dataset.id] = checked;
+        saveState(state);
+        updateProgress();
+    }
+
+    function updateProgress() {
+        const all = document.querySelectorAll('.task');
+        const done = document.querySelectorAll('.task-check.checked').length;
+        const pct = all.length ? Math.round((done / all.length) * 100) : 0;
+        document.getElementById('progressFill').style.width = pct + '%';
+        document.getElementById('progressCount').textContent = done + ' / ' + all.length + ' done';
+    }
+
+    function initApp() {
+        const tasks = document.querySelectorAll('.task');
+        const state = getState();
+        tasks.forEach((task, i) => {
+            task.dataset.id = 'task-' + i;
+            if (state['task-' + i]) {
+                task.querySelector('.task-check').classList.add('checked');
+                task.querySelector('.task-name').classList.add('done-text');
+            }
+        });
+        const notes = document.getElementById('notesArea');
+        notes.value = state['__notes__'] || '';
+        notes.addEventListener('input', () => {
+            const s = getState();
+            s['__notes__'] = notes.value;
+            saveState(s);
+        });
+        updateProgress();
+    }
+</script>
+</body>
+</html>

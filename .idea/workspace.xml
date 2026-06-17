@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="add metapixel">
-      <change afterPath="$PROJECT_DIR$/admin/analytics.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/netlify/functions/admin-analytics.js" afterDir="false" />
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="add analytics dashboard">
+      <change afterPath="$PROJECT_DIR$/admin/compliance.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/netlify/functions/morning-briefing.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,23 +39,23 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0016352054918236" />
-      <entry key="MS500" value="1.3609770510738126" />
-      <entry key="S2" value="2.263782696832422" />
-      <entry key="S5" value="2.660097182576823" />
-      <entry key="S10" value="2.821358552879553" />
-      <entry key="S30" value="2.9690082613758753" />
-      <entry key="S60" value="3.1439235912840506" />
-      <entry key="M2" value="3.402851961041425" />
-      <entry key="M5" value="3.837212395850343" />
-      <entry key="M10" value="5.304778266092463" />
-      <entry key="M15" value="7.134495711153475" />
-      <entry key="M30" value="11.1403161800881" />
-      <entry key="H1" value="14.700517290121192" />
-      <entry key="H2" value="17.249536392518056" />
-      <entry key="H4" value="20.17340462802776" />
-      <entry key="D1" value="38.66260035307195" />
-      <entry key="W1" value="420.8506499518246" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.0" />
+      <entry key="S30" value="1.0" />
+      <entry key="S60" value="1.0" />
+      <entry key="M2" value="1.0" />
+      <entry key="M5" value="1.0" />
+      <entry key="M10" value="1.0" />
+      <entry key="M15" value="1.0" />
+      <entry key="M30" value="1.0" />
+      <entry key="H1" value="1.000000000986477" />
+      <entry key="H2" value="1.0001571646510097" />
+      <entry key="H4" value="1.0668558542431221" />
+      <entry key="D1" value="17.24235493345817" />
+      <entry key="W1" value="370.7246283012135" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -66,33 +67,33 @@
       <entry key="S60" value="0.0" />
       <entry key="M2" value="0.0" />
       <entry key="M5" value="0.0" />
-      <entry key="M10" value="1.5813398452707373E-204" />
-      <entry key="M15" value="1.3744243314577104E-136" />
-      <entry key="M30" value="1.3006060558462352E-68" />
-      <entry key="H1" value="1.4481152662968712E-34" />
-      <entry key="H2" value="1.6462691892645447E-17" />
-      <entry key="H4" value="5.687768038224038E-9" />
-      <entry key="D1" value="0.09913409992598993" />
-      <entry key="W1" value="6.898656020745298" />
+      <entry key="M10" value="2.1179144767205354E-266" />
+      <entry key="M15" value="7.751331394658017E-178" />
+      <entry key="M30" value="3.088684202108335E-89" />
+      <entry key="H1" value="7.056949335027441E-45" />
+      <entry key="H2" value="1.1492321949911928E-22" />
+      <entry key="H4" value="1.502779781172462E-11" />
+      <entry key="D1" value="0.03685943260585088" />
+      <entry key="W1" value="5.989387756544152" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9878453129027889" />
-      <entry key="MS500" value="1.356861320656908" />
-      <entry key="S2" value="2.261655095857629" />
-      <entry key="S5" value="2.659035276696016" />
-      <entry key="S10" value="2.820782226283431" />
-      <entry key="S30" value="2.968240959450158" />
-      <entry key="S60" value="3.14219916686522" />
-      <entry key="M2" value="3.400857267822163" />
-      <entry key="M5" value="3.8358656036280787" />
-      <entry key="M10" value="5.30390410231854" />
-      <entry key="M15" value="7.133809475229908" />
-      <entry key="M30" value="11.139872663991763" />
-      <entry key="H1" value="14.700252494464337" />
-      <entry key="H2" value="17.24938046913414" />
-      <entry key="H4" value="20.173272681127255" />
-      <entry key="D1" value="38.761635042350164" />
-      <entry key="W1" value="427.74914045852023" />
+      <entry key="MS100" value="0.9138314502294005" />
+      <entry key="MS500" value="0.9821395952633915" />
+      <entry key="S2" value="0.995504677670617" />
+      <entry key="S5" value="0.9981994402866303" />
+      <entry key="S10" value="0.9990993145261537" />
+      <entry key="S30" value="0.9996996813264409" />
+      <entry key="S60" value="0.999849829387614" />
+      <entry key="M2" value="0.9999249118746938" />
+      <entry key="M5" value="0.9999699640732632" />
+      <entry key="M10" value="0.9999849819238603" />
+      <entry key="M15" value="0.9999899879241797" />
+      <entry key="M30" value="0.9999949939495596" />
+      <entry key="H1" value="0.9999974979581014" />
+      <entry key="H2" value="1.0001559113718852" />
+      <entry key="H4" value="1.0668547552439003" />
+      <entry key="D1" value="17.279174438613836" />
+      <entry key="W1" value="376.7138713933443" />
     </decayedShown>
   </component>
   <component name="OptimizeOnSaveOptions">
@@ -183,15 +184,7 @@
       <workItem from="1748379420413" duration="3000" />
       <workItem from="1779547815911" duration="29068000" />
       <workItem from="1779695741143" duration="8369000" />
-      <workItem from="1780831623909" duration="89776000" />
-    </task>
-    <task id="LOCAL-00058" summary="add policy pages + founder + press page + update sitemap.xml">
-      <option name="closed" value="true" />
-      <created>1780583931809</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
-      <option name="project" value="LOCAL" />
-      <updated>1780583931809</updated>
+      <workItem from="1780831623909" duration="96131000" />
     </task>
     <task id="LOCAL-00059" summary="update readibilty of privacy policy">
       <option name="closed" value="true" />
@@ -577,14 +570,21 @@
       <option name="project" value="LOCAL" />
       <updated>1781607701330</updated>
     </task>
-    <option name="localTasksCounter" value="107" />
+    <task id="LOCAL-00107" summary="add analytics dashboard">
+      <option name="closed" value="true" />
+      <created>1781608231020</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1781608231020</updated>
+    </task>
+    <option name="localTasksCounter" value="108" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix css for thank you" />
     <MESSAGE value="add cart and cart drawer to checkout" />
     <MESSAGE value="sitemap + robot.txt + minor fix" />
     <MESSAGE value="minor fix hamburger" />
@@ -609,7 +609,8 @@
     <MESSAGE value="update orders page for customers" />
     <MESSAGE value="fix price on homepage" />
     <MESSAGE value="add metapixel" />
-    <option name="LAST_COMMIT_MESSAGE" value="add metapixel" />
+    <MESSAGE value="add analytics dashboard" />
+    <option name="LAST_COMMIT_MESSAGE" value="add analytics dashboard" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
