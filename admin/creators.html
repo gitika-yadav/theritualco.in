@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creators — The Ritual Co</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:'DM Sans',sans-serif;background:#f5f2ed;color:#1a1814;min-height:100vh}
+
+        /* LOGIN */
+        #loginOverlay{position:fixed;inset:0;background:#1a1814;display:flex;align-items:center;justify-content:center;z-index:9999}
+        .login-box{background:#faf9f6;padding:40px 36px;border-radius:12px;width:320px;text-align:center}
+        .login-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:#6b6660;margin-bottom:10px}
+        .login-box h2{font-family:'DM Serif Display',serif;font-size:20px;font-weight:400;margin-bottom:24px}
+        .login-input{width:100%;padding:10px 14px;border:1.5px solid #ece8df;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:14px;color:#1a1814;background:#f5f2ed;outline:none;margin-bottom:12px}
+        .login-input:focus{border-color:#c8b8a2}
+        .login-btn{width:100%;padding:10px;background:#1a1814;color:#faf9f6;border:none;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer}
+        .login-error{font-size:12px;color:#8b2e2e;margin-top:10px;min-height:18px}
+
+        /* HEADER */
+        .header{background:#1a1814;padding:24px 20px 20px}
+        .header-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;color:#c8b8a2;text-transform:uppercase;margin-bottom:6px}
+        .header h1{font-family:'DM Serif Display',serif;font-size:22px;font-weight:400;color:#faf9f6}
+        .header-sub{font-size:12px;color:#a09890;margin-top:4px}
+
+        /* STATS */
+        .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:16px}
+        .stat{background:#faf9f6;border-radius:8px;padding:12px;text-align:center}
+        .stat-num{font-size:22px;font-weight:500;color:#1a1814}
+        .stat-label{font-size:10px;color:#6b6660;text-transform:uppercase;letter-spacing:0.06em;margin-top:2px}
+
+        /* FILTERS */
+        .filters{padding:0 16px 12px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+        .filters::-webkit-scrollbar{display:none}
+        .filter-btn{font-size:11px;padding:5px 12px;border-radius:20px;border:1px solid #ddd8ce;background:transparent;color:#6b6660;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif}
+        .filter-btn.active{background:#1a1814;color:#faf9f6;border-color:#1a1814}
+
+        /* CREATOR CARDS */
+        .cards{padding:0 16px 80px}
+        .card{background:#faf9f6;border-radius:10px;padding:16px;margin-bottom:10px;border:1px solid #ece8df}
+        .card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px}
+        .card-name{font-size:15px;font-weight:500;color:#1a1814}
+        .card-handle{font-size:12px;color:#6b6660;margin-top:1px}
+        .card-followers{font-family:'DM Mono',monospace;font-size:11px;color:#6b6660}
+        .status-badge{font-size:10px;font-weight:500;padding:3px 8px;border-radius:4px;white-space:nowrap;text-transform:uppercase;letter-spacing:0.05em}
+        .s-shortlisted{background:#f2efe9;color:#6b6660}
+        .s-contacted{background:#FAEEDA;color:#854F0B}
+        .s-agreed{background:#E6F1FB;color:#185FA5}
+        .s-product_sent{background:#EEEDFE;color:#534AB7}
+        .s-posted{background:#EAF3DE;color:#3B6D11}
+        .s-completed{background:#EAF3DE;color:#3B6D11}
+        .s-dropped{background:#FCEBEB;color:#A32D2D}
+        .card-meta{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px}
+        .meta-item{font-size:11px;color:#6b6660}
+        .meta-item strong{color:#1a1814;font-weight:500;display:block;font-size:12px}
+        .flag-bar{background:#FAEEDA;border-radius:6px;padding:8px 10px;font-size:12px;color:#8b5a2b;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+        .flag-bar.critical{background:#FCEBEB;color:#8b2e2e}
+        .card-actions{display:flex;gap:6px;flex-wrap:wrap}
+        .action-btn{font-size:11px;padding:6px 12px;border-radius:6px;border:1px solid #ddd8ce;background:transparent;color:#1a1814;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500}
+        .action-btn.primary{background:#1a1814;color:#faf9f6;border-color:#1a1814}
+        .action-btn.danger{border-color:#f5c1c1;color:#8b2e2e}
+
+        /* STATUS UPDATE MODAL */
+        .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:1000;display:flex;align-items:flex-end;justify-content:center}
+        .modal{background:#faf9f6;border-radius:16px 16px 0 0;padding:24px 20px 40px;width:100%;max-width:560px}
+        .modal-title{font-size:16px;font-weight:500;margin-bottom:16px}
+        .modal-options{display:flex;flex-direction:column;gap:8px}
+        .modal-option{padding:12px 16px;border-radius:8px;border:1px solid #ece8df;font-size:14px;color:#1a1814;cursor:pointer;background:white;text-align:left;font-family:'DM Sans',sans-serif}
+        .modal-option:hover{background:#f5f2ed}
+        .modal-cancel{margin-top:12px;width:100%;padding:12px;border:none;background:transparent;font-size:14px;color:#6b6660;cursor:pointer;font-family:'DM Sans',sans-serif}
+
+        /* FAB */
+        .fab{position:fixed;bottom:24px;right:20px;background:#1a1814;color:#faf9f6;border:none;border-radius:50%;width:52px;height:52px;font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,0.2)}
+
+        /* DRAFT PANEL */
+        .draft-panel{position:fixed;inset:0;background:#faf9f6;z-index:2000;overflow-y:auto;display:none}
+        .draft-panel.open{display:block}
+        .draft-header{background:#1a1814;padding:20px;display:flex;align-items:center;gap:12px}
+        .draft-header h2{font-family:'DM Serif Display',serif;font-size:18px;font-weight:400;color:#faf9f6;flex:1}
+        .draft-back{background:none;border:none;color:#c8b8a2;font-size:20px;cursor:pointer;padding:4px}
+        .draft-body{padding:20px}
+        .draft-label{font-size:11px;font-weight:500;color:#6b6660;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;margin-top:16px}
+        .draft-text{width:100%;border:1px solid #ece8df;border-radius:8px;padding:12px;font-family:'DM Sans',sans-serif;font-size:13px;color:#1a1814;background:#f5f2ed;line-height:1.6;min-height:200px;resize:vertical;outline:none}
+        .draft-send-btn{width:100%;margin-top:16px;padding:14px;background:#1a1814;color:#faf9f6;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer}
+        .draft-copy-btn{width:100%;margin-top:8px;padding:12px;background:transparent;color:#1a1814;border:1px solid #ddd8ce;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer}
+
+        .loading{text-align:center;padding:40px 20px;color:#6b6660;font-size:14px}
+        .empty{text-align:center;padding:40px 20px;color:#6b6660;font-size:13px}
+    </style>
+</head>
+<body>
+
+<div id="loginOverlay">
+    <div class="login-box">
+        <div class="login-eyebrow">The Ritual Co</div>
+        <h2>Creator Hub</h2>
+        <input class="login-input" type="password" id="passwordInput" placeholder="Admin password" />
+        <button class="login-btn" id="loginBtn">Unlock</button>
+        <div class="login-error" id="loginError"></div>
+    </div>
+</div>
+
+<div id="app" style="display:none">
+    <div class="header">
+        <div class="header-eyebrow">The Ritual Co · Creator Hub</div>
+        <h1>Ambassador Pipeline</h1>
+        <div class="header-sub" id="headerSub">Loading creators…</div>
+    </div>
+
+    <div class="stats" id="statsRow"></div>
+
+    <div class="filters" id="filterRow"></div>
+
+    <div class="cards" id="cardsContainer">
+        <div class="loading">Loading creators…</div>
+    </div>
+</div>
+
+<!-- Status modal -->
+<div class="modal-overlay" id="statusModal" style="display:none" onclick="closeModal()">
+    <div class="modal" onclick="event.stopPropagation()">
+        <div class="modal-title" id="modalTitle">Update status</div>
+        <div class="modal-options" id="modalOptions"></div>
+        <button class="modal-cancel" onclick="closeModal()">Cancel</button>
+    </div>
+</div>
+
+<!-- Draft panel -->
+<div class="draft-panel" id="draftPanel">
+    <div class="draft-header">
+        <button class="draft-back" onclick="closeDraft()">←</button>
+        <h2 id="draftTitle">Draft outreach</h2>
+    </div>
+    <div class="draft-body">
+        <div class="draft-label">To</div>
+        <input class="draft-text" id="draftTo" style="min-height:auto;height:40px" readonly />
+        <div class="draft-label">Subject</div>
+        <input class="draft-text" id="draftSubject" style="min-height:auto;height:40px" />
+        <div class="draft-label">Message</div>
+        <textarea class="draft-text" id="draftMessage"></textarea>
+        <button class="draft-send-btn" id="draftSendBtn" onclick="sendDraft()">Send via The Ritual Co email</button>
+        <button class="draft-copy-btn" onclick="copyDraft()">Copy to clipboard</button>
+    </div>
+</div>
+
+<button class="fab" onclick="refreshCreators()" title="Refresh">↻</button>
+
+<script>
+    const TOKEN_KEY = 'admin_token';
+
+    let creators = [];
+    let activeFilter = 'all';
+    let sessionToken = '';
+    let currentDraftCreator = null;
+
+    // ── AUTH ──────────────────────────────────────────────────────────────────────
+    function validateToken(token) {
+        if (!token) return false;
+        const [expires] = token.split('.');
+        return Date.now() < parseInt(expires, 10);
+    }
+
+    async function login() {
+        const password = document.getElementById('passwordInput').value;
+        const errEl = document.getElementById('loginError');
+        const btn = document.getElementById('loginBtn');
+        if (!password) return;
+        btn.textContent = 'Checking…';
+        btn.disabled = true;
+        try {
+            const res = await fetch('/.netlify/functions/admin-auth', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password }),
+            });
+            const data = await res.json();
+            if (res.ok && data.token) {
+                sessionToken = data.token;
+                sessionStorage.setItem(TOKEN_KEY, data.token);
+                document.getElementById('loginOverlay').style.display = 'none';
+                document.getElementById('app').style.display = 'block';
+                initApp();
+            } else {
+                errEl.textContent = data.error || 'Incorrect password';
+                btn.textContent = 'Unlock'; btn.disabled = false;
+            }
+        } catch {
+            errEl.textContent = 'Network error';
+            btn.textContent = 'Unlock'; btn.disabled = false;
+        }
+    }
+
+    document.getElementById('loginBtn').addEventListener('click', login);
+    document.getElementById('passwordInput').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const token = sessionStorage.getItem(TOKEN_KEY);
+        if (validateToken(token)) {
+            sessionToken = token;
+            document.getElementById('loginOverlay').style.display = 'none';
+            document.getElementById('app').style.display = 'block';
+            initApp();
+        }
+    });
+
+    // ── SUPABASE ──────────────────────────────────────────────────────────────────
+    async function supabaseFetch(path, method, body) {
+        const res = await fetch('/.netlify/functions/creator-data?' + path, {
+            method: method || 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + sessionToken,
+            },
+            body: body ? JSON.stringify(body) : undefined,
+        });
+        return res.json();
+    }
+
+    // ── DATA ──────────────────────────────────────────────────────────────────────
+    async function fetchCreators() {
+        const res = await fetch('/.netlify/functions/creator-data', {
+            headers: { 'Authorization': 'Bearer ' + sessionToken },
+        });
+        const data = await res.json();
+        return Array.isArray(data.creators) ? data.creators : [];
+    }
+
+    async function updateCreatorStatus(id, status) {
+        const fields = { status, updated_at: new Date().toISOString() };
+        if (status === 'contacted') fields.contacted_at = new Date().toISOString();
+        if (status === 'product_sent') {
+            fields.product_sent_at = new Date().toISOString();
+            const deadline = new Date();
+            deadline.setDate(deadline.getDate() + 14);
+            fields.posting_deadline = deadline.toISOString();
+        }
+        await fetch('/.netlify/functions/creator-data', {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + sessionToken },
+            body: JSON.stringify({ id, ...fields }),
+        });
+    }
+
+    // ── HELPERS ───────────────────────────────────────────────────────────────────
+    function generateCode(handle) {
+        return 'RITUAL' + handle.replace(/[@._\-]/g, '').toUpperCase().slice(0, 8);
+    }
+
+    function daysSince(iso) {
+        if (!iso) return null;
+        return Math.floor((Date.now() - new Date(iso)) / 86400000);
+    }
+
+    function daysUntil(iso) {
+        if (!iso) return null;
+        return Math.ceil((new Date(iso) - Date.now()) / 86400000);
+    }
+
+    function getFlag(c) {
+        const daysSinceContact = daysSince(c.contacted_at);
+        const daysSinceProduct = daysSince(c.product_sent_at);
+        const daysLeft = daysUntil(c.posting_deadline);
+        if (c.status === 'product_sent') {
+            if (daysLeft !== null && daysLeft < 0) return { text: 'Overdue — ' + Math.abs(daysLeft) + 'd past deadline', critical: true };
+            if (daysLeft !== null && daysLeft <= 3) return { text: 'Deadline in ' + daysLeft + 'd — follow up now', critical: true };
+            if (daysSinceProduct >= 7) return { text: 'Product sent ' + daysSinceProduct + 'd ago — soft nudge due', critical: false };
+        }
+        if (c.status === 'contacted' && daysSinceContact > 3) return { text: 'No response in ' + daysSinceContact + 'd', critical: false };
+        if (c.status === 'shortlisted') return { text: 'Not yet contacted', critical: false };
+        if (c.status === 'agreed') return { text: 'Agreed — send product', critical: false };
+        return null;
+    }
+
+    function formatFollowers(n) {
+        if (!n) return '—';
+        if (n >= 1000) return (n / 1000).toFixed(1) + 'k';
+        return n.toString();
+    }
+
+    // ── RENDER ────────────────────────────────────────────────────────────────────
+    function renderStats() {
+        const counts = {};
+        creators.forEach(c => { counts[c.status] = (counts[c.status] || 0) + 1; });
+        const totalBarter = creators.reduce((t, c) => t + (c.barter_value || 0), 0);
+
+        document.getElementById('statsRow').innerHTML = [
+            { num: creators.length, label: 'Total' },
+            { num: (counts.product_sent || 0) + (counts.posted || 0) + (counts.completed || 0), label: 'Active' },
+            { num: counts.posted || 0, label: 'Posted' },
+            { num: '₹' + (totalBarter / 1000).toFixed(0) + 'k', label: 'Barter' },
+        ].map(s => '<div class="stat"><div class="stat-num">' + s.num + '</div><div class="stat-label">' + s.label + '</div></div>').join('');
+
+        document.getElementById('headerSub').textContent = creators.length + ' creators · ' +
+            (counts.shortlisted || 0) + ' to contact · ' + (counts.product_sent || 0) + ' pending post';
+    }
+
+    function renderFilters() {
+        const statuses = ['all', 'shortlisted', 'contacted', 'agreed', 'product_sent', 'posted', 'completed', 'dropped'];
+        const labels = { all: 'All', shortlisted: 'Shortlisted', contacted: 'Contacted', agreed: 'Agreed', product_sent: 'Product sent', posted: 'Posted', completed: 'Done', dropped: 'Dropped' };
+        document.getElementById('filterRow').innerHTML = statuses.map(s =>
+            '<button class="filter-btn' + (activeFilter === s ? ' active' : '') + '" onclick="setFilter(\'' + s + '\')">' + labels[s] + '</button>'
+        ).join('');
+    }
+
+    function renderCards() {
+        const filtered = activeFilter === 'all' ? creators : creators.filter(c => c.status === activeFilter);
+        if (!filtered.length) {
+            document.getElementById('cardsContainer').innerHTML = '<div class="empty">No creators in this category</div>';
+            return;
+        }
+
+        document.getElementById('cardsContainer').innerHTML = filtered.map(c => {
+            const flag = getFlag(c);
+            const code = c.discount_code || generateCode(c.instagram_handle);
+            const statusClass = 's-' + (c.status || 'shortlisted');
+
+            return '<div class="card">' +
+                '<div class="card-top">' +
+                '<div><div class="card-name">' + c.name + '</div><div class="card-handle">@' + c.instagram_handle + ' · ' + formatFollowers(c.follower_count) + '</div></div>' +
+                '<span class="status-badge ' + statusClass + '">' + (c.status || 'shortlisted').replace('_', ' ') + '</span>' +
+                '</div>' +
+                (flag ? '<div class="flag-bar' + (flag.critical ? ' critical' : '') + '">⚡ ' + flag.text + '</div>' : '') +
+                '<div class="card-meta">' +
+                '<div class="meta-item"><strong>' + (c.location || '—') + '</strong>Location</div>' +
+                '<div class="meta-item"><strong>' + (c.product_allocated || '—') + '</strong>Product</div>' +
+                '<div class="meta-item"><strong>' + code + '</strong>Discount code</div>' +
+                '<div class="meta-item"><strong>₹' + (c.barter_value || 0) + '</strong>Barter value</div>' +
+                '</div>' +
+                '<div class="card-actions">' +
+                (c.status === 'shortlisted' ? '<button class="action-btn primary" onclick="openDraft(\'' + c.id + '\')">Draft outreach</button>' : '') +
+                (c.status === 'contacted' ? '<button class="action-btn primary" onclick="openDraft(\'' + c.id + '\', true)">Follow up</button>' : '') +
+                (c.status === 'agreed' ? '<button class="action-btn primary" onclick="markStatus(\'' + c.id + '\', \'product_sent\')">Mark product sent</button>' : '') +
+                (c.status === 'product_sent' ? '<button class="action-btn primary" onclick="markStatus(\'' + c.id + '\', \'posted\')">Mark posted</button>' : '') +
+                (c.status === 'posted' ? '<button class="action-btn primary" onclick="markStatus(\'' + c.id + '\', \'completed\')">Mark completed</button>' : '') +
+                '<button class="action-btn" onclick="openStatusModal(\'' + c.id + '\')">Update status</button>' +
+                '</div>' +
+                '</div>';
+        }).join('');
+    }
+
+    function render() {
+        renderStats();
+        renderFilters();
+        renderCards();
+    }
+
+    function setFilter(f) {
+        activeFilter = f;
+        render();
+    }
+
+    // ── STATUS MODAL ──────────────────────────────────────────────────────────────
+    let modalCreatorId = null;
+    function openStatusModal(id) {
+        modalCreatorId = id;
+        const c = creators.find(x => x.id === id);
+        document.getElementById('modalTitle').textContent = 'Update: ' + c.name;
+        const statuses = ['shortlisted', 'contacted', 'agreed', 'product_sent', 'posted', 'completed', 'dropped'];
+        const labels = { shortlisted: 'Shortlisted', contacted: 'Contacted', agreed: 'Agreed', product_sent: 'Product sent ✈️', posted: 'Posted ✅', completed: 'Completed 🎉', dropped: 'Dropped ✗' };
+        document.getElementById('modalOptions').innerHTML = statuses.map(s =>
+            '<button class="modal-option' + (c.status === s ? '" style="font-weight:600' : '') + '" onclick="setStatus(\'' + s + '\')">' + labels[s] + '</button>'
+        ).join('');
+        document.getElementById('statusModal').style.display = 'flex';
+    }
+
+    async function setStatus(status) {
+        if (!modalCreatorId) return;
+        closeModal();
+        await updateCreatorStatus(modalCreatorId, status);
+        await refreshCreators();
+    }
+
+    function closeModal() {
+        document.getElementById('statusModal').style.display = 'none';
+        modalCreatorId = null;
+    }
+
+    async function markStatus(id, status) {
+        await updateCreatorStatus(id, status);
+        await refreshCreators();
+    }
+
+    // ── DRAFT PANEL ───────────────────────────────────────────────────────────────
+    function openDraft(id, isFollowUp) {
+        const c = creators.find(x => x.id === id);
+        currentDraftCreator = c;
+        const code = c.discount_code || generateCode(c.instagram_handle);
+
+        document.getElementById('draftTitle').textContent = isFollowUp ? 'Follow-up: ' + c.name : 'Outreach: ' + c.name;
+        document.getElementById('draftTo').value = c.email || '(no email on file)';
+        document.getElementById('draftSubject').value = isFollowUp
+            ? 'Following up — The Ritual Co Ambassador Programme 🤍'
+            : 'You\'ve been selected — The Ritual Co Ambassador Programme 🤍';
+
+        const outreachTemplate = isFollowUp
+            ? `Hi ${c.name},
+
+Just following up on my earlier message about The Ritual Co ambassador programme — wanted to make sure it didn't get lost!
+
+We'd love to send you our Silicone Capsule Dumbbells (${c.product_allocated || 'our signature dumbbells'}) in exchange for a dedicated reel on your feed. Your aesthetic feels really aligned with what we're building.
+
+Your unique discount code for the caption: ${code}
+
+Let me know if you're in — happy to answer any questions!
+
+Warm,
+Gitika
+The Ritual Co | @theritualco.in`
+            : `Hi ${c.name},
+
+I'm Gitika, founder of The Ritual Co — we make aesthetically designed home gym equipment for women who want their space to feel as good as their routine.
+
+We came across your profile and loved your content — your aesthetic is exactly what The Ritual Co is about. We'd love to have you as one of our first ambassadors.
+
+Here's what we're offering:
+→ ${c.product_allocated || 'Silicone Capsule Dumbbells'} sent to you (barter, no payment required)
+→ One dedicated reel on your feed (not a story, not a collab post)
+→ Tag @theritualco.in + use your unique code in caption
+→ 14 days from receiving product to post
+
+Your unique discount code: ${code}
+
+We're a small Delhi-based brand just launching — this would genuinely mean a lot to us. Let me know if you're interested and I'll send across the full brief!
+
+Warm,
+Gitika
+The Ritual Co | @theritualco.in`;
+
+        document.getElementById('draftMessage').value = outreachTemplate;
+        document.getElementById('draftPanel').classList.add('open');
+    }
+
+    function closeDraft() {
+        document.getElementById('draftPanel').classList.remove('open');
+        currentDraftCreator = null;
+    }
+
+    async function sendDraft() {
+        if (!currentDraftCreator) return;
+        const btn = document.getElementById('draftSendBtn');
+        const to = document.getElementById('draftTo').value;
+        const subject = document.getElementById('draftSubject').value;
+        const message = document.getElementById('draftMessage').value;
+
+        if (!to || to.includes('no email')) {
+            alert('No email on file for this creator — copy and send manually.');
+            return;
+        }
+
+        btn.textContent = 'Sending…';
+        btn.disabled = true;
+
+        try {
+            const res = await fetch('/.netlify/functions/orchestrator', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + sessionToken },
+                body: JSON.stringify({
+                    type: 'task',
+                    agent: 'creator',
+                    message: 'send_approved_outreach',
+                    context: {
+                        creatorId: currentDraftCreator.id,
+                        recipient: to,
+                        subject,
+                        content: message,
+                        creatorHandle: currentDraftCreator.instagram_handle,
+                    },
+                }),
+            });
+
+            if (res.ok) {
+                await updateCreatorStatus(currentDraftCreator.id, 'contacted');
+                closeDraft();
+                await refreshCreators();
+                alert('Sent! Status updated to contacted.');
+            } else {
+                btn.textContent = 'Send via The Ritual Co email';
+                btn.disabled = false;
+                alert('Send failed — try copying and sending manually.');
+            }
+        } catch {
+            btn.textContent = 'Send via The Ritual Co email';
+            btn.disabled = false;
+            alert('Network error — copy and send manually.');
+        }
+    }
+
+    function copyDraft() {
+        const message = document.getElementById('draftMessage').value;
+        navigator.clipboard.writeText(message).then(() => {
+            const btn = document.querySelector('.draft-copy-btn');
+            btn.textContent = 'Copied!';
+            setTimeout(() => { btn.textContent = 'Copy to clipboard'; }, 2000);
+        });
+    }
+
+    // ── INIT ──────────────────────────────────────────────────────────────────────
+    async function refreshCreators() {
+        creators = await fetchCreators();
+        render();
+    }
+
+    async function initApp() {
+        await refreshCreators();
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agents — The Ritual Co</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:'DM Sans',sans-serif;background:#f5f2ed;color:#1a1814;min-height:100vh}
+
+        /* LOGIN */
+        #loginOverlay{position:fixed;inset:0;background:#1a1814;display:flex;align-items:center;justify-content:center;z-index:9999}
+        .login-box{background:#faf9f6;padding:40px 36px;border-radius:12px;width:320px;text-align:center}
+        .login-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:#6b6660;margin-bottom:10px}
+        .login-box h2{font-family:'DM Serif Display',serif;font-size:20px;font-weight:400;margin-bottom:24px}
+        .login-input{width:100%;padding:10px 14px;border:1.5px solid #ece8df;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:14px;color:#1a1814;background:#f5f2ed;outline:none;margin-bottom:12px}
+        .login-input:focus{border-color:#c8b8a2}
+        .login-btn{width:100%;padding:10px;background:#1a1814;color:#faf9f6;border:none;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer}
+        .login-error{font-size:12px;color:#8b2e2e;margin-top:10px;min-height:18px}
+
+        /* HEADER */
+        .header{background:#1a1814;padding:24px 20px 0}
+        .header-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;color:#c8b8a2;text-transform:uppercase;margin-bottom:6px}
+        .header h1{font-family:'DM Serif Display',serif;font-size:22px;font-weight:400;color:#faf9f6;margin-bottom:4px}
+        .header-sub{font-size:12px;color:#a09890;margin-bottom:16px}
+
+        /* TABS */
+        .tabs{display:flex;border-bottom:1px solid #2d2a26}
+        .tab{padding:10px 18px;font-size:13px;color:#a09890;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;font-weight:500;white-space:nowrap}
+        .tab.active{color:#faf9f6;border-bottom-color:#c8b8a2}
+        .tab-badge{display:inline-block;background:#8b2e2e;color:white;font-size:9px;padding:1px 5px;border-radius:10px;margin-left:4px;vertical-align:middle;font-weight:600}
+
+        /* STATS */
+        .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:16px}
+        .stat{background:#faf9f6;border-radius:8px;padding:12px;text-align:center;cursor:pointer}
+        .stat.active-stat{border:1.5px solid #1a1814}
+        .stat-num{font-size:20px;font-weight:500;color:#1a1814}
+        .stat-label{font-size:10px;color:#6b6660;text-transform:uppercase;letter-spacing:0.06em;margin-top:2px}
+
+        /* CHAT BOX */
+        .chat-box{margin:0 16px 16px;background:#faf9f6;border-radius:10px;border:1px solid #ece8df;overflow:hidden}
+        .chat-input-row{display:flex;gap:0;align-items:center}
+        .chat-input{flex:1;padding:12px 14px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:13px;color:#1a1814;outline:none}
+        .chat-input::placeholder{color:#c8b8a2}
+        .agent-select{padding:10px 8px;border:none;border-left:1px solid #ece8df;background:transparent;font-family:'DM Mono',monospace;font-size:11px;color:#6b6660;outline:none;cursor:pointer}
+        .chat-send{padding:10px 16px;background:#1a1814;color:#faf9f6;border:none;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;cursor:pointer}
+        .chat-send:disabled{opacity:0.5}
+        .chat-response{padding:12px 14px;border-top:1px solid #ece8df;font-size:13px;color:#1a1814;line-height:1.6;display:none;background:#f5f2ed}
+
+        /* ACTION CARDS */
+        .actions-list{padding:0 16px 100px}
+        .action-card{background:#faf9f6;border-radius:10px;padding:16px;margin-bottom:10px;border:1px solid #ece8df}
+        .action-card.urgent{border-color:#f5c1c1}
+        .action-card.escalated{border-color:#fac775}
+        .action-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;gap:8px}
+        .action-title{font-size:14px;font-weight:500;color:#1a1814;flex:1}
+        .action-badges{display:flex;gap:4px;align-items:center;flex-shrink:0}
+        .badge{font-size:10px;font-weight:500;padding:2px 7px;border-radius:4px;text-transform:uppercase;letter-spacing:0.05em}
+        .badge-agent-finance{background:#E6F1FB;color:#185FA5}
+        .badge-agent-ops{background:#EAF3DE;color:#3B6D11}
+        .badge-agent-marketing{background:#EEEDFE;color:#534AB7}
+        .badge-agent-creator{background:#FAEEDA;color:#854F0B}
+        .badge-priority-critical{background:#FCEBEB;color:#A32D2D}
+        .badge-priority-high{background:#FAEEDA;color:#854F0B}
+        .badge-priority-medium{background:#f2efe9;color:#6b6660}
+        .badge-status-pending{background:#FAEEDA;color:#854F0B}
+        .badge-status-executed{background:#EAF3DE;color:#3B6D11}
+        .badge-status-rejected{background:#f2efe9;color:#6b6660}
+        .badge-status-escalated{background:#FCEBEB;color:#A32D2D}
+        .action-meta{font-size:11px;color:#6b6660;margin-bottom:10px;font-family:'DM Mono',monospace}
+        .action-content{background:#f5f2ed;border-radius:6px;padding:12px;font-size:13px;color:#1a1814;line-height:1.6;white-space:pre-wrap;max-height:200px;overflow:hidden;cursor:pointer;position:relative}
+        .action-content.expanded{max-height:none}
+        .action-content-fade{position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,#f5f2ed);pointer-events:none}
+        .penalty-bar{background:#FCEBEB;border-radius:6px;padding:7px 10px;font-size:12px;color:#8b2e2e;margin-bottom:8px}
+        .action-btns{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+        .btn-approve{padding:8px 18px;background:#1a1814;color:#faf9f6;border:none;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;cursor:pointer}
+        .btn-reject{padding:8px 14px;background:transparent;color:#6b6660;border:1px solid #ddd8ce;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer}
+        .btn-copy{padding:8px 14px;background:transparent;color:#1a1814;border:1px solid #ddd8ce;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer}
+        .executed-label{font-size:11px;color:#3d6b52;margin-top:8px}
+
+        /* EMPTY */
+        .empty{text-align:center;padding:60px 20px;color:#6b6660;font-size:13px}
+        .empty-icon{font-size:28px;margin-bottom:8px}
+
+        /* TASK TOAST */
+        .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a1814;color:#faf9f6;padding:10px 20px;border-radius:8px;font-size:13px;z-index:5000;opacity:0;transition:opacity 0.2s;pointer-events:none}
+        .toast.show{opacity:1}
+    </style>
+</head>
+<body>
+
+<div id="loginOverlay">
+    <div class="login-box">
+        <div class="login-eyebrow">The Ritual Co</div>
+        <h2>Agent Dashboard</h2>
+        <input class="login-input" type="password" id="passwordInput" placeholder="Admin password" />
+        <button class="login-btn" id="loginBtn">Unlock</button>
+        <div class="login-error" id="loginError"></div>
+    </div>
+</div>
+
+<div id="app" style="display:none">
+    <div class="header">
+        <div class="header-eyebrow">The Ritual Co · Agents</div>
+        <h1>Agent Dashboard</h1>
+        <div class="header-sub" id="headerSub">Loading…</div>
+        <div class="tabs" id="tabRow"></div>
+    </div>
+
+    <div class="stats" id="statsRow"></div>
+
+    <!-- Task an agent -->
+    <div class="chat-box">
+        <div class="chat-input-row">
+            <input class="chat-input" id="chatInput" placeholder="Task an agent… e.g. what's my GST status?" />
+            <select class="agent-select" id="agentSelect">
+                <option value="">Auto-route</option>
+                <option value="finance">Finance</option>
+                <option value="ops">Ops</option>
+                <option value="marketing">Marketing</option>
+                <option value="creator">Creator</option>
+            </select>
+            <button class="chat-send" id="chatSend" onclick="taskAgent()">Send ↗</button>
+        </div>
+        <div class="chat-response" id="chatResponse"></div>
+    </div>
+
+    <div class="actions-list" id="actionsList"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+    const TOKEN_KEY = 'admin_token';
+    let actions = [];
+    let activeTab = 'all';
+    let activeStatus = 'all';
+    let sessionToken = '';
+
+    const AGENT_LABELS = { finance: 'Finance', ops: 'Ops', marketing: 'Marketing', creator: 'Creator' };
+    const TABS = [
+        { id: 'all', label: 'All' },
+        { id: 'finance', label: 'Finance' },
+        { id: 'ops', label: 'Ops' },
+        { id: 'marketing', label: 'Marketing' },
+        { id: 'creator', label: 'Creator' },
+    ];
+
+    // ── AUTH ──────────────────────────────────────────────────────────────────────
+    function validateToken(token) {
+        if (!token) return false;
+        const [expires] = token.split('.');
+        return Date.now() < parseInt(expires, 10);
+    }
+
+    async function login() {
+        const password = document.getElementById('passwordInput').value;
+        const errEl = document.getElementById('loginError');
+        const btn = document.getElementById('loginBtn');
+        if (!password) return;
+        btn.textContent = 'Checking…'; btn.disabled = true;
+        try {
+            const res = await fetch('/.netlify/functions/admin-auth', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password }),
+            });
+            const data = await res.json();
+            if (res.ok && data.token) {
+                sessionToken = data.token;
+                sessionStorage.setItem(TOKEN_KEY, data.token);
+                document.getElementById('loginOverlay').style.display = 'none';
+                document.getElementById('app').style.display = 'block';
+                initApp();
+            } else {
+                errEl.textContent = data.error || 'Incorrect password';
+                btn.textContent = 'Unlock'; btn.disabled = false;
+            }
+        } catch {
+            errEl.textContent = 'Network error';
+            btn.textContent = 'Unlock'; btn.disabled = false;
+        }
+    }
+
+    document.getElementById('loginBtn').addEventListener('click', login);
+    document.getElementById('passwordInput').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+    document.getElementById('chatInput').addEventListener('keydown', e => { if (e.key === 'Enter') taskAgent(); });
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const token = sessionStorage.getItem(TOKEN_KEY);
+        if (validateToken(token)) {
+            sessionToken = token;
+            document.getElementById('loginOverlay').style.display = 'none';
+            document.getElementById('app').style.display = 'block';
+            initApp();
+        }
+
+        // Handle approve/reject from email links
+        const params = new URLSearchParams(window.location.search);
+        const approveId = params.get('approve');
+        const rejectId = params.get('reject');
+        if (approveId || rejectId) {
+            window.pendingAction = { id: approveId || rejectId, type: approveId ? 'approve' : 'reject' };
+        }
+    });
+
+    // ── DATA ──────────────────────────────────────────────────────────────────────
+    async function fetchActions() {
+        const res = await fetch('/.netlify/functions/orchestrator', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + sessionToken },
+            body: JSON.stringify({ type: 'get_actions', agent: activeTab === 'all' ? null : activeTab }),
+        });
+        const data = await res.json();
+        return Array.isArray(data.actions) ? data.actions : [];
+    }
+
+    async function approveAction(id) {
+        const res = await fetch('/.netlify/functions/orchestrator', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + sessionToken },
+            body: JSON.stringify({ type: 'approve', actionId: id }),
+        });
+        return res.ok;
+    }
+
+    async function rejectAction(id) {
+        const res = await fetch('/.netlify/functions/orchestrator', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + sessionToken },
+            body: JSON.stringify({ type: 'reject', actionId: id }),
+        });
+        return res.ok;
+    }
+
+    // ── TASK AGENT ────────────────────────────────────────────────────────────────
+    async function taskAgent() {
+        const input = document.getElementById('chatInput');
+        const message = input.value.trim();
+        if (!message) return;
+
+        const btn = document.getElementById('chatSend');
+        const responseEl = document.getElementById('chatResponse');
+        const agent = document.getElementById('agentSelect').value;
+
+        btn.textContent = 'Sending…'; btn.disabled = true;
+        responseEl.style.display = 'block';
+        responseEl.textContent = 'Agent is thinking…';
+
+        try {
+            const res = await fetch('/.netlify/functions/orchestrator', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + sessionToken },
+                body: JSON.stringify({
+                    type: 'task',
+                    message,
+                    agent: agent || undefined,
+                }),
+            });
+
+            const data = await res.json();
+            if (data.ok) {
+                const agentName = AGENT_LABELS[data.agent] || data.agent;
+                responseEl.textContent = '→ Routed to ' + agentName + ' agent. ' +
+                    (data.result?.response || 'Check your email for the full response.') +
+                    (data.result?.requiresApproval ? '\n\nActions pending your approval below.' : '');
+                input.value = '';
+                setTimeout(() => { refresh(); }, 2000);
+            } else {
+                responseEl.textContent = 'Error: ' + (data.error || 'Something went wrong');
+            }
+        } catch {
+            responseEl.textContent = 'Network error — try again';
+        }
+
+        btn.textContent = 'Send ↗'; btn.disabled = false;
+    }
+
+    // ── RENDER ────────────────────────────────────────────────────────────────────
+    function renderTabs() {
+        const pendingByAgent = {};
+        actions.filter(a => a.status === 'pending').forEach(a => {
+            pendingByAgent[a.agent] = (pendingByAgent[a.agent] || 0) + 1;
+        });
+        const totalPending = actions.filter(a => a.status === 'pending').length;
+
+        document.getElementById('tabRow').innerHTML = TABS.map(t => {
+            const count = t.id === 'all' ? totalPending : (pendingByAgent[t.id] || 0);
+            return '<div class="tab' + (activeTab === t.id ? ' active' : '') + '" onclick="setTab(\'' + t.id + '\')">' +
+                t.label + (count > 0 ? '<span class="tab-badge">' + count + '</span>' : '') + '</div>';
+        }).join('');
+    }
+
+    function renderStats() {
+        const filtered = activeTab === 'all' ? actions : actions.filter(a => a.agent === activeTab);
+        const pending = filtered.filter(a => a.status === 'pending').length;
+        const executed = filtered.filter(a => a.status === 'executed').length;
+        const escalated = filtered.filter(a => a.status === 'escalated').length;
+        const total = filtered.length;
+
+        document.getElementById('statsRow').innerHTML = [
+            { num: pending, label: 'Pending', filter: 'pending' },
+            { num: escalated, label: 'Escalated', filter: 'escalated' },
+            { num: executed, label: 'Executed', filter: 'executed' },
+            { num: total, label: 'Total', filter: 'all' },
+        ].map(s => '<div class="stat' + (activeStatus === s.filter ? ' active-stat' : '') + '" onclick="setStatus(\'' + s.filter + '\')">' +
+            '<div class="stat-num">' + s.num + '</div><div class="stat-label">' + s.label + '</div></div>'
+        ).join('');
+
+        const pendingTotal = actions.filter(a => a.status === 'pending').length;
+        document.getElementById('headerSub').textContent =
+            pendingTotal > 0 ? pendingTotal + ' action' + (pendingTotal > 1 ? 's' : '') + ' waiting for your approval' : 'All caught up';
+    }
+
+    function timeAgo(iso) {
+        if (!iso) return '';
+        const mins = Math.floor((Date.now() - new Date(iso)) / 60000);
+        if (mins < 1) return 'just now';
+        if (mins < 60) return mins + 'm ago';
+        const hrs = Math.floor(mins / 60);
+        if (hrs < 24) return hrs + 'h ago';
+        return Math.floor(hrs / 24) + 'd ago';
+    }
+
+    function renderActions() {
+        let filtered = activeTab === 'all' ? actions : actions.filter(a => a.agent === activeTab);
+        if (activeStatus !== 'all') filtered = filtered.filter(a => a.status === activeStatus);
+        else filtered = filtered.filter(a => a.status !== 'rejected'); // hide rejected by default
+
+        if (!filtered.length) {
+            document.getElementById('actionsList').innerHTML =
+                '<div class="empty"><div class="empty-icon">✓</div>' +
+                (activeStatus === 'pending' ? 'No pending actions' : 'No actions yet') + '</div>';
+            return;
+        }
+
+        document.getElementById('actionsList').innerHTML = filtered.map(a => {
+            const meta = a.metadata || {};
+            const priority = meta.priority || 'medium';
+            const isUrgent = priority === 'critical' || a.status === 'escalated';
+            const penalty = meta.estimatedPenalty;
+            const content = a.content || '';
+            const isLong = content.length > 300;
+
+            return '<div class="action-card' + (isUrgent ? ' urgent' : '') + (a.status === 'escalated' ? ' escalated' : '') + '" id="card-' + a.id + '">' +
+                '<div class="action-top">' +
+                '<div class="action-title">' + (a.title || 'Untitled') + '</div>' +
+                '<div class="action-badges">' +
+                '<span class="badge badge-agent-' + a.agent + '">' + (AGENT_LABELS[a.agent] || a.agent) + '</span>' +
+                (priority !== 'medium' && priority !== 'low' ? '<span class="badge badge-priority-' + priority + '">' + priority + '</span>' : '') +
+                '<span class="badge badge-status-' + a.status + '">' + a.status + '</span>' +
+                '</div></div>' +
+                '<div class="action-meta">' + timeAgo(a.created_at) + (a.escalation_count > 0 ? ' · escalated ×' + a.escalation_count : '') + '</div>' +
+                (penalty ? '<div class="penalty-bar">⚠️ ' + penalty + '</div>' : '') +
+                '<div class="action-content" id="content-' + a.id + '" onclick="toggleExpand(\'' + a.id + '\')">' +
+                content +
+                (isLong ? '<div class="action-content-fade" id="fade-' + a.id + '"></div>' : '') +
+                '</div>' +
+                '<div class="action-btns">' +
+                (a.status === 'pending' || a.status === 'escalated'
+                        ? '<button class="btn-approve" onclick="handleApprove(\'' + a.id + '\')">Approve & execute</button>' +
+                        '<button class="btn-reject" onclick="handleReject(\'' + a.id + '\')">Reject</button>'
+                        : (a.status === 'executed' ? '<div class="executed-label">✓ Executed</div>' : '')
+                ) +
+                '<button class="btn-copy" onclick="copyContent(\'' + a.id + '\')">Copy</button>' +
+                '</div></div>';
+        }).join('');
+    }
+
+    function render() {
+        renderTabs();
+        renderStats();
+        renderActions();
+    }
+
+    function setTab(t) { activeTab = t; activeStatus = 'all'; render(); }
+    function setStatus(s) { activeStatus = s; render(); }
+
+    // ── EXPAND / COLLAPSE ─────────────────────────────────────────────────────────
+    function toggleExpand(id) {
+        const el = document.getElementById('content-' + id);
+        const fade = document.getElementById('fade-' + id);
+        el.classList.toggle('expanded');
+        if (fade) fade.style.display = el.classList.contains('expanded') ? 'none' : 'block';
+    }
+
+    // ── APPROVE / REJECT ──────────────────────────────────────────────────────────
+    async function handleApprove(id) {
+        const card = document.getElementById('card-' + id);
+        if (card) card.style.opacity = '0.5';
+        const ok = await approveAction(id);
+        if (ok) {
+            showToast('Approved — agent is executing');
+            await refresh();
+        } else {
+            showToast('Error — try again');
+            if (card) card.style.opacity = '1';
+        }
+    }
+
+    async function handleReject(id) {
+        const card = document.getElementById('card-' + id);
+        if (card) card.style.opacity = '0.5';
+        const ok = await rejectAction(id);
+        if (ok) {
+            showToast('Rejected');
+            await refresh();
+        } else {
+            showToast('Error — try again');
+            if (card) card.style.opacity = '1';
+        }
+    }
+
+    // ── COPY ──────────────────────────────────────────────────────────────────────
+    function copyContent(id) {
+        const action = actions.find(a => a.id === id);
+        if (!action) return;
+        navigator.clipboard.writeText(action.content || '').then(() => showToast('Copied'));
+    }
+
+    // ── TOAST ─────────────────────────────────────────────────────────────────────
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    // ── INIT ──────────────────────────────────────────────────────────────────────
+    async function refresh() {
+        actions = await fetchActions();
+        render();
+    }
+
+    async function initApp() {
+        await refresh();
+
+        // Handle approve/reject from email link
+        if (window.pendingAction) {
+            const { id, type } = window.pendingAction;
+            window.pendingAction = null;
+            if (type === 'approve') await handleApprove(id);
+            else await handleReject(id);
+            history.replaceState({}, '', '/admin/agents.html');
+        }
+
+        // Auto-refresh every 60 seconds
+        setInterval(refresh, 60000);
+    }
+</script>
+</body>
+</html>

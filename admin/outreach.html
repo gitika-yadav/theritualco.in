@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outreach — The Ritual Co</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:'DM Sans',sans-serif;background:#f5f2ed;color:#1a1814;min-height:100vh}
+
+        /* LOGIN */
+        #loginOverlay{position:fixed;inset:0;background:#1a1814;display:flex;align-items:center;justify-content:center;z-index:9999}
+        .login-box{background:#faf9f6;padding:40px 36px;border-radius:12px;width:320px;text-align:center}
+        .login-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:#6b6660;margin-bottom:10px}
+        .login-box h2{font-family:'DM Serif Display',serif;font-size:20px;font-weight:400;margin-bottom:24px}
+        .login-input{width:100%;padding:10px 14px;border:1.5px solid #ece8df;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:14px;color:#1a1814;background:#f5f2ed;outline:none;margin-bottom:12px}
+        .login-input:focus{border-color:#c8b8a2}
+        .login-btn{width:100%;padding:10px;background:#1a1814;color:#faf9f6;border:none;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer}
+        .login-error{font-size:12px;color:#8b2e2e;margin-top:10px;min-height:18px}
+
+        /* HEADER */
+        .header{background:#1a1814;padding:24px 20px 0}
+        .header-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;color:#c8b8a2;text-transform:uppercase;margin-bottom:6px}
+        .header h1{font-family:'DM Serif Display',serif;font-size:22px;font-weight:400;color:#faf9f6;margin-bottom:16px}
+
+        /* TABS */
+        .tabs{display:flex;border-bottom:1px solid #2d2a26}
+        .tab{padding:10px 20px;font-size:13px;color:#a09890;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;font-weight:500}
+        .tab.active{color:#faf9f6;border-bottom-color:#c8b8a2}
+
+        /* STATS */
+        .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:16px}
+        .stat{background:#faf9f6;border-radius:8px;padding:12px;text-align:center}
+        .stat-num{font-size:20px;font-weight:500;color:#1a1814}
+        .stat-label{font-size:10px;color:#6b6660;text-transform:uppercase;letter-spacing:0.06em;margin-top:2px}
+
+        /* FILTERS */
+        .filters{padding:0 16px 12px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+        .filters::-webkit-scrollbar{display:none}
+        .filter-btn{font-size:11px;padding:5px 12px;border-radius:20px;border:1px solid #ddd8ce;background:transparent;color:#6b6660;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif}
+        .filter-btn.active{background:#1a1814;color:#faf9f6;border-color:#1a1814}
+
+        /* CARDS */
+        .cards{padding:0 16px 100px}
+        .card{background:#faf9f6;border-radius:10px;padding:16px;margin-bottom:10px;border:1px solid #ece8df}
+        .card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;gap:8px}
+        .card-name{font-size:15px;font-weight:500;color:#1a1814}
+        .card-sub{font-size:12px;color:#6b6660;margin-top:1px}
+        .status-badge{font-size:10px;font-weight:500;padding:3px 8px;border-radius:4px;white-space:nowrap;text-transform:uppercase;letter-spacing:0.05em;flex-shrink:0}
+        .s-identified{background:#f2efe9;color:#6b6660}
+        .s-contacted{background:#FAEEDA;color:#854F0B}
+        .s-responded{background:#E6F1FB;color:#185FA5}
+        .s-meeting_scheduled{background:#EEEDFE;color:#534AB7}
+        .s-agreed{background:#EAF3DE;color:#3B6D11}
+        .s-active{background:#EAF3DE;color:#3B6D11}
+        .s-dropped{background:#FCEBEB;color:#A32D2D}
+        .card-meta{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}
+        .meta-item{font-size:11px;color:#6b6660}
+        .meta-item strong{color:#1a1814;font-weight:500;display:block;font-size:12px}
+        .flag-bar{background:#FAEEDA;border-radius:6px;padding:8px 10px;font-size:12px;color:#8b5a2b;margin-bottom:10px}
+        .flag-bar.critical{background:#FCEBEB;color:#8b2e2e}
+        .card-notes{font-size:12px;color:#6b6660;background:#f5f2ed;border-radius:6px;padding:8px 10px;margin-bottom:10px;line-height:1.5}
+        .card-actions{display:flex;gap:6px;flex-wrap:wrap}
+        .action-btn{font-size:11px;padding:6px 12px;border-radius:6px;border:1px solid #ddd8ce;background:transparent;color:#1a1814;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500}
+        .action-btn.primary{background:#1a1814;color:#faf9f6;border-color:#1a1814}
+
+        /* ADD SHEET */
+        .add-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:1000;display:flex;align-items:flex-end;justify-content:center}
+        .add-sheet{background:#faf9f6;border-radius:16px 16px 0 0;padding:24px 20px 48px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto}
+        .add-sheet h3{font-family:'DM Serif Display',serif;font-size:18px;font-weight:400;margin-bottom:20px}
+        .field-group{margin-bottom:14px}
+        .field-label{font-size:11px;font-weight:500;color:#6b6660;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:5px}
+        .field-input{width:100%;padding:10px 12px;border:1px solid #ece8df;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:14px;color:#1a1814;background:#f5f2ed;outline:none}
+        .field-input:focus{border-color:#c8b8a2}
+        .field-select{width:100%;padding:10px 12px;border:1px solid #ece8df;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:14px;color:#1a1814;background:#f5f2ed;outline:none;appearance:none}
+        .type-pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+        .type-pill{padding:7px 14px;border-radius:20px;border:1px solid #ddd8ce;background:transparent;font-size:13px;color:#6b6660;cursor:pointer;font-family:'DM Sans',sans-serif}
+        .type-pill.selected{background:#1a1814;color:#faf9f6;border-color:#1a1814}
+        .add-btn-row{display:flex;gap:8px;margin-top:20px}
+        .add-submit{flex:1;padding:13px;background:#1a1814;color:#faf9f6;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer}
+        .add-cancel{padding:13px 20px;background:transparent;color:#6b6660;border:1px solid #ddd8ce;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer}
+
+        /* STATUS MODAL */
+        .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:1000;display:flex;align-items:flex-end;justify-content:center}
+        .modal{background:#faf9f6;border-radius:16px 16px 0 0;padding:24px 20px 40px;width:100%;max-width:560px}
+        .modal-title{font-size:16px;font-weight:500;margin-bottom:16px}
+        .modal-options{display:flex;flex-direction:column;gap:8px}
+        .modal-option{padding:12px 16px;border-radius:8px;border:1px solid #ece8df;font-size:14px;color:#1a1814;cursor:pointer;background:white;text-align:left;font-family:'DM Sans',sans-serif}
+        .modal-cancel{margin-top:12px;width:100%;padding:12px;border:none;background:transparent;font-size:14px;color:#6b6660;cursor:pointer;font-family:'DM Sans',sans-serif}
+
+        /* DRAFT PANEL */
+        .draft-panel{position:fixed;inset:0;background:#faf9f6;z-index:2000;overflow-y:auto;display:none}
+        .draft-panel.open{display:block}
+        .draft-header{background:#1a1814;padding:20px;display:flex;align-items:center;gap:12px}
+        .draft-header h2{font-family:'DM Serif Display',serif;font-size:18px;font-weight:400;color:#faf9f6;flex:1}
+        .draft-back{background:none;border:none;color:#c8b8a2;font-size:20px;cursor:pointer;padding:4px}
+        .draft-body{padding:20px}
+        .draft-label{font-size:11px;font-weight:500;color:#6b6660;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;margin-top:16px}
+        .draft-field{width:100%;border:1px solid #ece8df;border-radius:8px;padding:12px;font-family:'DM Sans',sans-serif;font-size:13px;color:#1a1814;background:#f5f2ed;outline:none}
+        .draft-field:focus{border-color:#c8b8a2}
+        .draft-text{min-height:200px;resize:vertical;line-height:1.6}
+        .draft-send-btn{width:100%;margin-top:16px;padding:14px;background:#1a1814;color:#faf9f6;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer}
+        .draft-copy-btn{width:100%;margin-top:8px;padding:12px;background:transparent;color:#1a1814;border:1px solid #ddd8ce;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer}
+        .draft-generating{text-align:center;padding:40px 20px;color:#6b6660;font-size:14px}
+
+        /* FAB */
+        .fab{position:fixed;bottom:24px;right:20px;background:#1a1814;color:#faf9f6;border:none;border-radius:50%;width:56px;height:56px;font-size:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,0.2);z-index:100}
+
+        .empty{text-align:center;padding:60px 20px;color:#6b6660;font-size:13px}
+        .empty-icon{font-size:32px;margin-bottom:10px}
+    </style>
+</head>
+<body>
+
+<div id="loginOverlay">
+    <div class="login-box">
+        <div class="login-eyebrow">The Ritual Co</div>
+        <h2>Outreach Hub</h2>
+        <input class="login-input" type="password" id="passwordInput" placeholder="Admin password" />
+        <button class="login-btn" id="loginBtn">Unlock</button>
+        <div class="login-error" id="loginError"></div>
+    </div>
+</div>
+
+<div id="app" style="display:none">
+    <div class="header">
+        <div class="header-eyebrow">The Ritual Co · Outreach</div>
+        <h1>Outreach Hub</h1>
+        <div class="tabs" id="tabRow"></div>
+    </div>
+
+    <div class="stats" id="statsRow"></div>
+    <div class="filters" id="filterRow"></div>
+    <div class="cards" id="cardsContainer"></div>
+</div>
+
+<!-- Add sheet -->
+<div class="add-overlay" id="addOverlay" style="display:none" onclick="closeAdd()">
+    <div class="add-sheet" onclick="event.stopPropagation()">
+        <h3>Add contact</h3>
+
+        <div class="field-group">
+            <div class="field-label">Type</div>
+            <div class="type-pills">
+                <button class="type-pill selected" data-type="studio" onclick="selectType(this)">Pilates studio</button>
+                <button class="type-pill" data-type="event" onclick="selectType(this)">Event / community</button>
+                <button class="type-pill" data-type="agency" onclick="selectType(this)">Agency</button>
+                <button class="type-pill" data-type="other" onclick="selectType(this)">Other</button>
+            </div>
+        </div>
+
+        <div class="field-group">
+            <div class="field-label">Name <span style="color:#8b2e2e">*</span></div>
+            <input class="field-input" id="addName" placeholder="Studio / brand name" />
+        </div>
+
+        <div class="field-group">
+            <div class="field-label">Contact person</div>
+            <input class="field-input" id="addPerson" placeholder="Who to reach out to" />
+        </div>
+
+        <div class="field-group">
+            <div class="field-label">Instagram</div>
+            <input class="field-input" id="addHandle" placeholder="@handle" />
+        </div>
+
+        <div class="field-group">
+            <div class="field-label">Email</div>
+            <input class="field-input" id="addEmail" type="email" placeholder="contact@..." />
+        </div>
+
+        <div class="field-group">
+            <div class="field-label">City</div>
+            <input class="field-input" id="addCity" placeholder="Delhi, Mumbai..." />
+        </div>
+
+        <div class="field-group">
+            <div class="field-label">Why them? (your pitch angle)</div>
+            <input class="field-input" id="addPitch" placeholder="e.g. Strong Pilates community in South Delhi" />
+        </div>
+
+        <div class="field-group">
+            <div class="field-label">Deal type</div>
+            <select class="field-select" id="addDeal">
+                <option value="">Not decided</option>
+                <option value="barter">Barter</option>
+                <option value="collab">Collab event</option>
+                <option value="partnership">Partnership</option>
+                <option value="paid">Paid</option>
+            </select>
+        </div>
+
+        <div class="field-group">
+            <div class="field-label">Notes</div>
+            <input class="field-input" id="addNotes" placeholder="Anything else..." />
+        </div>
+
+        <div class="add-btn-row">
+            <button class="add-cancel" onclick="closeAdd()">Cancel</button>
+            <button class="add-submit" onclick="submitAdd()">Add contact</button>
+        </div>
+    </div>
+</div>
+
+<!-- Status modal -->
+<div class="modal-overlay" id="statusModal" style="display:none" onclick="closeModal()">
+    <div class="modal" onclick="event.stopPropagation()">
+        <div class="modal-title" id="modalTitle">Update status</div>
+        <div class="modal-options" id="modalOptions"></div>
+        <button class="modal-cancel" onclick="closeModal()">Cancel</button>
+    </div>
+</div>
+
+<!-- Draft panel -->
+<div class="draft-panel" id="draftPanel">
+    <div class="draft-header">
+        <button class="draft-back" onclick="closeDraft()">←</button>
+        <h2 id="draftTitle">Draft outreach</h2>
+    </div>
+    <div class="draft-body" id="draftBody">
+        <div class="draft-generating">Generating draft…</div>
+    </div>
+</div>
+
+<button class="fab" onclick="openAdd()" title="Add contact">+</button>
+
+<script>
+    const TOKEN_KEY = 'admin_token';
+    let contacts = [];
+    let activeTab = 'studio';
+    let activeFilter = 'all';
+    let sessionToken = '';
+    let addType = 'studio';
+    let modalContactId = null;
+    let currentDraftContact = null;
+
+    const TABS = [
+        { id: 'studio', label: 'Studios' },
+        { id: 'event', label: 'Events' },
+        { id: 'agency', label: 'Agencies' },
+        { id: 'other', label: 'Other' },
+    ];
+
+    const STATUSES = ['identified','contacted','responded','meeting_scheduled','agreed','active','dropped'];
+    const STATUS_LABELS = {
+        identified: 'Identified', contacted: 'Contacted', responded: 'Responded',
+        meeting_scheduled: 'Meeting set', agreed: 'Agreed', active: 'Active', dropped: 'Dropped',
+    };
+
+    const PITCH_TEMPLATES = {
+        studio: (c) => `Hi${c.contact_person ? ' ' + c.contact_person : ''},
+
+I'm Gitika, founder of The Ritual Co — we make aesthetically designed home gym equipment for women. Our hero product is our Silicone Capsule Dumbbells, designed to sit beautifully in any space.
+
+I came across ${c.name} and love what you're building — your community feels really aligned with what we stand for at The Ritual Co.
+
+I'd love to explore a creative partnership — whether that's co-hosting a session, having our dumbbells as part of your space, or something we design together. We're not looking for a sponsorship slot; we'd rather build something that feels native to your community.
+
+Would love to chat if you're open to it!
+
+Warm,
+Gitika
+The Ritual Co | @theritualco.in`,
+
+        event: (c) => `Hi${c.contact_person ? ' ' + c.contact_person : ''},
+
+I'm Gitika, founder of The Ritual Co — a Delhi-based brand making premium home gym equipment for women who care about aesthetics as much as function.
+
+I've been following ${c.name} and love the community you've built. I'd love to explore being a creative partner at one of your upcoming events — not as a sponsor with a banner, but as a brand that genuinely adds to the experience.
+
+Our Silicone Capsule Dumbbells would be a natural fit — they're designed to feel like lifestyle objects, not gym equipment.
+
+Open to a quick call to explore?
+
+Warm,
+Gitika
+The Ritual Co | @theritualco.in`,
+
+        agency: (c) => `Hi${c.contact_person ? ' ' + c.contact_person : ''},
+
+I'm Gitika, founder of The Ritual Co — a premium D2C women's wellness brand based in Delhi. We make aesthetically designed home gym equipment; our hero product is our Silicone Capsule Dumbbells.
+
+We're at an early but exciting stage and looking for a creative partner who can help us build the brand's visual identity and content strategy. Our positioning is "pilates on a yacht" — aspirational, restrained luxury.
+
+Would love to explore if there's a fit with what ${c.name} does.
+
+Warm,
+Gitika
+The Ritual Co | @theritualco.in`,
+
+        other: (c) => `Hi${c.contact_person ? ' ' + c.contact_person : ''},
+
+I'm Gitika, founder of The Ritual Co — a premium women's wellness brand based in Delhi. We make aesthetically designed home gym equipment.
+
+I came across ${c.name} and thought there could be a really interesting collaboration opportunity. I'd love to share more about what we're building and explore if there's a fit.
+
+Would you be open to a quick chat?
+
+Warm,
+Gitika
+The Ritual Co | @theritualco.in`,
+    };
+
+    // ── AUTH ──────────────────────────────────────────────────────────────────────
+    function validateToken(token) {
+        if (!token) return false;
+        const [expires] = token.split('.');
+        return Date.now() < parseInt(expires, 10);
+    }
+
+    async function login() {
+        const password = document.getElementById('passwordInput').value;
+        const errEl = document.getElementById('loginError');
+        const btn = document.getElementById('loginBtn');
+        if (!password) return;
+        btn.textContent = 'Checking…'; btn.disabled = true;
+        try {
+            const res = await fetch('/.netlify/functions/admin-auth', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password }),
+            });
+            const data = await res.json();
+            if (res.ok && data.token) {
+                sessionToken = data.token;
+                sessionStorage.setItem(TOKEN_KEY, data.token);
+                document.getElementById('loginOverlay').style.display = 'none';
+                document.getElementById('app').style.display = 'block';
+                initApp();
+            } else {
+                errEl.textContent = data.error || 'Incorrect password';
+                btn.textContent = 'Unlock'; btn.disabled = false;
+            }
+        } catch {
+            errEl.textContent = 'Network error';
+            btn.textContent = 'Unlock'; btn.disabled = false;
+        }
+    }
+
+    document.getElementById('loginBtn').addEventListener('click', login);
+    document.getElementById('passwordInput').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const token = sessionStorage.getItem(TOKEN_KEY);
+        if (validateToken(token)) {
+            sessionToken = token;
+            document.getElementById('loginOverlay').style.display = 'none';
+            document.getElementById('app').style.display = 'block';
+            initApp();
+        }
+    });
+
+    // ── DATA ──────────────────────────────────────────────────────────────────────
+    async function fetchContacts() {
+        const res = await fetch('/.netlify/functions/outreach-data', {
+            headers: { 'Authorization': 'Bearer ' + sessionToken },
+        });
+        const data = await res.json();
+        return Array.isArray(data.contacts) ? data.contacts : [];
+    }
+
+    async function addContact(fields) {
+        const res = await fetch('/.netlify/functions/outreach-data', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + sessionToken },
+            body: JSON.stringify(fields),
+        });
+        return res.json();
+    }
+
+    async function updateContact(id, fields) {
+        await fetch('/.netlify/functions/outreach-data', {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + sessionToken },
+            body: JSON.stringify({ id, ...fields }),
+        });
+    }
+
+    // ── HELPERS ───────────────────────────────────────────────────────────────────
+    function daysSince(iso) {
+        if (!iso) return null;
+        return Math.floor((Date.now() - new Date(iso)) / 86400000);
+    }
+
+    function getFlag(c) {
+        const days = daysSince(c.contacted_at);
+        if (c.status === 'contacted' && days > 5) return { text: 'No response in ' + days + ' days — follow up', critical: days > 10 };
+        if (c.status === 'identified') return { text: 'Not yet contacted', critical: false };
+        if (c.status === 'responded') return { text: 'Responded — schedule a call', critical: false };
+        if (c.status === 'meeting_scheduled') return { text: 'Meeting scheduled — prep talking points', critical: false };
+        if (c.status === 'agreed') return { text: 'Agreed — next steps pending', critical: false };
+        return null;
+    }
+
+    // ── RENDER ────────────────────────────────────────────────────────────────────
+    function renderTabs() {
+        document.getElementById('tabRow').innerHTML = TABS.map(t =>
+            '<div class="tab' + (activeTab === t.id ? ' active' : '') + '" onclick="setTab(\'' + t.id + '\')">' + t.label + '</div>'
+        ).join('');
+    }
+
+    function renderStats() {
+        const filtered = contacts.filter(c => c.type === activeTab);
+        const counts = {};
+        filtered.forEach(c => { counts[c.status] = (counts[c.status] || 0) + 1; });
+        document.getElementById('statsRow').innerHTML = [
+            { num: filtered.length, label: 'Total' },
+            { num: (counts.contacted || 0) + (counts.responded || 0), label: 'In talks' },
+            { num: (counts.agreed || 0) + (counts.active || 0), label: 'Active' },
+            { num: counts.identified || 0, label: 'To contact' },
+        ].map(s => '<div class="stat"><div class="stat-num">' + s.num + '</div><div class="stat-label">' + s.label + '</div></div>').join('');
+    }
+
+    function renderFilters() {
+        document.getElementById('filterRow').innerHTML = ['all', ...STATUSES].map(s =>
+            '<button class="filter-btn' + (activeFilter === s ? ' active' : '') + '" onclick="setFilter(\'' + s + '\')">' +
+            (s === 'all' ? 'All' : STATUS_LABELS[s]) + '</button>'
+        ).join('');
+    }
+
+    function renderCards() {
+        let filtered = contacts.filter(c => c.type === activeTab);
+        if (activeFilter !== 'all') filtered = filtered.filter(c => c.status === activeFilter);
+
+        if (!filtered.length) {
+            document.getElementById('cardsContainer').innerHTML =
+                '<div class="empty"><div class="empty-icon">+</div>No ' + TABS.find(t=>t.id===activeTab)?.label + ' yet<br><span style="font-size:12px;margin-top:6px;display:block">Tap + to add one</span></div>';
+            return;
+        }
+
+        document.getElementById('cardsContainer').innerHTML = filtered.map(c => {
+            const flag = getFlag(c);
+            return '<div class="card">' +
+                '<div class="card-top">' +
+                '<div><div class="card-name">' + c.name + '</div>' +
+                '<div class="card-sub">' + [c.contact_person, c.city].filter(Boolean).join(' · ') + '</div></div>' +
+                '<span class="status-badge s-' + (c.status||'identified') + '">' + (STATUS_LABELS[c.status]||'Identified') + '</span>' +
+                '</div>' +
+                (flag ? '<div class="flag-bar' + (flag.critical?' critical':'') + '">⚡ ' + flag.text + '</div>' : '') +
+                '<div class="card-meta">' +
+                (c.instagram_handle ? '<div class="meta-item"><strong>@' + c.instagram_handle.replace('@','') + '</strong>Instagram</div>' : '') +
+                (c.email ? '<div class="meta-item"><strong style="font-size:11px">' + c.email + '</strong>Email</div>' : '') +
+                (c.deal_type ? '<div class="meta-item"><strong>' + c.deal_type + '</strong>Deal type</div>' : '') +
+                (c.pitch_angle ? '<div class="meta-item"><strong style="font-size:11px">' + c.pitch_angle + '</strong>Angle</div>' : '') +
+                '</div>' +
+                (c.notes ? '<div class="card-notes">' + c.notes + '</div>' : '') +
+                '<div class="card-actions">' +
+                (c.status === 'identified' || c.status === 'contacted'
+                    ? '<button class="action-btn primary" onclick="openDraft(\'' + c.id + '\')">' + (c.status==='contacted'?'Follow up':'Draft outreach') + '</button>' : '') +
+                '<button class="action-btn" onclick="openStatusModal(\'' + c.id + '\')">Update status</button>' +
+                '</div></div>';
+        }).join('');
+    }
+
+    function render() {
+        renderTabs();
+        renderStats();
+        renderFilters();
+        renderCards();
+    }
+
+    function setTab(t) { activeTab = t; activeFilter = 'all'; render(); }
+    function setFilter(f) { activeFilter = f; render(); }
+
+    // ── ADD CONTACT ───────────────────────────────────────────────────────────────
+    function openAdd() {
+        // Pre-select tab type
+        addType = activeTab;
+        document.querySelectorAll('.type-pill').forEach(p => {
+            p.classList.toggle('selected', p.dataset.type === addType);
+        });
+        document.getElementById('addOverlay').style.display = 'flex';
+    }
+
+    function closeAdd() {
+        document.getElementById('addOverlay').style.display = 'none';
+        ['addName','addPerson','addHandle','addEmail','addCity','addPitch','addNotes'].forEach(id => {
+            document.getElementById(id).value = '';
+        });
+        document.getElementById('addDeal').value = '';
+    }
+
+    function selectType(btn) {
+        document.querySelectorAll('.type-pill').forEach(p => p.classList.remove('selected'));
+        btn.classList.add('selected');
+        addType = btn.dataset.type;
+    }
+
+    async function submitAdd() {
+        const name = document.getElementById('addName').value.trim();
+        if (!name) { document.getElementById('addName').focus(); return; }
+
+        const btn = document.querySelector('.add-submit');
+        btn.textContent = 'Adding…'; btn.disabled = true;
+
+        const fields = {
+            type: addType,
+            name,
+            contact_person: document.getElementById('addPerson').value.trim() || null,
+            instagram_handle: document.getElementById('addHandle').value.trim() || null,
+            email: document.getElementById('addEmail').value.trim() || null,
+            city: document.getElementById('addCity').value.trim() || null,
+            pitch_angle: document.getElementById('addPitch').value.trim() || null,
+            deal_type: document.getElementById('addDeal').value || null,
+            notes: document.getElementById('addNotes').value.trim() || null,
+            status: 'identified',
+        };
+
+        await addContact(fields);
+        closeAdd();
+        btn.textContent = 'Add contact'; btn.disabled = false;
+        contacts = await fetchContacts();
+        activeTab = addType;
+        render();
+    }
+
+    // ── STATUS MODAL ──────────────────────────────────────────────────────────────
+    function openStatusModal(id) {
+        modalContactId = id;
+        const c = contacts.find(x => x.id === id);
+        document.getElementById('modalTitle').textContent = 'Update: ' + c.name;
+        document.getElementById('modalOptions').innerHTML = STATUSES.map(s =>
+            '<button class="modal-option' + (c.status===s?' style="font-weight:600"':'') + '" onclick="setStatus(\'' + s + '\')">' + STATUS_LABELS[s] + '</button>'
+        ).join('');
+        document.getElementById('statusModal').style.display = 'flex';
+    }
+
+    async function setStatus(status) {
+        if (!modalContactId) return;
+        closeModal();
+        const fields = { status, updated_at: new Date().toISOString() };
+        if (status === 'contacted') fields.contacted_at = new Date().toISOString();
+        if (status === 'responded' || status === 'meeting_scheduled' || status === 'agreed') {
+            fields.last_followup_at = new Date().toISOString();
+        }
+        await updateContact(modalContactId, fields);
+        contacts = await fetchContacts();
+        render();
+    }
+
+    function closeModal() {
+        document.getElementById('statusModal').style.display = 'none';
+        modalContactId = null;
+    }
+
+    // ── DRAFT PANEL ───────────────────────────────────────────────────────────────
+    function openDraft(id) {
+        const c = contacts.find(x => x.id === id);
+        currentDraftContact = c;
+        const isFollowUp = c.status === 'contacted';
+
+        document.getElementById('draftTitle').textContent = (isFollowUp ? 'Follow-up: ' : 'Outreach: ') + c.name;
+        document.getElementById('draftPanel').classList.add('open');
+
+        const template = isFollowUp
+            ? `Hi${c.contact_person ? ' ' + c.contact_person : ''},
+
+Just following up on my earlier message about a potential collaboration with The Ritual Co!
+
+We'd love to explore working together — happy to jump on a quick call whenever suits you.
+
+Warm,
+Gitika
+The Ritual Co | @theritualco.in`
+            : (PITCH_TEMPLATES[c.type] || PITCH_TEMPLATES.other)(c);
+
+        document.getElementById('draftBody').innerHTML =
+            '<div class="draft-label">To</div>' +
+            '<input class="draft-field" id="draftTo" value="' + (c.email||'') + '" placeholder="Email address" />' +
+            '<div class="draft-label">Subject</div>' +
+            '<input class="draft-field" id="draftSubject" value="' + (isFollowUp ? 'Following up — The Ritual Co 🤍' : 'The Ritual Co × ' + c.name + ' — creative collab?') + '" />' +
+            '<div class="draft-label">Message</div>' +
+            '<textarea class="draft-field draft-text" id="draftMessage">' + template + '</textarea>' +
+            '<button class="draft-send-btn" onclick="sendDraft()">Send via The Ritual Co email</button>' +
+            '<button class="draft-copy-btn" onclick="copyDraft()">Copy to clipboard</button>';
+    }
+
+    function closeDraft() {
+        document.getElementById('draftPanel').classList.remove('open');
+        currentDraftContact = null;
+    }
+
+    async function sendDraft() {
+        const to = document.getElementById('draftTo').value;
+        const subject = document.getElementById('draftSubject').value;
+        const message = document.getElementById('draftMessage').value;
+        if (!to) { alert('Add an email address first'); return; }
+
+        const btn = document.querySelector('.draft-send-btn');
+        btn.textContent = 'Sending…'; btn.disabled = true;
+
+        try {
+            const res = await fetch('/.netlify/functions/outreach-data', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + sessionToken },
+                body: JSON.stringify({
+                    action: 'send_email',
+                    to, subject, message,
+                    contactId: currentDraftContact.id,
+                }),
+            });
+
+            if (res.ok) {
+                await updateContact(currentDraftContact.id, {
+                    status: 'contacted',
+                    contacted_at: new Date().toISOString(),
+                    email: to,
+                });
+                closeDraft();
+                contacts = await fetchContacts();
+                render();
+                alert('Sent! Status updated to contacted.');
+            } else {
+                btn.textContent = 'Send via The Ritual Co email'; btn.disabled = false;
+                alert('Send failed — copy and send manually.');
+            }
+        } catch {
+            btn.textContent = 'Send via The Ritual Co email'; btn.disabled = false;
+            alert('Network error — copy and send manually.');
+        }
+    }
+
+    function copyDraft() {
+        const message = document.getElementById('draftMessage').value;
+        navigator.clipboard.writeText(message).then(() => {
+            const btn = document.querySelector('.draft-copy-btn');
+            btn.textContent = 'Copied!';
+            setTimeout(() => { btn.textContent = 'Copy to clipboard'; }, 2000);
+        });
+    }
+
+    // ── INIT ──────────────────────────────────────────────────────────────────────
+    async function initApp() {
+        contacts = await fetchContacts();
+        render();
+    }
+</script>
+</body>
+</html>
