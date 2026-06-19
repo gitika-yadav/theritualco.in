@@ -200,6 +200,15 @@ function analysePipeline(creators) {
     });
 }
 
+function parseJSON(raw) {
+    // Strip markdown fences, leading/trailing whitespace
+    let cleaned = raw.replace(/```json\s*/gi, "").replace(/```\s*/g, "").trim();
+    // Extract first { ... } block if there's extra text around it
+    const match = cleaned.match(/\{[\s\S]*\}/);
+    if (match) cleaned = match[0];
+    try { return JSON.parse(cleaned); } catch { return null; }
+}
+
 // ── EMAIL TEMPLATE ─────────────────────────────────────────────────────────────
 function buildEmail(subject, decision, actions, isUrgent) {
     const headerBg = isUrgent ? "#5c1a1a" : "#1a1814";
@@ -287,8 +296,9 @@ async function morningBriefing() {
         800);
 
     let decision;
-    try { decision = JSON.parse(raw.replace(/```json|```/g, "").trim()); }
-    catch { decision = { summary: raw.slice(0, 300), actions: [], insights: [], nextCheckIn: "tomorrow" }; }
+    decision = parseJSON(raw);
+    if (!decision) {
+        decision = { summary: raw.slice(0, 300), actions: [], insights: [], nextCheckIn: "tomorrow" }; }
 
     const finalActions = [];
     for (const action of (decision.actions || [])) {
@@ -338,8 +348,9 @@ async function handleTask(context) {
         800);
 
     let decision;
-    try { decision = JSON.parse(raw.replace(/```json|```/g, "").trim()); }
-    catch { decision = { summary: raw, actions: [{ type: "report", title: "Response", content: raw, requiresApproval: false, priority: "medium" }], insights: [] }; }
+    decision = parseJSON(raw);
+    if (!decision) {
+        decision = { summary: raw, actions: [{ type: "report", title: "Response", content: raw, requiresApproval: false, priority: "medium" }], insights: [] }; }
 
     for (const action of (decision.actions || [])) {
         await logAction({

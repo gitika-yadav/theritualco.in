@@ -202,9 +202,12 @@ const SYSTEM_PROMPT = `Finance & Compliance Agent for The Ritual Co / IORO Movem
 Be extremely concise. Prioritise ruthlessly. Max 3 actions per response.
 
 Return ONLY valid JSON, no other text:
-{"summary":"1-2 sentences","actions":[{"id":"snake_id","type":"alert|report|draft_for_approval","priority":"critical|high|medium|low","title":"short title","content":"1-2 sentence description only","requiresApproval":false,"estimatedPenalty":null}],"insights":[],"nextCheckIn":"tomorrow"}
+{"summary":"1-2 sentences","actions":[{"id":"snake_id","type":"alert|report|draft_for_approval","priority":"critical|high|medium|low","title":"short title","content":"1-2 sentence description only","requiresApproval":true,"estimatedPenalty":null}],"insights":[],"nextCheckIn":"tomorrow"}
 
-requiresApproval true only for emails to external parties.`;
+requiresApproval rules:
+- true: anything Gitika must physically do (open account, file documents, call someone, pay something)
+- true: any email to external party (CA, bank, MCA)
+- false: ONLY pure internal reports with zero action required`;
 
 // ── EMAIL TEMPLATE ────────────────────────────────────────────────────────────
 function buildEmail(subject, decision, actions, isUrgent) {

@@ -343,6 +343,24 @@
             min-height: 18px;
         }
 
+        /* EDIT PANEL */
+        .edit-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 1000; display: flex; align-items: flex-end; justify-content: center; }
+        .edit-sheet { background: var(--paper); border-radius: 16px 16px 0 0; padding: 24px 24px 48px; width: 100%; max-width: 600px; max-height: 85vh; overflow-y: auto; }
+        .edit-sheet h3 { font-family: 'DM Serif Display', serif; font-size: 17px; font-weight: 400; margin-bottom: 18px; color: var(--ink); }
+        .edit-label { font-size: 11px; font-weight: 500; color: var(--ash); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 5px; margin-top: 14px; }
+        .edit-input { width: 100%; padding: 9px 12px; border: 1px solid var(--cream); border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--ink); background: var(--mist); outline: none; }
+        .edit-input:focus { border-color: var(--blush); }
+        .edit-textarea { width: 100%; padding: 9px 12px; border: 1px solid var(--cream); border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--ink); background: var(--mist); outline: none; resize: vertical; min-height: 80px; line-height: 1.5; }
+        .edit-textarea:focus { border-color: var(--blush); }
+        .edit-btn-row { display: flex; gap: 8px; margin-top: 18px; }
+        .edit-save { flex: 1; padding: 11px; background: var(--ink); color: #faf9f6; border: none; border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; }
+        .edit-cancel { padding: 11px 18px; background: transparent; color: var(--ash); border: 1px solid var(--cream); border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: 13px; cursor: pointer; }
+        .task-updates { margin-top: 8px; }
+        .task-update-item { font-size: 11px; color: var(--ash); background: var(--mist); border-radius: 4px; padding: 5px 8px; margin-top: 4px; line-height: 1.4; }
+        .task-update-time { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--blush); margin-right: 6px; }
+        .task-edit-btn { font-size: 10px; color: var(--blush); background: none; border: none; cursor: pointer; margin-left: 8px; font-family: 'DM Sans', sans-serif; opacity: 0.7; }
+        .task-edit-btn:hover { opacity: 1; color: var(--ash); }
+
         @media print {
             .print-btn { display: none; }
             body { padding: 20px; }
@@ -594,6 +612,27 @@
 
 </div>
 
+<div class="edit-overlay" id="editOverlay" style="display:none" onclick="closeEdit()">
+    <div class="edit-sheet" onclick="event.stopPropagation()">
+        <h3 id="editTitle">Update task</h3>
+        <div class="edit-label">Task name</div>
+        <input class="edit-input" id="editName" />
+        <div class="edit-label">Add update / note</div>
+        <textarea class="edit-textarea" id="editNote" placeholder="e.g. Called HDFC, appointment scheduled for Monday..."></textarea>
+        <div class="edit-label">Badge</div>
+        <select class="edit-input" id="editBadge">
+            <option value="urgent">Urgent</option>
+            <option value="warn">Soon</option>
+            <option value="pending">Pending</option>
+            <option value="done">Done</option>
+        </select>
+        <div class="edit-btn-row">
+            <button class="edit-cancel" onclick="closeEdit()">Cancel</button>
+            <button class="edit-save" onclick="saveEdit()">Save</button>
+        </div>
+    </div>
+</div>
+
 <button class="print-btn" onclick="window.print()">Save as PDF</button>
 
 <script>
@@ -673,6 +712,86 @@
         updateProgress();
     }
 
+    // ── EDIT PANEL ────────────────────────────────────────────────────────
+    let currentEditId = null;
+
+    function openEdit(taskId, e) {
+        e.stopPropagation();
+        currentEditId = taskId;
+        const state = getState();
+        const task = document.querySelector('[data-id="' + taskId + '"]');
+        const nameEl = task.querySelector('.task-name');
+
+        document.getElementById('editTitle').textContent = 'Update task';
+        document.getElementById('editName').value = state['__name__' + taskId] || nameEl.textContent.trim();
+        document.getElementById('editNote').value = '';
+        document.getElementById('editBadge').value = state['__badge__' + taskId] || 'urgent';
+        document.getElementById('editOverlay').style.display = 'flex';
+    }
+
+    function closeEdit() {
+        document.getElementById('editOverlay').style.display = 'none';
+        currentEditId = null;
+    }
+
+    function saveEdit() {
+        if (!currentEditId) return;
+        const state = getState();
+        const name = document.getElementById('editName').value.trim();
+        const note = document.getElementById('editNote').value.trim();
+        const badge = document.getElementById('editBadge').value;
+
+        if (name) state['__name__' + currentEditId] = name;
+        state['__badge__' + currentEditId] = badge;
+
+        if (note) {
+            const updates = state['__updates__' + currentEditId] || [];
+            updates.unshift({ text: note, time: new Date().toLocaleString('en-IN', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) });
+            state['__updates__' + currentEditId] = updates;
+        }
+
+        saveState(state);
+        closeEdit();
+        applyEdits();
+    }
+
+    function applyEdits() {
+        const state = getState();
+        document.querySelectorAll('.task').forEach(task => {
+            const id = task.dataset.id;
+            if (!id) return;
+
+            // Apply custom name
+            const customName = state['__name__' + id];
+            if (customName) task.querySelector('.task-name').textContent = customName;
+
+            // Apply badge
+            const badge = state['__badge__' + id];
+            if (badge) {
+                const badgeEl = task.querySelector('.task-badge');
+                if (badgeEl) {
+                    badgeEl.className = 'task-badge badge-' + badge;
+                    const labels = { urgent: 'Urgent', warn: 'Soon', pending: 'Pending', done: 'Done' };
+                    badgeEl.textContent = labels[badge] || badge;
+                }
+            }
+
+            // Render updates
+            const updates = state['__updates__' + id] || [];
+            let updatesEl = task.querySelector('.task-updates');
+            if (!updatesEl && updates.length) {
+                updatesEl = document.createElement('div');
+                updatesEl.className = 'task-updates';
+                task.querySelector('.task-body').appendChild(updatesEl);
+            }
+            if (updatesEl) {
+                updatesEl.innerHTML = updates.map(u =>
+                    '<div class="task-update-item"><span class="task-update-time">' + u.time + '</span>' + u.text + '</div>'
+                ).join('');
+            }
+        });
+    }
+
     function updateProgress() {
         const all = document.querySelectorAll('.task');
         const done = document.querySelectorAll('.task-check.checked').length;
@@ -686,11 +805,22 @@
         const state = getState();
         tasks.forEach((task, i) => {
             task.dataset.id = 'task-' + i;
+
+            // Add edit button next to task name
+            const nameEl = task.querySelector('.task-name');
+            const editBtn = document.createElement('button');
+            editBtn.className = 'task-edit-btn';
+            editBtn.textContent = 'edit';
+            editBtn.onclick = (e) => openEdit('task-' + i, e);
+            nameEl.parentNode.insertBefore(editBtn, nameEl.nextSibling);
+
+            // Restore checked state
             if (state['task-' + i]) {
                 task.querySelector('.task-check').classList.add('checked');
                 task.querySelector('.task-name').classList.add('done-text');
             }
         });
+
         const notes = document.getElementById('notesArea');
         notes.value = state['__notes__'] || '';
         notes.addEventListener('input', () => {
@@ -698,6 +828,8 @@
             s['__notes__'] = notes.value;
             saveState(s);
         });
+
+        applyEdits();
         updateProgress();
     }
 </script>
