@@ -329,8 +329,8 @@
                 '<div class="meta-item"><strong>₹' + (c.barter_value || 0) + '</strong>Barter value</div>' +
                 '</div>' +
                 '<div class="card-actions">' +
-                (c.status === 'shortlisted' ? '<button class="action-btn primary" onclick="openDraft(\'' + c.id + '\')">Draft outreach</button>' : '') +
-                (c.status === 'contacted' ? '<button class="action-btn primary" onclick="openDraft(\'' + c.id + '\', true)">Follow up</button>' : '') +
+                (c.status === 'shortlisted' ? '<button class="action-btn primary" onclick="openDraft(\'' + c.id + '\')">Confirm ambassador</button>' : '') +
+                (c.status === 'contacted' ? '<button class="action-btn primary" onclick="openDraft(\'' + c.id + '\', true)">Request address</button>' : '') +
                 (c.status === 'agreed' ? '<button class="action-btn primary" onclick="markStatus(\'' + c.id + '\', \'product_sent\')">Mark product sent</button>' : '') +
                 (c.status === 'product_sent' ? '<button class="action-btn primary" onclick="markStatus(\'' + c.id + '\', \'posted\')">Mark posted</button>' : '') +
                 (c.status === 'posted' ? '<button class="action-btn primary" onclick="markStatus(\'' + c.id + '\', \'completed\')">Mark completed</button>' : '') +
@@ -388,41 +388,40 @@
         currentDraftCreator = c;
         const code = c.discount_code || generateCode(c.instagram_handle);
 
-        document.getElementById('draftTitle').textContent = isFollowUp ? 'Follow-up: ' + c.name : 'Outreach: ' + c.name;
+        document.getElementById('draftTitle').textContent = isFollowUp ? 'Address request: ' + c.name : 'Confirm ambassador: ' + c.name;
         document.getElementById('draftTo').value = c.email || '(no email on file)';
         document.getElementById('draftSubject').value = isFollowUp
-            ? 'Following up — The Ritual Co Ambassador Programme 🤍'
-            : 'You\'ve been selected — The Ritual Co Ambassador Programme 🤍';
+            ? 'Shipping your package — The Ritual Co 🤍'
+            : 'You\'re confirmed — The Ritual Co Ambassador 🤍';
 
         const outreachTemplate = isFollowUp
             ? `Hi ${c.name},
 
-Just following up on my earlier message about The Ritual Co ambassador programme — wanted to make sure it didn't get lost!
+Just checking in — we'd love to get your package out to you this week!
 
-We'd love to send you our Silicone Capsule Dumbbells (${c.product_allocated || 'our signature dumbbells'}) in exchange for a dedicated reel on your feed. Your aesthetic feels really aligned with what we're building.
+Could you reply with your shipping address (full address with pincode) so we can send your Silicone Capsule Dumbbells across?
 
-Your unique discount code for the caption: ${code}
-
-Let me know if you're in — happy to answer any questions!
+We're shipping within the next 7 days and are so excited for you to try them.
 
 Warm,
 Gitika
 The Ritual Co | @theritualco.in`
             : `Hi ${c.name},
 
-I'm Gitika, founder of The Ritual Co — we make aesthetically designed home gym equipment for women who want their space to feel as good as their routine.
+You're confirmed as a The Ritual Co ambassador — we're so excited to have you! 🤍
 
-We came across your profile and loved your content — your aesthetic is exactly what The Ritual Co is about. We'd love to have you as one of our first ambassadors.
+Here's a quick recap of our collab terms:
 
-Here's what we're offering:
-→ ${c.product_allocated || 'Silicone Capsule Dumbbells'} sent to you (barter, no payment required)
-→ One dedicated reel on your feed (not a story, not a collab post)
-→ Tag @theritualco.in + use your unique code in caption
-→ 14 days from receiving product to post
+→ We're gifting you our Silicone Capsule Dumbbells (cast iron core, silicone coating — available in Peach, Grey, Cream and Black)
+→ In exchange, we'd love one dedicated reel on your feed within 14 days of receiving your package
+→ Tag @theritualco.in and use your unique discount code in the caption so your community gets a special rate
+→ Your code: ${code}
 
-Your unique discount code: ${code}
+To get your package to you — could you please reply with your shipping address (full address with pincode)?
 
-We're a small Delhi-based brand just launching — this would genuinely mean a lot to us. Let me know if you're interested and I'll send across the full brief!
+We'll be shipping within the next week. Can't wait for you to try these!
+
+Any questions, just reply here.
 
 Warm,
 Gitika
