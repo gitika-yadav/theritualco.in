@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D366Q7R3XB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-D366Q7R3XB');
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pilates Training Blogs – The Ritual Co</title>
+    <meta name="description" content="Pilates-inspired strength training guides, dumbbell weight advice, and home pilates corner ideas by The Ritual Co. Your pastel fitness ritual starts here." />
+    <meta property="og:title" content="Pilates Training Blogs – The Ritual Co" />
+    <meta property="og:description" content="Pilates-inspired strength training guides, dumbbell weight advice, and home pilates corner ideas by The Ritual Co." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://theritualco.in/blog/pilates/pilates-bloglist" />
+    <meta property="og:image" content="https://theritualco.in/images/favicon.png" />
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/blog.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Playfair+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+<div class="page-wrapper">
+    <div id="navbar-placeholder"></div>
+    <main class="main-content blog-listing">
+
+        <!-- Breadcrumbs -->
+        <nav class="breadcrumbs">
+            <a href="/">Home</a> › <a href="/blog">Blog</a> › Pilates Training
+        </nav>
+
+        <h1>Pilates Training</h1>
+        <p class="intro">Pilates-inspired strength work, light-weight dumbbell guidance, and pastel-powered home pilates rituals from The Ritual Co.</p>
+
+        <section class="blog-grid">
+
+            <article class="blog-card">
+                <a href="/blog/pilates/pilates-dumbbells-guide">
+                    <h2>Pilates Dumbbells: The Complete Guide (2026) – The Ritual Co</h2>
+                    <p>Everything you need to know about using dumbbells in Pilates — benefits, ideal weights, technique tips, and how to choose the right pair for low-impact strength work.</p>
+                </a>
+            </article>
+
+            <article class="blog-card">
+                <a href="/blog/pilates/best-dumbbell-weight-for-pilates">
+                    <h2>Best Dumbbell Weight for Pilates (2026 Guide)</h2>
+                    <p>1kg or 2kg? Here's how to choose the right dumbbell weight for Pilates based on your experience level, goals, and the exercises you do most.</p>
+                </a>
+            </article>
+
+            <article class="blog-card">
+                <a href="/blog/pilates/pilates-for-beginners">
+                    <h2>Pilates for Beginners: Where to Start</h2>
+                    <p>New to Pilates? Learn the core principles, what equipment you actually need, and how to build a sustainable practice from week one.</p>
+                </a>
+            </article>
+
+            <article class="blog-card">
+                <a href="/blog/pilates/pilates-dumbbell-exercises">
+                    <h2>10 Pilates-Inspired Dumbbell Exercises at Home</h2>
+                    <p>A full mat-and-dumbbell routine you can do in your living room — no reformer required. Ten moves to build long, lean strength.</p>
+                </a>
+            </article>
+
+            <article class="blog-card">
+                <a href="/blog/pilates/aesthetic-home-pilates-corner">
+                    <h2>How to Build an Aesthetic Home Pilates Corner</h2>
+                    <p>Turn a small corner of your home into a pilates-on-a-yacht wellness ritual — layout, props, lighting, and the equipment worth keeping visible.</p>
+                </a>
+            </article>
+
+        </section>
+
+    </main>
+    <div id="footer-placeholder"></div>
+</div>
+
+<!-- Load Navbar and Footer -->
+<script>
+    fetch("/partials/navbar")
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById("navbar-placeholder").innerHTML = data;
+// ✅ Load the JS only after navbar is injected
+            const script = document.createElement('script');
+            script.src = '/javascript/navbar.js';
+            document.body.appendChild(script);
+        });
+
+    fetch("/partials/footer")
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById("footer-placeholder").innerHTML = data;
+        });
+</script>
+</body>
+</html>
