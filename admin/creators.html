@@ -236,11 +236,20 @@
             deadline.setDate(deadline.getDate() + 14);
             fields.posting_deadline = deadline.toISOString();
         }
-        await fetch('/.netlify/functions/creator-data', {
+        const res = await fetch('/.netlify/functions/creator-data', {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + sessionToken },
             body: JSON.stringify({ id, ...fields }),
         });
+        if (res.status === 401) {
+            alert('Session expired — please refresh and log in again.');
+            return;
+        }
+        if (!res.ok) {
+            const err = await res.json().catch(() => ({}));
+            console.error('Update failed:', res.status, err);
+            alert('Update failed: ' + (err.error || res.status) + '\n\nDetail: ' + (err.detail || 'check Netlify logs'));
+        }
     }
 
     // ── HELPERS ───────────────────────────────────────────────────────────────────
