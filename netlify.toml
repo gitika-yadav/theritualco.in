@@ -31,4 +31,3 @@
  from = "/*.html"
  to   = "/:splat"
  status = 301
- force = true
