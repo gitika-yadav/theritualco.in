@@ -24,5 +24,11 @@
 
 [[redirects]]
  from = "/account"
- to   = "/account/orders.html"
+ to   = "/account/orders"
  status = 301
+
+[[redirects]]
+ from = "/*.html"
+ to   = "/:splat"
+ status = 301
+ force = true
