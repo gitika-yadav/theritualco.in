@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="add fitness brand article">
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="fix">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/capsule-dumbbell.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/capsule-dumbbell.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/dumbbells/capsule-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/capsule-dumbbells.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/dumbbells/dumbbell-exercises-for-arms.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/dumbbell-exercises-for-arms.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/dumbbells/womens-dumbbell.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/womens-dumbbell.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/founder.html" beforeDir="false" afterPath="$PROJECT_DIR$/founder.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/press.html" beforeDir="false" afterPath="$PROJECT_DIR$/press.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/products/products.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/products.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,23 +36,23 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0000000000001688" />
-      <entry key="MS500" value="1.0027890703263103" />
-      <entry key="S2" value="1.2325122069195178" />
-      <entry key="S5" value="1.649317898764593" />
-      <entry key="S10" value="2.0646703883726913" />
-      <entry key="S30" value="3.065757581074354" />
-      <entry key="S60" value="3.9781201919216245" />
-      <entry key="M2" value="4.78262100426126" />
-      <entry key="M5" value="5.450832570636272" />
-      <entry key="M10" value="5.7137606090935416" />
-      <entry key="M15" value="5.8064786046028996" />
-      <entry key="M30" value="5.901864474329625" />
-      <entry key="H1" value="5.9505833204693825" />
-      <entry key="H2" value="5.97521565648204" />
-      <entry key="H4" value="6.002643701837529" />
-      <entry key="D1" value="15.244585802107505" />
-      <entry key="W1" value="303.97474035686736" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0000000215751765" />
+      <entry key="S10" value="1.0001992677778766" />
+      <entry key="S30" value="1.0958420844108097" />
+      <entry key="S60" value="1.5724859454569133" />
+      <entry key="M2" value="2.83652788270658" />
+      <entry key="M5" value="5.277864416451197" />
+      <entry key="M10" value="6.815669663676802" />
+      <entry key="M15" value="7.4596705204303815" />
+      <entry key="M30" value="8.18419508127727" />
+      <entry key="H1" value="8.579959390255798" />
+      <entry key="H2" value="8.7868604593828" />
+      <entry key="H4" value="8.907486613648004" />
+      <entry key="D1" value="18.207391096974423" />
+      <entry key="W1" value="306.87448693039147" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -60,32 +65,32 @@
       <entry key="M2" value="0.0" />
       <entry key="M5" value="0.0" />
       <entry key="M10" value="0.0" />
-      <entry key="M15" value="4.74408590556158E-267" />
-      <entry key="M30" value="7.641201049964214E-134" />
-      <entry key="H1" value="3.510031867271011E-67" />
-      <entry key="H2" value="8.105033494675766E-34" />
-      <entry key="H4" value="3.990881736095015E-17" />
-      <entry key="D1" value="0.004337547377514821" />
-      <entry key="W1" value="4.411889809264926" />
+      <entry key="M15" value="3.803448082191514E-267" />
+      <entry key="M30" value="6.84185869735265E-134" />
+      <entry key="H1" value="3.321370288656598E-67" />
+      <entry key="H2" value="7.88420544338618E-34" />
+      <entry key="H4" value="3.936138917709752E-17" />
+      <entry key="D1" value="0.004327573884913415" />
+      <entry key="W1" value="4.4104391746996106" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.7955364837550774" />
-      <entry key="MS500" value="0.9580374246391137" />
-      <entry key="S2" value="1.2204135165141943" />
-      <entry key="S5" value="1.6439049155359702" />
-      <entry key="S10" value="2.061654374369087" />
-      <entry key="S30" value="3.0644648159271206" />
-      <entry key="S60" value="3.9773301256603175" />
-      <entry key="M2" value="4.782160866407827" />
-      <entry key="M5" value="5.450626601034514" />
-      <entry key="M10" value="5.713653286659728" />
-      <entry key="M15" value="5.806406034548073" />
-      <entry key="M30" value="5.901827663198919" />
-      <entry key="H1" value="5.95056478045014" />
-      <entry key="H2" value="5.9752063523772545" />
-      <entry key="H4" value="6.002638971261073" />
-      <entry key="D1" value="15.248913216861025" />
-      <entry key="W1" value="308.3865215898304" />
+      <entry key="MS100" value="0.9862327044933592" />
+      <entry key="MS500" value="0.9972312513520695" />
+      <entry key="S2" value="0.9993070929904525" />
+      <entry key="S5" value="0.9997228011073721" />
+      <entry key="S10" value="1.0000605139384802" />
+      <entry key="S30" value="1.0957731759713896" />
+      <entry key="S60" value="1.5723849474555305" />
+      <entry key="M2" value="2.8363753317026372" />
+      <entry key="M5" value="5.277719750411036" />
+      <entry key="M10" value="6.815570520215305" />
+      <entry key="M15" value="7.4595969062616865" />
+      <entry key="M30" value="8.184154036543472" />
+      <entry key="H1" value="8.579937708950402" />
+      <entry key="H2" value="8.786849315509672" />
+      <entry key="H4" value="8.907480895176725" />
+      <entry key="D1" value="18.211708385210308" />
+      <entry key="W1" value="311.2848175392791" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -171,14 +176,6 @@
       <workItem from="1779695741143" duration="8369000" />
       <workItem from="1780831623909" duration="98941000" />
       <workItem from="1781737896564" duration="11840000" />
-    </task>
-    <task id="LOCAL-00068" summary="update sitemap.xml">
-      <option name="closed" value="true" />
-      <created>1780784702443</created>
-      <option name="number" value="00068" />
-      <option name="presentableId" value="LOCAL-00068" />
-      <option name="project" value="LOCAL" />
-      <updated>1780784702443</updated>
     </task>
     <task id="LOCAL-00069" summary="fix">
       <option name="closed" value="true" />
@@ -564,7 +561,15 @@
       <option name="project" value="LOCAL" />
       <updated>1781990202425</updated>
     </task>
-    <option name="localTasksCounter" value="117" />
+    <task id="LOCAL-00117" summary="fix">
+      <option name="closed" value="true" />
+      <created>1782138462039</created>
+      <option name="number" value="00117" />
+      <option name="presentableId" value="LOCAL-00117" />
+      <option name="project" value="LOCAL" />
+      <updated>1782138462039</updated>
+    </task>
+    <option name="localTasksCounter" value="118" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -592,11 +597,11 @@
     <MESSAGE value="enhancements" />
     <MESSAGE value="switch to haiku" />
     <MESSAGE value="fetch pending all" />
-    <MESSAGE value="fix" />
     <MESSAGE value="fix seo issues" />
     <MESSAGE value="add pilates blogs" />
     <MESSAGE value="add fitness brand article" />
-    <option name="LAST_COMMIT_MESSAGE" value="add fitness brand article" />
+    <MESSAGE value="fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
