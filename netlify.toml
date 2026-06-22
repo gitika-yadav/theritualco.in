@@ -12,6 +12,7 @@
 
 [build.environment]
  NODE_VERSION = "18"
+ SECRETS_SCAN_OMIT_KEYS = "SUPABASE_ANON_KEY"
 
 # ── Set these in Netlify Dashboard → Site → Environment Variables ──
 # RAZORPAY_KEY_ID        = rzp_live_StfKLLzsHxMey6
