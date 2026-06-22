@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="add pilates blogs">
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="add fitness brand article">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/products/capsule-dumbbell.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/capsule-dumbbell.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,23 +31,23 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0053191098335605" />
-      <entry key="MS500" value="1.7036538951952709" />
-      <entry key="S2" value="3.8253986942956755" />
-      <entry key="S5" value="5.31247895530969" />
-      <entry key="S10" value="6.060219940187672" />
-      <entry key="S30" value="6.662348692101964" />
-      <entry key="S60" value="6.862099289641688" />
-      <entry key="M2" value="7.290128539803502" />
-      <entry key="M5" value="8.64248070213798" />
-      <entry key="M10" value="9.832576630728932" />
-      <entry key="M15" value="10.41134161472461" />
-      <entry key="M30" value="11.121834769024735" />
-      <entry key="H1" value="11.53730436365713" />
-      <entry key="H2" value="11.76255752172175" />
-      <entry key="H4" value="11.928443617339079" />
-      <entry key="D1" value="23.387058329975176" />
-      <entry key="W1" value="346.20906983248204" />
+      <entry key="MS100" value="1.0000000000001688" />
+      <entry key="MS500" value="1.0027890703263103" />
+      <entry key="S2" value="1.2325122069195178" />
+      <entry key="S5" value="1.649317898764593" />
+      <entry key="S10" value="2.0646703883726913" />
+      <entry key="S30" value="3.065757581074354" />
+      <entry key="S60" value="3.9781201919216245" />
+      <entry key="M2" value="4.78262100426126" />
+      <entry key="M5" value="5.450832570636272" />
+      <entry key="M10" value="5.7137606090935416" />
+      <entry key="M15" value="5.8064786046028996" />
+      <entry key="M30" value="5.901864474329625" />
+      <entry key="H1" value="5.9505833204693825" />
+      <entry key="H2" value="5.97521565648204" />
+      <entry key="H4" value="6.002643701837529" />
+      <entry key="D1" value="15.244585802107505" />
+      <entry key="W1" value="303.97474035686736" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -59,32 +60,32 @@
       <entry key="M2" value="0.0" />
       <entry key="M5" value="0.0" />
       <entry key="M10" value="0.0" />
-      <entry key="M15" value="2.027775043641304E-217" />
-      <entry key="M30" value="4.995687241875342E-109" />
-      <entry key="H1" value="8.97486380266876E-55" />
-      <entry key="H2" value="1.2960245181777922E-27" />
-      <entry key="H4" value="5.0465904337902173E-14" />
-      <entry key="D1" value="0.01426370774356291" />
-      <entry key="W1" value="5.229740193239751" />
+      <entry key="M15" value="4.74408590556158E-267" />
+      <entry key="M30" value="7.641201049964214E-134" />
+      <entry key="H1" value="3.510031867271011E-67" />
+      <entry key="H2" value="8.105033494675766E-34" />
+      <entry key="H4" value="3.990881736095015E-17" />
+      <entry key="D1" value="0.004337547377514821" />
+      <entry key="W1" value="4.411889809264926" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9905937443030577" />
-      <entry key="MS500" value="1.6003670206987592" />
-      <entry key="S2" value="3.738788754554985" />
-      <entry key="S5" value="5.2679455912004185" />
-      <entry key="S10" value="6.0359798375846045" />
-      <entry key="S30" value="6.653791997405958" />
-      <entry key="S60" value="6.857617393441137" />
-      <entry key="M2" value="7.287166071331016" />
-      <entry key="M5" value="8.640300494709512" />
-      <entry key="M10" value="9.83108687275432" />
-      <entry key="M15" value="10.410227290203734" />
-      <entry key="M30" value="11.1212065365583" />
-      <entry key="H1" value="11.536970231668116" />
-      <entry key="H2" value="11.76238514315482" />
-      <entry key="H4" value="11.92835603514242" />
-      <entry key="D1" value="23.401291436455406" />
-      <entry key="W1" value="351.43868147688124" />
+      <entry key="MS100" value="0.7955364837550774" />
+      <entry key="MS500" value="0.9580374246391137" />
+      <entry key="S2" value="1.2204135165141943" />
+      <entry key="S5" value="1.6439049155359702" />
+      <entry key="S10" value="2.061654374369087" />
+      <entry key="S30" value="3.0644648159271206" />
+      <entry key="S60" value="3.9773301256603175" />
+      <entry key="M2" value="4.782160866407827" />
+      <entry key="M5" value="5.450626601034514" />
+      <entry key="M10" value="5.713653286659728" />
+      <entry key="M15" value="5.806406034548073" />
+      <entry key="M30" value="5.901827663198919" />
+      <entry key="H1" value="5.95056478045014" />
+      <entry key="H2" value="5.9752063523772545" />
+      <entry key="H4" value="6.002638971261073" />
+      <entry key="D1" value="15.248913216861025" />
+      <entry key="W1" value="308.3865215898304" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -170,14 +171,6 @@
       <workItem from="1779695741143" duration="8369000" />
       <workItem from="1780831623909" duration="98941000" />
       <workItem from="1781737896564" duration="11840000" />
-    </task>
-    <task id="LOCAL-00067" summary="add new artices for silicone , pvc and neoprene">
-      <option name="closed" value="true" />
-      <created>1780784571710</created>
-      <option name="number" value="00067" />
-      <option name="presentableId" value="LOCAL-00067" />
-      <option name="project" value="LOCAL" />
-      <updated>1780784571710</updated>
     </task>
     <task id="LOCAL-00068" summary="update sitemap.xml">
       <option name="closed" value="true" />
@@ -563,14 +556,21 @@
       <option name="project" value="LOCAL" />
       <updated>1781989787438</updated>
     </task>
-    <option name="localTasksCounter" value="116" />
+    <task id="LOCAL-00116" summary="add fitness brand article">
+      <option name="closed" value="true" />
+      <created>1781990202425</created>
+      <option name="number" value="00116" />
+      <option name="presentableId" value="LOCAL-00116" />
+      <option name="project" value="LOCAL" />
+      <updated>1781990202425</updated>
+    </task>
+    <option name="localTasksCounter" value="117" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix thank you" />
     <MESSAGE value="title fix" />
     <MESSAGE value="fixed swatches + add images" />
     <MESSAGE value="minor fix" />
@@ -595,7 +595,8 @@
     <MESSAGE value="fix" />
     <MESSAGE value="fix seo issues" />
     <MESSAGE value="add pilates blogs" />
-    <option name="LAST_COMMIT_MESSAGE" value="add pilates blogs" />
+    <MESSAGE value="add fitness brand article" />
+    <option name="LAST_COMMIT_MESSAGE" value="add fitness brand article" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
