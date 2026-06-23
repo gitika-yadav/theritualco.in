@@ -2,6 +2,7 @@ User-agent: *
 Allow: /
 
 Disallow: /account/
+Disallow: /admin/
 Disallow: /thank-you.html
 Disallow: /cart.html
 Disallow: /checkout.html
