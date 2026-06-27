@@ -448,9 +448,12 @@
             currency: 'INR',
             value: priceVal,
             items: [{
-                item_id: 'capsule-dumbbell-' + weightVal,
-                item_name: nameVal,
-                price: priceVal
+                item_id: 'capsule-dumbbell',
+                item_name: 'Capsule Dumbbells',
+                item_variant: weightVal,   // '1kg' / '2kg' — captures the variant
+                item_category: 'Dumbbells',
+                price: priceVal,
+                quantity: 1
             }]
         });
 
@@ -468,9 +471,11 @@
         currency: 'INR',
         value: 1499,
         items: [{
-            item_id: 'capsule-dumbbell-1kg',
+            item_id: 'capsule-dumbbell',
             item_name: 'Capsule Dumbbells',
-            price: 1499
+            item_category: 'Dumbbells',
+            price: 1499,
+            quantity: 1
         }]
     });
 </script>

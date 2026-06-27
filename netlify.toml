@@ -1,5 +1,6 @@
 [build]
  publish = "."
+ command = "node javascript/generate-sitemap.js"
  functions = "netlify/functions"
  ignore_secrets = ["SUPABASE_ANON_KEY"]
 
