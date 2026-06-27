@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="clean">
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="add gtags for checkout journey + fix sitemap genration">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/checkout.html" beforeDir="false" afterPath="$PROJECT_DIR$/checkout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/netlify.toml" beforeDir="false" afterPath="$PROJECT_DIR$/netlify.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/capsule-dumbbell.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/capsule-dumbbell.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sitemap.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sitemap.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/weightloss/weightloss-bloglist.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/weightloss/weightloss-with-dumbbells.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,23 +33,23 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0122591265296368" />
-      <entry key="MS500" value="1.4146597729072208" />
-      <entry key="S2" value="1.8025323588490834" />
-      <entry key="S5" value="1.9524465105989552" />
-      <entry key="S10" value="2.283590635359521" />
-      <entry key="S30" value="3.6080573407560483" />
-      <entry key="S60" value="4.511602204837152" />
-      <entry key="M2" value="5.1896037492773965" />
-      <entry key="M5" value="6.734552879554724" />
-      <entry key="M10" value="9.805065296900013" />
-      <entry key="M15" value="12.400407476900979" />
-      <entry key="M30" value="18.907703858103332" />
-      <entry key="H1" value="29.927841608446734" />
-      <entry key="H2" value="43.78319909326592" />
-      <entry key="H4" value="55.82689325586835" />
-      <entry key="D1" value="71.52951787725696" />
-      <entry key="W1" value="265.740877154879" />
+      <entry key="MS100" value="1.0215272498943866" />
+      <entry key="MS500" value="1.8161510287222558" />
+      <entry key="S2" value="3.493946810695559" />
+      <entry key="S5" value="5.995526156565005" />
+      <entry key="S10" value="8.719646009873188" />
+      <entry key="S30" value="12.266625864950655" />
+      <entry key="S60" value="13.529733321861348" />
+      <entry key="M2" value="14.23674790474303" />
+      <entry key="M5" value="14.687648346839996" />
+      <entry key="M10" value="14.851588910251781" />
+      <entry key="M15" value="15.011672115795921" />
+      <entry key="M30" value="16.782785605329337" />
+      <entry key="H1" value="24.298305409909826" />
+      <entry key="H2" value="39.42601138848909" />
+      <entry key="H4" value="56.702739838641946" />
+      <entry key="D1" value="83.1359943298914" />
+      <entry key="W1" value="278.902545659213" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -64,31 +63,31 @@
       <entry key="M5" value="0.0" />
       <entry key="M10" value="0.0" />
       <entry key="M15" value="0.0" />
-      <entry key="M30" value="1.1414749785938786E-207" />
-      <entry key="H1" value="4.290060769670927E-104" />
-      <entry key="H2" value="2.833550820879637E-52" />
-      <entry key="H4" value="2.359700879871783E-26" />
-      <entry key="D1" value="1.2566343130220316E-4" />
-      <entry key="W1" value="2.660145098306713" />
+      <entry key="M30" value="1.1081173442701275E-208" />
+      <entry key="H1" value="1.3366666802634524E-104" />
+      <entry key="H2" value="1.5816516742430023E-52" />
+      <entry key="H4" value="1.7629779236960763E-26" />
+      <entry key="D1" value="1.1970360617267055E-4" />
+      <entry key="W1" value="2.641744429098887" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9913441976569313" />
-      <entry key="MS500" value="1.4082165273994987" />
-      <entry key="S2" value="1.800381403118791" />
-      <entry key="S5" value="1.9515026872494323" />
-      <entry key="S10" value="2.283026054727394" />
-      <entry key="S30" value="3.607741738130838" />
-      <entry key="S60" value="4.511399755927911" />
-      <entry key="M2" value="5.189483745685588" />
-      <entry key="M5" value="6.7344649511060934" />
-      <entry key="M10" value="9.804975532172909" />
-      <entry key="M15" value="12.400321210544323" />
-      <entry key="M30" value="18.907618236641614" />
-      <entry key="H1" value="29.927745484076805" />
-      <entry key="H2" value="43.78311063156624" />
-      <entry key="H4" value="55.826830154905494" />
-      <entry key="D1" value="71.52962876394555" />
-      <entry key="W1" value="268.40095456156433" />
+      <entry key="MS100" value="0.9969434025464573" />
+      <entry key="MS500" value="1.6277295055158272" />
+      <entry key="S2" value="3.3466709944150033" />
+      <entry key="S5" value="5.903379684053753" />
+      <entry key="S10" value="8.659120976391531" />
+      <entry key="S30" value="12.241021442263404" />
+      <entry key="S60" value="13.51603917841397" />
+      <entry key="M2" value="14.229657910583557" />
+      <entry key="M5" value="14.684751297946661" />
+      <entry key="M10" value="14.850129890638046" />
+      <entry key="M15" value="15.010696345860861" />
+      <entry key="M30" value="16.78228864442262" />
+      <entry key="H1" value="24.298030842199587" />
+      <entry key="H2" value="39.42583962784875" />
+      <entry key="H4" value="56.70263148508869" />
+      <entry key="D1" value="83.1360897534139" />
+      <entry key="W1" value="281.5442214071258" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -174,14 +173,6 @@
       <workItem from="1779695741143" duration="8369000" />
       <workItem from="1780831623909" duration="98941000" />
       <workItem from="1781737896564" duration="11840000" />
-    </task>
-    <task id="LOCAL-00080" summary="add reviews">
-      <option name="closed" value="true" />
-      <created>1780858015999</created>
-      <option name="number" value="00080" />
-      <option name="presentableId" value="LOCAL-00080" />
-      <option name="project" value="LOCAL" />
-      <updated>1780858015999</updated>
     </task>
     <task id="LOCAL-00081" summary="add reviews">
       <option name="closed" value="true" />
@@ -567,14 +558,21 @@
       <option name="project" value="LOCAL" />
       <updated>1782579607006</updated>
     </task>
-    <option name="localTasksCounter" value="129" />
+    <task id="LOCAL-00129" summary="add gtags for checkout journey + fix sitemap genration">
+      <option name="closed" value="true" />
+      <created>1782585681185</created>
+      <option name="number" value="00129" />
+      <option name="presentableId" value="LOCAL-00129" />
+      <option name="project" value="LOCAL" />
+      <updated>1782585681185</updated>
+    </task>
+    <option name="localTasksCounter" value="130" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update style of stocks" />
     <MESSAGE value="add yoga blog" />
     <MESSAGE value="newsletter" />
     <MESSAGE value="admin dashboard" />
@@ -599,7 +597,8 @@
     <MESSAGE value="add yoga" />
     <MESSAGE value="add yoga mats and ankle weights coming soon" />
     <MESSAGE value="clean" />
-    <option name="LAST_COMMIT_MESSAGE" value="clean" />
+    <MESSAGE value="add gtags for checkout journey + fix sitemap genration" />
+    <option name="LAST_COMMIT_MESSAGE" value="add gtags for checkout journey + fix sitemap genration" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
