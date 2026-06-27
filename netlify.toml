@@ -13,15 +13,7 @@
 
 [build.environment]
  SECRETS_SCAN_OMIT_KEYS = "SUPABASE_ANON_KEY"
-
-# ── Set these in Netlify Dashboard → Site → Environment Variables ──
-# RAZORPAY_KEY_ID        = rzp_live_StfKLLzsHxMey6
-# RAZORPAY_KEY_SECRET    = (your secret)
-# SUPABASE_URL           = https://zewoxdagbywjubofwvde.supabase.co
-# SUPABASE_ANON_KEY      = (your anon key)
-# SUPABASE_SERVICE_KEY   = (your service role key — never expose to frontend)
-# RESEND_API_KEY         = (from resend.com — free tier)
-# GOOGLE_SHEET_URL       = (your existing Apps Script URL)
+ NODE_VERSION = "22"
 
 [[redirects]]
  from = "/account"
