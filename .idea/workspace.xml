@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="fix">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/dumbbells/capsule-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/capsule-dumbbells.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/dumbbells/silicone-dumbbells-vs-pvc-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/silicone-dumbbells-vs-pvc-dumbbells.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/dumbbells/silicone-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/silicone-dumbbells.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/dumbbells/silicone-vs-neoprene-vs-pvc-dumbbells.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/dumbbells/silicone-vs-neoprene-vs-pvc-dumbbells.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/founder.html" beforeDir="false" afterPath="$PROJECT_DIR$/founder.html" afterDir="false" />
-    </list>
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="add missing favicons" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,23 +28,23 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0" />
-      <entry key="S5" value="1.0" />
-      <entry key="S10" value="1.0" />
-      <entry key="S30" value="1.000000000003944" />
-      <entry key="S60" value="1.0000041775561306" />
-      <entry key="M2" value="1.0051867424765804" />
-      <entry key="M5" value="1.4699546554127103" />
-      <entry key="M10" value="3.2431291123337886" />
-      <entry key="M15" value="4.888044085979875" />
-      <entry key="M30" value="9.790722268662428" />
-      <entry key="H1" value="22.75076437258588" />
-      <entry key="H2" value="47.727220173910325" />
-      <entry key="H4" value="79.79008784385336" />
-      <entry key="D1" value="136.78106062558956" />
-      <entry key="W1" value="339.00802827924787" />
+      <entry key="MS100" value="1.0025962756083704" />
+      <entry key="MS500" value="1.4066745594816388" />
+      <entry key="S2" value="2.965771653368056" />
+      <entry key="S5" value="3.972882956618453" />
+      <entry key="S10" value="4.441190374216055" />
+      <entry key="S30" value="4.80254883633455" />
+      <entry key="S60" value="4.899799564030406" />
+      <entry key="M2" value="4.949557480782225" />
+      <entry key="M5" value="5.003218727168479" />
+      <entry key="M10" value="5.39989862577615" />
+      <entry key="M15" value="6.224590249243747" />
+      <entry key="M30" value="9.910670817890795" />
+      <entry key="H1" value="21.116219033074184" />
+      <entry key="H2" value="45.17106960088838" />
+      <entry key="H4" value="78.20228501668761" />
+      <entry key="D1" value="139.83069535404638" />
+      <entry key="W1" value="343.3132250314499" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -65,31 +58,31 @@
       <entry key="M5" value="0.0" />
       <entry key="M10" value="0.0" />
       <entry key="M15" value="0.0" />
-      <entry key="M30" value="1.8675773085977265E-210" />
-      <entry key="H1" value="1.7352799160364523E-105" />
-      <entry key="H2" value="5.69880838200233E-53" />
-      <entry key="H4" value="1.0582383072205433E-26" />
-      <entry key="D1" value="1.0994192448842956E-4" />
-      <entry key="W1" value="2.6098352962187916" />
+      <entry key="M30" value="9.37355339985266E-211" />
+      <entry key="H1" value="1.2293693320809983E-105" />
+      <entry key="H2" value="4.796676966072471E-53" />
+      <entry key="H4" value="9.708713539355492E-27" />
+      <entry key="D1" value="1.0837431603982329E-4" />
+      <entry key="W1" value="2.6044864680040707" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9794202975869268" />
-      <entry key="MS500" value="0.9958497530944581" />
-      <entry key="S2" value="0.998960819551523" />
-      <entry key="S5" value="0.9995841981612189" />
-      <entry key="S10" value="0.9997920774647191" />
-      <entry key="S30" value="0.9999306876880973" />
-      <entry key="S60" value="0.9999695205695165" />
-      <entry key="M2" value="1.005169196239359" />
-      <entry key="M5" value="1.4699364054280104" />
-      <entry key="M10" value="3.243095084083405" />
-      <entry key="M15" value="4.887998811693942" />
-      <entry key="M30" value="9.79060065900127" />
-      <entry key="H1" value="22.75051870546119" />
-      <entry key="H2" value="47.726941867132965" />
-      <entry key="H4" value="79.78986596678602" />
-      <entry key="D1" value="136.7811125281942" />
-      <entry key="W1" value="341.6177903355382" />
+      <entry key="MS100" value="0.9819631348642536" />
+      <entry key="MS500" value="1.4007866434070813" />
+      <entry key="S2" value="2.962657598605882" />
+      <entry key="S5" value="3.9712228116372463" />
+      <entry key="S10" value="4.440264548542954" />
+      <entry key="S30" value="4.802215664192626" />
+      <entry key="S60" value="4.899629676804771" />
+      <entry key="M2" value="4.9494716929614135" />
+      <entry key="M5" value="5.003183915644002" />
+      <entry key="M10" value="5.399877029086507" />
+      <entry key="M15" value="6.224567306907249" />
+      <entry key="M30" value="9.910604008415746" />
+      <entry key="H1" value="21.116042101589766" />
+      <entry key="H2" value="45.170833906747546" />
+      <entry key="H4" value="78.20208073557065" />
+      <entry key="D1" value="139.8307463962606" />
+      <entry key="W1" value="345.9176383924388" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -175,14 +168,6 @@
       <workItem from="1779695741143" duration="8369000" />
       <workItem from="1780831623909" duration="98941000" />
       <workItem from="1781737896564" duration="11840000" />
-    </task>
-    <task id="LOCAL-00088" summary="fix broken urls">
-      <option name="closed" value="true" />
-      <created>1780876606535</created>
-      <option name="number" value="00088" />
-      <option name="presentableId" value="LOCAL-00088" />
-      <option name="project" value="LOCAL" />
-      <updated>1780876606535</updated>
     </task>
     <task id="LOCAL-00089" summary="fix">
       <option name="closed" value="true" />
@@ -568,14 +553,21 @@
       <option name="project" value="LOCAL" />
       <updated>1782596785276</updated>
     </task>
-    <option name="localTasksCounter" value="137" />
+    <task id="LOCAL-00137" summary="add missing favicons">
+      <option name="closed" value="true" />
+      <created>1782598091105</created>
+      <option name="number" value="00137" />
+      <option name="presentableId" value="LOCAL-00137" />
+      <option name="project" value="LOCAL" />
+      <updated>1782598091105</updated>
+    </task>
+    <option name="localTasksCounter" value="138" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix price on homepage" />
     <MESSAGE value="add metapixel" />
     <MESSAGE value="add analytics dashboard" />
     <MESSAGE value="enhancements" />
@@ -600,7 +592,8 @@
     <MESSAGE value="fix blog css" />
     <MESSAGE value="fix seo" />
     <MESSAGE value="fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix" />
+    <MESSAGE value="add missing favicons" />
+    <option name="LAST_COMMIT_MESSAGE" value="add missing favicons" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

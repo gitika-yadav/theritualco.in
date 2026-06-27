@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Channel ROI Simulator — The Ritual Co.</title>
+    <meta name="robots" content="noindex, nofollow"/>
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0;}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f2ee;color:#3a3330;min-height:100vh;font-size:14px;}
+
+        #lock{position:fixed;inset:0;background:#f5f2ee;display:flex;align-items:center;justify-content:center;z-index:100;}
+        .lock-card{background:#fff;border:0.5px solid #e0dbd4;border-radius:12px;padding:40px;width:320px;text-align:center;}
+        .lock-wordmark{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#a09890;margin-bottom:20px;}
+        .lock-title{font-size:20px;font-weight:400;margin-bottom:20px;color:#1a1714;}
+        .lock-input{width:100%;padding:10px 12px;border:0.5px solid #d0cbc4;border-radius:8px;font-size:14px;font-family:inherit;margin-bottom:10px;background:#faf8f5;}
+        .lock-input:focus{outline:none;border-color:#3a3330;}
+        .lock-btn{width:100%;padding:11px;background:#3a3330;color:#fff;border:none;border-radius:8px;font-size:14px;font-family:inherit;cursor:pointer;}
+        .lock-err{font-size:12px;color:#c0392b;margin-top:8px;display:none;}
+
+        #app{display:none;}
+        .topbar{background:#fff;border-bottom:0.5px solid #e0dbd4;padding:0 28px;height:52px;display:flex;align-items:center;justify-content:space-between;}
+        .topbar-left{display:flex;align-items:center;gap:20px;}
+        .topbar-brand{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#a09890;}
+        .topbar-title{font-size:14px;font-weight:500;color:#1a1714;}
+        .nav-link{font-size:12px;color:#a09890;text-decoration:none;padding:4px 10px;border-radius:6px;}
+        .nav-link:hover{background:#f5f2ee;color:#3a3330;}
+        .logout-btn{font-size:12px;color:#a09890;background:none;border:none;cursor:pointer;}
+
+        .content{padding:24px 28px;max-width:760px;margin:0 auto;}
+        .page-title{font-size:16px;font-weight:500;color:#1a1714;margin-bottom:4px;}
+        .page-sub{font-size:12px;color:#a09890;margin-bottom:16px;}
+        .note{font-size:12px;color:#854f0b;line-height:1.6;margin:0 0 18px;padding:11px 13px;background:#faeeda;border-radius:8px;}
+
+        .ch{background:#fff;border:0.5px solid #e0dbd4;border-radius:12px;padding:14px 16px;margin-bottom:10px;}
+        .ch-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+        .ch-head h3{font-size:14px;font-weight:600;margin:0;color:#1a1714;}
+        .ch-head .tag{font-size:11px;color:#a09890;margin-left:auto;}
+        .rowx{display:flex;align-items:center;gap:10px;margin:6px 0;}
+        .rowx label{font-size:12px;color:#7a6f68;flex:0 0 160px;}
+        .rowx input[type=range]{flex:1;}
+        .rowx .val{font-size:12px;font-weight:600;flex:0 0 56px;text-align:right;color:#1a1714;}
+        .res{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px;}
+        .res .cell{background:#f5f2ee;border-radius:8px;padding:8px;text-align:center;}
+        .res .cell .n{font-size:18px;font-weight:600;color:#1a1714;}
+        .res .cell .l{font-size:10px;color:#a09890;text-transform:uppercase;letter-spacing:.04em;}
+        .cpo-good{color:#3b6d11;}
+        .cpo-bad{color:#c0392b;}
+        canvas{background:#fff;border:0.5px solid #e0dbd4;border-radius:12px;padding:8px;}
+        .cfg{font-size:12px;color:#a09890;margin-top:8px;line-height:1.6;}
+    </style>
+</head>
+<body>
+
+<div id="lock">
+    <div class="lock-card">
+        <div class="lock-wordmark">The Ritual Co.</div>
+        <div class="lock-title">ROI Simulator</div>
+        <input class="lock-input" type="password" id="lock-pass" placeholder="Admin password"/>
+        <button class="lock-btn" onclick="unlock()">Enter</button>
+        <div class="lock-err" id="lock-err">Incorrect password</div>
+    </div>
+</div>
+
+<div id="app">
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="topbar-brand">The Ritual Co.</div>
+            <div class="topbar-title">Channel ROI Simulator</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+            <a href="/admin/orders" class="nav-link">Orders</a>
+            <a href="/admin/analytics" class="nav-link">Analytics</a>
+            <a href="/admin/discounts" class="nav-link">Discounts</a>
+            <button class="logout-btn" onclick="logout()">Sign out</button>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="page-title">Channel ROI Simulator</div>
+        <div class="page-sub">Compare SEO, events, UGC seeding, and Meta ads at a fixed budget per channel.</div>
+        <div class="note"><strong>These are modelled estimates, not predictions.</strong> Every number is an editable assumption — drag the sliders to match real data as you collect it from tracked campaigns. The point is to compare the shape of each channel and see how the ranking flips, not to trust any single figure.</div>
+
+        <div class="rowx" style="margin-bottom:16px;"><label>Budget per channel (₹)</label><input type="range" id="budget" min="5000" max="100000" step="1000" value="20000"><span class="val" id="budget-v">20000</span></div>
+
+        <div class="ch">
+            <div class="ch-head"><h3>SEO / content</h3><span class="tag">budget = articles/mo</span></div>
+            <div class="rowx"><label>New impressions/mo</label><input type="range" id="seo-imp" min="200" max="6000" step="100" value="1200"><span class="val" id="seo-imp-v">1200</span></div>
+            <div class="rowx"><label>Click-through rate %</label><input type="range" id="seo-ctr" min="1" max="15" step="0.5" value="4"><span class="val" id="seo-ctr-v">4</span></div>
+            <div class="rowx"><label>Conversion rate %</label><input type="range" id="seo-cvr" min="0.5" max="5" step="0.1" value="1.5"><span class="val" id="seo-cvr-v">1.5</span></div>
+            <div class="res" id="seo-res"></div>
+        </div>
+
+        <div class="ch">
+            <div class="ch-head"><h3>Creator events</h3><span class="tag">agency-run</span></div>
+            <div class="rowx"><label>Events/mo</label><input type="range" id="ev-n" min="1" max="6" step="1" value="2"><span class="val" id="ev-n-v">2</span></div>
+            <div class="rowx"><label>Creators/event</label><input type="range" id="ev-cr" min="10" max="80" step="5" value="55"><span class="val" id="ev-cr-v">55</span></div>
+            <div class="rowx"><label>% who post</label><input type="range" id="ev-post" min="5" max="80" step="5" value="30"><span class="val" id="ev-post-v">30</span></div>
+            <div class="rowx"><label>Avg reach/post</label><input type="range" id="ev-reach" min="500" max="20000" step="500" value="3000"><span class="val" id="ev-reach-v">3000</span></div>
+            <div class="rowx"><label>Reach&rarr;click %</label><input type="range" id="ev-ctr" min="0.2" max="5" step="0.1" value="1"><span class="val" id="ev-ctr-v">1</span></div>
+            <div class="rowx"><label>Conversion rate %</label><input type="range" id="ev-cvr" min="0.5" max="6" step="0.1" value="2"><span class="val" id="ev-cvr-v">2</span></div>
+            <div class="res" id="ev-res"></div>
+        </div>
+
+        <div class="ch">
+            <div class="ch-head"><h3>UGC creator seeding</h3><span class="tag">~10 creators at 20k</span></div>
+            <div class="rowx"><label>Creators seeded</label><input type="range" id="ug-cr" min="3" max="30" step="1" value="10"><span class="val" id="ug-cr-v">10</span></div>
+            <div class="rowx"><label>% who post</label><input type="range" id="ug-post" min="20" max="100" step="5" value="70"><span class="val" id="ug-post-v">70</span></div>
+            <div class="rowx"><label>Avg reach/post</label><input type="range" id="ug-reach" min="500" max="30000" step="500" value="5000"><span class="val" id="ug-reach-v">5000</span></div>
+            <div class="rowx"><label>Reach&rarr;click %</label><input type="range" id="ug-ctr" min="0.2" max="6" step="0.1" value="1.5"><span class="val" id="ug-ctr-v">1.5</span></div>
+            <div class="rowx"><label>Conversion rate %</label><input type="range" id="ug-cvr" min="0.5" max="8" step="0.1" value="2.5"><span class="val" id="ug-cvr-v">2.5</span></div>
+            <div class="res" id="ug-res"></div>
+        </div>
+
+        <div class="ch">
+            <div class="ch-head"><h3>Meta ads</h3><span class="tag">full budget spend</span></div>
+            <div class="rowx"><label>CPM (₹/1000 imp)</label><input type="range" id="mt-cpm" min="50" max="600" step="10" value="200"><span class="val" id="mt-cpm-v">200</span></div>
+            <div class="rowx"><label>Click-through rate %</label><input type="range" id="mt-ctr" min="0.3" max="4" step="0.1" value="1"><span class="val" id="mt-ctr-v">1</span></div>
+            <div class="rowx"><label>Conversion rate %</label><input type="range" id="mt-cvr" min="0.3" max="4" step="0.1" value="1.2"><span class="val" id="mt-cvr-v">1.2</span></div>
+            <div class="res" id="mt-res"></div>
+        </div>
+
+        <div style="position:relative;height:280px;margin-top:16px;">
+            <canvas id="cmp" role="img" aria-label="Bar chart comparing modelled monthly orders across channels"></canvas>
+        </div>
+        <div class="cfg" id="summary"></div>
+        <p class="cfg" style="margin-top:14px;">CAC ceiling for green = ₹350. Contribution per set ~₹552 at early-bird pricing — keep CAC below this to stay profitable. SEO and seeding compound month-over-month; ads stop the moment you stop paying.</p>
+    </div>
+</div>
+
+<script>
+    const CAC_CEILING = 350;
+    let SESSION_TOKEN = null;
+
+    async function unlock() {
+        const pass = document.getElementById("lock-pass").value;
+        if (!pass) return;
+        try {
+            const res = await fetch("/.netlify/functions/admin-auth", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ password: pass }),
+            });
+            if (!res.ok) { document.getElementById("lock-err").style.display = "block"; document.getElementById("lock-pass").value = ""; return; }
+            const { token } = await res.json();
+            SESSION_TOKEN = token;
+            sessionStorage.setItem("rc_admin_token", token);
+            document.getElementById("lock").style.display = "none";
+            document.getElementById("app").style.display = "block";
+            calc();
+        } catch { document.getElementById("lock-err").style.display = "block"; }
+    }
+
+    function logout() { sessionStorage.removeItem("rc_admin_token"); SESSION_TOKEN = null; location.reload(); }
+
+    const saved = sessionStorage.getItem("rc_admin_token");
+    if (saved) {
+        const [expires] = saved.split(".");
+        if (Date.now() < parseInt(expires)) {
+            SESSION_TOKEN = saved;
+            document.getElementById("lock").style.display = "none";
+            document.getElementById("app").style.display = "block";
+        } else sessionStorage.removeItem("rc_admin_token");
+    }
+    document.getElementById("lock-pass").addEventListener("keydown", e => { if (e.key === "Enter") unlock(); });
+
+    const $ = id => document.getElementById(id);
+    function fmt(n){return Math.round(n).toLocaleString('en-IN');}
+    function cell(n,l,extra){return '<div class="cell"><div class="n '+(extra||'')+'">'+n+'</div><div class="l">'+l+'</div></div>';}
+    function cpo(orders,budget){if(orders<1)return{t:'\u2014',c:''};const v=Math.round(budget/orders);return{t:'\u20b9'+fmt(v),c:v<=CAC_CEILING?'cpo-good':'cpo-bad'};}
+    let chart;
+    function calc(){
+        const B=+$('budget').value;$('budget-v').textContent=B;
+        const seoImp=+$('seo-imp').value,seoCtr=+$('seo-ctr').value,seoCvr=+$('seo-cvr').value;
+        $('seo-imp-v').textContent=seoImp;$('seo-ctr-v').textContent=seoCtr;$('seo-cvr-v').textContent=seoCvr;
+        const seoClicks=seoImp*seoCtr/100,seoOrders=seoClicks*seoCvr/100,seoC=cpo(seoOrders,B);
+        $('seo-res').innerHTML=cell(fmt(seoImp),'impr')+cell(fmt(seoClicks),'clicks')+cell(seoOrders.toFixed(1),'orders')+cell(seoC.t,'cost/order',seoC.c);
+        const evN=+$('ev-n').value,evCr=+$('ev-cr').value,evPost=+$('ev-post').value,evReach=+$('ev-reach').value,evCtr=+$('ev-ctr').value,evCvr=+$('ev-cvr').value;
+        ['ev-n','ev-cr','ev-post','ev-reach','ev-ctr','ev-cvr'].forEach(k=>$(k+'-v').textContent=$(k).value);
+        const evPosts=evN*evCr*evPost/100,evImp=evPosts*evReach,evClicks=evImp*evCtr/100,evOrders=evClicks*evCvr/100,evC=cpo(evOrders,B);
+        $('ev-res').innerHTML=cell(fmt(evImp),'impr')+cell(fmt(evClicks),'clicks')+cell(evOrders.toFixed(1),'orders')+cell(evC.t,'cost/order',evC.c);
+        const ugCr=+$('ug-cr').value,ugPost=+$('ug-post').value,ugReach=+$('ug-reach').value,ugCtr=+$('ug-ctr').value,ugCvr=+$('ug-cvr').value;
+        ['ug-cr','ug-post','ug-reach','ug-ctr','ug-cvr'].forEach(k=>$(k+'-v').textContent=$(k).value);
+        const ugPosts=ugCr*ugPost/100,ugImp=ugPosts*ugReach,ugClicks=ugImp*ugCtr/100,ugOrders=ugClicks*ugCvr/100,ugC=cpo(ugOrders,B);
+        $('ug-res').innerHTML=cell(fmt(ugImp),'impr')+cell(fmt(ugClicks),'clicks')+cell(ugOrders.toFixed(1),'orders')+cell(ugC.t,'cost/order',ugC.c);
+        const mtCpm=+$('mt-cpm').value,mtCtr=+$('mt-ctr').value,mtCvr=+$('mt-cvr').value;
+        ['mt-cpm','mt-ctr','mt-cvr'].forEach(k=>$(k+'-v').textContent=$(k).value);
+        const mtImp=B/mtCpm*1000,mtClicks=mtImp*mtCtr/100,mtOrders=mtClicks*mtCvr/100,mtC=cpo(mtOrders,B);
+        $('mt-res').innerHTML=cell(fmt(mtImp),'impr')+cell(fmt(mtClicks),'clicks')+cell(mtOrders.toFixed(1),'orders')+cell(mtC.t,'cost/order',mtC.c);
+        const data=[seoOrders,evOrders,ugOrders,mtOrders],labels=['SEO','Events','UGC seeding','Meta ads'];
+        const best=labels[data.indexOf(Math.max(...data))];
+        $('summary').innerHTML='At these assumptions, <strong>'+best+'</strong> produces the most orders/month. Green cost/order = at or below \u20b9'+CAC_CEILING+' CAC ceiling.';
+        const cols=['#2a78d6','#1baf7a','#eda100','#e34948'];
+        if(chart){chart.data.datasets[0].data=data;chart.update();}
+        else if(window.Chart) chart=new Chart($('cmp'),{type:'bar',data:{labels,datasets:[{label:'Orders/mo',data,backgroundColor:cols,borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,title:{display:true,text:'modelled orders / month'}}}}});
+    }
+    ['budget','seo-imp','seo-ctr','seo-cvr','ev-n','ev-cr','ev-post','ev-reach','ev-ctr','ev-cvr','ug-cr','ug-post','ug-reach','ug-ctr','ug-cvr','mt-cpm','mt-ctr','mt-cvr'].forEach(id=>{const el=$(id);if(el)el.addEventListener('input',calc);});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js" onload="if(document.getElementById('app').style.display==='block')calc();"></script>
+</body>
+</html>
