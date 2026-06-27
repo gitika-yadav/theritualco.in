@@ -48,7 +48,7 @@ exports.handler = async (event) => {
             .from("orders")
             .select("id")
             .eq("guest_email", email.toLowerCase())
-            .eq("status", "paid")
+            .in("status", ["paid", "cod_unpaid", "cod_paid"])
             .limit(1);
         if (existingOrders && existingOrders.length > 0) {
             return { statusCode: 400, body: JSON.stringify({ error: "This code is for first orders only" }) };

@@ -65,6 +65,10 @@
             <input id="email"   placeholder="Email"            required>
             <input id="phone"   placeholder="Phone Number"     required>
             <input id="address" placeholder="Shipping Address" required>
+            <select id="payment" required>
+                <option value="online">Pay Online (UPI / Card / Net banking)</option>
+                <option value="cod">Cash on Delivery (+₹200)</option>
+            </select>
         </div>
     </section>
 
@@ -77,6 +81,10 @@
         <div class="line" style="margin-top:12px">
             <span>Shipping</span>
             <span>Free</span>
+        </div>
+        <div class="line" id="cod-line" style="display:none">
+            <span>COD Charge</span>
+            <span>₹200</span>
         </div>
         <!-- DISCOUNT CODE -->
         <div class="line" style="flex-direction:column;gap:8px;align-items:stretch;">
@@ -97,7 +105,7 @@
         </div>
 
         <button class="pay" id="payBtn">Continue To Payment</button>
-        <p class="ship">Early Bird pricing. Ships end of June 2026.</p>
+        <p class="ship">Early Bird pricing. Ships in 2–5 days.</p>
 
         <!-- Trust signals -->
         <div class="trust-section">
@@ -116,8 +124,8 @@
                 </div>
                 <div class="trust-card">
                     <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-                    <p class="trust-card-title">Ships June 2026</p>
-                    <p class="trust-card-desc">Early bird orders ship first. You'll be notified.</p>
+                    <p class="trust-card-title">Ships in 2–5 days</p>
+                    <p class="trust-card-desc">Dispatched within 48 hours. Tracking sent via email.</p>
                 </div>
                 <div class="trust-card">
                     <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -156,6 +164,17 @@
         document.getElementById("checkout-main").style.display = "";
     }
 
+    function getCodFee() {
+        const sel = document.getElementById("payment");
+        return sel && sel.value === "cod" ? 200 : 0;
+    }
+
+    function getGrandTotal() {
+        const ad = window.appliedDiscount;
+        const base = ad ? Math.max(0, Cart.total() - (ad.discount_amount || 0)) : Cart.total();
+        return base + getCodFee();
+    }
+
     // ── Render order summary from cart ────────────
     function renderSummary() {
         const cart    = Cart.get();
@@ -163,16 +182,19 @@
         const totalEl = document.getElementById("total");
 
         summary.innerHTML = cart.items.map(item => `
-      <div class="checkout-cart-item">
-        <span>${item.name} · ${item.weight} · ${item.color} × ${item.qty}</span>
-        <span>₹${(item.price * item.qty).toLocaleString("en-IN")}</span>
-      </div>
-    `).join("");
+    <div class="checkout-cart-item">
+      <span>${item.name} · ${item.weight} · ${item.color} × ${item.qty}</span>
+      <span>₹${(item.price * item.qty).toLocaleString("en-IN")}</span>
+    </div>
+  `).join("");
 
-        totalEl.textContent = "₹" + Cart.total().toLocaleString("en-IN");
+        const codLine = document.getElementById("cod-line");
+        if (codLine) codLine.style.display = getCodFee() ? "flex" : "none";
+        totalEl.textContent = "₹" + getGrandTotal().toLocaleString("en-IN");
     }
 
     renderSummary();
+    document.getElementById("payment").addEventListener("change", renderSummary);
     window.addEventListener("cart:updated", renderSummary);
 
     // ── Pre-fill if logged in ─────────────────────
@@ -216,10 +238,59 @@
 
         const btn = document.getElementById("payBtn");
         btn.disabled = true; btn.textContent = "Creating order…";
-        const finalAmount = appliedDiscount
+        const method  = document.getElementById("payment").value;
+        const codFee  = method === "cod" ? 200 : 0;
+        const baseAmount = appliedDiscount
             ? Math.max(0, Cart.total() - (appliedDiscount.discount_amount || 0))
             : Cart.total();
+        const finalAmount = baseAmount + codFee;
+        if (method === "cod") {
+            btn.textContent = "Placing order…";
+            try {
+                const orderRes = await fetch("/.netlify/functions/create-order", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        cart: cart.items,
+                        name, email, phone, address,
+                        user_id: user ? user.id : null,
+                        amount: finalAmount,
+                        payment_method: "cod",
+                        discount_code: appliedDiscount ? appliedDiscount.code : null,
+                        discount_amount: appliedDiscount ? appliedDiscount.discount_amount : 0
+                    })
+                });
+                const order = await orderRes.json();
+                if (!orderRes.ok) {
+                    alert(order.error || "Could not place order. Please try again.");
+                    btn.disabled = false; btn.textContent = "Continue To Payment";
+                    return;
+                }
+                gtag("event", "purchase", {
+                    transaction_id: order.order_id || ("COD-" + Date.now()),
+                    value: finalAmount, currency: "INR"
+                });
+                fbq('track', 'Purchase', { value: finalAmount, currency: 'INR' });
+                if (appliedDiscount) {
+                    await fetch("/.netlify/functions/apply-discount", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ code: appliedDiscount.code })
+                    }).catch(() => {});
+                }
+                Cart.clear();
+                localStorage.setItem('rc_last_order_amount', finalAmount);
+                window.location.href = "/thank-you.html";
+                return;
+            } catch (err) {
+                console.error(err);
+                alert("Something went wrong. Please try again.");
+                btn.disabled = false; btn.textContent = "Continue To Payment";
+                return;
+            }
+        }
 
+// ── existing online flow (try { … Razorpay … }) continues unchanged ──
         try {
             const orderRes = await fetch("/.netlify/functions/create-order", {
                 method: "POST",
@@ -349,7 +420,8 @@
                 document.getElementById("code-display").textContent = data.code;
                 document.getElementById("discount-display").textContent = data.free_shipping ? "Free shipping" : "−₹" + (data.discount_amount || 0).toLocaleString("en-IN");
                 document.getElementById("discount-line").style.display = "flex";
-                document.getElementById("total").innerText = "₹" + final.toLocaleString("en-IN");
+                const cod = document.getElementById("payment").value === "cod" ? 200 : 0;
+                document.getElementById("total").innerText = "₹" + (final + cod).toLocaleString("en-IN");
                 msg.textContent = data.free_shipping ? "Free shipping applied!" : "You save ₹" + data.discount_amount.toLocaleString("en-IN");
                 msg.style.color = "#27ae60";
             }
