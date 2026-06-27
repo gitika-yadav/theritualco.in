@@ -64,7 +64,7 @@ exports.handler = async function (event) {
     return { statusCode: 400, body: "Invalid request" };
   }
 
-  const { name, email, phone, color, nickname, "g-recaptcha-response": token } = data;
+  const { name, email, phone, color, source, nickname, "g-recaptcha-response": token } = data;
 
   // Honeypot
   if (nickname) {
@@ -102,6 +102,7 @@ exports.handler = async function (event) {
   const cleanPhone = (phone || "").trim().replace(/\s/g, "");
   const cleanColor = (color || "").trim().slice(0, 50);
   const emailDomain = cleanEmail.split("@")[1];
+  const cleanSource = (source || "").trim().slice(0, 50);
 
   if (cleanName.length < 2 || cleanName.length > 100)
     return { statusCode: 400, body: "Invalid name" };
@@ -151,10 +152,10 @@ exports.handler = async function (event) {
   try {
     await sheets.spreadsheets.values.append({
       spreadsheetId,
-      range: "Waitlist!A1:F1",
+      range: "Waitlist!A1:G1",
       valueInputOption: "USER_ENTERED",
       requestBody: {
-        values: [[cleanName, cleanEmail, cleanPhone, cleanColor, new Date().toISOString(), ip]],
+        values: [[cleanName, cleanEmail, cleanPhone, cleanColor, new Date().toISOString(), ip, cleanSource]],
       },
     });
   } catch (error) {
@@ -177,6 +178,7 @@ exports.handler = async function (event) {
   <tr><td style="padding:6px 20px 6px 0;color:#888">Phone</td><td>${cleanPhone}</td></tr>
   <tr><td style="padding:6px 20px 6px 0;color:#888">Colour pref</td><td>${cleanColor || "—"}</td></tr>
   <tr><td style="padding:6px 20px 6px 0;color:#888">Time</td><td>${signupTime} IST</td></tr>
+  <tr><td style="padding:6px 20px 6px 0;color:#888">Source</td><td>${cleanSource || "Homepage"}</td></tr>
   <tr><td style="padding:6px 20px 6px 0;color:#888">IP</td><td>${ip}</td></tr>
 </table>`,
     }),
@@ -189,8 +191,8 @@ exports.handler = async function (event) {
   <p style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#a09890;margin:0 0 32px;">The Ritual Co.</p>
   <h1 style="font-size:24px;font-weight:400;margin:0 0 8px;">You're on the list.</h1>
   <p style="font-size:15px;color:#7a6f68;line-height:1.7;margin:0 0 24px;">
-    Hi ${cleanName}, you've secured early access to the Capsule Dumbbells drop.
-    We'll reach out as soon as your spot is ready — with early bird pricing locked in.
+    Hi ${cleanName}, you're on the list. We'll reach out as soon as there's news to share —
+    with early access and early bird pricing locked in.
   </p>
   <p style="font-size:15px;color:#7a6f68;line-height:1.7;margin:0 0 32px;">
     Follow us on <a href="https://instagram.com/theritualco.in" style="color:#3a3330;">Instagram</a>

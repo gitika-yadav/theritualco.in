@@ -4,9 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="add more validations for address+ autofill + yogabelt in map">
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="update metapixel">
+      <change afterPath="$PROJECT_DIR$/images/ankle-weights.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/yoga-mat-black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/yoga-mat-coffee.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/yoga-mat-cream.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/yoga-mat-peach.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/products/ankle-weights.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/products/yoga-mat.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/yoga-belt.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/yoga-belt.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/netlify/functions/submit-to-sheet.js" beforeDir="false" afterPath="$PROJECT_DIR$/netlify/functions/submit-to-sheet.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/products/products.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/products.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,23 +40,23 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.016221517251675" />
-      <entry key="MS500" value="1.6513229571075865" />
-      <entry key="S2" value="3.4384590674396156" />
-      <entry key="S5" value="5.9348758567801205" />
-      <entry key="S10" value="8.490057655213484" />
-      <entry key="S30" value="11.652423335200606" />
-      <entry key="S60" value="12.745466137456832" />
-      <entry key="M2" value="13.35106818443671" />
-      <entry key="M5" value="13.768288114887374" />
-      <entry key="M10" value="14.372397579248764" />
-      <entry key="M15" value="15.363761701924757" />
-      <entry key="M30" value="18.449458958586973" />
-      <entry key="H1" value="22.108057717266743" />
-      <entry key="H2" value="25.00463857233828" />
-      <entry key="H4" value="26.840764222192124" />
-      <entry key="D1" value="29.814730320206575" />
-      <entry key="W1" value="223.15296035075085" />
+      <entry key="MS100" value="1.000053875915301" />
+      <entry key="MS500" value="1.140048651774272" />
+      <entry key="S2" value="1.6117440205659332" />
+      <entry key="S5" value="1.8215384480017156" />
+      <entry key="S10" value="1.9063875815575342" />
+      <entry key="S30" value="1.9677681288331503" />
+      <entry key="S60" value="1.98375686941111" />
+      <entry key="M2" value="1.9962117450514199" />
+      <entry key="M5" value="2.2601697181695592" />
+      <entry key="M10" value="3.199155018319686" />
+      <entry key="M15" value="4.462565379871268" />
+      <entry key="M30" value="9.554649735427725" />
+      <entry key="H1" value="19.606483514449558" />
+      <entry key="H2" value="31.709594087145128" />
+      <entry key="H4" value="41.67685516178725" />
+      <entry key="D1" value="54.36188378762753" />
+      <entry key="W1" value="248.23406780239745" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -61,31 +70,31 @@
       <entry key="M5" value="0.0" />
       <entry key="M10" value="0.0" />
       <entry key="M15" value="0.0" />
-      <entry key="M30" value="3.3249273258955236E-206" />
-      <entry key="H1" value="2.3153749196803253E-103" />
-      <entry key="H2" value="6.5827891792294245E-52" />
-      <entry key="H4" value="3.596635483561119E-26" />
-      <entry key="D1" value="1.3480794627996224E-4" />
-      <entry key="W1" value="2.686973656750291" />
+      <entry key="M30" value="2.182505586668533E-207" />
+      <entry key="H1" value="5.93209268666449E-104" />
+      <entry key="H2" value="3.331986616257401E-52" />
+      <entry key="H4" value="2.5588396726614655E-26" />
+      <entry key="D1" value="1.2737179455262726E-4" />
+      <entry key="W1" value="2.6652815364904168" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9953079808409279" />
-      <entry key="MS500" value="1.6444779141989925" />
-      <entry key="S2" value="3.4349904113353267" />
-      <entry key="S5" value="5.932497862852829" />
-      <entry key="S10" value="8.488348910499685" />
-      <entry key="S30" value="11.651637352572076" />
-      <entry key="S60" value="12.745035616389961" />
-      <entry key="M2" value="13.350842192768868" />
-      <entry key="M5" value="13.768156190460115" />
-      <entry key="M10" value="14.372218355004966" />
-      <entry key="M15" value="15.363560645082734" />
-      <entry key="M30" value="18.449274762796183" />
-      <entry key="H1" value="22.107928142471007" />
-      <entry key="H2" value="25.00456074760653" />
-      <entry key="H4" value="26.84072141495401" />
-      <entry key="D1" value="29.814857052214137" />
-      <entry key="W1" value="225.8398667201269" />
+      <entry key="MS100" value="0.9794730647519237" />
+      <entry key="MS500" value="1.1353171683850787" />
+      <entry key="S2" value="1.6100691276918115" />
+      <entry key="S5" value="1.820781048965626" />
+      <entry key="S10" value="1.9059912006183488" />
+      <entry key="S30" value="1.96763173826709" />
+      <entry key="S60" value="1.9836881178787917" />
+      <entry key="M2" value="1.996176723177393" />
+      <entry key="M5" value="2.260143770637155" />
+      <entry key="M10" value="3.1991227787919727" />
+      <entry key="M15" value="4.462527456967715" />
+      <entry key="M30" value="9.554585683997463" />
+      <entry key="H1" value="19.606393191346942" />
+      <entry key="H2" value="31.70950979042293" />
+      <entry key="H4" value="41.676796231891835" />
+      <entry key="D1" value="54.36199771563298" />
+      <entry key="W1" value="250.8992817345105" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -171,14 +180,6 @@
       <workItem from="1779695741143" duration="8369000" />
       <workItem from="1780831623909" duration="98941000" />
       <workItem from="1781737896564" duration="11840000" />
-    </task>
-    <task id="LOCAL-00076" summary="sitemap + robot.txt + minor fix">
-      <option name="closed" value="true" />
-      <created>1780851911384</created>
-      <option name="number" value="00076" />
-      <option name="presentableId" value="LOCAL-00076" />
-      <option name="project" value="LOCAL" />
-      <updated>1780851911384</updated>
     </task>
     <task id="LOCAL-00077" summary="minor fix">
       <option name="closed" value="true" />
@@ -564,14 +565,21 @@
       <option name="project" value="LOCAL" />
       <updated>1782570857075</updated>
     </task>
-    <option name="localTasksCounter" value="125" />
+    <task id="LOCAL-00125" summary="update metapixel">
+      <option name="closed" value="true" />
+      <created>1782571631417</created>
+      <option name="number" value="00125" />
+      <option name="presentableId" value="LOCAL-00125" />
+      <option name="project" value="LOCAL" />
+      <updated>1782571631417</updated>
+    </task>
+    <option name="localTasksCounter" value="126" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add featured section" />
     <MESSAGE value="improve seo" />
     <MESSAGE value="add ahref web analytics" />
     <MESSAGE value="add yoga belt a new product" />
@@ -596,7 +604,8 @@
     <MESSAGE value="add cod" />
     <MESSAGE value="upgrade to node 20" />
     <MESSAGE value="add more validations for address+ autofill + yogabelt in map" />
-    <option name="LAST_COMMIT_MESSAGE" value="add more validations for address+ autofill + yogabelt in map" />
+    <MESSAGE value="update metapixel" />
+    <option name="LAST_COMMIT_MESSAGE" value="update metapixel" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
