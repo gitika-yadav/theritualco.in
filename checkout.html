@@ -64,7 +64,14 @@
             <input id="name"    placeholder="Full Name"        required>
             <input id="email"   placeholder="Email"            required>
             <input id="phone"   placeholder="Phone Number"     required>
-            <input id="address" placeholder="Shipping Address" required>
+            <input id="address" placeholder="Flat / House no, Building, Street, Area" required>
+            <input id="landmark" placeholder="Landmark (optional)">
+            <div class="pincode-row" style="display:flex;gap:10px;">
+                <input id="pincode" placeholder="Pincode" inputmode="numeric" maxlength="6" required style="flex:0 0 38%;">
+                <input id="city" placeholder="City" required readonly style="flex:1;background:#f5f2ee;">
+            </div>
+            <input id="state" placeholder="State" required readonly style="background:#f5f2ee;">
+            <p id="pincode-msg" style="font-size:12px;min-height:16px;margin:-4px 0 0;"></p>
             <select id="payment" required>
                 <option value="online">Pay Online (UPI / Card / Net banking)</option>
                 <option value="cod">Cash on Delivery (+₹200)</option>
@@ -224,21 +231,43 @@
         const name    = document.getElementById("name").value.trim();
         const email   = document.getElementById("email").value.trim();
         const phone   = document.getElementById("phone").value.trim();
-        const address = document.getElementById("address").value.trim();
+        const address  = document.getElementById("address").value.trim();
+        const landmark = document.getElementById("landmark").value.trim();
+        const pincode  = document.getElementById("pincode").value.trim();
+        const city     = document.getElementById("city").value.trim();
+        const state    = document.getElementById("state").value.trim();
 
-        if (!name || !email || !phone || !address) {
-            alert("Please complete all details."); return;
+        const method = document.getElementById("payment").value;
+        const cleanPhone = phone.replace(/\D/g, "").replace(/^91/, ""); // strip +91 if present
+
+        if (!name || !email || !address || !pincode || !city || !state) {
+            alert("Please complete all delivery details."); return;
+        }
+        if (name.trim().length < 2) {
+            alert("Please enter your full name."); return;
         }
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             alert("Please enter a valid email."); return;
         }
-        if (phone.replace(/\D/g, "").length < 10) {
-            alert("Please enter a valid phone number."); return;
+        // Indian mobile: 10 digits, starts 6–9
+        if (!/^[6-9]\d{9}$/.test(cleanPhone)) {
+            alert("Please enter a valid 10-digit Indian mobile number."); return;
+        }
+        // Pincode must be real (or format-valid if API was down)
+        if (!/^[1-9]\d{5}$/.test(pincode) || !window.isPincodeValid()) {
+            alert("Please enter a valid, serviceable pincode."); return;
+        }
+        // Address quality — block obvious junk, require some length + a digit (house/flat no.)
+        if (address.length < 10 || !/\d/.test(address)) {
+            alert("Please enter a complete address including house/flat number."); return;
+        }
+        // Stricter for COD specifically
+        if (method === "cod" && address.length < 15) {
+            alert("For Cash on Delivery, please provide a complete, detailed address."); return;
         }
 
         const btn = document.getElementById("payBtn");
         btn.disabled = true; btn.textContent = "Creating order…";
-        const method  = document.getElementById("payment").value;
         const codFee  = method === "cod" ? 200 : 0;
         const baseAmount = appliedDiscount
             ? Math.max(0, Cart.total() - (appliedDiscount.discount_amount || 0))
@@ -252,7 +281,8 @@
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         cart: cart.items,
-                        name, email, phone, address,
+                        name, email, phone,
+                        address, landmark, pincode, city, state,
                         user_id: user ? user.id : null,
                         amount: finalAmount,
                         payment_method: "cod",
@@ -432,6 +462,57 @@
         btn.disabled = false;
         btn.textContent = "Apply";
     }
+</script>
+
+<script>
+    (function () {
+        const pin   = document.getElementById("pincode");
+        const city  = document.getElementById("city");
+        const state = document.getElementById("state");
+        const msg   = document.getElementById("pincode-msg");
+        let pinValid = false;
+        let debounce;
+
+        window.isPincodeValid = () => pinValid;
+
+        pin.addEventListener("input", () => {
+            pin.value = pin.value.replace(/\D/g, "").slice(0, 6); // digits only
+            pinValid = false;
+            city.value = ""; state.value = "";
+            msg.textContent = "";
+            clearTimeout(debounce);
+            if (pin.value.length === 6) {
+                debounce = setTimeout(() => lookupPincode(pin.value), 300);
+            }
+        });
+
+        async function lookupPincode(code) {
+            msg.textContent = "Checking pincode…";
+            msg.style.color = "#a09890";
+            try {
+                const res  = await fetch("https://api.postalpincode.in/pincode/" + code);
+                const data = await res.json();
+                const rec  = data && data[0];
+                if (rec && rec.Status === "Success" && rec.PostOffice && rec.PostOffice.length) {
+                    const po = rec.PostOffice[0];
+                    city.value  = po.District;
+                    state.value = po.State;
+                    pinValid = true;
+                    msg.textContent = "✓ " + po.District + ", " + po.State;
+                    msg.style.color = "#27ae60";
+                } else {
+                    pinValid = false;
+                    msg.textContent = "We couldn't find this pincode. Please check.";
+                    msg.style.color = "#c0392b";
+                }
+            } catch {
+                // API down — don't block the sale; accept format-valid pincode
+                pinValid = /^[1-9][0-9]{5}$/.test(code);
+                msg.textContent = pinValid ? "Pincode accepted." : "Enter a valid 6-digit pincode.";
+                msg.style.color = pinValid ? "#27ae60" : "#c0392b";
+            }
+        }
+    })();
 </script>
 <script type="module" src="/javascript/checkout-prefill.js"></script>
 </body>

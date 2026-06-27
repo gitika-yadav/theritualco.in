@@ -7,9 +7,20 @@ const supabase = createClient(
 );
 
 const PRODUCT_MAP = {
-    "1kg": { id: "capsule-1kg", name: "Capsule Dumbbells 1 KG", weight: "1 KG" },
-    "2kg": { id: "capsule-2kg", name: "Capsule Dumbbells 2 KG", weight: "2 KG" },
+    "capsule-1kg": { id: "capsule-1kg", name: "Capsule Dumbbells", weight: "1 KG" },
+    "capsule-2kg": { id: "capsule-2kg", name: "Capsule Dumbbells", weight: "2 KG" },
+    "yoga-belt":   { id: "yoga-belt",   name: "Yoga Belt", weight: "96in" },
 };
+
+function resolveProductKey(item) {
+    if (item.id === "capsule-dumbbell") {
+        const w = (item.weight || "").toLowerCase();
+        if (w === "1kg") return "capsule-1kg";
+        if (w === "2kg") return "capsule-2kg";
+        return null;
+    }
+    return item.id;
+}
 
 exports.handler = async (event) => {
     if (event.httpMethod !== "POST") {
@@ -18,7 +29,7 @@ exports.handler = async (event) => {
 
     try {
         const body = JSON.parse(event.body);
-        const { cart, name, email, phone, address, user_id, payment_method } = body;
+        const { cart, name, email, phone, address, landmark, pincode, city, state, user_id, payment_method } = body;
         const isCod = payment_method === "cod";
 
         if (!cart || !cart.length || !name || !email || !phone || !address) {
@@ -31,7 +42,8 @@ exports.handler = async (event) => {
         const orderItems = [];
 
         for (const item of cart) {
-            const product = PRODUCT_MAP[item.weight?.toLowerCase()];
+            const key = resolveProductKey(item);
+            const product = key && PRODUCT_MAP[key];
             if (!product) continue;
 
             const { data: inv, error: invErr } = await supabase
@@ -39,21 +51,20 @@ exports.handler = async (event) => {
                 .select("sold, early_bird_limit, early_bird_price_paise, price_paise, active")
                 .eq("product_id", product.id)
                 .single();
-
             if (invErr || !inv || !inv.active) continue;
 
             const isEarlyBird = inv.sold < inv.early_bird_limit;
             const unitPaise   = isEarlyBird ? inv.early_bird_price_paise : inv.price_paise;
-            const qty         = Math.max(1, Math.min(10, parseInt(item.qty) || 1)); // cap at 10
+            const qty         = Math.max(1, Math.min(10, parseInt(item.qty) || 1));
 
             totalPaise += unitPaise * qty;
             orderItems.push({
-                product_id:   product.id,
-                product_name: product.name,
-                weight:       item.weight,
-                color:        item.color || "Not specified",
+                product_id:    product.id,
+                product_name:  product.name,
+                weight:        product.weight,
+                color:         item.color || "Not specified",
                 qty,
-                unit_paise:   unitPaise,
+                unit_paise:    unitPaise,
                 is_early_bird: isEarlyBird,
             });
         }
@@ -122,7 +133,7 @@ exports.handler = async (event) => {
                 razorpay_order_id: isCod ? codReceipt : rzOrder.id,
                 status:           isCod ? "cod_unpaid" : "pending",
                 payment_method:   isCod ? "cod" : "online",
-                shipping_address: address,
+                shipping_address: [address, landmark, city, state, pincode].filter(Boolean).join(", "),
             };
             if (user_id) {
                 orderData.user_id = user_id;
