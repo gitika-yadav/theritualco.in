@@ -233,3 +233,79 @@ a:hover { opacity: 0.7; }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
 }
+
+/* ===== INTENT QUICK-LINK CARDS ===== */
+.contact-cards{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 8px 0 28px;
+}
+.contact-card{
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 20px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.contact-card:hover{
+  transform: translateY(-3px);
+  border-color: var(--ink);
+  box-shadow: var(--shadow-1);
+}
+.contact-card i{ font-size: 1.2rem; color: var(--ink); margin-bottom: 12px; display: block; }
+.contact-card h3{
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 500;
+  font-size: 1.3rem;
+  margin: 0 0 6px;
+  color: var(--ink);
+}
+.contact-card p{ font-size: 0.9rem; line-height: 1.55; color: var(--muted); margin: 0; }
+
+/* ===== FAQ DEFLECTION ===== */
+.faq-deflect{
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--muted);
+  margin: 0 0 28px;
+}
+.faq-deflect a{ color: var(--ink); text-decoration: underline; text-underline-offset: 2px; white-space: nowrap; }
+
+/* ===== CHANNELS + TRUST META ===== */
+.contact-meta{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 32px;
+}
+.contact-channels,
+.contact-trust{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+.contact-channels h2,
+.contact-trust h2{
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 500;
+  font-size: 1.4rem;
+  margin: 0 0 14px;
+  color: var(--ink);
+}
+.contact-channels p{ margin: 8px 0; color: var(--ink); }
+.contact-channels i{ width: 20px; color: var(--muted); margin-right: 6px; }
+.contact-channels .hours{ color: var(--muted); font-size: 0.9rem; margin-top: 14px; }
+.contact-channels a{ color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
+.contact-trust p{ color: var(--muted); line-height: 1.7; margin: 0 0 12px; }
+.contact-trust strong{ color: var(--ink); }
+.reg-office{ font-size: 0.92rem; line-height: 1.6; }
+
+@media (max-width: 760px){
+  .contact-cards{ grid-template-columns: 1fr; }
+  .contact-meta{ grid-template-columns: 1fr; }
+}
