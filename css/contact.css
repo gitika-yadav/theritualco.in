@@ -1,28 +1,28 @@
 /* ================================
-   The Ritual Co — Contact.css (rev)
-   Works with contact.html as-is
+   The Ritual Co — Contact.css
+   Brand-aligned palette (cream / ink / sand)
    ================================ */
 
 /* ---------- Design tokens ---------- */
 :root {
-  --bg: #fff9f7;
-  --surface: #fff2ee;
-  --ink: #1a2e25;
-  --muted: #6a7b74;
+  --bg: #F7F2EC;          /* brand cream */
+  --surface: #FCFAF8;     /* card surface */
+  --ink: #171717;         /* brand charcoal */
+  --muted: #6E6E6E;       /* brand muted */
 
-  --brand: #e1a592;        /* soft terracotta-pink */
-  --brand-2: #d7b5a9;      /* lighter accent */
-  --brand-dark: #c08270;   /* hover */
+  --brand: #171717;       /* CTA (matches site buttons) */
+  --brand-2: #ECE4DA;     /* sand accent */
+  --brand-dark: #000000;  /* hover */
 
-  --ring: rgba(225,165,146,0.35);
-  --border: #eaded8;
+  --ring: rgba(23,23,23,0.12);
+  --border: #ECE4DA;
 
   --radius-sm: 10px;
   --radius: 16px;
   --radius-lg: 22px;
 
-  --shadow-1: 0 6px 18px rgba(26,46,37,0.06);
-  --shadow-2: 0 10px 30px rgba(26,46,37,0.08);
+  --shadow-1: 0 6px 18px rgba(0,0,0,0.05);
+  --shadow-2: 0 10px 30px rgba(0,0,0,0.07);
 
   --maxw: 980px;
 }
@@ -39,45 +39,51 @@ html, body {
   flex-direction: column;
 }
 
+/* top padding clears the 88px fixed navbar */
 .main-content {
   width: min(var(--maxw), 92%);
-  margin: 48px auto 100px;
+  margin: 0 auto;
+  padding: calc(88px + 48px) 0 100px;
 }
 
 h1, h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
   letter-spacing: -0.01em;
 }
 
 h1 {
-  font-size: clamp(1.8rem, 2.4vw + 1rem, 2.4rem);
+  font-size: clamp(2rem, 2.4vw + 1rem, 2.8rem);
+  font-weight: 500;
   margin: 0 0 6px;
 }
 
 .intro {
   color: var(--muted);
   max-width: 720px;
-  line-height: 1.65;
-  margin: 0 0 28px;
+  line-height: 1.7;
+  margin: 0 0 32px;
 }
 
-/* ---------- Sections (optional blocks) ---------- */
+/* ---------- Sections ---------- */
 .contact-section {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow-1);
-  padding: 18px 18px 16px;
+  padding: 24px;
   margin: 18px 0;
 }
 
 .contact-section h2 {
-  font-size: 1.1rem;
-  margin: 4px 0 10px;
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin: 0 0 12px;
 }
 
 .contact-section p {
   margin: 8px 0 10px;
   color: var(--ink);
+  line-height: 1.7;
 }
 
 .contact-section ul {
@@ -86,24 +92,28 @@ h1 {
 }
 
 .contact-section li {
-  margin: 4px 0;
+  margin: 6px 0;
+  color: var(--ink);
 }
 
 /* ---------- Form ---------- */
 .contact-form {
   display: grid;
-  gap: 12px;
+  gap: 14px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-2);
-  padding: 22px 18px;
-  margin-top: 18px;
+  padding: 28px 24px;
+  margin: 18px 0;
 }
 
 .contact-form label {
-  font-weight: 600;
-  font-size: 0.95rem;
+  font-weight: 500;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
   margin-top: 2px;
 }
 
@@ -112,14 +122,15 @@ h1 {
 .contact-form textarea {
   width: 100%;
   margin-top: 6px;
-  padding: 12px 14px;
+  padding: 14px 16px;
   border: 1px solid var(--border);
   border-radius: 12px;
   background: #fff;
   color: var(--ink);
+  font-family: inherit;
   font-size: 1rem;
   line-height: 1.45;
-  transition: box-shadow .15s ease, border-color .15s ease, background-color .2s ease;
+  transition: box-shadow .15s ease, border-color .15s ease;
 }
 
 .contact-form textarea {
@@ -129,21 +140,21 @@ h1 {
 
 .contact-form input::placeholder,
 .contact-form textarea::placeholder {
-  color: #9aa6a1;
+  color: #b3a9a1;
 }
 
 .contact-form input:focus,
 .contact-form select:focus,
 .contact-form textarea:focus {
   outline: none;
-  border-color: var(--brand);
+  border-color: var(--ink);
   box-shadow: 0 0 0 4px var(--ring);
 }
 
-/* Row helper if you add paired fields (topic / order #) */
+/* Row helper for paired fields */
 .form-row {
   display: grid;
-  gap: 12px;
+  gap: 14px;
 }
 
 @media (min-width: 640px) {
@@ -152,16 +163,7 @@ h1 {
   }
 }
 
-/* Consent checkbox line */
-.contact-form .consent-line {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-  font-size: 0.95rem;
-  color: var(--muted);
-}
-
-/* Submit button */
+/* Submit button — matches site CTA */
 .contact-form button[type="submit"],
 .contact-form input[type="submit"] {
   appearance: none;
@@ -169,86 +171,63 @@ h1 {
   border-radius: 999px;
   background: var(--brand);
   color: #fff;
-  padding: 12px 20px;
-  font-weight: 700;
-  box-shadow: 0 8px 20px rgba(225,165,146,0.35);
+  padding: 16px 24px;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-family: inherit;
   cursor: pointer;
-  transition: transform .04s ease, background-color .2s ease, box-shadow .2s ease;
+  transition: transform .25s ease, box-shadow .25s ease, background-color .2s ease;
 }
 
 .contact-form button[type="submit"]:hover,
 .contact-form input[type="submit"]:hover {
   background: var(--brand-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
 }
 
-.contact-form button[type="submit"]:active,
-.contact-form input[type="submit"]:active {
-  transform: translateY(1px);
+.contact-form button[type="submit"]:active {
+  transform: translateY(0);
 }
 
 .contact-form button[disabled],
 .contact-form input[disabled] {
-  opacity: .6;
+  opacity: .5;
   cursor: not-allowed;
   box-shadow: none;
+  transform: none;
 }
 
-/* Success / alert box (if you add one) */
+/* Success box */
 #contact-success {
   margin-top: 10px;
-  padding: 12px 14px;
+  padding: 14px 16px;
   border-radius: 12px;
-  background: #ecfff3;
-  border: 1px solid #b7f0c6;
-  color: #144d2a;
-  font-weight: 600;
-}
-
-/* ---------- Details / FAQ ---------- */
-details {
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 10px 12px;
-  margin: 8px 0;
-}
-
-summary {
-  cursor: pointer;
-  font-weight: 600;
-  outline: none;
-}
-
-details[open] {
-  border-color: var(--brand-2);
-  box-shadow: 0 0 0 3px var(--ring);
+  background: #f0f7ee;
+  border: 1px solid #cfe6c8;
+  color: #2a6b3a;
+  font-weight: 500;
 }
 
 /* ---------- Contact details block ---------- */
 .contact-details {
   width: 100%;
   max-width: 740px;
-  margin: 16px 0 0;
+  margin: 24px 0 0;
   color: var(--muted);
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 .contact-details a {
-  color: var(--brand-dark);
+  color: var(--ink);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
 /* ---------- Utilities ---------- */
-a { color: var(--brand-dark); }
-a:hover { opacity: 0.9; }
-
-.hr {
-  height: 1px;
-  background: var(--border);
-  border: 0;
-  margin: 20px 0;
-}
+a { color: var(--ink); }
+a:hover { opacity: 0.7; }
 
 /* ---------- Motion preference ---------- */
 @media (prefers-reduced-motion: reduce) {

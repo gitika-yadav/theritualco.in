@@ -17,20 +17,22 @@
     <meta name="description" content="Questions about our capsule dumbbells, orders, or collaborations? Contact The Ritual Co. We reply within 24 hours. We're here to help with orders, partnerships, and product inquiries.">
 
     <link rel="icon" type="image/png" href="/images/favicon.png" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Playfair+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/css/global.css" />
     <link rel="stylesheet" href="/css/contact.css" />
     <link rel="stylesheet" href="/css/navbar.css" />
     <link rel="stylesheet" href="/css/footer.css" />
 
+    <!-- reCAPTCHA v3 -->
+    <script src="https://www.google.com/recaptcha/api.js?render=6LeMNRwtAAAAAL9_NEzYlsCerZMcL9mYZwWbJnZh"></script>
 
-    <!-- Open Graph (optional) -->
+    <!-- Open Graph -->
     <meta property="og:title" content="Contact The Ritual Co">
     <meta property="og:description" content="Product questions, orders, retail & collabs — reply within 24 hours.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://theritualco.in/contact">
-
+    <meta property="og:image" content="https://theritualco.in/images/capsule-dumbbell.webp">
 </head>
 
 <body>
@@ -46,28 +48,26 @@
         <section class="contact-section" aria-labelledby="why-contact">
             <h2 id="why-contact">Why reach out to The Ritual Co</h2>
             <p>
-                We built The Ritual Co to make movement feel beautiful. If you’re exploring our
+                We built The Ritual Co to make movement feel beautiful. If you're exploring our
                 <strong>capsule-shaped silicone dumbbells</strong>, need help choosing the right weight,
-                or want to confirm delivery timelines, we’re here. Our team can advise on grip comfort,
+                or want to confirm delivery timelines, we're here. Our team can advise on grip comfort,
                 care, and safe training basics for <em>home gyms</em>, studio sessions, and travel.
             </p>
             <p>
                 Already placed an order? Ask about shipping status, changes to your address, or returns.
-                If you’re a creator or a brand with a shared aesthetic, let’s talk collaborations and
-                product seeding. And if you’re press, we can share media assets, founder quotes, and
+                If you're a creator or a brand with a shared aesthetic, let's talk collaborations and
+                product seeding. And if you're press, we can share media assets, founder quotes, and
                 product details. We read every message and reply within <strong>24 hours</strong>.
             </p>
         </section>
 
-        <form name="contact" method="POST" data-netlify="true" class="contact-form">
+        <form id="contact-form" class="contact-form">
             <!-- Honeypot: hidden field for bots -->
             <div style="position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden;">
                 <label>Leave this field empty
                     <input type="text" name="company" autocomplete="off" tabindex="-1">
                 </label>
             </div>
-
-            <input type="hidden" name="form-name" value="contact" />
 
             <label for="name">Name</label>
             <input type="text" id="name" name="name" required placeholder="Your full name" />
@@ -76,41 +76,38 @@
             <input type="email" id="email" name="email" required placeholder="you@example.com" />
 
             <div class="form-row">
-                <label for="topic" class="label">Topic</label>
-                <select id="topic" name="topic" required aria-required="true">
-                    <option value="" disabled selected>Select a topic</option>
-                    <option>Order / Shipping</option>
-                    <option>Product question</option>
-                    <option>Bulk / Wholesale</option>
-                    <option>Media / Collaboration</option>
-                    <option>Other</option>
-                </select>
-            </div>
+                <div>
+                    <label for="topic">Topic</label>
+                    <select id="topic" name="topic" required aria-required="true">
+                        <option value="" disabled selected>Select a topic</option>
+                        <option>Order / Shipping</option>
+                        <option>Product question</option>
+                        <option>Bulk / Wholesale</option>
+                        <option>Media / Collaboration</option>
+                        <option>Other</option>
+                    </select>
+                </div>
 
-            <div class="form-row">
-                <label for="orderId" class="label">Order # (optional)</label>
-                <input id="orderId" name="orderId" type="text" placeholder="e.g., TRC-12345">
+                <div>
+                    <label for="orderId">Order # (optional)</label>
+                    <input id="orderId" name="orderId" type="text" placeholder="e.g., TRC-12345">
+                </div>
             </div>
 
             <label for="message">Message</label>
             <textarea id="message" name="message" rows="5" required placeholder="Tell us how we can help"></textarea>
 
-            <div class="form-row">
-                <label style="display:flex; gap:.5rem; align-items:flex-start;">
-                    <input type="checkbox" id="consent" required aria-required="true" style="margin-top:.25rem;">
-                    You can email me about this request. We use your info only to respond.
-                </label>
-            </div>
+            <label style="display:flex; gap:.5rem; align-items:flex-start; text-transform:none; letter-spacing:0; font-weight:400; color:var(--muted);">
+                <input type="checkbox" id="consent" required aria-required="true" style="width:auto; margin-top:.25rem;">
+                You can email me about this request. We use your info only to respond.
+            </label>
 
             <button type="submit">Send Message</button>
 
             <!-- Success notice (hidden by default) -->
-            <div id="contact-success" role="status" aria-live="polite"
-                 style="display:none; margin-top:12px; padding:10px; border-radius:10px;
-            background:#ecfff3; border:1px solid #b7f0c6; color:#144d2a;">
-                Thanks! Your message was sent. We’ll reply within 24 hours.
+            <div id="contact-success" role="status" aria-live="polite" style="display:none;">
+                Thanks! Your message was sent. We'll reply within 24 hours.
             </div>
-
         </form>
 
         <section class="contact-section" aria-labelledby="collab-media">
@@ -128,7 +125,7 @@
             </ul>
             <p>
                 Tell us your idea, audience, and timelines. Share links (IG, YT, TikTok, website) and any
-                deliverables you have in mind—we’ll get back with next steps and a fit check.
+                deliverables you have in mind—we'll get back with next steps and a fit check.
             </p>
         </section>
 
@@ -140,14 +137,14 @@
                 page. If you need to update your address or size/weight, message us as soon as possible.
             </p>
             <p>
-                For quality concerns or transit damage, attach a short description and photos—we’ll make it right.
-                If you’re gifting our dumbbells, we can add a note and discreet packaging on request.
+                For quality concerns or transit damage, attach a short description and photos—we'll make it right.
+                If you're gifting our dumbbells, we can add a note and discreet packaging on request.
             </p>
         </section>
 
         <div class="contact-details">
             <p>Email us: <a href="mailto:theritualcoofficial@gmail.com">theritualcoofficial@gmail.com</a></p>
-            <p>Instagram: <a href="https://instagram.com/theritualco.in" target="_blank">@theritualco.in</a></p>
+            <p>Instagram: <a href="https://instagram.com/theritualco.in" target="_blank" rel="noopener">@theritualco.in</a></p>
         </div>
     </main>
 
@@ -158,58 +155,78 @@
 <!-- Load Navbar and Footer -->
 <script>
     fetch("/partials/navbar.html")
-      .then(res => res.text())
-      .then(data => {
-        document.getElementById("navbar-placeholder").innerHTML = data;
-        // ✅ Load the JS only after navbar is injected
-        const script = document.createElement('script');
-        script.src = '/javascript/navbar.js';
-        document.body.appendChild(script);
-      });
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById("navbar-placeholder").innerHTML = data;
+            const script = document.createElement('script');
+            script.src = '/javascript/navbar.js';
+            document.body.appendChild(script);
+        });
 
     fetch("/partials/footer.html")
-      .then(res => res.text())
-      .then(data => {
-        document.getElementById("footer-placeholder").innerHTML = data;
-      });
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById("footer-placeholder").innerHTML = data;
+        });
 </script>
 
+<!-- Contact form submit → Netlify function + Resend email -->
 <script>
-    (function() {
-      var form = document.querySelector('form');               // your existing form
-      if (!form) return;
+    (function () {
+        const form = document.getElementById("contact-form");
+        if (!form) return;
+        const consent = document.getElementById("consent");
+        const submit = form.querySelector('button[type="submit"]');
+        const successBox = document.getElementById("contact-success");
 
-      var consent = document.getElementById('consent');
-      var submit = form.querySelector('button[type="submit"], input[type="submit"]');
-      var successBox = document.getElementById('contact-success');
-
-      // Enable/disable submit by consent (if present)
-      if (consent && submit) {
-        submit.disabled = true;
-        consent.addEventListener('change', function() {
-          submit.disabled = !consent.checked;
-        });
-      }
-
-      // Intercept submit for honeypot + friendly success (doesn’t block your real handler)
-      form.addEventListener('submit', function(evt) {
-        // Honeypot: silently drop bots
-        var hp = form.querySelector('input[name="company"]');
-        if (hp && hp.value.trim() !== '') {
-          evt.preventDefault();
-          return false;
+        if (consent && submit) {
+            submit.disabled = true;
+            consent.addEventListener("change", () => { submit.disabled = !consent.checked; });
         }
 
-        // If you POST via JS elsewhere, keep it. If this is native submit, we let it proceed.
-        // Show success if the page stays (e.g., Netlify/Formspree no-redirect mode)
-        // Small timeout so we don’t clash with native redirect responses.
-        setTimeout(function() {
-          if (successBox) {
-            successBox.style.display = 'block';
-            successBox.scrollIntoView({behavior: 'smooth', block: 'center'});
-          }
-        }, 400);
-      });
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const hp = form.querySelector('input[name="company"]');
+            if (hp && hp.value.trim() !== "") return; // bot — drop silently
+
+            submit.disabled = true;
+            submit.textContent = "Sending…";
+
+            grecaptcha.ready(function () {
+                grecaptcha.execute("6LeMNRwtAAAAAL9_NEzYlsCerZMcL9mYZwWbJnZh", { action: "contact" })
+                    .then(function (token) {
+                        const data = {
+                            name:    form.name.value.trim(),
+                            email:   form.email.value.trim(),
+                            topic:   form.topic.value,
+                            orderId: form.orderId.value.trim(),
+                            message: form.message.value.trim(),
+                            company: hp ? hp.value : "",
+                            "g-recaptcha-response": token,
+                        };
+                        fetch("/.netlify/functions/contact", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(data),
+                        })
+                            .then(async (r) => {
+                                const out = await r.json();
+                                if (!r.ok) throw new Error(out.error || "Failed to send");
+                                gtag("event", "contact_submit", { topic: data.topic });
+                                form.reset();
+                                form.style.display = "none";
+                                successBox.style.display = "block";
+                                successBox.scrollIntoView({ behavior: "smooth", block: "center" });
+                            })
+                            .catch((err) => {
+                                submit.disabled = false;
+                                submit.textContent = "Send Message";
+                                alert(err.message || "Could not send. Please email theritualcoofficial@gmail.com directly.");
+                            });
+                    });
+            });
+        });
     })();
 </script>
 
@@ -225,7 +242,7 @@
             {"@type":"Question","name":"How do I care for them?",
                 "acceptedAnswer":{"@type":"Answer","text":"Wipe with a damp cloth and mild soap; avoid harsh solvents and prolonged direct sun."}},
             {"@type":"Question","name":"Do you ship across India?",
-                "acceptedAnswer":{"@type":"Answer","text":"Yes, pan-India. Typical delivery is 3–7 business days after dispatch."}},
+                "acceptedAnswer":{"@type":"Answer","text":"Yes, pan-India. Typical delivery is 2–5 business days after dispatch."}},
             {"@type":"Question","name":"Do you offer bulk or studio pricing?",
                 "acceptedAnswer":{"@type":"Answer","text":"Yes—contact us with the topic 'Bulk / Wholesale' with quantities and timelines."}}
         ]
@@ -234,4 +251,3 @@
 
 </body>
 </html>
-

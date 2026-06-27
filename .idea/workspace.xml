@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="add gtags for checkout journey + fix sitemap genration">
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="clean articles and category">
+      <change afterPath="$PROJECT_DIR$/netlify/functions/contact.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/weightloss/weightloss-bloglist.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/weightloss/weightloss-with-dumbbells.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/contact.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/contact.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sitemap.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sitemap.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,23 +33,23 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0215272498943866" />
-      <entry key="MS500" value="1.8161510287222558" />
-      <entry key="S2" value="3.493946810695559" />
-      <entry key="S5" value="5.995526156565005" />
-      <entry key="S10" value="8.719646009873188" />
-      <entry key="S30" value="12.266625864950655" />
-      <entry key="S60" value="13.529733321861348" />
-      <entry key="M2" value="14.23674790474303" />
-      <entry key="M5" value="14.687648346839996" />
-      <entry key="M10" value="14.851588910251781" />
-      <entry key="M15" value="15.011672115795921" />
-      <entry key="M30" value="16.782785605329337" />
-      <entry key="H1" value="24.298305409909826" />
-      <entry key="H2" value="39.42601138848909" />
-      <entry key="H4" value="56.702739838641946" />
-      <entry key="D1" value="83.1359943298914" />
-      <entry key="W1" value="278.902545659213" />
+      <entry key="MS100" value="1.0000553895236113" />
+      <entry key="MS500" value="1.2207155924888553" />
+      <entry key="S2" value="3.1424488160425197" />
+      <entry key="S5" value="4.8917589699761965" />
+      <entry key="S10" value="5.874020068573839" />
+      <entry key="S30" value="7.78845329857481" />
+      <entry key="S60" value="9.811500065037128" />
+      <entry key="M2" value="12.494136330629601" />
+      <entry key="M5" value="18.04261366173548" />
+      <entry key="M10" value="22.476205743142213" />
+      <entry key="M15" value="24.62274954630414" />
+      <entry key="M30" value="28.534353035882948" />
+      <entry key="H1" value="36.90255035471701" />
+      <entry key="H2" value="52.48080271468474" />
+      <entry key="H4" value="70.30275432959245" />
+      <entry key="D1" value="97.79320823004863" />
+      <entry key="W1" value="293.7399518300849" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -63,31 +63,31 @@
       <entry key="M5" value="0.0" />
       <entry key="M10" value="0.0" />
       <entry key="M15" value="0.0" />
-      <entry key="M30" value="1.1081173442701275E-208" />
-      <entry key="H1" value="1.3366666802634524E-104" />
-      <entry key="H2" value="1.5816516742430023E-52" />
-      <entry key="H4" value="1.7629779236960763E-26" />
-      <entry key="D1" value="1.1970360617267055E-4" />
-      <entry key="W1" value="2.641744429098887" />
+      <entry key="M30" value="9.118619495169386E-209" />
+      <entry key="H1" value="1.2125364224576826E-104" />
+      <entry key="H2" value="1.5064221080271847E-52" />
+      <entry key="H4" value="1.7205400709044136E-26" />
+      <entry key="D1" value="1.1921847266982499E-4" />
+      <entry key="W1" value="2.640212275292526" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9969434025464573" />
-      <entry key="MS500" value="1.6277295055158272" />
-      <entry key="S2" value="3.3466709944150033" />
-      <entry key="S5" value="5.903379684053753" />
-      <entry key="S10" value="8.659120976391531" />
-      <entry key="S30" value="12.241021442263404" />
-      <entry key="S60" value="13.51603917841397" />
-      <entry key="M2" value="14.229657910583557" />
-      <entry key="M5" value="14.684751297946661" />
-      <entry key="M10" value="14.850129890638046" />
-      <entry key="M15" value="15.010696345860861" />
-      <entry key="M30" value="16.78228864442262" />
-      <entry key="H1" value="24.298030842199587" />
-      <entry key="H2" value="39.42583962784875" />
-      <entry key="H4" value="56.70263148508869" />
-      <entry key="D1" value="83.1360897534139" />
-      <entry key="W1" value="281.5442214071258" />
+      <entry key="MS100" value="0.9727095717725832" />
+      <entry key="MS500" value="1.2144555638626295" />
+      <entry key="S2" value="3.138896147426644" />
+      <entry key="S5" value="4.88954716520844" />
+      <entry key="S10" value="5.872624731721383" />
+      <entry key="S30" value="7.787550949519796" />
+      <entry key="S60" value="9.81077909148973" />
+      <entry key="M2" value="12.493312008465633" />
+      <entry key="M5" value="18.04150234586068" />
+      <entry key="M10" value="22.475280038719205" />
+      <entry key="M15" value="24.622012060471135" />
+      <entry key="M30" value="28.53390489337259" />
+      <entry key="H1" value="36.90228147512246" />
+      <entry key="H2" value="52.48062916535223" />
+      <entry key="H4" value="70.30264359170988" />
+      <entry key="D1" value="97.79330243287089" />
+      <entry key="W1" value="296.3800953448407" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -173,14 +173,6 @@
       <workItem from="1779695741143" duration="8369000" />
       <workItem from="1780831623909" duration="98941000" />
       <workItem from="1781737896564" duration="11840000" />
-    </task>
-    <task id="LOCAL-00081" summary="add reviews">
-      <option name="closed" value="true" />
-      <created>1780858436135</created>
-      <option name="number" value="00081" />
-      <option name="presentableId" value="LOCAL-00081" />
-      <option name="project" value="LOCAL" />
-      <updated>1780858436135</updated>
     </task>
     <task id="LOCAL-00082" summary="minor fix">
       <option name="closed" value="true" />
@@ -566,14 +558,21 @@
       <option name="project" value="LOCAL" />
       <updated>1782585681185</updated>
     </task>
-    <option name="localTasksCounter" value="130" />
+    <task id="LOCAL-00130" summary="clean articles and category">
+      <option name="closed" value="true" />
+      <created>1782586228700</created>
+      <option name="number" value="00130" />
+      <option name="presentableId" value="LOCAL-00130" />
+      <option name="project" value="LOCAL" />
+      <updated>1782586228700</updated>
+    </task>
+    <option name="localTasksCounter" value="131" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add yoga blog" />
     <MESSAGE value="newsletter" />
     <MESSAGE value="admin dashboard" />
     <MESSAGE value="add discount coupon" />
@@ -598,7 +597,8 @@
     <MESSAGE value="add yoga mats and ankle weights coming soon" />
     <MESSAGE value="clean" />
     <MESSAGE value="add gtags for checkout journey + fix sitemap genration" />
-    <option name="LAST_COMMIT_MESSAGE" value="add gtags for checkout journey + fix sitemap genration" />
+    <MESSAGE value="clean articles and category" />
+    <option name="LAST_COMMIT_MESSAGE" value="clean articles and category" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
