@@ -11,7 +11,7 @@
  edge_functions = false
 
 [build.environment]
- NODE_VERSION = "18"
+ NODE_VERSION = "20"
  SECRETS_SCAN_OMIT_KEYS = "SUPABASE_ANON_KEY"
 
 # ── Set these in Netlify Dashboard → Site → Environment Variables ──
