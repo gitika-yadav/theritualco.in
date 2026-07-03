@@ -1657,3 +1657,15 @@ repeat(
 @media (max-width: 540px) {
     .products-grid { grid-template-columns: 1fr; }
 }
+
+.gallery__hero {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+}
+
+.gallery__hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #f5f0eb;
+}
