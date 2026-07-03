@@ -10,8 +10,8 @@
     </script>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>The Ritual Mat – Aesthetic Yoga Mat – The Ritual Co.</title>
-    <meta name="description" content="A minimal, pastel yoga mat designed to live beautifully in your space. Natural rubber base, sweat-resistant surface. Coming soon from The Ritual Co."/>
+    <title>The Ritual Mat – 6mm Yoga Mat – The Ritual Co.</title>
+    <meta name="description" content="A minimal, pastel 6mm yoga mat designed to live beautifully in your space. Natural rubber base, sweat-resistant surface. Coming soon from The Ritual Co."/>
     <link rel="icon" type="image/png" href="/images/favicon.png"/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="/css/global.css"/>
@@ -25,7 +25,7 @@
             "itemListElement":[
                 {"@type":"ListItem","position":1,"name":"Home","item":"https://theritualco.in/"},
                 {"@type":"ListItem","position":2,"name":"Products","item":"https://theritualco.in/products/"},
-                {"@type":"ListItem","position":3,"name":"The Ritual Mat","item":"https://theritualco.in/products/yoga-mat"}
+                {"@type":"ListItem","position":3,"name":"The Ritual Mat","item":"https://theritualco.in/products/the-ritual-mat"}
             ]
         }
     </script>
@@ -35,15 +35,20 @@
             "@type":"Product",
             "name":"The Ritual Mat",
             "brand":{"@type":"Brand","name":"The Ritual Co."},
-            "description":"A minimal, pastel yoga mat with natural rubber base and sweat-resistant surface. Coming soon.",
-            "image":["https://theritualco.in/images/yoga-mat.webp"],
-            "sku":"TRC-MAT",
+            "description":"A minimal, pastel 6mm yoga mat with natural rubber base and sweat-resistant surface.",
+            "image":["https://theritualco.in/images/the-ritual-mat.webp"],
+            "sku":"TRC-MAT-6MM",
             "category":"SportingGoods",
             "material":"Natural rubber, Sweat-resistant top layer",
-            "color":"Cream, Coffee, Black, Pink",
+            "color":"Cream, Coffee, Pink, Black",
+            "additionalProperty":[
+                {"@type":"PropertyValue","name":"Dimensions","value":"183 cm × 61 cm"},
+                {"@type":"PropertyValue","name":"Thickness","value":"6 mm"}
+            ],
             "offers":{
                 "@type":"Offer",
                 "availability":"https://schema.org/PreOrder",
+                "price":"4999",
                 "priceCurrency":"INR"
             }
         }
@@ -55,88 +60,71 @@
 
     <main class="product">
         <section class="product__top">
-            <!-- Gallery -->
             <div class="gallery">
                 <div class="gallery__hero">
                     <picture>
-                        <source id="hero-source-webp" srcset="/images/yoga-mat-coffee.webp" type="image/webp"/>
-                        <img id="hero-image" src="/images/yoga-mat-coffee.webp" alt="The Ritual Mat — minimal pastel yoga mat" width="900" height="700" fetchpriority="high" decoding="async"/>
+                        <source id="hero-source-webp" srcset="/images/the-ritual-mat.webp" type="image/webp"/>
+                        <img id="hero-image" src="/images/the-ritual-mat.webp" alt="The Ritual Mat — 6mm pastel yoga mat" width="900" height="700" fetchpriority="high" decoding="async"/>
                     </picture>
                 </div>
                 <div class="gallery__thumbs">
-                    <button class="thumb is-active" data-img="/images/yoga-mat.webp" aria-label="Main view">
-                        <img src="/images/yoga-mat-coffee.webp" alt="The Ritual Mat" width="120" height="90"/>
+                    <button class="thumb is-active" data-img="/images/the-ritual-mat.webp" aria-label="Main view">
+                        <img src="/images/the-ritual-mat.webp" alt="The Ritual Mat" width="120" height="90"/>
                     </button>
                 </div>
             </div>
 
-            <!-- Purchase panel -->
             <div class="panel">
                 <p class="product-label" style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#a09890;margin:0 0 8px;">Coming Soon</p>
                 <h1>The Ritual Mat</h1>
                 <p class="sub">A mat that earns its place on your floor. Designed to stay out — not be shoved in a corner.</p>
 
-                <!-- Colour -->
                 <div class="opt">
                     <label class="opt__label">Colour</label>
                     <div class="swatches" role="radiogroup" aria-label="Colour">
-                        <button class="swatch is-selected" data-color="Pink" style="--sw:#f8c8b8" aria-checked="true" role="radio" aria-label="Pink"></button>
-                        <button class="swatch" data-color="Cream" style="--sw:#f3eadf" role="radio" aria-label="Cream"></button>
-                        <button class="swatch" data-color="Coffee" style="--sw:#c9ccd1" role="radio" aria-label="Coffee"></button>
-                        <button class="swatch" data-color="Black" style="--sw:#1f1f1f" role="radio" aria-label="Black"></button>
+                        <button class="swatch is-selected" data-color="Cream" style="--sw:#f3eadf" aria-checked="true" role="radio" aria-label="Cream"></button>
+                        <button class="swatch" data-color="Coffee" style="--sw:#6f4e37" aria-checked="false" role="radio" aria-label="Coffee"></button>
+                        <button class="swatch" data-color="Pink" style="--sw:#f6c2d2" aria-checked="false" role="radio" aria-label="Pink"></button>
+                        <button class="swatch" data-color="Black" style="--sw:#1f1f1f" aria-checked="false" role="radio" aria-label="Black"></button>
                     </div>
                 </div>
 
-                <!-- Thickness -->
                 <div class="opt">
                     <label class="opt__label">Thickness</label>
                     <div class="weights" role="radiogroup" aria-label="Thickness">
-                        <button class="weight is-selected" data-weight="6mm" aria-checked="true" role="radio">6 mm — Flow</button>
-<!--                        <button class="weight" data-weight="6mm" role="radio">6 mm — Support</button>-->
-<!--                        <button class="weight" data-weight="6mm" role="radio">6 mm — Support</button>-->
+                        <button class="weight is-selected" data-weight="6mm" aria-checked="true" role="radio">6 mm — Maximum Support</button>
                     </div>
-                    <p style="font-size:11px;color:#a09890;margin-top:6px;">4mm for yoga & Pilates · 6mm for joint support & floor work</p>
+                    <p style="font-size:11px;color:#a09890;margin-top:6px;">6mm for maximum joint support & cushioning</p>
                 </div>
 
-                <!-- Bullets -->
                 <ul class="bullets">
                     <li>Natural rubber base for non-slip stability</li>
                     <li>Smooth, sweat-resistant top surface</li>
+                    <li>6mm thickness for joint support and floor work</li>
                     <li>Minimal pastel colourways — designed to live in your space</li>
                     <li>183 cm × 61 cm · Carries light. Stays put.</li>
                 </ul>
 
-                <!-- Pricing -->
                 <div class="capsule-pricing">
-<!--                    <div class="capsule-price-card">-->
-<!--                        <div class="capsule-weight">4 MM — FLOW</div>-->
-<!--                        <div class="capsule-price-row">-->
-<!--                            <span class="capsule-retail">₹3,499</span>-->
-<!--                            <span class="capsule-launch">₹2,799</span>-->
-<!--                        </div>-->
-<!--                        <div class="capsule-offer">Early Bird · Waitlist Only</div>-->
-<!--                    </div>-->
-                    <div class="capsule-price-card">
-                        <div class="capsule-weight">6 MM — SUPPORT</div>
+                    <div class="capsule-price-card" style="grid-column:1/-1;">
+                        <div class="capsule-weight">6 MM — MAXIMUM SUPPORT</div>
                         <div class="capsule-price-row">
-                            <span class="capsule-retail">₹4,999</span>
-                            <span class="capsule-launch">₹4,499</span>
+                            <span class="capsule-retail">₹5,999</span>
+                            <span class="capsule-launch">₹4,999</span>
                         </div>
                         <div class="capsule-offer">Early Bird · Waitlist Only</div>
                     </div>
                 </div>
 
-                <!-- Waitlist CTA -->
                 <form id="product-waitlist-form" style="display:flex;gap:8px;margin-bottom:12px;">
                     <input type="text" name="nickname" style="display:none" tabindex="-1" autocomplete="off"/>
-                    <input type="hidden" name="product" value="Yoga Mat"/>
+                    <input type="hidden" name="product" value="The Ritual Mat"/>
                     <input type="email" name="email" placeholder="your@email.com" required
                            style="flex:1;padding:12px 14px;border:1px solid #e8e2dc;border-radius:8px;font-size:14px;outline:none;background:#faf8f6;"/>
                     <button type="submit" class="btn-primary" style="white-space:nowrap;">Join Waitlist</button>
                 </form>
                 <p id="p-confirm" style="display:none;font-size:13px;color:#2a6b3a;margin-bottom:12px;">You're on the list. We'll reach out first.</p>
 
-                <!-- Trust strip -->
                 <div class="trust">
                     <span>Pan-India shipping</span>
                     <span>Early bird pricing</span>
@@ -145,7 +133,6 @@
             </div>
         </section>
 
-        <!-- Details -->
         <section class="details">
             <div class="cards">
                 <article class="card">
@@ -166,11 +153,11 @@
                 <h2>Specs</h2>
                 <div class="specs__grid">
                     <div class="spec"><span>Dimensions</span><span>183 cm × 61 cm</span></div>
-                    <div class="spec"><span>Thickness</span><span>4 mm / 6 mm</span></div>
+                    <div class="spec"><span>Thickness</span><span>6 mm</span></div>
                     <div class="spec"><span>Base</span><span>Natural rubber</span></div>
                     <div class="spec"><span>Surface</span><span>Sweat-resistant top layer</span></div>
                     <div class="spec"><span>Finish</span><span>Pastel matte</span></div>
-                    <div class="spec"><span>Colours</span><span>Pink, Cream, Coffee, Black</span></div>
+                    <div class="spec"><span>Colours</span><span>Cream, Coffee, Pink, Black</span></div>
                     <div class="spec"><span>Best for</span><span>Yoga, Pilates, Stretching, Floor work</span></div>
                     <div class="spec"><span>Status</span><span>Coming Soon</span></div>
                 </div>
@@ -185,7 +172,9 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Swatches
+        var hero = document.getElementById('hero-image');
+        var heroSource = document.getElementById('hero-source-webp');
+
         document.querySelectorAll('.swatch').forEach(function(s) {
             s.addEventListener('click', function() {
                 document.querySelectorAll('.swatch').forEach(function(x) {
@@ -194,22 +183,19 @@
                 });
                 s.classList.add('is-selected');
                 s.setAttribute('aria-checked', 'true');
-            });
-        });
 
-        // Weights
-        document.querySelectorAll('.weight').forEach(function(w) {
-            w.addEventListener('click', function() {
-                document.querySelectorAll('.weight').forEach(function(x) {
-                    x.classList.remove('is-selected');
-                    x.setAttribute('aria-checked', 'false');
+                var color = s.dataset.color.toLowerCase();
+                var imgPath = '/images/the-ritual-mat-' + color + '.webp';
+                if (heroSource) heroSource.srcset = imgPath;
+                if (hero) hero.src = imgPath;
+
+                document.querySelectorAll('.thumb').forEach(function(t) {
+                    t.classList.remove('is-active');
+                    if (t.dataset.img === imgPath) t.classList.add('is-active');
                 });
-                w.classList.add('is-selected');
-                w.setAttribute('aria-checked', 'true');
             });
         });
 
-        // Waitlist form
         var form = document.getElementById('product-waitlist-form');
         if (form) {
             form.addEventListener('submit', function(e) {
@@ -237,8 +223,8 @@
 <script>
     gtag('event', 'view_item', {
         currency: 'INR',
-        value: 2799,
-        items: [{ item_id: 'yoga-mat-6mm', item_name: 'The Ritual Mat 6mm', price: 4999 }]
+        value: 4999,
+        items: [{ item_id: 'the-ritual-mat-6mm', item_name: 'The Ritual Mat 6mm', price: 4999 }]
     });
 </script>
 </body>

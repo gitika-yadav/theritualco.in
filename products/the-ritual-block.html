@@ -18,6 +18,43 @@
     <link rel="stylesheet" href="/css/navbar.css"/>
     <link rel="stylesheet" href="/css/footer.css"/>
     <link rel="stylesheet" href="/css/products.css"/>
+    <style>
+        .swatch.sold-out {
+            opacity: 0.4;
+            cursor: not-allowed;
+            position: relative;
+        }
+        .swatch.sold-out::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 3px,
+                    rgba(255,255,255,0.6) 3px,
+                    rgba(255,255,255,0.6) 4px
+            );
+        }
+        .swatch-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+        .swatch-label {
+            font-size: 10px;
+            color: #a09890;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .sold-out-label {
+            font-size: 9px;
+            color: #c0b8b0;
+            font-family: 'DM Sans', sans-serif;
+            letter-spacing: 0.04em;
+        }
+    </style>
     <script type="application/ld+json">
         {
             "@context":"https://schema.org",
@@ -25,7 +62,7 @@
             "itemListElement":[
                 {"@type":"ListItem","position":1,"name":"Home","item":"https://theritualco.in/"},
                 {"@type":"ListItem","position":2,"name":"Products","item":"https://theritualco.in/products/"},
-                {"@type":"ListItem","position":3,"name":"The Ritual Block","item":"https://theritualco.in/products/yoga-block"}
+                {"@type":"ListItem","position":3,"name":"The Ritual Block","item":"https://theritualco.in/products/the-ritual-block"}
             ]
         }
     </script>
@@ -35,12 +72,12 @@
             "@type":"Product",
             "name":"The Ritual Block",
             "brand":{"@type":"Brand","name":"The Ritual Co."},
-            "description":"Dense EVA foam yoga block in pastel colourways. 23cm x 15cm x 10cm. Supports every pose, deepens every stretch.",
-            "image":["https://theritualco.in/images/the-ritual-block-pink.webp"],
+            "description":"Dense EVA foam yoga block. 23cm x 15cm x 10cm. Supports every pose, deepens every stretch.",
+            "image":["https://theritualco.in/images/the-ritual-block-black.webp"],
             "sku":"TRC-BLOCK",
             "category":"SportingGoods",
             "material":"EVA foam",
-            "color":"Pink, Cream, Coffee, Black",
+            "color":"Black, Pink",
             "additionalProperty":[
                 {"@type":"PropertyValue","name":"Dimensions","value":"23 cm × 15 cm × 10 cm"},
                 {"@type":"PropertyValue","name":"Material","value":"Dense EVA foam"},
@@ -48,7 +85,8 @@
             ],
             "offers":{
                 "@type":"Offer",
-                "availability":"https://schema.org/PreOrder",
+                "availability":"https://schema.org/InStock",
+                "price":"999",
                 "priceCurrency":"INR"
             }
         }
@@ -60,39 +98,57 @@
 
     <main class="product">
         <section class="product__top">
-            <!-- Gallery -->
             <div class="gallery">
                 <div class="gallery__hero">
                     <picture>
                         <source id="hero-source-webp" srcset="/images/the-ritual-block-black.webp" type="image/webp"/>
-                        <img id="hero-image" src="/images/the-ritual-block-black.webp" alt="The Ritual Block — pastel EVA foam yoga block" width="900" height="700" fetchpriority="high" decoding="async"/>
+                        <img id="hero-image" src="/images/the-ritual-block-black.webp" alt="The Ritual Block — EVA foam yoga block" width="900" height="700" fetchpriority="high" decoding="async"/>
                     </picture>
                 </div>
                 <div class="gallery__thumbs">
-                    <button class="thumb is-active" data-img="/images/the-ritual-block.webp" aria-label="Main view">
-                        <img src="/images/the-ritual-block-pink.webp" alt="The Ritual Block" width="120" height="90"/>
+                    <button class="thumb is-active" data-img="/images/the-ritual-block-black.webp" aria-label="Black">
+                        <img src="/images/the-ritual-block-black.webp" alt="The Ritual Block Black" width="120" height="90"/>
+                    </button>
+                    <button class="thumb" data-img="/images/the-ritual-block-pink.webp" aria-label="Pink">
+                        <img src="/images/the-ritual-block-pink.webp" alt="The Ritual Block Pink" width="120" height="90"/>
                     </button>
                 </div>
             </div>
 
-            <!-- Purchase panel -->
             <div class="panel">
-                <p class="product-label" style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#a09890;margin:0 0 8px;">Coming Soon</p>
+                <p class="product-label" style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#a09890;margin:0 0 8px;">The Ritual Co.</p>
                 <h1>The Ritual Block</h1>
                 <p class="sub">The foundation of every pose. Stable enough to trust, soft enough to touch. Designed to stay on your shelf — not in a bag.</p>
 
-                <!-- Colour -->
                 <div class="opt">
                     <label class="opt__label">Colour</label>
-                    <div class="swatches" role="radiogroup" aria-label="Colour">
-                        <button class="swatch is-selected" data-color="Pink" style="--sw:#f8c8b8" aria-checked="true" role="radio" aria-label="Pink"></button>
-<!--                        <button class="swatch" data-color="Cream" style="&#45;&#45;sw:#f3eadf" role="radio" aria-label="Cream"></button>-->
-<!--                        <button class="swatch" data-color="Coffee" style="&#45;&#45;sw:#c9ccd1" role="radio" aria-label="Coffee"></button>-->
-                        <button class="swatch" data-color="Black" style="--sw:#1f1f1f" role="radio" aria-label="Black"></button>
+                    <div class="swatches" role="radiogroup" aria-label="Colour" style="gap:16px;">
+
+                        <div class="swatch-wrap">
+                            <button class="swatch is-selected" data-color="Black" data-img="/images/the-ritual-block-black.webp" style="--sw:#1f1f1f" aria-checked="true" role="radio" aria-label="Black"></button>
+                            <span class="swatch-label">Black</span>
+                        </div>
+
+                        <div class="swatch-wrap">
+                            <button class="swatch" data-color="Pink" data-img="/images/the-ritual-block-pink.webp" style="--sw:#f6c2d2" aria-checked="false" role="radio" aria-label="Pink"></button>
+                            <span class="swatch-label">Pink</span>
+                        </div>
+
+                        <div class="swatch-wrap">
+                            <button class="swatch sold-out" disabled style="--sw:#f3eadf" aria-label="Cream — Sold Out" title="Sold Out"></button>
+                            <span class="swatch-label">Cream</span>
+                            <span class="sold-out-label">Sold Out</span>
+                        </div>
+
+                        <div class="swatch-wrap">
+                            <button class="swatch sold-out" disabled style="--sw:#6f4e37" aria-label="Coffee — Sold Out" title="Sold Out"></button>
+                            <span class="swatch-label">Coffee</span>
+                            <span class="sold-out-label">Sold Out</span>
+                        </div>
+
                     </div>
                 </div>
 
-                <!-- Key bullets -->
                 <ul class="bullets">
                     <li>Dense EVA foam — stable under weight, gentle on skin</li>
                     <li>Non-slip surface for confident grip in every pose</li>
@@ -101,7 +157,6 @@
                     <li>Sold as a single block</li>
                 </ul>
 
-                <!-- Pricing -->
                 <div class="capsule-pricing">
                     <div class="capsule-price-card" style="grid-column:1/-1;">
                         <div class="capsule-weight">THE RITUAL BLOCK</div>
@@ -109,30 +164,20 @@
                             <span class="capsule-retail">₹1,199</span>
                             <span class="capsule-launch">₹999</span>
                         </div>
-                        <div class="capsule-offer">Early Bird · Waitlist Only</div>
+                        <div class="capsule-offer">Early Bird Pricing</div>
                     </div>
                 </div>
 
-                <!-- Waitlist CTA -->
-                <form id="product-waitlist-form" style="display:flex;gap:8px;margin-bottom:12px;">
-                    <input type="text" name="nickname" style="display:none" tabindex="-1" autocomplete="off"/>
-                    <input type="hidden" name="product" value="Yoga Block"/>
-                    <input type="email" name="email" placeholder="your@email.com" required
-                           style="flex:1;padding:12px 14px;border:1px solid #e8e2dc;border-radius:8px;font-size:14px;outline:none;background:#faf8f6;"/>
-                    <button type="submit" class="btn-primary" style="white-space:nowrap;">Join Waitlist</button>
-                </form>
-                <p id="p-confirm" style="display:none;font-size:13px;color:#2a6b3a;margin-bottom:12px;">You're on the list. We'll reach out first.</p>
+                <button class="btn-primary" id="buy-now-btn">Add to Cart</button>
 
-                <!-- Trust strip -->
                 <div class="trust">
                     <span>Pan-India shipping</span>
-                    <span>Early bird pricing</span>
-                    <span>Waitlist perks on launch</span>
+                    <span>2–5 day delivery</span>
+                    <span>Easy returns</span>
                 </div>
             </div>
         </section>
 
-        <!-- Details -->
         <section class="details">
             <div class="cards">
                 <article class="card">
@@ -141,11 +186,11 @@
                 </article>
                 <article class="card">
                     <h2>Care</h2>
-                    <p>Wipe with a damp cloth and mild soap. Air dry before storing. Avoid prolonged exposure to direct sunlight to maintain colour. EVA foam doesn't absorb water — easy to keep clean.</p>
+                    <p>Wipe with a damp cloth and mild soap. Air dry before storing. Avoid prolonged exposure to direct sunlight. EVA foam doesn't absorb water — easy to keep clean.</p>
                 </article>
                 <article class="card">
                     <h2>Good to know</h2>
-                    <p>Works on all three heights — stand it tall for more lift, wide for stability, or flat for seated support. Best used with The Ritual Mat and The Ritual Belt as part of the Yoga Kit.</p>
+                    <p>Works on all three heights — stand it tall for more lift, wide for stability, or flat for seated support. Best paired with The Ritual Mat and The Ritual Belt.</p>
                 </article>
             </div>
 
@@ -156,10 +201,10 @@
                     <div class="spec"><span>Material</span><span>Dense EVA foam</span></div>
                     <div class="spec"><span>Surface</span><span>Non-slip texture</span></div>
                     <div class="spec"><span>Sold as</span><span>Single block</span></div>
-                    <div class="spec"><span>Colours</span><span>Pink, Cream, Black</span></div>
+                    <div class="spec"><span>Available colours</span><span>Black, Pink</span></div>
+                    <div class="spec"><span>Coming soon</span><span>Cream, Coffee</span></div>
                     <div class="spec"><span>Best for</span><span>Yoga, Pilates, Stretching, Rehab</span></div>
                     <div class="spec"><span>Pairs with</span><span>The Ritual Mat, The Ritual Belt</span></div>
-                    <div class="spec"><span>Status</span><span>Coming Soon</span></div>
                 </div>
             </div>
         </section>
@@ -168,42 +213,73 @@
     <div id="footer-placeholder"></div>
 </div>
 
+<script src="/javascript/cart.js"></script>
 <script src="/javascript/init.js"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        document.querySelectorAll('.swatch').forEach(function(s) {
+        var hero = document.getElementById('hero-image');
+        var heroSource = document.getElementById('hero-source-webp');
+
+        // Gallery thumbs
+        document.querySelectorAll('.thumb').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.thumb').forEach(function(b) { b.classList.remove('is-active'); });
+                btn.classList.add('is-active');
+                var src = btn.dataset.img;
+                if (heroSource) heroSource.srcset = src;
+                if (hero) hero.src = src;
+            });
+        });
+
+        // Swatches
+        document.querySelectorAll('.swatch:not(.sold-out)').forEach(function(s) {
             s.addEventListener('click', function() {
-                document.querySelectorAll('.swatch').forEach(function(x) {
+                document.querySelectorAll('.swatch:not(.sold-out)').forEach(function(x) {
                     x.classList.remove('is-selected');
                     x.setAttribute('aria-checked', 'false');
                 });
                 s.classList.add('is-selected');
                 s.setAttribute('aria-checked', 'true');
+
+                var imgPath = s.dataset.img;
+                if (imgPath) {
+                    if (heroSource) heroSource.srcset = imgPath;
+                    if (hero) hero.src = imgPath;
+                    // Highlight matching thumb
+                    document.querySelectorAll('.thumb').forEach(function(t) {
+                        t.classList.remove('is-active');
+                        if (t.dataset.img === imgPath) t.classList.add('is-active');
+                    });
+                }
             });
         });
 
-        var form = document.getElementById('product-waitlist-form');
-        if (form) {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                var fd = new FormData(form);
-                var data = {};
-                for (var pair of fd.entries()) { data[pair[0]] = (pair[1]||'').toString().trim(); }
-                if (data.nickname) return;
-                fetch('/.netlify/functions/submit-to-sheet', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                })
-                    .then(function(r) { return r.json(); })
-                    .then(function() {
-                        form.reset();
-                        document.getElementById('p-confirm').style.display = 'block';
-                    })
-                    .catch(function() { alert('Something went wrong. Please try again.'); });
-            });
-        }
+        // Add to cart
+        document.getElementById('buy-now-btn').addEventListener('click', function() {
+            var activeSwatch = document.querySelector('.swatch.is-selected:not(.sold-out)');
+            var color = activeSwatch ? activeSwatch.dataset.color : 'Black';
+            var imgPath = activeSwatch && activeSwatch.dataset.img ? activeSwatch.dataset.img : '/images/the-ritual-block-black.webp';
+
+            if (typeof Cart !== 'undefined') {
+                Cart.add({
+                    id:     'the-ritual-block',
+                    name:   'The Ritual Block',
+                    weight: '23x15x10cm',
+                    color:  color,
+                    price:  999,
+                    image:  imgPath
+                });
+                gtag('event', 'add_to_cart', {
+                    currency: 'INR',
+                    value: 999,
+                    items: [{ item_id: 'the-ritual-block', item_name: 'The Ritual Block', price: 999 }]
+                });
+                if (window.CartDrawer) CartDrawer.open();
+            } else {
+                window.location = '/cart.html';
+            }
+        });
     });
 </script>
 
@@ -211,7 +287,7 @@
     gtag('event', 'view_item', {
         currency: 'INR',
         value: 999,
-        items: [{ item_id: 'yoga-block', item_name: 'The Ritual Block', price: 999 }]
+        items: [{ item_id: 'the-ritual-block', item_name: 'The Ritual Block', price: 999 }]
     });
 </script>
 </body>
