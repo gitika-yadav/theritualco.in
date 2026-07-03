@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-D366Q7R3XB"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -13,14 +11,15 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Products – The Ritual Co.</title>
-    <meta name="description" content="Luxury wellness essentials by The Ritual Co."/>
+    <meta name="description" content="Thoughtfully designed strength and wellness essentials for homes that value beauty as much as discipline."/>
     <link rel="icon" type="image/png" href="/images/favicon.png"/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="/css/global.css"/>
     <link rel="stylesheet" href="/css/navbar.css"/>
     <link rel="stylesheet" href="/css/footer.css"/>
     <link rel="stylesheet" href="/css/products.css"/>
     <link rel="canonical" href="https://theritualco.in/products/products"/>
+    <link rel="stylesheet" href="/css/cart.css"/>
 
     <!-- Meta Pixel Code -->
     <script>
@@ -40,176 +39,167 @@
     /></noscript>
     <!-- End Meta Pixel Code -->
 </head>
-
 <body>
-
 <div class="page-wrapper">
     <div id="navbar-placeholder"></div>
-    <main class="products">
-        <header class="products__hero">
-            <p class="eyebrow">THE COLLECTION</p>
-            <h1>Designed For Beautiful Movement.</h1>
-            <p class="lede">Thoughtfully designed strength essentials
-                for homes that value beauty
-                as much as discipline.
-            </p>
-        </header>
-        <section class="grid" aria-label="Product list">
-            <article class="card featured">
-                <a class="card__img" href="/products/capsule-dumbbell.html">
-                    <img src="/images/img.webp" alt="Capsule Dumbbells" loading="lazy"/>
+
+    <div class="products-wrap">
+        <p class="products-label">The Ritual Co. · Collection</p>
+        <h1 class="products-title">Designed for<br>beautiful movement.</h1>
+        <p class="products-sub">Thoughtfully designed strength essentials for homes that value beauty as much as discipline.</p>
+
+        <!-- Filters -->
+        <div class="products-filters">
+            <button class="filter-btn active" onclick="filterProducts('all', this)">All</button>
+            <button class="filter-btn" onclick="filterProducts('live', this)">Available Now</button>
+            <button class="filter-btn" onclick="filterProducts('soon', this)">Coming Soon</button>
+        </div>
+
+        <!-- Grid -->
+        <div class="products-grid" id="products-grid">
+
+            <!-- Capsule Dumbbells — LIVE -->
+            <article class="product-card" data-status="live">
+                <a href="/products/capsule-dumbbell.html" class="product-card__img-wrap">
+                    <img src="/images/capsule-dumbbell-black.webp" alt="The Ritual Capsule Dumbbells" loading="lazy"/>
+                    <span class="product-card__badge badge-live">Available Now</span>
                 </a>
+                <div class="product-card__body">
+                    <p class="product-card__tag">Dumbbells</p>
+                    <h2 class="product-card__name">The Ritual Capsule Dumbbells</h2>
+                    <p class="product-card__desc">Soft-touch silicone over cast-iron core. Pastel colourways. 1kg & 2kg.</p>
+                    <div class="product-card__price-row">
+                        <span class="product-card__price">₹1,499</span>
+                        <span class="product-card__mrp">₹1,999</span>
+                        <span class="product-card__early-bird">Early Bird</span>
+                    </div>
+                    <a href="/products/capsule-dumbbell.html" class="product-card__btn">Order Now</a>
+                </div>
+            </article>
 
-                <div class="card__body">
-                    <p class="eyebrow">SIGNATURE PRODUCT</p>
-                    <h2 class="card__title">
-                        <a href="/products/capsule-dumbbell.html">Capsule Dumbbells</a>
+            <!-- Yoga Belt — LIVE -->
+            <article class="product-card" data-status="live">
+                <a href="/products/the-ritual-belt.html" class="product-card__img-wrap">
+                    <img src="/images/yoga-belt.webp" alt="The Ritual Belt" loading="lazy"/>
+                    <span class="product-card__badge badge-live">Available Now</span>
+                </a>
+                <div class="product-card__body">
+                    <p class="product-card__tag">Yoga</p>
+                    <h2 class="product-card__name">The Ritual Belt</h2>
+                    <p class="product-card__desc">100% organic cotton. Adjustable metal D-ring. 96" long for every height.</p>
+                    <div class="product-card__price-row">
+                        <span class="product-card__price">₹399</span>
+                        <span class="product-card__mrp">₹499</span>
+                    </div>
+                    <a href="/products/yoga-belt.html" class="product-card__btn">Add to Cart</a>
+                </div>
+            </article>
 
-                    </h2>
+            <!-- Yoga Block — COMING SOON -->
+            <article class="product-card" data-status="live">
+                <a href="/products/the-ritual-block.html" class="product-card__img-wrap">
+                    <img src="/images/the-ritual-block-black.webp" alt="The Ritual Block" loading="lazy"/>
+                    <span class="product-card__badge badge-live">Available Now</span>
+                </a>
+                <div class="product-card__body">
+                    <p class="product-card__tag">Yoga</p>
+                    <h2 class="product-card__name">The Ritual Block</h2>
+                    <p class="product-card__desc">Dense EVA foam. Non-slip texture. 23×15×10cm. Supports every pose.</p>
+                    <div class="product-card__price-row">
+                        <span class="product-card__price">₹999</span>
+                    </div>
+                    <a href="/products/the-ritual-block.html" class="product-card__btn">Add to Cart</a>
+                </div>
+            </article>
 
-                    <p class="card__sub">
-                        Medical grade silicone.
-                        Women's ergonomics.
-                        Balanced weight distribution.
-                        Minimal wellness design.
-                        Early Bird pricing now live.
-                    </p>
-<!--                    <div class="weights">-->
-<!--                        <span>1 KG</span>-->
-<!--                        <span>2 KG</span>-->
+            <!-- Yoga Mat — COMING SOON -->
+            <article class="product-card" data-status="soon">
+                <a href="/products/the-ritual-mat.html" class="product-card__img-wrap">
+                    <img src="/images/yoga-mat-coffee.webp" alt="The Ritual Mat" loading="lazy"/>
+                    <span class="product-card__badge badge-soon">Coming Soon</span>
+                </a>
+                <div class="product-card__body">
+                    <p class="product-card__tag">Yoga</p>
+                    <h2 class="product-card__name">The Ritual Mat</h2>
+                    <p class="product-card__desc">Natural rubber base. Sweat-resistant surface. 6mm support. Pastel colourways.</p>
+                    <div class="product-card__price-row">
+                        <span class="product-card__price">₹4,999</span>
+                    </div>
+                    <a href="/products/the-ritual-mat.html" class="product-card__btn-outline">Join Waitlist</a>
+                </div>
+            </article>
+
+            <!-- Ankle Weights — COMING SOON -->
+            <article class="product-card" data-status="soon">
+                <a href="/products/the-ritual-cuffs.html" class="product-card__img-wrap">
+                    <img src="/images/ankle-weights.webp" alt="The Ritual Cuffs" loading="lazy"/>
+                    <span class="product-card__badge badge-soon">Coming Soon</span>
+                </a>
+                <div class="product-card__body">
+                    <p class="product-card__tag">Pilates</p>
+                    <h2 class="product-card__name">The Ritual Cuffs</h2>
+                    <p class="product-card__desc">Baby-soft silicone. Adjustable. Waterproof. Wrists or ankles. 0.5kg & 1kg.</p>
+                    <div class="product-card__price-row">
+                        <span class="product-card__price">₹2,999</span>
+                    </div>
+                    <a href="/products/the-ritual-cuffs.html" class="product-card__btn-outline">Join Waitlist</a>
+                </div>
+            </article>
+
+
+
+<!--            &lt;!&ndash; Flat Dumbbells — COMING SOON &ndash;&gt;-->
+<!--            <article class="product-card" data-status="soon">-->
+<!--                <a href="#" class="product-card__img-wrap">-->
+<!--                    <img src="/images/flat-dumbbell.webp" alt="Flat Dumbbells" loading="lazy"/>-->
+<!--                    <span class="product-card__badge badge-soon">Coming Soon</span>-->
+<!--                </a>-->
+<!--                <div class="product-card__body">-->
+<!--                    <p class="product-card__tag">Dumbbells</p>-->
+<!--                    <h2 class="product-card__name">Flat Dumbbells</h2>-->
+<!--                    <p class="product-card__desc">Designed within the same philosophy. A new shape. Launching soon.</p>-->
+<!--                    <div class="product-card__price-row">-->
+<!--                        <span class="product-card__price">TBA</span>-->
 <!--                    </div>-->
+<!--                    <a href="/#waitlist" class="product-card__btn-outline">Join Waitlist</a>-->
+<!--                </div>-->
+<!--            </article>-->
 
-                    <div class="product-pricing">
-                        <div class="price-card">
-                            <div class="weight">1 KG SET</div>
-                            <div class="pricing-row">
-                                <span class="retail">₹1,999</span>
-                                <span class="launch">₹1,499</span>
-                            </div>
-                            <p>Early Bird • First 100 Orders</p>
-                        </div>
+        </div>
 
-                        <div class="price-card">
-                            <div class="weight">2 KG SET</div>
-                            <div class="pricing-row">
-                                <span class="retail">₹2,499</span>
-                                <span class="launch">₹1,999</span>
-                            </div>
-                            <p>Early Bird • First 100 Orders</p>
-                        </div>
-
-                    </div>
-
-                    <a class="btn-primary" href="/products/capsule-dumbbell.html">Shop Now</a>
-
-                </div>
-
-            </article>
-
-            <!-- Yoga Belt (NEW) -->
-            <article class="card secondary">
-                <a class="card__img" href="/products/yoga-belt.html">
-                    <img src="/images/yoga-belt.webp" alt="Yoga Belt" loading="lazy"/>
-                </a>
-                <div class="card__body">
-                    <p class="eyebrow">NEW ARRIVAL</p>
-                    <h2 class="card__title">
-                        <a href="/products/yoga-belt.html">Yoga Belt</a>
-                    </h2>
-                    <p class="card__sub">
-                        Stretch deeper. Reach further.
-                        Organic cotton with adjustable metal buckle.
-                        Supports alignment, flexibility &amp; posture.
-                    </p>
-                    <div class="product-pricing">
-                        <div class="price-card">
-                            <div class="weight">
-                                96 inch
-                            </div>
-                            <div class="pricing-row">
-                                  <span class="retail">₹499</span>
-                                  <span class="launch">₹399</span>
-                            </div>
-<!--                            <p>Available in Blush &amp; Ivory</p>-->
-                            <p>Available in Ivory</p>
-                        </div>
-                    </div>
-                    <a
-                            class="btn-primary"
-                            href="/products/yoga-belt.html">
-                        Shop Now
-                    </a>
-                </div>
-            </article>
-
-            <!-- Yoga Mat (COMING SOON) -->
-            <article class="card secondary">
-                <a class="card__img" href="/products/yoga-mat">
-                    <img src="/images/yoga-mat-coffee.webp" alt="Yoga Mat — Coming Soon" loading="lazy"/>
-                </a>
-                <div class="card__body">
-                    <p class="eyebrow">COMING SOON</p>
-                    <h2 class="card__title">
-                        <a href="/products/yoga-mat">Yoga Mat</a>
-                    </h2>
-                    <p class="card__sub">
-                        A grounding surface designed within the same philosophy.
-                        Join the waitlist for first access.
-                    </p>
-                    <a class="btn-secondary" href="/products/yoga-mat">Join Waitlist</a>
-                </div>
-            </article>
-
-            <!-- Ankle Weights (COMING SOON) -->
-            <article class="card secondary">
-                <a class="card__img" href="/products/ankle-weights">
-                    <img src="/images/ankle-weights.webp" alt="Ankle Weights — Coming Soon" loading="lazy"/>
-                </a>
-                <div class="card__body">
-                    <p class="eyebrow">COMING SOON</p>
-                    <h2 class="card__title">
-                        <a href="/products/ankle-weights">Ankle Weights</a>
-                    </h2>
-                    <p class="card__sub">
-                        Considered weight, soft to wear and quiet in the room.
-                        Join the waitlist for first access.
-                    </p>
-                    <a class="btn-secondary" href="/products/ankle-weights">Join Waitlist</a>
-                </div>
-            </article>
-            <article class="card secondary">
-                <a class="card__img">
-                <!--  add href="/products/flat-dumbbell.html" in <a> once fixed -->
-                    <img src="/images/flat-dumbbell.webp" alt="Flat Dumbbells" loading="lazy"/>
-                </a>
-
-                <div class="card__body">
-                    <p class="eyebrow">COMING NEXT</p>
-                    <h2 class="card__title">Flat Dumbbells</h2>
-                    <p class="card__sub">
-                        Designed within the same philosophy.
-                        Launching soon.
-                    </p>
-                    <a class="btn-secondary" href="/#waitlist">Join Waitlist</a>
-                </div>
-            </article>
-        </section>
-
-        <section class="materials">
-
-            <div>Medical Grade Silicone</div>
-            <div>Women's Ergonomics</div>
-            <div>Balanced Weight Distribution</div>
-            <div>Minimal Wellness Design</div>
-        </section>
-    </main>
+        <div class="materials-strip">
+            <span>Medical Grade Silicone</span>
+            <span>Women's Ergonomics</span>
+            <span>Balanced Weight Distribution</span>
+            <span>Minimal Wellness Design</span>
+        </div>
+    </div>
 
     <div id="footer-placeholder"></div>
-
 </div>
 
-<script>
+<script src="/javascript/init.js"></script>
 
+<script>
+    function filterProducts(status, btn) {
+        document.querySelectorAll('.filter-btn').forEach(function(b) {
+            b.classList.remove('active');
+        });
+        btn.classList.add('active');
+
+        document.querySelectorAll('.product-card').forEach(function(card) {
+            if (status === 'all') {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = card.dataset.status === status ? 'flex' : 'none';
+            }
+        });
+    }
+</script>
+
+
+
+<script>
     fetch("/partials/navbar.html")
         .then(response=>response.text())
         .then(html=>{
@@ -224,7 +214,16 @@
         .then(html=>{
             document.getElementById("footer-placeholder").innerHTML=html;
         });
+</script>
 
+<script>
+    gtag('event', 'view_item_list', {
+        item_list_name: 'All Products',
+        items: [
+            { item_id: 'capsule-dumbbell-1kg', item_name: 'The Ritual Capsule Dumbbells 1kg', price: 1499 },
+            { item_id: 'yoga-belt', item_name: 'The Ritual Belt', price: 399 }
+        ]
+    });
 </script>
 </body>
 </html>
