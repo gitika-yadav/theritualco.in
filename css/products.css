@@ -464,83 +464,45 @@ CAPSULE DETAIL PAGE
 }
 
 .swatch{
-
     width:38px;
-
     height:38px;
-
     border-radius:50%;
-
     border:none;
-
     background:var(--sw);
-
     cursor:pointer;
-
     box-shadow:
-
             0 0 0 1px
-            rgba(
-                    0,
-                    0,
-                    0,
-                    0.1
-            );
-
+            rgba(0, 0, 0, 0.1);
 }
 
 .swatch.is-selected{
-
-    box-shadow:
-
-            0 0 0 2px #171717;
-
+    box-shadow: 0 0 0 2px #171717;
 }
 
 .product .weights{
-
     display:flex;
-
     gap:12px;
 
 }
 
 .weight{
-
-    padding:
-
-            12px 20px;
-
+    padding: 12px 20px;
     border-radius:999px;
-
-    border:
-
-            1px solid var(--line);
-
+    border: 1px solid var(--line);
     background:white;
-
     cursor:pointer;
-
 }
 
 .weight.is-selected{
-
     background:#171717;
-
     color:white;
-
 }
 
 .bullets{
-
     margin:28px 0;
-
     padding-left:18px;
-
     line-height:2;
-
     color:var(--muted);
-
 }
 
 .panel .btn-primary{

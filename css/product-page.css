@@ -179,12 +179,13 @@ body.tr-product-page .swatches {
     gap: 10px;
     margin-bottom: 36px;
 }
+
 body.tr-product-page .swatch {
     width: 26px; height: 26px;
     border-radius: 50%;
     border: 1.5px solid rgba(0,0,0,0.06);
     cursor: pointer;
-    background: none;
+    background: var(--sw);
     transition: transform 0.15s;
     outline: none;
 }
