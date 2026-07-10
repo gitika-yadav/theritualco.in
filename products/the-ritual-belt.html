@@ -74,11 +74,27 @@
         <h1 class="product__title">The Ritual<br>Belt</h1>
         <p class="product__tagline">Stretch deeper.<br>Move with intention.</p>
 
-        <p class="option-heading">Colour &mdash; <em id="colour-name">Ivory</em></p>
-        <div class="swatches" role="group" aria-label="Colour options">
-            <button class="swatch color-option selected" style="background:#EAE5DC;" data-name="Ivory" data-color="ivory"
-                    data-img="/images/yoga-belt.webp"
-                    aria-label="Ivory" aria-pressed="true" onclick="selectColour(this)"></button>
+        <div class="opt">
+            <label class="opt__label">Colour</label>
+            <div class="swatches" role="radiogroup" aria-label="Colour" style="gap:16px;">
+
+                <div class="swatch-wrap">
+                    <button class="swatch  is-selected" data-color="Cream" data-img="/images/yoga-belt.webp"  style="--sw:#f3eadf" aria-label="Cream" aria-checked="true" role="radio"></button>
+                    <span class="swatch-label">Cream</span>
+                </div>
+
+                <div class="swatch-wrap">
+                    <button class="swatch sold-out" disabled style="--sw:#6f4e37" aria-label="Coffee — Sold Out" title="Sold Out"></button>
+                    <span class="swatch-label">Coffee</span>
+                    <span class="sold-out-label">Sold Out</span>
+                </div>
+
+                <div class="swatch-wrap">
+                    <button class="swatch sold-out" disabled style="--sw:#1f1f1f" aria-label="Black — Sold Out" title="Sold Out"></button>
+                    <span class="swatch-label">Black</span>
+                    <span class="sold-out-label">Sold Out</span>
+                </div>
+            </div>
         </div>
 
         <ul class="features" aria-label="Key features">

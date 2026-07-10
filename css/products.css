@@ -1669,3 +1669,39 @@ repeat(
     object-fit: contain;
     background: #f5f0eb;
 }
+
+ .swatch.sold-out {
+     opacity: 0.4;
+     cursor: not-allowed;
+     position: relative;
+ }
+.swatch.sold-out::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 3px,
+            rgba(255,255,255,0.6) 3px,
+            rgba(255,255,255,0.6) 4px
+    );
+}
+.swatch-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+.swatch-label {
+    font-size: 10px;
+    color: #a09890;
+    font-family: 'DM Sans', sans-serif;
+}
+.sold-out-label {
+    font-size: 9px;
+    color: #c0b8b0;
+    font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0.04em;
+}
