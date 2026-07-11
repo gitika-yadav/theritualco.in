@@ -40,7 +40,7 @@ function request(options, body) {
 async function getSupabaseOrders() {
     const url = new URL(`${process.env.SUPABASE_URL}/rest/v1/orders`);
     url.searchParams.set("select", "id,status,created_at,customer_name,customer_email,total_amount,items");
-    url.searchParams.set("status", "in.(paid,processing)");
+    url.searchParams.set("status", "in.(paid,processing,cod_unpaid,gifted)");
     url.searchParams.set("order", "created_at.asc");
 
     const res = await request({

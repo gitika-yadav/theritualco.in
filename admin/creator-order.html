@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Creator Gift Order — The Ritual Co. (Admin)</title>
+    <meta name="robots" content="noindex, nofollow"/>
+    <link rel="stylesheet" href="/css/global.css"/>
+    <style>
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f7f4ef;color:#1a1a18;max-width:640px;margin:0 auto;padding:40px 20px;}
+        h1{font-size:22px;font-weight:600;margin-bottom:4px;}
+        p.sub{color:#6b6257;font-size:13px;margin-bottom:28px;}
+        label{display:block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#6b6257;margin:16px 0 6px;}
+        input, select{width:100%;padding:10px 12px;border:1px solid #e5e0d8;border-radius:6px;font-size:14px;background:#fff;}
+        .item-row{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:8px;align-items:end;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #ece8df;}
+        .item-row label{margin-top:0;}
+        button{cursor:pointer;}
+        #add-item{background:none;border:1px dashed #c9b99a;border-radius:6px;padding:8px 14px;font-size:12px;color:#6b6257;margin-top:6px;}
+        #submit-btn{width:100%;background:#1a1a18;color:#fff;border:none;padding:14px;border-radius:6px;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-top:28px;}
+        #submit-btn:disabled{opacity:.5;cursor:not-allowed;}
+        #status-msg{margin-top:16px;font-size:13px;}
+        #gate{max-width:320px;margin:80px auto;text-align:center;}
+        #gate input{margin-bottom:10px;}
+        .remove-item{background:none;border:none;color:#a04040;font-size:18px;line-height:1;padding:8px;}
+    </style>
+</head>
+<body>
+
+<div id="gate">
+    <h1>Admin Access</h1>
+    <input type="password" id="secret-input" placeholder="Enter admin key"/>
+    <button id="gate-btn" style="width:100%;background:#1a1a18;color:#fff;border:none;padding:12px;border-radius:6px;">Unlock</button>
+</div>
+
+<div id="form-wrap" style="display:none;">
+    <h1>Creator / Collaboration Gift Order</h1>
+    <p class="sub">Places a ₹0 order — decrements real inventory, shows in the orders dashboard and morning briefing, no payment collected.</p>
+
+    <label for="creator_name">Creator name</label>
+    <input id="creator_name" required/>
+
+    <label for="creator_handle">Instagram handle (optional)</label>
+    <input id="creator_handle" placeholder="@handle"/>
+
+    <label for="email">Email (optional)</label>
+    <input id="email" type="email"/>
+
+    <label for="phone">Phone (optional)</label>
+    <input id="phone"/>
+
+    <label for="address">Shipping address</label>
+    <input id="address" required/>
+
+    <label for="landmark">Landmark (optional)</label>
+    <input id="landmark"/>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+        <div><label for="city">City</label><input id="city"/></div>
+        <div><label for="state">State</label><input id="state"/></div>
+        <div><label for="pincode">Pincode</label><input id="pincode"/></div>
+    </div>
+
+    <h2 style="font-size:14px;margin-top:28px;">Items</h2>
+    <div id="items-container"></div>
+    <button id="add-item" type="button">+ Add another item</button>
+
+    <button id="submit-btn">Send Gift Order</button>
+    <p id="status-msg"></p>
+</div>
+
+<script>
+    const PRODUCTS = [
+        { id: "capsule-1kg",       name: "Capsule Dumbbells 1kg", colors: ["Black","Cream"] },
+        { id: "capsule-2kg",       name: "Capsule Dumbbells 2kg", colors: ["Black","Cream"] },
+        { id: "yoga-belt",         name: "The Ritual Belt",       colors: ["Cream","Black","Coffee"] },
+        { id: "yoga-block",        name: "The Ritual Block",      colors: ["Black","Pink"] },
+        { id: "yoga-mat-5mm",      name: "The Ritual Mat",        colors: ["Coffee","Pink","Cream","Black"] },
+        { id: "ankle-weights-2lb", name: "The Ritual Cuffs",      colors: ["Cream","Coffee","Black","Pink"] },
+    ];
+
+    let secretKey = "";
+
+    document.getElementById("gate-btn").addEventListener("click", () => {
+        secretKey = document.getElementById("secret-input").value.trim();
+        if (!secretKey) return alert("Enter the admin key.");
+        document.getElementById("gate").style.display = "none";
+        document.getElementById("form-wrap").style.display = "block";
+        addItemRow();
+    });
+
+    function addItemRow() {
+        const container = document.getElementById("items-container");
+        const row = document.createElement("div");
+        row.className = "item-row";
+        row.innerHTML = `
+    <div>
+      <label>Product</label>
+      <select class="item-product">
+        ${PRODUCTS.map(p => `<option value="${p.id}">${p.name}</option>`).join("")}
+      </select>
+    </div>
+    <div>
+      <label>Colour</label>
+      <select class="item-color"></select>
+    </div>
+    <div>
+      <label>Qty</label>
+      <input class="item-qty" type="number" min="1" max="10" value="1"/>
+    </div>
+    <button type="button" class="remove-item" title="Remove">×</button>
+  `;
+        container.appendChild(row);
+
+        const productSelect = row.querySelector(".item-product");
+        const colorSelect = row.querySelector(".item-color");
+        function refreshColors() {
+            const prod = PRODUCTS.find(p => p.id === productSelect.value);
+            colorSelect.innerHTML = prod.colors.map(c => `<option value="${c}">${c}</option>`).join("");
+        }
+        productSelect.addEventListener("change", refreshColors);
+        refreshColors();
+
+        row.querySelector(".remove-item").addEventListener("click", () => row.remove());
+    }
+
+    document.getElementById("add-item").addEventListener("click", addItemRow);
+
+    document.getElementById("submit-btn").addEventListener("click", async () => {
+        const creator_name = document.getElementById("creator_name").value.trim();
+        const address = document.getElementById("address").value.trim();
+        if (!creator_name || !address) {
+            return alert("Creator name and shipping address are required.");
+        }
+
+        const items = Array.from(document.querySelectorAll(".item-row")).map(row => ({
+            id:    row.querySelector(".item-product").value,
+            color: row.querySelector(".item-color").value,
+            qty:   parseInt(row.querySelector(".item-qty").value, 10) || 1,
+        }));
+
+        const payload = {
+            secret: secretKey,
+            creator_name,
+            creator_handle: document.getElementById("creator_handle").value.trim(),
+            email:          document.getElementById("email").value.trim(),
+            phone:          document.getElementById("phone").value.trim(),
+            address,
+            landmark:       document.getElementById("landmark").value.trim(),
+            city:           document.getElementById("city").value.trim(),
+            state:          document.getElementById("state").value.trim(),
+            pincode:        document.getElementById("pincode").value.trim(),
+            items,
+        };
+
+        const btn = document.getElementById("submit-btn");
+        const statusMsg = document.getElementById("status-msg");
+        btn.disabled = true;
+        statusMsg.textContent = "Sending...";
+        statusMsg.style.color = "#6b6257";
+
+        try {
+            const res = await fetch("/.netlify/functions/create-creator-order", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+            });
+            const result = await res.json();
+            if (!res.ok) throw new Error(result.error || "Failed");
+            statusMsg.textContent = `✅ Gift order placed — ${result.order_ids.length} item(s) recorded.`;
+            statusMsg.style.color = "#2a6b3a";
+        } catch (err) {
+            statusMsg.textContent = "❌ " + err.message;
+            statusMsg.style.color = "#a04040";
+        } finally {
+            btn.disabled = false;
+        }
+    });
+</script>
+</body>
+</html>

@@ -154,6 +154,7 @@ exports.handler = async (event) => {
             for (const item of orderItems) {
                 const { error: invErr } = await supabase.rpc("increment_sold", {
                     p_product_id: item.product_id,
+                    p_color: item.color,
                 });
                 if (invErr) console.error("COD inventory increment error:", invErr);
             }
