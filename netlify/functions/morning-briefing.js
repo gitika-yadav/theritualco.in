@@ -51,10 +51,11 @@ function request(options, body) {
 
 async function getSupabaseOrders() {
     const url = new URL(`${process.env.SUPABASE_URL}/rest/v1/orders`);
-    url.searchParams.set("select", "id,status,created_at,customer_name,customer_email,total_amount,items");
-    // Includes: paid/processing (online payments), cod_unpaid (COD orders awaiting
-    // cash collection), and gifted (₹0 creator/collaboration orders) — all of these
-    // still need to be shipped, so all show up in the briefing.
+    // Real orders table columns — one row per line item (see create-order.js insert).
+    // Previous version selected customer_name/customer_email/total_amount/items,
+    // none of which exist — Supabase returned a non-200 error on every call,
+    // which this function was silently swallowing (see the res.status check below).
+    url.searchParams.set("select", "id,status,created_at,guest_name,guest_email,user_id,product_name,weight,color,quantity,amount_paise,payment_method");
     url.searchParams.set("status", "in.(paid,processing,cod_unpaid,gifted)");
     url.searchParams.set("order", "created_at.asc");
 
@@ -69,7 +70,10 @@ async function getSupabaseOrders() {
         },
     });
 
-    if (res.status !== 200) return [];
+    if (res.status !== 200) {
+        console.error("getSupabaseOrders failed:", res.status, res.body);
+        return [];
+    }
     try { return JSON.parse(res.body); } catch { return []; }
 }
 
@@ -89,15 +93,16 @@ function buildEmail(orders, complianceTasks, todayStr) {
     // (deadline is now free-text like "Sep 30 annually").
     const upcomingDeadlines = complianceTasks.filter(t => t.badge === "warn" && t.deadline);
 
-    const totalRevenue = orders.reduce((sum, o) => sum + Number(o.total_amount || 0), 0);
+    const totalRevenue = orders.reduce((sum, o) => sum + Number(o.amount_paise || 0) / 100, 0);
 
     const ordersHtml = orders.length === 0
         ? `<p style="color:#888;font-size:14px;margin:0">No pending orders right now.</p>`
         : orders.map(o => `
         <tr>
-            <td style="padding:10px 12px;border-bottom:1px solid #f0ede8;font-size:13px;color:#1a1814">${o.customer_name || "Guest"}</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #f0ede8;font-size:13px;color:#1a1814">${o.guest_name || (o.user_id ? "Registered customer" : "Guest")}</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #f0ede8;font-size:12px;color:#6b6660">${o.product_name || ""}${o.color ? " · " + o.color : ""}${o.quantity ? " × " + o.quantity : ""}</td>
             <td style="padding:10px 12px;border-bottom:1px solid #f0ede8;font-size:13px;color:#6b6660">${formatDate(o.created_at)}</td>
-            <td style="padding:10px 12px;border-bottom:1px solid #f0ede8;font-size:13px;color:#1a1814;font-weight:500">${formatCurrency(o.total_amount)}</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #f0ede8;font-size:13px;color:#1a1814;font-weight:500">${formatCurrency(Number(o.amount_paise || 0) / 100)}</td>
             <td style="padding:10px 12px;border-bottom:1px solid #f0ede8">
                 <span style="background:#fdf3e7;color:#8b5a2b;font-size:11px;padding:2px 8px;border-radius:4px;font-weight:500">${o.status}</span>
             </td>
@@ -162,6 +167,7 @@ function buildEmail(orders, complianceTasks, todayStr) {
     <thead>
         <tr style="background:#f2efe9">
             <th style="padding:8px 12px;text-align:left;font-size:11px;color:#6b6660;font-weight:500">Customer</th>
+            <th style="padding:8px 12px;text-align:left;font-size:11px;color:#6b6660;font-weight:500">Product</th>
             <th style="padding:8px 12px;text-align:left;font-size:11px;color:#6b6660;font-weight:500">Date</th>
             <th style="padding:8px 12px;text-align:left;font-size:11px;color:#6b6660;font-weight:500">Amount</th>
             <th style="padding:8px 12px;text-align:left;font-size:11px;color:#6b6660;font-weight:500">Status</th>
@@ -189,7 +195,7 @@ ${deadlinesHtml ? `<tr><td style="padding:0 32px">${deadlinesHtml}</td></tr>` : 
 <tr><td style="padding:28px 32px 0">
     <h2 style="font-size:13px;font-weight:600;color:#6b6660;text-transform:uppercase;letter-spacing:0.08em;margin:0 0 12px">Pick one thing</h2>
     <div style="background:#f2efe9;border-radius:8px;padding:16px">
-        <p style="margin:0;font-size:14px;color:#1a1814;font-weight:500">${urgentCompliance[0]?.name || (orders[0] ? `Ship order for ${orders[0].customer_name}` : "Post a Founder Files update on your personal account")}</p>
+        <p style="margin:0;font-size:14px;color:#1a1814;font-weight:500">${urgentCompliance[0]?.name || (orders[0] ? `Ship order for ${orders[0].guest_name || "a customer"}` : "Post a Founder Files update on your personal account")}</p>
         <p style="margin:6px 0 0;font-size:12px;color:#6b6660">If you do only one thing today, make it this.</p>
     </div>
 </td></tr>

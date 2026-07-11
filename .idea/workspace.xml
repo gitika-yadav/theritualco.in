@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="add creator order">
-      <change afterPath="$PROJECT_DIR$/netlify/functions/compliance.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/netlify/functions/shared/verify-admin-token.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/compliance.html" beforeDir="false" afterPath="$PROJECT_DIR$/admin/compliance.html" afterDir="false" />
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="Create compliance db and fetch from it instead of local storage">
       <change beforePath="$PROJECT_DIR$/netlify/functions/morning-briefing.js" beforeDir="false" afterPath="$PROJECT_DIR$/netlify/functions/morning-briefing.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -34,23 +30,23 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0078335601087116" />
-      <entry key="MS500" value="1.703775024768161" />
-      <entry key="S2" value="3.345431712649614" />
-      <entry key="S5" value="4.788062494885456" />
-      <entry key="S10" value="5.69051958667824" />
-      <entry key="S30" value="6.527216093669757" />
-      <entry key="S60" value="6.888598149581278" />
-      <entry key="M2" value="7.249076688770816" />
-      <entry key="M5" value="7.65889662161253" />
-      <entry key="M10" value="8.525676703771701" />
-      <entry key="M15" value="10.185524399486281" />
-      <entry key="M30" value="18.481586456941343" />
-      <entry key="H1" value="39.30158783400192" />
-      <entry key="H2" value="69.9151101874546" />
-      <entry key="H4" value="98.77484967008792" />
-      <entry key="D1" value="154.7360527335788" />
-      <entry key="W1" value="370.10350287303316" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0000965090028109" />
+      <entry key="S2" value="1.4557319179593613" />
+      <entry key="S5" value="4.573244347746934" />
+      <entry key="S10" value="8.624352070291968" />
+      <entry key="S30" value="13.946395715234669" />
+      <entry key="S60" value="15.82577844953984" />
+      <entry key="M2" value="16.880799489461356" />
+      <entry key="M5" value="18.03370213034465" />
+      <entry key="M10" value="19.934081821413034" />
+      <entry key="M15" value="21.930811036284517" />
+      <entry key="M30" value="29.627787102066055" />
+      <entry key="H1" value="49.23885267102037" />
+      <entry key="H2" value="80.3516955324213" />
+      <entry key="H4" value="111.28406150997141" />
+      <entry key="D1" value="171.26911416966163" />
+      <entry key="W1" value="387.6005417678769" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -60,35 +56,35 @@
       <entry key="S10" value="0.0" />
       <entry key="S30" value="0.0" />
       <entry key="S60" value="0.0" />
-      <entry key="M2" value="2.0417589082635556E-276" />
-      <entry key="M5" value="5.296656192178504E-111" />
-      <entry key="M10" value="7.277812990300393E-56" />
-      <entry key="M15" value="1.7431466591119799E-37" />
-      <entry key="M30" value="4.1751007881391107E-19" />
-      <entry key="H1" value="6.461501983392941E-10" />
-      <entry key="H2" value="2.541948461985988E-5" />
-      <entry key="H4" value="0.00504177395564894" />
-      <entry key="D1" value="0.41409237765382145" />
-      <entry key="W1" value="1.545540771859883" />
+      <entry key="M2" value="2.1615833595644454E-279" />
+      <entry key="M5" value="3.419076321605439E-112" />
+      <entry key="M10" value="1.8490744499898972E-56" />
+      <entry key="M15" value="6.992561023581226E-38" />
+      <entry key="M30" value="2.6443451029661826E-19" />
+      <entry key="H1" value="5.142319615665841E-10" />
+      <entry key="H2" value="2.2676683213525364E-5" />
+      <entry key="H4" value="0.004762004117336044" />
+      <entry key="D1" value="0.41017101653541094" />
+      <entry key="W1" value="1.543441390217705" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9790691324588826" />
-      <entry key="MS500" value="1.5478065136918242" />
-      <entry key="S2" value="3.2096601379088723" />
-      <entry key="S5" value="4.717548854962071" />
-      <entry key="S10" value="5.651973699076712" />
-      <entry key="S30" value="6.5130774092774235" />
-      <entry key="S60" value="6.879945867462093" />
-      <entry key="M2" value="7.243301737716466" />
-      <entry key="M5" value="7.65585230014031" />
-      <entry key="M10" value="8.523942348893378" />
-      <entry key="M15" value="10.184198664088058" />
-      <entry key="M30" value="18.480291467694613" />
-      <entry key="H1" value="39.30011471686278" />
-      <entry key="H2" value="69.91386846252614" />
-      <entry key="H4" value="98.77903225673035" />
-      <entry key="D1" value="155.14990119393553" />
-      <entry key="W1" value="371.6489750195681" />
+      <entry key="MS100" value="0.9794202975869268" />
+      <entry key="MS500" value="0.9959458465740615" />
+      <entry key="S2" value="1.452470334319454" />
+      <entry key="S5" value="4.555668327649069" />
+      <entry key="S10" value="8.600417767359632" />
+      <entry key="S30" value="13.930674482291318" />
+      <entry key="S60" value="15.816457414555163" />
+      <entry key="M2" value="16.87571784744238" />
+      <entry key="M5" value="18.031368720492875" />
+      <entry key="M10" value="19.9325543251644" />
+      <entry key="M15" value="21.929550520863383" />
+      <entry key="M30" value="29.626600475492893" />
+      <entry key="H1" value="49.23749656810551" />
+      <entry key="H2" value="80.35049579174233" />
+      <entry key="H4" value="111.28796597075106" />
+      <entry key="D1" value="171.67903590208448" />
+      <entry key="W1" value="389.1439135292103" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -174,14 +170,6 @@
       <workItem from="1779695741143" duration="8369000" />
       <workItem from="1780831623909" duration="98941000" />
       <workItem from="1781737896564" duration="11840000" />
-    </task>
-    <task id="LOCAL-00113" summary="fix">
-      <option name="closed" value="true" />
-      <created>1781860682411</created>
-      <option name="number" value="00113" />
-      <option name="presentableId" value="LOCAL-00113" />
-      <option name="project" value="LOCAL" />
-      <updated>1781860682411</updated>
     </task>
     <task id="LOCAL-00114" summary="fix seo issues">
       <option name="closed" value="true" />
@@ -567,14 +555,21 @@
       <option name="project" value="LOCAL" />
       <updated>1783790724977</updated>
     </task>
-    <option name="localTasksCounter" value="162" />
+    <task id="LOCAL-00162" summary="Create compliance db and fetch from it instead of local storage">
+      <option name="closed" value="true" />
+      <created>1783791909668</created>
+      <option name="number" value="00162" />
+      <option name="presentableId" value="LOCAL-00162" />
+      <option name="project" value="LOCAL" />
+      <updated>1783791909668</updated>
+    </task>
+    <option name="localTasksCounter" value="163" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add cod" />
     <MESSAGE value="upgrade to node 20" />
     <MESSAGE value="add more validations for address+ autofill + yogabelt in map" />
     <MESSAGE value="update metapixel" />
@@ -599,7 +594,8 @@
     <MESSAGE value="url fix" />
     <MESSAGE value="bug fix" />
     <MESSAGE value="add creator order" />
-    <option name="LAST_COMMIT_MESSAGE" value="add creator order" />
+    <MESSAGE value="Create compliance db and fetch from it instead of local storage" />
+    <option name="LAST_COMMIT_MESSAGE" value="Create compliance db and fetch from it instead of local storage" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
