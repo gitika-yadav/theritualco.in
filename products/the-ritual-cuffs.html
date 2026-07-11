@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-D366Q7R3XB"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -8,16 +10,23 @@
         gtag('js', new Date());
         gtag('config', 'G-D366Q7R3XB');
     </script>
+
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>The Ritual Cuffs – Silicone Ankle & Wrist Weights – The Ritual Co.</title>
-    <meta name="description" content="Baby-soft silicone ankle and wrist weights. Adjustable, waterproof, all-day comfortable. 2lb per cuff. Coming soon from The Ritual Co."/>
+    <title>The Ritual Cuffs – Silicone Ankle Weights – The Ritual Co.</title>
+    <meta name="description" content="Baby-soft silicone ankle weights. Adjustable, waterproof, all-day comfortable. 2lb per cuff, sold as a pair."/>
     <link rel="icon" type="image/png" href="/images/favicon.png"/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"/>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"/>
+
     <link rel="stylesheet" href="/css/global.css"/>
     <link rel="stylesheet" href="/css/navbar.css"/>
     <link rel="stylesheet" href="/css/footer.css"/>
     <link rel="stylesheet" href="/css/products.css"/>
+    <link rel="stylesheet" href="/css/product-page.css"/>
+
+    <link rel="preload" as="image" href="/images/ankle-weights.webp"/>
+
     <script type="application/ld+json">
         {
             "@context":"https://schema.org",
@@ -35,186 +44,313 @@
             "@type":"Product",
             "name":"The Ritual Cuffs",
             "brand":{"@type":"Brand","name":"The Ritual Co."},
-            "description":"Baby-soft silicone ankle and wrist weights. Adjustable, waterproof, all-day comfortable. Sold as a pair.",
-            "image":["https://theritualco.in/images/the-ritual-cuffs.webp"],
+            "description":"Baby-soft silicone ankle weights. Adjustable, waterproof, all-day comfortable. 2lb per cuff. Sold as a pair.",
+            "image":["https://theritualco.in/images/ankle-weights.webp"],
             "sku":"TRC-CUFFS",
             "category":"SportingGoods",
             "material":"Silicone",
-            "color":"Cream, Coffee, Pink, Black",
+            "color":"Cream, Coffee, Black, Pink",
             "additionalProperty":[
                 {"@type":"PropertyValue","name":"Weight","value":"2 lb per cuff"},
-                {"@type":"PropertyValue","name":"Sold as","value":"A pair"},
-                {"@type":"PropertyValue","name":"Adjustable","value":"Yes"},
-                {"@type":"PropertyValue","name":"Waterproof","value":"Yes"}
+                {"@type":"PropertyValue","name":"Sold as","value":"Pair"}
             ],
             "offers":{
                 "@type":"Offer",
-                "availability":"https://schema.org/PreOrder",
-                "price":"2999",
-                "priceCurrency":"INR"
+                "sku":"TRC-CUFFS-2LB",
+                "price":"3499.00",
+                "priceCurrency":"INR",
+                "availability":"https://schema.org/InStock"
             }
         }
     </script>
 </head>
-<body>
-<div class="page-wrapper">
-    <div id="navbar-placeholder"></div>
+<body class="tr-product-page">
+<div id="navbar-placeholder"></div>
 
-    <main class="product">
-        <section class="product__top">
-            <div class="gallery">
-                <div class="gallery__hero">
-                    <picture>
-                        <source id="hero-source-webp" srcset="/images/the-ritual-cuffs.webp" type="image/webp"/>
-                        <img id="hero-image" src="/images/the-ritual-cuffs.webp" alt="The Ritual Cuffs — silicone ankle and wrist weights" width="900" height="700" fetchpriority="high" decoding="async"/>
-                    </picture>
+<main class="product">
+    <!-- IMAGE -->
+    <div class="product__visual is-contain" role="region" aria-label="Product image">
+        <img id="main-img" src="/images/the-ritual-cuffs.webp" alt="The Ritual Cuffs in Cream – The Ritual Co." loading="eager"/>
+    </div>
+
+    <!-- INFO -->
+    <section class="product__info" aria-label="Product details">
+        <p class="eyebrow">The Ritual Co. &nbsp;·&nbsp; Training</p>
+        <h1 class="product__title">The Ritual<br>Cuffs</h1>
+        <p class="product__tagline">Resistance that fits into your life<br>— not just your workout.</p>
+
+        <div class="opt">
+            <label class="opt__label option-heading">Colour</label>
+            <div class="swatches" role="radiogroup" aria-label="Colour" style="gap:16px;">
+                <div class="swatch-wrap">
+                    <button class="swatch is-selected active" data-color="Cream" data-img="/images/ankle-weights.webp" style="--sw:#f3eadf" aria-label="Cream" aria-checked="true" role="radio"></button>
+                    <span class="swatch-label">Cream</span>
                 </div>
-                <div class="gallery__thumbs">
-                    <button class="thumb is-active" data-img="/images/the-ritual-cuffs.webp" aria-label="Main view">
-                        <img src="/images/the-ritual-cuffs.webp" alt="The Ritual Cuffs" width="120" height="90"/>
-                    </button>
+                <div class="swatch-wrap">
+                    <button class="swatch" data-color="Coffee" data-img="/images/ankle-weights-coffee.webp" style="--sw:#6f4e37" aria-label="Coffee" aria-checked="false" role="radio"></button>
+                    <span class="swatch-label">Coffee</span>
+                </div>
+                <div class="swatch-wrap">
+                    <button class="swatch" data-color="Black" data-img="/images/ankle-weights-black.webp" style="--sw:#1f1f1f" aria-label="Black" aria-checked="false" role="radio"></button>
+                    <span class="swatch-label">Black</span>
+                </div>
+                <div class="swatch-wrap">
+                    <button class="swatch" data-color="Pink" data-img="/images/ankle-weights-pink.webp" style="--sw:#f6c2d2" aria-label="Pink" aria-checked="false" role="radio"></button>
+                    <span class="swatch-label">Pink</span>
                 </div>
             </div>
+        </div>
 
-            <div class="panel">
-                <p class="product-label" style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#a09890;margin:0 0 8px;">Coming Soon</p>
-                <h1>The Ritual Cuffs</h1>
-                <p class="sub">Wear them to yoga. Wear them to walk. Wear them while you make breakfast. Resistance that fits into your life — not just your workout.</p>
+        <ul class="features" aria-label="Key features">
+            <li>Baby-soft silicone — gentle on skin, all-day comfortable</li>
+            <li>Fully adjustable strap — one size fits all</li>
+            <li>Waterproof and sweat-proof</li>
+            <li>Non-slip — stays in place through any movement</li>
+            <li>2 lb per cuff &middot; sold as a pair &middot; wrists or ankles</li>
+        </ul>
 
-                <div class="opt">
-                    <label class="opt__label">Colour</label>
-                    <div class="swatches" role="radiogroup" aria-label="Colour">
-                        <button class="swatch is-selected" data-color="Cream" style="--sw:#f3eadf" aria-checked="true" role="radio" aria-label="Cream"></button>
-                        <button class="swatch" data-color="Coffee" style="--sw:#6f4e37" aria-checked="false" role="radio" aria-label="Coffee"></button>
-                        <button class="swatch" data-color="Pink" style="--sw:#f6c2d2" aria-checked="false" role="radio" aria-label="Pink"></button>
-                        <button class="swatch" data-color="Black" style="--sw:#1f1f1f" aria-checked="false" role="radio" aria-label="Black"></button>
+        <div class="price-block">
+            <!-- Early bird pricing — re-enable when ready by uncommenting below and removing the retail-only block underneath
+            <div class="price-row">
+            <span class="price" id="price-launch">&#8377;2,499</span>
+            <span class="price-retail" id="price-retail">&#8377;2,999</span>
+            </div>
+            <span class="price-note">Early Bird Pricing &middot; Free shipping on orders above &#8377;999</span>
+            -->
+            <div class="price-row">
+                <span class="price" id="price-launch">&#8377;3,499</span>
+            </div>
+            <span class="price-note">Free shipping on orders above &#8377;999</span>
+        </div>
+
+        <button type="button" class="btn-primary" id="preorder-btn">Add to Cart</button>
+        <a href="/#waitlist" class="btn-secondary">Join Waitlist for New Colours</a>
+
+        <div class="trust">
+            <span class="trust__item"><span class="trust__dot"></span>Pan-India delivery</span>
+            <span class="trust__item"><span class="trust__dot"></span>2–5 day shipping</span>
+            <span class="trust__item"><span class="trust__dot"></span>Easy returns</span>
+            <span class="trust__item"><span class="trust__dot"></span>Secure checkout</span>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion__item open">
+                <button class="accordion__trigger" aria-expanded="true" onclick="toggleAcc(this)">
+                    Why you'll love it
+                    <span class="accordion__icon" aria-hidden="true">+</span>
+                </button>
+                <div class="accordion__body">
+                    <div class="accordion__inner">
+                        <p>Yoga, Pilates, barre, walking, strength training — or just around the house. The Ritual Cuffs add resistance to whatever you're already doing, without feeling like workout equipment.</p>
+                        <p>Start with shorter wear times and build up. Best for low-impact activity. The difference is immediate — you'll feel it in the first session.</p>
                     </div>
                 </div>
+            </div>
 
-                <div class="opt">
-                    <label class="opt__label">Weight</label>
-                    <div class="weights" role="radiogroup" aria-label="Weight">
-                        <button class="weight is-selected" data-weight="2lb" aria-checked="true" role="radio">2 lb per cuff</button>
-                    </div>
-                    <p style="font-size:11px;color:#a09890;margin-top:6px;">Sold as a pair · Use on wrists or ankles</p>
-                </div>
-
-                <ul class="bullets">
-                    <li>Baby-soft silicone — gentle on skin, all-day comfortable</li>
-                    <li>Fully adjustable strap — one size fits all</li>
-                    <li>Waterproof and sweat-proof</li>
-                    <li>Non-slip — stays in place through any movement</li>
-                    <li>Wrists or ankles — one cuff, both uses</li>
-                </ul>
-
-                <div class="capsule-pricing">
-                    <div class="capsule-price-card" style="grid-column:1/-1;">
-                        <div class="capsule-weight">2 LB PAIR</div>
-                        <div class="capsule-price-row">
-                            <span class="capsule-retail">₹3,499</span>
-                            <span class="capsule-launch">₹2,999</span>
-                        </div>
-                        <div class="capsule-offer">Early Bird · Waitlist Only</div>
+            <div class="accordion__item">
+                <button class="accordion__trigger" aria-expanded="false" onclick="toggleAcc(this)">
+                    Specifications
+                    <span class="accordion__icon" aria-hidden="true">+</span>
+                </button>
+                <div class="accordion__body">
+                    <div class="accordion__inner">
+                        <table class="specs-table">
+                            <tbody>
+                            <tr><td>Weight</td><td>2 lb per cuff</td></tr>
+                            <tr><td>Sold as</td><td>A pair</td></tr>
+                            <tr><td>Material</td><td>Baby-soft silicone</td></tr>
+                            <tr><td>Adjustable</td><td>Yes — one size fits all</td></tr>
+                            <tr><td>Waterproof</td><td>Yes</td></tr>
+                            <tr><td>Use on</td><td>Wrists or ankles</td></tr>
+                            <tr><td>Colours</td><td>Cream, Coffee, Black, Pink</td></tr>
+                            <tr><td>Best for</td><td>Yoga, Pilates, Walking, Barre</td></tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+            </div>
 
-                <form id="product-waitlist-form" style="display:flex;gap:8px;margin-bottom:12px;">
-                    <input type="text" name="nickname" style="display:none" tabindex="-1" autocomplete="off"/>
-                    <input type="hidden" name="product" value="The Ritual Cuffs"/>
-                    <input type="email" name="email" placeholder="your@email.com" required
-                           style="flex:1;padding:12px 14px;border:1px solid #e8e2dc;border-radius:8px;font-size:14px;outline:none;background:#faf8f6;"/>
-                    <button type="submit" class="btn-primary" style="white-space:nowrap;">Join Waitlist</button>
-                </form>
-                <p id="p-confirm" style="display:none;font-size:13px;color:#2a6b3a;margin-bottom:12px;">You're on the list. We'll reach out first.</p>
-
-                <div class="trust">
-                    <span>Pan-India shipping</span>
-                    <span>Early bird pricing</span>
-                    <span>Waitlist perks on launch</span>
+            <div class="accordion__item">
+                <button class="accordion__trigger" aria-expanded="false" onclick="toggleAcc(this)">
+                    Care
+                    <span class="accordion__icon" aria-hidden="true">+</span>
+                </button>
+                <div class="accordion__body">
+                    <div class="accordion__inner">
+                        <p>Wipe with a damp cloth after use. Safe to rinse under water. Dry completely before storing. Avoid prolonged exposure to direct sunlight.</p>
+                    </div>
                 </div>
             </div>
-        </section>
 
-        <section class="details">
-            <div class="cards">
-                <article class="card">
-                    <h2>Wear them everywhere</h2>
-                    <p>Yoga, Pilates, barre, walking, strength training — or just around the house. The Ritual Cuffs add resistance to whatever you're already doing, without feeling like workout equipment.</p>
-                </article>
-                <article class="card">
-                    <h2>Care</h2>
-                    <p>Wipe with a damp cloth after use. Safe to rinse under water. Dry completely before storing. Avoid prolonged exposure to direct sunlight.</p>
-                </article>
-                <article class="card">
-                    <h2>Good to know</h2>
-                    <p>Start with shorter wear times and build up. Best for low-impact activity. The difference is immediate — you'll feel it in the first session.</p>
-                </article>
-            </div>
-
-            <div class="specs">
-                <h2>Specs</h2>
-                <div class="specs__grid">
-                    <div class="spec"><span>Weight</span><span>2 lb per cuff</span></div>
-                    <div class="spec"><span>Sold as</span><span>A pair</span></div>
-                    <div class="spec"><span>Material</span><span>Baby-soft silicone</span></div>
-                    <div class="spec"><span>Adjustable</span><span>Yes — one size fits all</span></div>
-                    <div class="spec"><span>Waterproof</span><span>Yes</span></div>
-                    <div class="spec"><span>Use on</span><span>Wrists or ankles</span></div>
-                    <div class="spec"><span>Colours</span><span>Cream, Coffee, Pink, Black</span></div>
-                    <div class="spec"><span>Best for</span><span>Yoga, Pilates, Walking, Barre</span></div>
-                    <div class="spec"><span>Status</span><span>Coming Soon</span></div>
+            <div class="accordion__item">
+                <button class="accordion__trigger" aria-expanded="false" onclick="toggleAcc(this)">
+                    Shipping &amp; returns
+                    <span class="accordion__icon" aria-hidden="true">+</span>
+                </button>
+                <div class="accordion__body">
+                    <div class="accordion__inner">
+                        <p>Ships pan-India. Standard delivery 2–5 working days. Free shipping on orders above &#8377;999.</p>
+                        <p>Returns accepted within 7 days of delivery for unused items in original condition. Write to us — no questions asked.</p>
+                    </div>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
+</main>
 
-    <div id="footer-placeholder"></div>
+<!-- REVIEWS -->
+<section class="reviews" aria-label="Customer reviews">
+    <p class="reviews__eyebrow">Reviews</p>
+    <h2 class="reviews__title">From their practice</h2>
+    <div class="reviews__summary">
+        <div class="stars" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.9 4.2 4.6.4-3.5 3 1 4.5L8 10.7 4 13.1l1-4.5-3.5-3 4.6-.4z"/></svg>
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.9 4.2 4.6.4-3.5 3 1 4.5L8 10.7 4 13.1l1-4.5-3.5-3 4.6-.4z"/></svg>
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.9 4.2 4.6.4-3.5 3 1 4.5L8 10.7 4 13.1l1-4.5-3.5-3 4.6-.4z"/></svg>
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.9 4.2 4.6.4-3.5 3 1 4.5L8 10.7 4 13.1l1-4.5-3.5-3 4.6-.4z"/></svg>
+            <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.9 4.2 4.6.4-3.5 3 1 4.5L8 10.7 4 13.1l1-4.5-3.5-3 4.6-.4z"/></svg>
+        </div>
+        <span class="reviews__count"><span id="reviews-avg">–</span> &nbsp;·&nbsp; <span id="reviews-total">0</span> reviews</span>
+    </div>
+    <div class="reviews__grid" id="reviews-list"></div>
+
+    <div class="review-form-wrap">
+        <h3>Write a review</h3>
+        <form class="review-form" id="review-form">
+            <div>
+                <label for="review-name">Name</label>
+                <input type="text" id="review-name" name="name" maxlength="80" required/>
+            </div>
+            <div>
+                <label>Rating</label>
+                <div class="rating-input" id="rating-input" role="radiogroup" aria-label="Star rating">
+                    <button type="button" data-value="1" aria-label="1 star"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.9 4.2 4.6.4-3.5 3 1 4.5L8 10.7 4 13.1l1-4.5-3.5-3 4.6-.4z"/></svg></button>
+                    <button type="button" data-value="2" aria-label="2 stars"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.9 4.2 4.6.4-3.5 3 1 4.5L8 10.7 4 13.1l1-4.5-3.5-3 4.6-.4z"/></svg></button>
+                    <button type="button" data-value="3" aria-label="3 stars"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.9 4.2 4.6.4-3.5 3 1 4.5L8 10.7 4 13.1l1-4.5-3.5-3 4.6-.4z"/></svg></button>
+                    <button type="button" data-value="4" aria-label="4 stars"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.9 4.2 4.6.4-3.5 3 1 4.5L8 10.7 4 13.1l1-4.5-3.5-3 4.6-.4z"/></svg></button>
+                    <button type="button" data-value="5" aria-label="5 stars"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.9 4.2 4.6.4-3.5 3 1 4.5L8 10.7 4 13.1l1-4.5-3.5-3 4.6-.4z"/></svg></button>
+                </div>
+                <input type="hidden" id="review-rating" name="rating" value="0"/>
+            </div>
+            <div>
+                <label for="review-text">Your review</label>
+                <textarea id="review-text" name="review" rows="4" maxlength="1000" required></textarea>
+            </div>
+            <button type="submit" class="btn-primary">Submit Review</button>
+            <p class="review-form__status" id="review-status"></p>
+        </form>
+    </div>
+</section>
+
+<div id="footer-placeholder" style="padding-bottom:34px;"></div>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+    <div class="ticker__track">
+        <span class="ticker__item">Wrist or ankle</span>
+        <span class="ticker__item">Low-impact resistance</span>
+        <span class="ticker__item">Barre</span>
+        <span class="ticker__item">Walking workouts</span>
+        <span class="ticker__item">Pilates</span>
+        <span class="ticker__item">All-day comfort</span>
+        <span class="ticker__item">Adjustable fit</span>
+        <span class="ticker__item">Waterproof</span>
+        <span class="ticker__item">Wrist or ankle</span>
+        <span class="ticker__item">Low-impact resistance</span>
+        <span class="ticker__item">Barre</span>
+        <span class="ticker__item">Walking workouts</span>
+        <span class="ticker__item">Pilates</span>
+        <span class="ticker__item">All-day comfort</span>
+        <span class="ticker__item">Adjustable fit</span>
+        <span class="ticker__item">Waterproof</span>
+    </div>
 </div>
 
 <script src="/javascript/init.js"></script>
-
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        document.querySelectorAll('.swatch').forEach(function(s) {
-            s.addEventListener('click', function() {
-                document.querySelectorAll('.swatch').forEach(function(x) {
-                    x.classList.remove('is-selected');
-                    x.setAttribute('aria-checked', 'false');
-                });
-                s.classList.add('is-selected');
-                s.setAttribute('aria-checked', 'true');
+    function switchProductImage(btn) {
+        var img = document.getElementById('main-img');
+        var newSrc = btn.dataset.img;
+        if (!newSrc || img.getAttribute('src') === newSrc) return;
+        var probe = new Image();
+        probe.onload = function() {
+            img.style.opacity = '0';
+            setTimeout(function() {
+                img.src = newSrc;
+                img.alt = 'The Ritual Cuffs in ' + btn.dataset.color + ' – The Ritual Co.';
+                img.style.opacity = '1';
+            }, 200);
+        };
+        probe.src = newSrc;
+    }
+    document.querySelectorAll('.swatch:not(.sold-out)').forEach(function(s) {
+        s.addEventListener('click', function() {
+            document.querySelectorAll('.swatch').forEach(function(x) {
+                x.classList.remove('is-selected','active','selected');
+                x.setAttribute('aria-checked','false');
+            });
+            s.classList.add('is-selected','active','selected');
+            s.setAttribute('aria-checked','true');
+            switchProductImage(s);
+        });
+    });
+    function toggleAcc(trigger) {
+        var item = trigger.closest('.accordion__item');
+        var isOpen = item.classList.contains('open');
+        document.querySelectorAll('.accordion__item').forEach(function(i) {
+            i.classList.remove('open');
+            i.querySelector('.accordion__trigger').setAttribute('aria-expanded','false');
+        });
+        if (!isOpen) {
+            item.classList.add('open');
+            trigger.setAttribute('aria-expanded','true');
+        }
+    }
+    document.querySelectorAll('#rating-input button').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var val = parseInt(btn.dataset.value, 10);
+            document.getElementById('review-rating').value = val;
+            document.querySelectorAll('#rating-input button').forEach(function(b) {
+                b.classList.toggle('filled', parseInt(b.dataset.value, 10) <= val);
             });
         });
-
-        var form = document.getElementById('product-waitlist-form');
-        if (form) {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                var fd = new FormData(form);
-                var data = {};
-                for (var pair of fd.entries()) { data[pair[0]] = (pair[1]||'').toString().trim(); }
-                if (data.nickname) return;
-                fetch('/.netlify/functions/submit-to-sheet', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                })
-                    .then(function(r) { return r.json(); })
-                    .then(function() {
-                        form.reset();
-                        document.getElementById('p-confirm').style.display = 'block';
-                    })
-                    .catch(function() { alert('Something went wrong. Please try again.'); });
-            });
+    });
+</script>
+<script>
+    document.getElementById('preorder-btn').addEventListener('click', function() {
+        if (typeof Cart === 'undefined') {
+            window.location = '/cart.html';
+            return;
+        }
+        var colorBtn = document.querySelector('.swatch.is-selected');
+        var colorVal = colorBtn ? colorBtn.dataset.color : 'Cream';
+        Cart.add({
+            id: 'ankle-weights-2lb',
+            name: 'The Ritual Cuffs',
+            weight: '2lb',
+            color: colorVal,
+            price: 3499,
+            image: '/images/ankle-weights.webp'
+        });
+        gtag('event', 'add_to_cart', {
+            currency: 'INR',
+            value: 3499,
+            items: [{ item_id: 'ankle-weights-2lb', item_name: 'The Ritual Cuffs 2 lb', price: 3499 }]
+        });
+        if (window.CartDrawer) {
+            CartDrawer.open();
+        } else {
+            window.location = '/cart.html';
         }
     });
 </script>
-
+<script>window.PRODUCT_SLUG = 'ankle-weights';</script>
+<script src="/javascript/reviews.js"></script>
 <script>
     gtag('event', 'view_item', {
         currency: 'INR',
-        value: 2999,
-        items: [{ item_id: 'the-ritual-cuffs-2lb', item_name: 'The Ritual Cuffs 2lb', price: 2999 }]
+        value: 3499,
+        items: [{ item_id: 'ankle-weights-2lb', item_name: 'The Ritual Cuffs 2 lb', price: 3499 }]
     });
 </script>
 </body>

@@ -601,3 +601,9 @@ body.tr-product-page .review-form__status {
     body.tr-product-page .ticker__track { animation: none; }
     body.tr-product-page .btn-primary:hover { transform: none; }
 }
+
+/* Block page — landscape photo, avoid cropping */
+body.tr-product-page .product__visual.is-contain img {
+    object-fit: contain;
+    background: var(--muted);
+}
