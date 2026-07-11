@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="fix yoga mat mm and price" />
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="bug fix">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/about.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/products/the-ritual-block.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/the-ritual-block.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sitemap.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sitemap.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,23 +34,23 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0087895593461598" />
-      <entry key="MS500" value="1.445634457882824" />
-      <entry key="S2" value="3.366972415892208" />
-      <entry key="S5" value="5.608073919411297" />
-      <entry key="S10" value="7.011484912017549" />
-      <entry key="S30" value="9.169519764593735" />
-      <entry key="S60" value="11.73122991059683" />
-      <entry key="M2" value="14.630476865561196" />
-      <entry key="M5" value="17.44148846269861" />
-      <entry key="M10" value="18.639610111963353" />
-      <entry key="M15" value="19.07396020171465" />
-      <entry key="M30" value="19.52713695908576" />
-      <entry key="H1" value="19.761052761876492" />
-      <entry key="H2" value="19.883740131061696" />
-      <entry key="H4" value="20.35755327873888" />
-      <entry key="D1" value="42.062160995092704" />
-      <entry key="W1" value="250.8752910382496" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0000000005119816" />
+      <entry key="S2" value="1.0077674568647619" />
+      <entry key="S5" value="1.2165890819328475" />
+      <entry key="S10" value="1.6578854734569972" />
+      <entry key="S30" value="2.3805843081329163" />
+      <entry key="S60" value="2.6897564100592364" />
+      <entry key="M2" value="3.447184409269902" />
+      <entry key="M5" value="8.282887818392354" />
+      <entry key="M10" value="14.601364631699784" />
+      <entry key="M15" value="18.144788457102784" />
+      <entry key="M30" value="22.818795189271103" />
+      <entry key="H1" value="25.692880728442635" />
+      <entry key="H2" value="27.291920497680408" />
+      <entry key="H4" value="28.532758027372" />
+      <entry key="D1" value="50.79886383764313" />
+      <entry key="W1" value="259.6667894859202" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -54,35 +60,35 @@
       <entry key="S10" value="0.0" />
       <entry key="S30" value="0.0" />
       <entry key="S60" value="0.0" />
-      <entry key="M2" value="9.764391580299852E-244" />
-      <entry key="M5" value="6.249684232591489E-98" />
-      <entry key="M10" value="2.4999368457206065E-49" />
-      <entry key="M15" value="3.96843579552611E-33" />
-      <entry key="M30" value="6.299552202757049E-17" />
-      <entry key="H1" value="7.93697184243275E-9" />
-      <entry key="H2" value="8.908968426497403E-5" />
-      <entry key="H4" value="0.009438733191746342" />
-      <entry key="D1" value="0.4597117733123445" />
-      <entry key="W1" value="1.5687889515374394" />
+      <entry key="M2" value="1.5796262497774849E-245" />
+      <entry key="M5" value="1.2006646846405867E-98" />
+      <entry key="M10" value="1.0957484586530751E-49" />
+      <entry key="M15" value="2.2898511148480298E-33" />
+      <entry key="M30" value="4.785238881025729E-17" />
+      <entry key="H1" value="6.917542107588297E-9" />
+      <entry key="H2" value="8.317176268174379E-5" />
+      <entry key="H4" value="0.009119855409037134" />
+      <entry key="D1" value="0.457086084744301" />
+      <entry key="W1" value="1.5675057655364188" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9880289704251577" />
-      <entry key="MS500" value="1.439657202967646" />
-      <entry key="S2" value="3.3636165906083" />
-      <entry key="S5" value="5.605877598870697" />
-      <entry key="S10" value="7.010112779223714" />
-      <entry key="S30" value="9.168479785366836" />
-      <entry key="S60" value="11.729994524411232" />
-      <entry key="M2" value="14.629391277639577" />
-      <entry key="M5" value="17.44086135758092" />
-      <entry key="M10" value="18.639254342426344" />
-      <entry key="M15" value="19.07371272997787" />
-      <entry key="M30" value="19.52700783095895" />
-      <entry key="H1" value="19.760986809632367" />
-      <entry key="H2" value="19.883795755193333" />
-      <entry key="H4" value="20.366967836374513" />
-      <entry key="D1" value="42.5218051727468" />
-      <entry key="W1" value="252.44403811697597" />
+      <entry key="MS100" value="0.8585654364377537" />
+      <entry key="MS500" value="0.9699619108259084" />
+      <entry key="S2" value="1.0000656489235795" />
+      <entry key="S5" value="1.2123585153941367" />
+      <entry key="S10" value="1.6545609530408698" />
+      <entry key="S30" value="2.3788163205886703" />
+      <entry key="S60" value="2.6887389329912312" />
+      <entry key="M2" value="3.4465846513238287" />
+      <entry key="M5" value="8.28245722615298" />
+      <entry key="M10" value="14.601020897173765" />
+      <entry key="M15" value="18.14451018978676" />
+      <entry key="M30" value="22.81862321647334" />
+      <entry key="H1" value="25.692784546188033" />
+      <entry key="H2" value="27.291952606030538" />
+      <entry key="H4" value="28.541844491885286" />
+      <entry key="D1" value="51.2558810235427" />
+      <entry key="W1" value="261.2342531711445" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -168,14 +174,6 @@
       <workItem from="1779695741143" duration="8369000" />
       <workItem from="1780831623909" duration="98941000" />
       <workItem from="1781737896564" duration="11840000" />
-    </task>
-    <task id="LOCAL-00100" summary="fix">
-      <option name="closed" value="true" />
-      <created>1781344706657</created>
-      <option name="number" value="00100" />
-      <option name="presentableId" value="LOCAL-00100" />
-      <option name="project" value="LOCAL" />
-      <updated>1781344706657</updated>
     </task>
     <task id="LOCAL-00101" summary="newsletter">
       <option name="closed" value="true" />
@@ -561,7 +559,15 @@
       <option name="project" value="LOCAL" />
       <updated>1783777696218</updated>
     </task>
-    <option name="localTasksCounter" value="149" />
+    <task id="LOCAL-00149" summary="bug fix">
+      <option name="closed" value="true" />
+      <created>1783777947470</created>
+      <option name="number" value="00149" />
+      <option name="presentableId" value="LOCAL-00149" />
+      <option name="project" value="LOCAL" />
+      <updated>1783777947470</updated>
+    </task>
+    <option name="localTasksCounter" value="150" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -591,9 +597,9 @@
     <MESSAGE value="add admin" />
     <MESSAGE value="add new product pages" />
     <MESSAGE value="correct colors" />
-    <MESSAGE value="bug fix" />
     <MESSAGE value="fix yoga mat mm and price" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix yoga mat mm and price" />
+    <MESSAGE value="bug fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="bug fix" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
