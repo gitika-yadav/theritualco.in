@@ -10,6 +10,7 @@ const PRODUCT_MAP = {
     "capsule-1kg": { id: "capsule-1kg", name: "Capsule Dumbbells", weight: "1 KG" },
     "capsule-2kg": { id: "capsule-2kg", name: "Capsule Dumbbells", weight: "2 KG" },
     "yoga-belt":   { id: "yoga-belt",   name: "Yoga Belt", weight: "96in" },
+    "yoga-block":  { id: "yoga-block",  name: "Yoga Block", weight: "9x6x3in"},
 };
 
 function resolveProductKey(item) {
