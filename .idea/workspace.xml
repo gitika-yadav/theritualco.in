@@ -4,16 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="bug fixes">
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="fix">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account/orders.html" beforeDir="false" afterPath="$PROJECT_DIR$/account/orders.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/netlify/functions/admin-get-orders.js" beforeDir="false" afterPath="$PROJECT_DIR$/netlify/functions/admin-get-orders.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/creator-order.html" beforeDir="false" afterPath="$PROJECT_DIR$/admin/creator-order.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/orders.html" beforeDir="false" afterPath="$PROJECT_DIR$/admin/orders.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/netlify/functions/create-creator-order.js" beforeDir="false" afterPath="$PROJECT_DIR$/netlify/functions/create-creator-order.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/netlify/functions/create-order.js" beforeDir="false" afterPath="$PROJECT_DIR$/netlify/functions/create-order.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/netlify/functions/morning-briefing.js" beforeDir="false" afterPath="$PROJECT_DIR$/netlify/functions/morning-briefing.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/netlify/functions/shared/verify-admin-token.js" beforeDir="false" afterPath="$PROJECT_DIR$/netlify/functions/shared/verify-admin-token.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/netlify/functions/update-order.js" beforeDir="false" afterPath="$PROJECT_DIR$/netlify/functions/update-order.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/netlify/functions/verify-payment.js" beforeDir="false" afterPath="$PROJECT_DIR$/netlify/functions/verify-payment.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,61 +33,61 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.1767767298086644" />
-      <entry key="MS500" value="1.7476068364193906" />
-      <entry key="S2" value="2.6426029154441704" />
-      <entry key="S5" value="3.2946148768476395" />
-      <entry key="S10" value="3.6120316402386763" />
-      <entry key="S30" value="3.8618860706322207" />
-      <entry key="S60" value="3.9503057685463054" />
-      <entry key="M2" value="4.921217702437812" />
-      <entry key="M5" value="16.89799778506818" />
-      <entry key="M10" value="38.74463629668424" />
-      <entry key="M15" value="53.7140991353551" />
-      <entry key="M30" value="79.74111407153079" />
-      <entry key="H1" value="110.66086734885201" />
-      <entry key="H2" value="153.03641104183856" />
-      <entry key="H4" value="199.53686529026618" />
-      <entry key="D1" value="288.08708826030244" />
-      <entry key="W1" value="511.5494597625191" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0000000000000027" />
+      <entry key="S5" value="1.0000037905860932" />
+      <entry key="S10" value="1.0043329957471228" />
+      <entry key="S30" value="1.4762045194335098" />
+      <entry key="S60" value="2.5428584383993846" />
+      <entry key="M2" value="3.777372695703903" />
+      <entry key="M5" value="4.954849392821968" />
+      <entry key="M10" value="5.935881343910763" />
+      <entry key="M15" value="8.541033386557903" />
+      <entry key="M30" value="24.393699539875826" />
+      <entry key="H1" value="59.327976842820185" />
+      <entry key="H2" value="112.28473287647617" />
+      <entry key="H4" value="172.30181079088982" />
+      <entry key="D1" value="285.47334517731406" />
+      <entry key="W1" value="515.3363785658119" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
-      <entry key="S2" value="1.8420301125243367E-90" />
-      <entry key="S5" value="1.9661489140960714E-36" />
-      <entry key="S10" value="2.2941394691038143E-18" />
-      <entry key="S30" value="2.7697279404999164E-6" />
-      <entry key="S60" value="0.003206649943867756" />
-      <entry key="M2" value="0.12507050767904274" />
-      <entry key="M5" value="1.797035120424585" />
-      <entry key="M10" value="5.847970814074062" />
-      <entry key="M15" value="9.05099791663606" />
-      <entry key="M30" value="14.29551020080314" />
-      <entry key="H1" value="18.0932484457522" />
-      <entry key="H2" value="20.388864054986023" />
-      <entry key="H4" value="21.655801401597877" />
-      <entry key="D1" value="23.15910575312131" />
-      <entry key="W1" value="24.499149403923678" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="3.9268656187084252E-264" />
+      <entry key="S10" value="3.2421614124787865E-132" />
+      <entry key="S30" value="3.108198291688552E-44" />
+      <entry key="S60" value="3.3969359256259146E-22" />
+      <entry key="M2" value="4.0707348386921255E-11" />
+      <entry key="M5" value="2.881135776721813E-4" />
+      <entry key="M10" value="0.07404722316655202" />
+      <entry key="M15" value="0.49169846417782836" />
+      <entry key="M30" value="3.3319682406134645" />
+      <entry key="H1" value="8.735085161161102" />
+      <entry key="H2" value="14.166687973956021" />
+      <entry key="H4" value="18.051442369513143" />
+      <entry key="D1" value="22.466981485505997" />
+      <entry key="W1" value="24.39318835485017" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.1457936647273916" />
-      <entry key="MS500" value="1.7389512926482353" />
-      <entry key="S2" value="2.6393015252489493" />
-      <entry key="S5" value="3.292934738247883" />
-      <entry key="S10" value="3.611102236002885" />
-      <entry key="S30" value="3.8615551619945374" />
-      <entry key="S60" value="3.9531771146656967" />
-      <entry key="M2" value="5.042106825901304" />
-      <entry key="M5" value="18.66925831164286" />
-      <entry key="M10" value="44.5522900504664" />
-      <entry key="M15" value="62.7242184949647" />
-      <entry key="M30" value="94.00468629717972" />
-      <entry key="H1" value="128.7335847482721" />
-      <entry key="H2" value="173.41323245749084" />
-      <entry key="H4" value="221.18597490661938" />
-      <entry key="D1" value="311.24489145843813" />
-      <entry key="W1" value="536.0483863845832" />
+      <entry key="MS100" value="0.9794202975869268" />
+      <entry key="MS500" value="0.9958497530944581" />
+      <entry key="S2" value="0.9989608195515257" />
+      <entry key="S5" value="0.9995879870560147" />
+      <entry key="S10" value="1.0041241091075308" />
+      <entry key="S30" value="1.47609996010583" />
+      <entry key="S60" value="2.542766713982106" />
+      <entry key="M2" value="3.7773040162196496" />
+      <entry key="M5" value="4.95509721890607" />
+      <entry key="M10" value="6.009398171019393" />
+      <entry key="M15" value="9.030497405169756" />
+      <entry key="M30" value="27.71821666282161" />
+      <entry key="H1" value="68.05314639664684" />
+      <entry key="H2" value="126.44305151208609" />
+      <entry key="H4" value="190.3476742350286" />
+      <entry key="D1" value="307.93906288317623" />
+      <entry key="W1" value="539.7293450805809" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -178,22 +173,6 @@
       <workItem from="1779695741143" duration="8369000" />
       <workItem from="1780831623909" duration="98941000" />
       <workItem from="1781737896564" duration="11840000" />
-    </task>
-    <task id="LOCAL-00117" summary="fix">
-      <option name="closed" value="true" />
-      <created>1782138462039</created>
-      <option name="number" value="00117" />
-      <option name="presentableId" value="LOCAL-00117" />
-      <option name="project" value="LOCAL" />
-      <updated>1782138462039</updated>
-    </task>
-    <task id="LOCAL-00118" summary="add canonicals">
-      <option name="closed" value="true" />
-      <created>1782140262609</created>
-      <option name="number" value="00118" />
-      <option name="presentableId" value="LOCAL-00118" />
-      <option name="project" value="LOCAL" />
-      <updated>1782140262609</updated>
     </task>
     <task id="LOCAL-00119" summary="fix">
       <option name="closed" value="true" />
@@ -571,14 +550,29 @@
       <option name="project" value="LOCAL" />
       <updated>1783798253322</updated>
     </task>
-    <option name="localTasksCounter" value="166" />
+    <task id="LOCAL-00166" summary="allow multiple skus">
+      <option name="closed" value="true" />
+      <created>1783801937816</created>
+      <option name="number" value="00166" />
+      <option name="presentableId" value="LOCAL-00166" />
+      <option name="project" value="LOCAL" />
+      <updated>1783801937816</updated>
+    </task>
+    <task id="LOCAL-00167" summary="fix">
+      <option name="closed" value="true" />
+      <created>1783802032783</created>
+      <option name="number" value="00167" />
+      <option name="presentableId" value="LOCAL-00167" />
+      <option name="project" value="LOCAL" />
+      <updated>1783802032783</updated>
+    </task>
+    <option name="localTasksCounter" value="168" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add yoga" />
     <MESSAGE value="add yoga mats and ankle weights coming soon" />
     <MESSAGE value="clean" />
     <MESSAGE value="add gtags for checkout journey + fix sitemap genration" />
@@ -595,7 +589,6 @@
     <MESSAGE value="update yoga mats and ankle weights pages" />
     <MESSAGE value="add whatsapp number to footer + floating button" />
     <MESSAGE value="add block to map" />
-    <MESSAGE value="fix" />
     <MESSAGE value="url fix" />
     <MESSAGE value="bug fix" />
     <MESSAGE value="add creator order" />
@@ -603,7 +596,9 @@
     <MESSAGE value="fix morning briefing" />
     <MESSAGE value="allow shipping for cod + creator orders" />
     <MESSAGE value="bug fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="bug fixes" />
+    <MESSAGE value="allow multiple skus" />
+    <MESSAGE value="fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

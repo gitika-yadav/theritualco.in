@@ -45,10 +45,15 @@ exports.handler = async (event) => {
 
         // ── Resolve + validate each item against inventory ───
         const orderItems = [];
+        const skippedItems = [];
         for (const item of items) {
             const key = resolveProductKey(item);
             const product = key && PRODUCT_MAP[key];
-            if (!product) continue;
+            if (!product) {
+                console.error("Creator order: unresolvable product", item);
+                skippedItems.push({ ...item, reason: "unresolvable product_id" });
+                continue;
+            }
 
             const { data: inv, error: invErr } = await supabase
                 .from("inventory")
@@ -56,7 +61,11 @@ exports.handler = async (event) => {
                 .eq("product_id", product.id)
                 .eq("color", item.color || "default")
                 .single();
-            if (invErr || !inv || !inv.active) continue;
+            if (invErr || !inv || !inv.active) {
+                console.error("Creator order: item skipped — not found or inactive in inventory", product.id, item.color, invErr?.message);
+                skippedItems.push({ ...item, reason: invErr ? "inventory lookup error" : "inactive or missing" });
+                continue;
+            }
 
             const qty = Math.max(1, Math.min(10, parseInt(item.qty) || 1));
 
@@ -67,6 +76,10 @@ exports.handler = async (event) => {
                 color:        item.color || "Not specified",
                 quantity:     qty,
             });
+        }
+
+        if (skippedItems.length > 0) {
+            console.error(`Creator order: ${skippedItems.length} of ${items.length} requested items were dropped:`, JSON.stringify(skippedItems));
         }
 
         if (orderItems.length === 0) {
@@ -111,7 +124,14 @@ exports.handler = async (event) => {
 
         return {
             statusCode: 200,
-            body: JSON.stringify({ success: true, order_id: order.id, receipt: giftReceipt }),
+            body: JSON.stringify({
+                success: true,
+                order_id: order.id,
+                receipt: giftReceipt,
+                saved_items: orderItems.length,
+                requested_items: items.length,
+                skipped: skippedItems, // non-empty means some items didn't make it — surface this in the UI
+            }),
         };
     } catch (err) {
         console.error(err);

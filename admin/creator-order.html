@@ -166,8 +166,14 @@
             });
             const result = await res.json();
             if (!res.ok) throw new Error(result.error || "Failed");
-            statusMsg.textContent = `✅ Gift order placed — ${result.order_ids.length} item(s) recorded.`;
-            statusMsg.style.color = "#2a6b3a";
+            if (result.skipped && result.skipped.length > 0) {
+                statusMsg.textContent = `⚠️ Saved ${result.saved_items}/${result.requested_items} items — some were skipped (not in stock or inactive). Check console for details.`;
+                statusMsg.style.color = "#a06b04";
+                console.warn("Skipped items:", result.skipped);
+            } else {
+                statusMsg.textContent = `✅ Gift order placed — ${result.saved_items} item(s) recorded.`;
+                statusMsg.style.color = "#2a6b3a";
+            }
         } catch (err) {
             statusMsg.textContent = "❌ " + err.message;
             statusMsg.style.color = "#a04040";

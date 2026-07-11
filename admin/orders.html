@@ -294,14 +294,13 @@
     function updateStats() {
         const total = allOrders.length;
         const PAID_STATUSES = ["paid", "shipped", "delivered"];
-        const revenue = allOrders
-            .filter(o => PAID_STATUSES.includes(o.status))
-            .reduce((sum, o) => sum + (o.amount_paise || 0), 0) / 100;
+        const paidOrders = allOrders.filter(o => PAID_STATUSES.includes(o.status));
+        const revenue = paidOrders.reduce((sum, o) => sum + (o.amount_paise || 0), 0) / 100;
         const toShip = allOrders.filter(o => TO_SHIP_STATUSES.includes(o.status)).length;
         const shipped = allOrders.filter(o => o.status === "shipped" || o.status === "delivered").length;
         document.getElementById("s-total").textContent = total;
         document.getElementById("s-revenue").textContent = "₹" + revenue.toLocaleString("en-IN");
-        document.getElementById("s-revenue-sub").textContent = `avg ₹${total ? Math.round(revenue / total).toLocaleString("en-IN") : 0}`;
+        document.getElementById("s-revenue-sub").textContent = `avg ₹${paidOrders.length ? Math.round(revenue / paidOrders.length).toLocaleString("en-IN") : 0}`;
         document.getElementById("s-pending").textContent = toShip;
         document.getElementById("s-shipped").textContent = shipped;
     }
