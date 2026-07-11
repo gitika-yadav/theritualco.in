@@ -47,28 +47,29 @@ exports.handler = async (event) => {
             const product = key && PRODUCT_MAP[key];
             if (!product) continue;
 
-            const { data: inv, error: invErr } = await supabase
-                .from("inventory")
-                .select("sold, early_bird_limit, early_bird_price_paise, price_paise, active")
-                .eq("product_id", product.id)
-                .single();
-            if (invErr || !inv || !inv.active) continue;
+                const { data: inv, error: invErr } = await supabase
+                    .from("inventory")
+                    .select("sold, early_bird_limit, early_bird_price_paise, price_paise, active")
+                    .eq("product_id", product.id)
+                    .eq("color", item.color || "default")
+                    .single();
+                if (invErr || !inv || !inv.active) continue;
 
-            const isEarlyBird = inv.sold < inv.early_bird_limit;
-            const unitPaise   = isEarlyBird ? inv.early_bird_price_paise : inv.price_paise;
-            const qty         = Math.max(1, Math.min(10, parseInt(item.qty) || 1));
+                const isEarlyBird = inv.sold < inv.early_bird_limit;
+                const unitPaise   = isEarlyBird ? inv.early_bird_price_paise : inv.price_paise;
+                const qty         = Math.max(1, Math.min(10, parseInt(item.qty) || 1));
 
-            totalPaise += unitPaise * qty;
-            orderItems.push({
-                product_id:    product.id,
-                product_name:  product.name,
-                weight:        product.weight,
-                color:         item.color || "Not specified",
-                qty,
-                unit_paise:    unitPaise,
-                is_early_bird: isEarlyBird,
-            });
-        }
+                totalPaise += unitPaise * qty;
+                orderItems.push({
+                    product_id:    product.id,
+                    product_name:  product.name,
+                    weight:        product.weight,
+                    color:         item.color || "Not specified",
+                    qty,
+                    unit_paise:    unitPaise,
+                    is_early_bird: isEarlyBird,
+                });
+            }
 
         if (totalPaise === 0) {
             return { statusCode: 400, body: JSON.stringify({ error: "No valid items in cart" }) };

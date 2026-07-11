@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="add whatsapp number to footer + floating button" />
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="add block to map">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/netlify/functions/create-order.js" beforeDir="false" afterPath="$PROJECT_DIR$/netlify/functions/create-order.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/netlify/functions/verify-payment.js" beforeDir="false" afterPath="$PROJECT_DIR$/netlify/functions/verify-payment.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,23 +32,23 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0127879707589715" />
-      <entry key="MS500" value="1.5440641370890087" />
-      <entry key="S2" value="3.316412583946345" />
-      <entry key="S5" value="5.977089375851783" />
-      <entry key="S10" value="8.373392626382422" />
-      <entry key="S30" value="11.09131372393204" />
-      <entry key="S60" value="11.98931695694384" />
-      <entry key="M2" value="12.481729365976884" />
-      <entry key="M5" value="13.29920539215756" />
-      <entry key="M10" value="16.326449685875815" />
-      <entry key="M15" value="20.18710815755127" />
-      <entry key="M30" value="32.15914074725571" />
-      <entry key="H1" value="48.90748498248383" />
-      <entry key="H2" value="64.20707026156698" />
-      <entry key="H4" value="75.08515602291045" />
-      <entry key="D1" value="106.6518638170978" />
-      <entry key="W1" value="316.9998580197265" />
+      <entry key="MS100" value="1.027406802188551" />
+      <entry key="MS500" value="1.657488857891059" />
+      <entry key="S2" value="3.240925912650819" />
+      <entry key="S5" value="4.137884583946221" />
+      <entry key="S10" value="4.537367086696657" />
+      <entry key="S30" value="5.58774275606131" />
+      <entry key="S60" value="9.25987268555671" />
+      <entry key="M2" value="15.556758646953616" />
+      <entry key="M5" value="24.055539831869527" />
+      <entry key="M10" value="31.04624723151382" />
+      <entry key="M15" value="36.40184162052178" />
+      <entry key="M30" value="50.167792626741935" />
+      <entry key="H1" value="69.45564440613437" />
+      <entry key="H2" value="88.1142314291259" />
+      <entry key="H4" value="101.86208129200048" />
+      <entry key="D1" value="136.6436523877743" />
+      <entry key="W1" value="347.5793215719803" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -54,35 +58,35 @@
       <entry key="S10" value="0.0" />
       <entry key="S30" value="0.0" />
       <entry key="S60" value="0.0" />
-      <entry key="M2" value="3.0093428516331845E-258" />
-      <entry key="M5" value="9.803669630499472E-104" />
-      <entry key="M10" value="3.1310812238745084E-52" />
-      <entry key="M15" value="4.6110116827502454E-35" />
-      <entry key="M30" value="6.7904430508990046E-18" />
-      <entry key="H1" value="2.6058478564373203E-9" />
-      <entry key="H2" value="5.104750587871377E-5" />
-      <entry key="H4" value="0.007144753731145241" />
-      <entry key="D1" value="0.4388652747298758" />
-      <entry key="W1" value="1.558422899029875" />
+      <entry key="M2" value="4.0276810239860075E-261" />
+      <entry key="M5" value="6.950595703339753E-105" />
+      <entry key="M10" value="8.337023271731804E-53" />
+      <entry key="M15" value="1.9084202193728673E-35" />
+      <entry key="M30" value="4.368546920170217E-18" />
+      <entry key="H1" value="2.09010691596631E-9" />
+      <entry key="H2" value="4.571768712398197E-5" />
+      <entry key="H4" value="0.006761485570788572" />
+      <entry key="D1" value="0.43485088893517865" />
+      <entry key="W1" value="1.5563784135066416" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9919451518055997" />
-      <entry key="MS500" value="1.537320683068252" />
-      <entry key="S2" value="3.292845624415875" />
-      <entry key="S5" value="5.951900119419319" />
-      <entry key="S10" value="8.355614096964812" />
-      <entry key="S30" value="11.083813000904078" />
-      <entry key="S60" value="11.985335607357484" />
-      <entry key="M2" value="12.479677889778978" />
-      <entry key="M5" value="13.298353967126753" />
-      <entry key="M10" value="16.325905182108727" />
-      <entry key="M15" value="20.186561764634913" />
-      <entry key="M30" value="32.15851822724868" />
-      <entry key="H1" value="48.90693489984109" />
-      <entry key="H2" value="64.20674379594556" />
-      <entry key="H4" value="75.09207257180498" />
-      <entry key="D1" value="107.09062453414862" />
-      <entry key="W1" value="318.5582334695248" />
+      <entry key="MS100" value="1.0062631607033536" />
+      <entry key="MS500" value="1.6507171289202214" />
+      <entry key="S2" value="3.2377232449103848" />
+      <entry key="S5" value="4.136266033612811" />
+      <entry key="S10" value="4.536441205990024" />
+      <entry key="S30" value="5.575584795620746" />
+      <entry key="S60" value="9.22616305194762" />
+      <entry key="M2" value="15.51643815683574" />
+      <entry key="M5" value="24.028172385026746" />
+      <entry key="M10" value="31.029820394389205" />
+      <entry key="M15" value="36.39010423291713" />
+      <entry key="M30" value="50.16128814902215" />
+      <entry key="H1" value="69.45206016336033" />
+      <entry key="H2" value="88.11234426420172" />
+      <entry key="H4" value="101.86782353934834" />
+      <entry key="D1" value="137.0782649736972" />
+      <entry key="W1" value="349.1356333351801" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -168,14 +172,6 @@
       <workItem from="1779695741143" duration="8369000" />
       <workItem from="1780831623909" duration="98941000" />
       <workItem from="1781737896564" duration="11840000" />
-    </task>
-    <task id="LOCAL-00107" summary="add analytics dashboard">
-      <option name="closed" value="true" />
-      <created>1781608231020</created>
-      <option name="number" value="00107" />
-      <option name="presentableId" value="LOCAL-00107" />
-      <option name="project" value="LOCAL" />
-      <updated>1781608231020</updated>
     </task>
     <task id="LOCAL-00108" summary="enhancements">
       <option name="closed" value="true" />
@@ -561,14 +557,21 @@
       <option name="project" value="LOCAL" />
       <updated>1783783478271</updated>
     </task>
-    <option name="localTasksCounter" value="156" />
+    <task id="LOCAL-00156" summary="add block to map">
+      <option name="closed" value="true" />
+      <created>1783784626915</created>
+      <option name="number" value="00156" />
+      <option name="presentableId" value="LOCAL-00156" />
+      <option name="project" value="LOCAL" />
+      <updated>1783784626915</updated>
+    </task>
+    <option name="localTasksCounter" value="157" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add fitness brand article" />
     <MESSAGE value="add canonicals" />
     <MESSAGE value="add products to home" />
     <MESSAGE value="add cod" />
@@ -593,7 +596,8 @@
     <MESSAGE value="bug fix" />
     <MESSAGE value="update yoga mats and ankle weights pages" />
     <MESSAGE value="add whatsapp number to footer + floating button" />
-    <option name="LAST_COMMIT_MESSAGE" value="add whatsapp number to footer + floating button" />
+    <MESSAGE value="add block to map" />
+    <option name="LAST_COMMIT_MESSAGE" value="add block to map" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
