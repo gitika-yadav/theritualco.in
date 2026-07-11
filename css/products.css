@@ -1667,3 +1667,9 @@ repeat(
     font-family: 'DM Sans', sans-serif;
     letter-spacing: 0.04em;
 }
+
+.products-color-filters{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+.color-filter-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border:1px solid #d0cbc4;border-radius:20px;background:#fff;font-size:12px;color:#7a6f68;cursor:pointer;font-family:inherit;}
+.color-filter-btn:hover{border-color:#3a3330;color:#3a3330;}
+.color-filter-btn.active{background:#3a3330;color:#fff;border-color:#3a3330;}
+.color-swatch{width:14px;height:14px;border-radius:50%;background:var(--sw);display:inline-block;flex-shrink:0;}

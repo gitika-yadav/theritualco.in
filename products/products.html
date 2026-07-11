@@ -55,11 +55,27 @@
             <button class="filter-btn" onclick="filterProducts('soon', this)">Coming Soon</button>
         </div>
 
+        <!-- Shop by Colour -->
+        <div class="products-color-filters">
+            <button class="color-filter-btn active" data-color="all" onclick="filterByColor('all', this)">All Colours</button>
+            <button class="color-filter-btn" data-color="black" onclick="filterByColor('black', this)"><span class="color-swatch" style="--sw:#1f1f1f"></span>Black</button>
+            <button class="color-filter-btn" data-color="cream" onclick="filterByColor('cream', this)"><span class="color-swatch" style="--sw:#f3eadf"></span>Cream</button>
+            <button class="color-filter-btn" data-color="pink" onclick="filterByColor('pink', this)"><span class="color-swatch" style="--sw:#f8c8b8"></span>Pink</button>
+            <button class="color-filter-btn" data-color="coffee" onclick="filterByColor('coffee', this)"><span class="color-swatch" style="--sw:#6f4e37"></span>Coffee</button>
+        </div>
+
+        <br>
+        <br>
         <!-- Grid -->
         <div class="products-grid" id="products-grid">
 
             <!-- Capsule Dumbbells — LIVE -->
-            <article class="product-card" data-status="live">
+            <article class="product-card" data-status="live" data-colors="black,cream,pink"
+                     data-href="/products/capsule-dumbbell.html"
+                     data-img-default="/images/capsule-dumbbell-black.webp"
+                     data-img-black="/images/capsule-dumbbell-black.webp"
+                     data-img-cream="/images/capsule-dumbbell-cream.webp"
+                     data-img-pink="/images/capsule-dumbbell-pink.webp">
                 <a href="/products/capsule-dumbbell.html" class="product-card__img-wrap">
                     <img src="/images/capsule-dumbbell-black.webp" alt="The Ritual Capsule Dumbbells" loading="lazy"/>
                     <span class="product-card__badge badge-live">Available Now</span>
@@ -78,7 +94,10 @@
             </article>
 
             <!-- Yoga Belt — LIVE -->
-            <article class="product-card" data-status="live">
+            <article class="product-card" data-status="live" data-colors="cream, black, coffee"
+                     data-href="/products/theritual-belt.html"
+                     data-img-default="/images/yoga-belt.webp"
+                     data-img-cream="/images/yoga-belt.webp">
                 <a href="/products/the-ritual-belt.html" class="product-card__img-wrap">
                     <img src="/images/yoga-belt.webp" alt="The Ritual Belt" loading="lazy"/>
                     <span class="product-card__badge badge-live">Available Now</span>
@@ -96,7 +115,11 @@
             </article>
 
             <!-- Yoga Block  -->
-            <article class="product-card" data-status="live">
+            <article class="product-card" data-status="live" data-colors="black,pink"
+                     data-href="/products/the-ritual-block.html"
+                     data-img-default="/images/the-ritual-block-pink.webp"
+                     data-img-black="/images/the-ritual-block-black.webp"
+                     data-img-pink="/images/the-ritual-block-pink.webp">
                 <a href="/products/the-ritual-block.html" class="product-card__img-wrap">
                     <img src="/images/the-ritual-block-pink.webp" alt="The Ritual Block" loading="lazy"/>
                     <span class="product-card__badge badge-live">Available Now</span>
@@ -114,7 +137,13 @@
             </article>
 
             <!-- Yoga Mat — COMING SOON -->
-            <article class="product-card" data-status="soon">
+            <article class="product-card" data-status="soon" data-colors="coffee,pink,cream,black"
+                     data-href="/products/the-ritual-mat.html"
+                     data-img-default="/images/yoga-mat-coffee.webp"
+                     data-img-black="/images/yoga-mat-black.webp"
+                     data-img-coffee="/images/yoga-mat-coffee.webp"
+                     data-img-cream="/images/yoga-mat-cream.webp"
+                     data-img-pink="/images/yoga-mat-pink.webp">
                 <a href="/products/the-ritual-mat.html" class="product-card__img-wrap">
                     <img src="/images/yoga-mat-coffee.webp" alt="The Ritual Mat" loading="lazy"/>
                     <span class="product-card__badge badge-soon">Coming Soon</span>
@@ -131,7 +160,8 @@
             </article>
 
             <!-- Ankle Weights — COMING SOON -->
-            <article class="product-card" data-status="soon">
+            <article class="product-card" data-status="soon" data-colors="coffee,pink,cream,black"
+                     data-img-default="/images/ankleweights-kony-3.webp">
                 <a href="/products/the-ritual-cuffs.html" class="product-card__img-wrap">
                     <img src="/images/ankleweights-kony-3.webp" alt="The Ritual Cuffs" loading="lazy"/>
                     <span class="product-card__badge badge-soon">Coming Soon</span>
@@ -182,19 +212,46 @@
 <script src="/javascript/init.js"></script>
 
 <script>
-    function filterProducts(status, btn) {
-        document.querySelectorAll('.filter-btn').forEach(function(b) {
-            b.classList.remove('active');
-        });
-        btn.classList.add('active');
+    let currentStatusFilter = 'all';
+    let currentColorFilter = 'all';
 
-        document.querySelectorAll('.product-card').forEach(function(card) {
-            if (status === 'all') {
-                card.style.display = 'flex';
+    function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+    function applyFilters() {
+        document.querySelectorAll('.product-card').forEach(card => {
+            const statusMatch = currentStatusFilter === 'all' || card.dataset.status === currentStatusFilter;
+            const colors = (card.dataset.colors || '').split(',');
+            const colorMatch = currentColorFilter === 'all' || colors.includes(currentColorFilter);
+            card.style.display = (statusMatch && colorMatch) ? '' : 'none';
+            if (!colorMatch) return;
+
+            const img = card.querySelector('.product-card__img-wrap img');
+            const links = card.querySelectorAll('a[href]');
+            const baseHref = card.dataset.href;
+
+            if (currentColorFilter === 'all') {
+                if (img) img.src = card.dataset.imgDefault;
+                links.forEach(a => { if (a.href.includes(baseHref)) a.href = baseHref; });
             } else {
-                card.style.display = card.dataset.status === status ? 'flex' : 'none';
+                const newSrc = card.dataset['img' + capitalize(currentColorFilter)];
+                if (img && newSrc) img.src = newSrc;
+                links.forEach(a => { if (a.href.includes(baseHref)) a.href = `${baseHref}?color=${currentColorFilter}`; });
             }
         });
+    }
+
+    function filterProducts(status, btn) {
+        currentStatusFilter = status;
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        applyFilters();
+    }
+
+    function filterByColor(color, btn) {
+        currentColorFilter = color;
+        document.querySelectorAll('.color-filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        applyFilters();
     }
 </script>
 
