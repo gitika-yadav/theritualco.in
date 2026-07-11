@@ -130,21 +130,15 @@
 
         <p class="product__tagline">Soft, strong, and<br>unapologetically minimal.</p>
 
-        <p class="option-heading">Colour &mdash; <em id="colour-name">Peach</em></p>
+        <p class="option-heading">Colour &mdash; <em id="colour-name">Cream</em></p>
         <div class="swatches" role="group" aria-label="Colour options">
-<!--            <button class="swatch color-option active selected" style="background:#F2C4AD;" data-name="Peach" data-color="peach"-->
-<!--                    data-img="/images/capsule-dumbbell-peach.webp"-->
-<!--                    aria-label="Peach" aria-pressed="true" onclick="selectColour(this)"></button>-->
-<!--            <button class="swatch color-option" style="background:#6f4e37;" data-name="Coffee" data-color="coffee"-->
-<!--                    data-img="/images/capsule-dumbbell-coffee.webp"-->
-<!--                    aria-label="Grey" aria-pressed="false" onclick="selectColour(this)"></button>-->
-            <button class="swatch color-option" style="background:#EFE9DE;" data-name="Cream" data-color="cream"
+            <button class="swatch color-option active selected" style="background:#EFE9DE;" data-name="Cream" data-color="Cream"
                     data-img="/images/capsule-dumbbell-cream.webp"
-                    aria-label="Cream" aria-pressed="false" onclick="selectColour(this)"></button>
-            <button class="swatch color-option" style="background:#2B2B29;" data-name="Black" data-color="black"
+                    aria-label="Cream" aria-pressed="true" onclick="selectColour(this)"></button>
+            <button class="swatch color-option" style="background:#2B2B29;" data-name="Black" data-color="Black"
                     data-img="/images/capsule-dumbbell-black.webp"
                     aria-label="Black" aria-pressed="false" onclick="selectColour(this)"></button>
-            <button class="swatch color-option" style="background:#E9B7C4;" data-name="Pink" data-color="pink"
+            <button class="swatch color-option" style="background:#E9B7C4;" data-name="Pink" data-color="Pink"
                     data-img="/images/capsule-dumbbell-pink.webp"
                     aria-label="Pink" aria-pressed="false" onclick="selectColour(this)"></button>
         </div>
@@ -429,7 +423,7 @@
         const color  = document.querySelector('.color-option.selected');
 
         const weightVal = weight ? weight.dataset.weight : '1kg';
-        const colorVal  = color  ? color.dataset.color   : 'peach';
+        const colorVal  = color  ? color.dataset.color   : 'Cream';
         const priceVal  = weight ? parseInt(weight.dataset.launch.replace(/[^\d]/g, ''), 10) : 1499;
         const nameVal   = 'Capsule Dumbbells';
 
