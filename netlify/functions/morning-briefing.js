@@ -11,17 +11,29 @@ const FROM_EMAIL = "hello@theritualco.in";
 const FROM_NAME = "The Ritual Co";
 
 // ── COMPLIANCE DEADLINES ──────────────────────────────────────────────────────
-// Static list — update as tasks get done
-const COMPLIANCE_TASKS = [
-    { name: "Open current account — IORO Movement Pvt Ltd", deadline: null, priority: "urgent", done: false },
-    { name: "File ADT-1 (auditor appointment) on MCA", deadline: null, priority: "urgent", done: false },
-    { name: "Apply for GST registration", deadline: null, priority: "urgent", done: false },
-    { name: "Migrate Razorpay to merchant account", deadline: null, priority: "soon", done: false },
-    { name: "DIR-3 KYC for both directors", deadline: "2026-09-30", priority: "soon", done: false },
-    { name: "Hold minimum 4 board meetings this year", deadline: "2026-12-31", priority: "soon", done: false },
-    { name: "File GSTR-1", deadline: null, priority: "recurring", done: false },
-    { name: "File GSTR-3B", deadline: null, priority: "recurring", done: false },
-];
+// Now pulled live from Supabase `compliance_tasks` — same table admin/compliance.html
+// reads and writes via netlify/functions/compliance.js. No more static array to
+// keep in sync by hand.
+async function getComplianceTasks() {
+    const url = new URL(`${process.env.SUPABASE_URL}/rest/v1/compliance_tasks`);
+    url.searchParams.set("select", "task_key,name,badge,done,deadline,sort_order");
+    url.searchParams.set("done", "eq.false"); // only incomplete tasks matter for the briefing
+    url.searchParams.set("order", "sort_order.asc");
+
+    const res = await request({
+        hostname: new URL(process.env.SUPABASE_URL).hostname,
+        path: url.pathname + url.search,
+        method: "GET",
+        headers: {
+            apikey: process.env.SUPABASE_SERVICE_KEY,
+            Authorization: `Bearer ${process.env.SUPABASE_SERVICE_KEY}`,
+            "Content-Type": "application/json",
+        },
+    });
+
+    if (res.status !== 200) return [];
+    try { return JSON.parse(res.body); } catch { return []; }
+}
 
 // ── HELPERS ───────────────────────────────────────────────────────────────────
 function request(options, body) {
@@ -40,6 +52,9 @@ function request(options, body) {
 async function getSupabaseOrders() {
     const url = new URL(`${process.env.SUPABASE_URL}/rest/v1/orders`);
     url.searchParams.set("select", "id,status,created_at,customer_name,customer_email,total_amount,items");
+    // Includes: paid/processing (online payments), cod_unpaid (COD orders awaiting
+    // cash collection), and gifted (₹0 creator/collaboration orders) — all of these
+    // still need to be shipped, so all show up in the briefing.
     url.searchParams.set("status", "in.(paid,processing,cod_unpaid,gifted)");
     url.searchParams.set("order", "created_at.asc");
 
@@ -58,12 +73,6 @@ async function getSupabaseOrders() {
     try { return JSON.parse(res.body); } catch { return []; }
 }
 
-function daysUntil(dateStr) {
-    if (!dateStr) return null;
-    const diff = new Date(dateStr) - new Date();
-    return Math.ceil(diff / (1000 * 60 * 60 * 24));
-}
-
 function formatCurrency(amount) {
     return "₹" + Number(amount).toLocaleString("en-IN");
 }
@@ -73,45 +82,43 @@ function formatDate(iso) {
 }
 
 // ── EMAIL TEMPLATE ─────────────────────────────────────────────────────────────
-function buildEmail(orders, complianceAlerts, todayStr) {
-    const urgentCompliance = COMPLIANCE_TASKS.filter(t => !t.done && t.priority === "urgent");
-    const upcomingDeadlines = COMPLIANCE_TASKS.filter(t => {
-        if (t.done || !t.deadline) return false;
-        const days = daysUntil(t.deadline);
-        return days !== null && days <= 30;
-    });
+function buildEmail(orders, complianceTasks, todayStr) {
+    const urgentCompliance = complianceTasks.filter(t => t.badge === "urgent");
+    // "Soon" badge tasks with a deadline set — these are the ones worth surfacing
+    // as upcoming, since we no longer have a parseable date to count days from
+    // (deadline is now free-text like "Sep 30 annually").
+    const upcomingDeadlines = complianceTasks.filter(t => t.badge === "warn" && t.deadline);
 
     const totalRevenue = orders.reduce((sum, o) => sum + Number(o.total_amount || 0), 0);
 
     const ordersHtml = orders.length === 0
         ? `<p style="color:#888;font-size:14px;margin:0">No pending orders right now.</p>`
         : orders.map(o => `
-      <tr>
-        <td style="padding:10px 12px;border-bottom:1px solid #f0ede8;font-size:13px;color:#1a1814">${o.customer_name || "Guest"}</td>
-        <td style="padding:10px 12px;border-bottom:1px solid #f0ede8;font-size:13px;color:#6b6660">${formatDate(o.created_at)}</td>
-        <td style="padding:10px 12px;border-bottom:1px solid #f0ede8;font-size:13px;color:#1a1814;font-weight:500">${formatCurrency(o.total_amount)}</td>
-        <td style="padding:10px 12px;border-bottom:1px solid #f0ede8">
-          <span style="background:#fdf3e7;color:#8b5a2b;font-size:11px;padding:2px 8px;border-radius:4px;font-weight:500">${o.status}</span>
-        </td>
-      </tr>`).join("");
+        <tr>
+            <td style="padding:10px 12px;border-bottom:1px solid #f0ede8;font-size:13px;color:#1a1814">${o.customer_name || "Guest"}</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #f0ede8;font-size:13px;color:#6b6660">${formatDate(o.created_at)}</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #f0ede8;font-size:13px;color:#1a1814;font-weight:500">${formatCurrency(o.total_amount)}</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #f0ede8">
+                <span style="background:#fdf3e7;color:#8b5a2b;font-size:11px;padding:2px 8px;border-radius:4px;font-weight:500">${o.status}</span>
+            </td>
+        </tr>`).join("");
 
     const urgentHtml = urgentCompliance.length === 0
         ? `<p style="color:#888;font-size:14px;margin:0">No urgent compliance tasks.</p>`
         : urgentCompliance.map(t => `
-      <div style="display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid #f0ede8">
-        <div style="width:8px;height:8px;border-radius:50%;background:#8b2e2e;margin-top:5px;flex-shrink:0"></div>
-        <span style="font-size:13px;color:#1a1814">${t.name}</span>
-      </div>`).join("");
+        <div style="display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid #f0ede8">
+            <div style="width:8px;height:8px;border-radius:50%;background:#8b2e2e;margin-top:5px;flex-shrink:0"></div>
+            <span style="font-size:13px;color:#1a1814">${t.name}</span>
+        </div>`).join("");
 
     const deadlinesHtml = upcomingDeadlines.length === 0 ? "" : `
     <div style="margin-top:28px">
-      <h2 style="font-size:13px;font-weight:600;color:#6b6660;text-transform:uppercase;letter-spacing:0.08em;margin:0 0 12px">Upcoming deadlines</h2>
-      ${upcomingDeadlines.map(t => {
-        const days = daysUntil(t.deadline);
+        <h2 style="font-size:13px;font-weight:600;color:#6b6660;text-transform:uppercase;letter-spacing:0.08em;margin:0 0 12px">Upcoming deadlines</h2>
+        ${upcomingDeadlines.map(t => {
         return `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f0ede8">
-          <span style="font-size:13px;color:#1a1814">${t.name}</span>
-          <span style="font-size:12px;color:${days <= 7 ? "#8b2e2e" : "#8b5a2b"};font-weight:500">${days}d</span>
-        </div>`;
+                <span style="font-size:13px;color:#1a1814">${t.name}</span>
+                <span style="font-size:12px;color:#8b5a2b;font-weight:500">${t.deadline}</span>
+            </div>`;
     }).join("")}
     </div>`;
 
@@ -123,75 +130,75 @@ function buildEmail(orders, complianceAlerts, todayStr) {
 <tr><td align="center">
 <table width="560" cellpadding="0" cellspacing="0" style="background:#faf9f6;border-radius:12px;overflow:hidden;max-width:100%">
 
-  <!-- HEADER -->
-  <tr><td style="background:#1a1814;padding:28px 32px">
+<!-- HEADER -->
+<tr><td style="background:#1a1814;padding:28px 32px">
     <p style="margin:0;font-size:10px;letter-spacing:0.15em;color:#c8b8a2;text-transform:uppercase;margin-bottom:6px">The Ritual Co · Daily Briefing</p>
     <h1 style="margin:0;font-size:22px;color:#faf9f6;font-weight:400">${todayStr}</h1>
     <p style="margin:8px 0 0;font-size:13px;color:#a09890">Good morning, Gitika. Here's what needs your attention today.</p>
-  </td></tr>
+</td></tr>
 
-  <!-- STATS ROW -->
-  <tr><td style="padding:20px 32px 0">
+<!-- STATS ROW -->
+<tr><td style="padding:20px 32px 0">
     <table width="100%" cellpadding="0" cellspacing="0">
-      <tr>
+    <tr>
         <td style="background:#f2efe9;border-radius:8px;padding:14px 16px;width:48%">
-          <p style="margin:0;font-size:11px;color:#6b6660;text-transform:uppercase;letter-spacing:0.08em">Pending orders</p>
-          <p style="margin:4px 0 0;font-size:24px;font-weight:500;color:#1a1814">${orders.length}</p>
+            <p style="margin:0;font-size:11px;color:#6b6660;text-transform:uppercase;letter-spacing:0.08em">Pending orders</p>
+            <p style="margin:4px 0 0;font-size:24px;font-weight:500;color:#1a1814">${orders.length}</p>
         </td>
         <td style="width:4%"></td>
         <td style="background:#f2efe9;border-radius:8px;padding:14px 16px;width:48%">
-          <p style="margin:0;font-size:11px;color:#6b6660;text-transform:uppercase;letter-spacing:0.08em">Pending revenue</p>
-          <p style="margin:4px 0 0;font-size:24px;font-weight:500;color:#1a1814">${formatCurrency(totalRevenue)}</p>
+            <p style="margin:0;font-size:11px;color:#6b6660;text-transform:uppercase;letter-spacing:0.08em">Pending revenue</p>
+            <p style="margin:4px 0 0;font-size:24px;font-weight:500;color:#1a1814">${formatCurrency(totalRevenue)}</p>
         </td>
-      </tr>
+    </tr>
     </table>
-  </td></tr>
+</td></tr>
 
-  <!-- ORDERS -->
-  <tr><td style="padding:28px 32px 0">
+<!-- ORDERS -->
+<tr><td style="padding:28px 32px 0">
     <h2 style="font-size:13px;font-weight:600;color:#6b6660;text-transform:uppercase;letter-spacing:0.08em;margin:0 0 12px">Orders to ship</h2>
     ${orders.length > 0 ? `
     <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #ece8df;border-radius:8px;overflow:hidden">
-      <thead>
+    <thead>
         <tr style="background:#f2efe9">
-          <th style="padding:8px 12px;text-align:left;font-size:11px;color:#6b6660;font-weight:500">Customer</th>
-          <th style="padding:8px 12px;text-align:left;font-size:11px;color:#6b6660;font-weight:500">Date</th>
-          <th style="padding:8px 12px;text-align:left;font-size:11px;color:#6b6660;font-weight:500">Amount</th>
-          <th style="padding:8px 12px;text-align:left;font-size:11px;color:#6b6660;font-weight:500">Status</th>
+            <th style="padding:8px 12px;text-align:left;font-size:11px;color:#6b6660;font-weight:500">Customer</th>
+            <th style="padding:8px 12px;text-align:left;font-size:11px;color:#6b6660;font-weight:500">Date</th>
+            <th style="padding:8px 12px;text-align:left;font-size:11px;color:#6b6660;font-weight:500">Amount</th>
+            <th style="padding:8px 12px;text-align:left;font-size:11px;color:#6b6660;font-weight:500">Status</th>
         </tr>
-      </thead>
-      <tbody>${ordersHtml}</tbody>
+    </thead>
+    <tbody>${ordersHtml}</tbody>
     </table>
     <p style="margin:10px 0 0;font-size:12px;color:#6b6660">
-      <a href="https://theritualco.in/admin/orders.html" style="color:#1a1814;font-weight:500">Open orders dashboard →</a>
+        <a href="https://theritualco.in/admin/orders.html" style="color:#1a1814;font-weight:500">Open orders dashboard →</a>
     </p>` : ordersHtml}
-  </td></tr>
+</td></tr>
 
-  <!-- COMPLIANCE -->
-  <tr><td style="padding:28px 32px 0">
+<!-- COMPLIANCE -->
+<tr><td style="padding:28px 32px 0">
     <h2 style="font-size:13px;font-weight:600;color:#6b6660;text-transform:uppercase;letter-spacing:0.08em;margin:0 0 12px">Urgent compliance</h2>
     ${urgentHtml}
     <p style="margin:10px 0 0;font-size:12px;color:#6b6660">
-      <a href="https://theritualco.in/admin/compliance.html" style="color:#1a1814;font-weight:500">Open compliance tracker →</a>
+        <a href="https://theritualco.in/admin/compliance.html" style="color:#1a1814;font-weight:500">Open compliance tracker →</a>
     </p>
-  </td></tr>
+</td></tr>
 
-  ${deadlinesHtml ? `<tr><td style="padding:0 32px">${deadlinesHtml}</td></tr>` : ""}
+${deadlinesHtml ? `<tr><td style="padding:0 32px">${deadlinesHtml}</td></tr>` : ""}
 
-  <!-- TODAY'S FOCUS -->
-  <tr><td style="padding:28px 32px 0">
+<!-- TODAY'S FOCUS -->
+<tr><td style="padding:28px 32px 0">
     <h2 style="font-size:13px;font-weight:600;color:#6b6660;text-transform:uppercase;letter-spacing:0.08em;margin:0 0 12px">Pick one thing</h2>
     <div style="background:#f2efe9;border-radius:8px;padding:16px">
-      <p style="margin:0;font-size:14px;color:#1a1814;font-weight:500">${urgentCompliance[0]?.name || (orders[0] ? `Ship order for ${orders[0].customer_name}` : "Post a Founder Files update on your personal account")}</p>
-      <p style="margin:6px 0 0;font-size:12px;color:#6b6660">If you do only one thing today, make it this.</p>
+        <p style="margin:0;font-size:14px;color:#1a1814;font-weight:500">${urgentCompliance[0]?.name || (orders[0] ? `Ship order for ${orders[0].customer_name}` : "Post a Founder Files update on your personal account")}</p>
+        <p style="margin:6px 0 0;font-size:12px;color:#6b6660">If you do only one thing today, make it this.</p>
     </div>
-  </td></tr>
+</td></tr>
 
-  <!-- FOOTER -->
-  <tr><td style="padding:28px 32px;border-top:1px solid #ece8df;margin-top:28px">
+<!-- FOOTER -->
+<tr><td style="padding:28px 32px;border-top:1px solid #ece8df;margin-top:28px">
     <p style="margin:0;font-size:11px;color:#a09890;text-align:center">The Ritual Co · IORO Movement Pvt Ltd · Sent via morning briefing agent</p>
     <p style="margin:6px 0 0;font-size:11px;color:#a09890;text-align:center">This email is sent automatically every morning at 7 AM IST.</p>
-  </td></tr>
+</td></tr>
 
 </table>
 </td></tr>
@@ -218,13 +225,16 @@ exports.handler = async (event) => {
     }
 
     try {
-        const orders = await getSupabaseOrders();
+        const [orders, complianceTasks] = await Promise.all([
+            getSupabaseOrders(),
+            getComplianceTasks(),
+        ]);
         const todayStr = new Date().toLocaleDateString("en-IN", {
             weekday: "long", day: "numeric", month: "long", year: "numeric",
             timeZone: "Asia/Kolkata",
         });
 
-        const html = buildEmail(orders, COMPLIANCE_TASKS, todayStr);
+        const html = buildEmail(orders, complianceTasks, todayStr);
 
         // Send via Resend
         const emailPayload = JSON.stringify({
@@ -252,7 +262,6 @@ exports.handler = async (event) => {
 
         console.log("Morning briefing sent successfully");
         return { statusCode: 200, body: JSON.stringify({ ok: true, orders: orders.length }) };
-
     } catch (err) {
         console.error("Briefing agent error:", err);
         return { statusCode: 500, body: err.message };
