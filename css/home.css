@@ -739,7 +739,7 @@ repeat(4,1fr);
   }
 }
 
-.pricing-preview{=
+.pricing-preview{
   display:flex;
   gap:18px;
   margin:28px 0 12px;

@@ -57,6 +57,7 @@
         .profile-save{padding:10px 24px;background:#3a3330;color:#fff;border:none;border-radius:8px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
         .profile-save:disabled{background:#c0b8b0}
         .profile-msg{font-size:13px;color:#2a6b3a;margin-top:12px;display:none}
+        .profile-msg.error{color:#8b3a2a}
         .loading{text-align:center;padding:40px;color:#a09890;font-size:14px}
     </style>
 </head>
@@ -224,7 +225,9 @@
 
     window.saveProfile = async () => {
         const btn = document.getElementById("profile-save-btn");
+        const msg = document.getElementById("profile-msg");
         btn.disabled = true; btn.textContent = "Saving…";
+        msg.style.display = "none";
 
         const { error } = await supabase.from("profiles").upsert({
             id: user.id,
@@ -236,9 +239,15 @@
 
         btn.disabled = false; btn.textContent = "Save changes";
         if (!error) {
-            const msg = document.getElementById("profile-msg");
+            msg.textContent = "Saved !";
+            msg.classList.remove("error");
             msg.style.display = "block";
             setTimeout(() => msg.style.display = "none", 3000);
+        } else {
+            console.error("Profile save failed:", error);
+            msg.textContent = 'Could not save: ${error.message}';
+            msg.classList.add("error");
+            msg.style.display = "block";
         }
     };
 </script>
