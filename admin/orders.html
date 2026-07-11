@@ -217,6 +217,19 @@
     const TO_SHIP_STATUSES = ["paid", "cod_unpaid", "gifted"];
     const STATUS_LABELS = { paid: "paid", cod_unpaid: "COD", gifted: "gift", shipped: "shipped", delivered: "delivered", pending: "pending", refunded: "refunded" };
 
+    // Orders now hold multiple line items in a JSONB array. This condenses them
+    // into a short readable string for the table row, e.g.
+    // "Capsule Dumbbells · Black × 1" or "Capsule Dumbbells + 2 more (3 items)"
+    function itemsSummary(items) {
+        if (!items || items.length === 0) return "—";
+        if (items.length === 1) {
+            const i = items[0];
+            return `${i.product_name || "—"}${i.color ? ` · ${i.color}` : ""}${((i.quantity ?? i.qty) > 1) ? ` × ${i.quantity ?? i.qty}` : ""}`;
+        }
+        const first = items[0];
+        return `${first.product_name} + ${items.length - 1} more (${items.length} items)`;
+    }
+
     async function unlock() {
         const pass = document.getElementById("lock-pass").value;
         if (!pass) return;
@@ -333,12 +346,12 @@
                         : "";
             const name = o.guest_name || o.customer_name || "—";
             const email = o.guest_email || o.customer_email || "";
-            const product = o.product_name || "—";
+            const product = itemsSummary(o.items);
             const shortId = (o.razorpay_payment_id || o.id || "").slice(-8);
             return `<tr onclick="openDetail('${o.id}')" style="cursor:pointer;">
       <td><span class="order-id">#${shortId}</span></td>
       <td><div class="customer-name">${name}</div><div class="customer-email">${email}</div></td>
-      <td>${product}${o.weight ? ` · ${o.weight}` : ""}${o.color ? ` · ${o.color}` : ""}</td>
+      <td>${product}</td>
       <td class="amount">${amount}</td>
       <td>${badge}</td>
       <td style="color:#a09890;">${date}</td>
@@ -353,7 +366,7 @@
         const order = allOrders.find(o => o.id === id);
         const codNote = order.status === "cod_unpaid" ? " · COD — confirm cash collected before shipping" : order.status === "gifted" ? " · Gift order" : "";
         document.getElementById("ship-modal-sub").textContent =
-            `${order.guest_name || "Customer"} · ${order.product_name || "Order"} · ₹${((order.amount_paise||0)/100).toLocaleString("en-IN")}${codNote}`;
+            `${order.guest_name || "Customer"} · ${itemsSummary(order.items)} · ₹${((order.amount_paise||0)/100).toLocaleString("en-IN")}${codNote}`;
         document.getElementById("ship-tracking").value = "";
         document.getElementById("ship-note").value = "";
         document.getElementById("ship-status").textContent = "";
@@ -427,10 +440,10 @@
       <div class="detail-row"><span class="detail-key">Address</span><span class="detail-val">${o.shipping_address || "—"}</span></div>
     </div>
     <div class="detail-section">
-      <div class="detail-section-title">Order</div>
-      <div class="detail-row"><span class="detail-key">Product</span><span class="detail-val">${o.product_name || "—"}</span></div>
-      <div class="detail-row"><span class="detail-key">Weight</span><span class="detail-val">${o.weight || "—"}</span></div>
-      <div class="detail-row"><span class="detail-key">Colour</span><span class="detail-val">${o.color || "—"}</span></div>
+      <div class="detail-section-title">Order (${(o.items || []).length} item${(o.items || []).length === 1 ? "" : "s"})</div>
+      ${(o.items || []).map(i => `
+        <div class="detail-row"><span class="detail-key">${i.product_name || "—"}</span><span class="detail-val">${i.weight || ""}${i.weight && i.color ? " · " : ""}${i.color || ""} × ${i.quantity ?? i.qty ?? 1}</span></div>
+      `).join("")}
       <div class="detail-row"><span class="detail-key">Amount</span><span class="detail-val">${amount}</span></div>
       <div class="detail-row"><span class="detail-key">Status</span><span class="detail-val">${STATUS_LABELS[o.status] || o.status || "—"}</span></div>
       <div class="detail-row"><span class="detail-key">Date</span><span class="detail-val">${date} IST</span></div>

@@ -1,4 +1,4 @@
-// netlify/functions/_shared/verify-admin-token.js
+// netlify/functions/shared/verify-admin-token.js
 // Verifies the session token issued by admin-auth.js.
 // Token format: "<expiresMs>.<hmacHex>" where hmacHex = HMAC-SHA256(ADMIN_PASSWORD, expiresMs)
 
@@ -25,8 +25,14 @@ function verifyAdminToken(token) {
 }
 
 function getTokenFromEvent(event) {
+    // orders.html / update-order.js / admin-get-orders.js use x-admin-token
+    const xToken = event.headers?.["x-admin-token"] || event.headers?.["X-Admin-Token"];
+    if (xToken) return xToken;
+
+    // compliance.html uses Authorization: Bearer <token>
     const auth = event.headers?.authorization || event.headers?.Authorization || "";
     if (auth.startsWith("Bearer ")) return auth.slice(7);
+
     return null;
 }
 

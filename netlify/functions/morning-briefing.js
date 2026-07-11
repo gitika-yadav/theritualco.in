@@ -55,7 +55,7 @@ async function getSupabaseOrders() {
     // Previous version selected customer_name/customer_email/total_amount/items,
     // none of which exist — Supabase returned a non-200 error on every call,
     // which this function was silently swallowing (see the res.status check below).
-    url.searchParams.set("select", "id,status,created_at,guest_name,guest_email,user_id,product_name,weight,color,quantity,amount_paise,payment_method");
+    url.searchParams.set("select", "id,status,created_at,guest_name,guest_email,user_id,items,amount_paise,payment_method");
     url.searchParams.set("status", "in.(paid,processing,cod_unpaid,gifted)");
     url.searchParams.set("order", "created_at.asc");
 
@@ -97,16 +97,24 @@ function buildEmail(orders, complianceTasks, todayStr) {
 
     const ordersHtml = orders.length === 0
         ? `<p style="color:#888;font-size:14px;margin:0">No pending orders right now.</p>`
-        : orders.map(o => `
+        : orders.map(o => {
+            const items = o.items || [];
+            const summary = items.length === 0
+                ? ""
+                : items.length === 1
+                    ? `${items[0].product_name || ""}${items[0].color ? " · " + items[0].color : ""}${(items[0].quantity ?? items[0].qty) ? " × " + (items[0].quantity ?? items[0].qty) : ""}`
+                    : `${items[0].product_name || ""} + ${items.length - 1} more (${items.length} items)`;
+            return `
         <tr>
             <td style="padding:10px 12px;border-bottom:1px solid #f0ede8;font-size:13px;color:#1a1814">${o.guest_name || (o.user_id ? "Registered customer" : "Guest")}</td>
-            <td style="padding:10px 12px;border-bottom:1px solid #f0ede8;font-size:12px;color:#6b6660">${o.product_name || ""}${o.color ? " · " + o.color : ""}${o.quantity ? " × " + o.quantity : ""}</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #f0ede8;font-size:12px;color:#6b6660">${summary}</td>
             <td style="padding:10px 12px;border-bottom:1px solid #f0ede8;font-size:13px;color:#6b6660">${formatDate(o.created_at)}</td>
             <td style="padding:10px 12px;border-bottom:1px solid #f0ede8;font-size:13px;color:#1a1814;font-weight:500">${formatCurrency(Number(o.amount_paise || 0) / 100)}</td>
             <td style="padding:10px 12px;border-bottom:1px solid #f0ede8">
                 <span style="background:#fdf3e7;color:#8b5a2b;font-size:11px;padding:2px 8px;border-radius:4px;font-weight:500">${o.status}</span>
             </td>
-        </tr>`).join("");
+        </tr>`;
+        }).join("");
 
     const urgentHtml = urgentCompliance.length === 0
         ? `<p style="color:#888;font-size:14px;margin:0">No urgent compliance tasks.</p>`

@@ -1,8 +1,8 @@
 // netlify/functions/create-creator-order.js
 // Admin-only endpoint for placing free creator/collaboration gifting orders.
 // Not linked from any public page — protected by CREATOR_ORDER_SECRET.
-// Decrements inventory (via increment_sold RPC, product_id + color) so stock
-// stays accurate, but amount_paise is always 0 — no Razorpay, no COD fee.
+// One order row per gift order, items as a JSONB array (matches the new
+// orders schema — see migration-orders-items-jsonb.sql).
 
 const { createClient } = require("@supabase/supabase-js");
 const { PRODUCT_MAP, resolveProductKey } = require("./shared/product-map");
@@ -65,7 +65,7 @@ exports.handler = async (event) => {
                 product_name: product.name,
                 weight:       product.weight,
                 color:        item.color || "Not specified",
-                qty,
+                quantity:     qty,
             });
         }
 
@@ -73,41 +73,35 @@ exports.handler = async (event) => {
             return { statusCode: 400, body: JSON.stringify({ error: "No valid items in gift order" }) };
         }
 
-        // ── Save one order row per line item, amount_paise: 0 ───
+        // ── Save ONE order row for the whole gift, amount_paise: 0 ───
         const giftReceipt = "ritual_gift_" + Date.now();
-        const savedIds = [];
+        const orderData = {
+            razorpay_order_id: giftReceipt,
+            status:            "gifted",
+            payment_method:    "creator_gift",
+            items:             orderItems,
+            amount_paise:      0,
+            shipping_address:  [address, landmark, city, state, pincode].filter(Boolean).join(", "),
+            guest_name:        creator_handle ? `${creator_name} (${creator_handle})` : creator_name,
+            guest_email:       email || null,
+            guest_phone:       phone || null,
+        };
 
+        const { data: order, error: insertErr } = await supabase
+            .from("orders").insert(orderData).select("id").single();
+
+        if (insertErr || !order) {
+            console.error("Creator order insert error:", insertErr);
+            return { statusCode: 500, body: JSON.stringify({ error: "Failed to save gift order — please try again." }) };
+        }
+
+        // ── Decrement inventory for every gifted colour ───
         for (const item of orderItems) {
-            const orderData = {
-                product_id:        item.product_id,
-                product_name:      item.product_name,
-                weight:            item.weight,
-                color:             item.color,
-                quantity:          item.qty,
-                amount_paise:      0,
-                razorpay_order_id: giftReceipt,
-                status:            "gifted",
-                payment_method:    "creator_gift",
-                shipping_address:  [address, landmark, city, state, pincode].filter(Boolean).join(", "),
-                guest_name:        creator_handle ? `${creator_name} (${creator_handle})` : creator_name,
-                guest_email:       email || null,
-                guest_phone:       phone || null,
-            };
-
-            const { data: order, error: insertErr } = await supabase
-                .from("orders").insert(orderData).select("id").single();
-            if (insertErr) {
-                console.error("Creator order insert error:", insertErr);
-                continue;
-            }
-            if (order) savedIds.push(order.id);
-
-            // ── Decrement inventory for the exact colour gifted ───
             const { error: rpcErr } = await supabase.rpc("increment_sold", {
                 p_product_id: item.product_id,
                 p_color:      item.color,
             });
-            if (rpcErr) console.error("Creator gift inventory increment error:", rpcErr);
+            if (rpcErr) console.error("Creator gift inventory increment error:", rpcErr, "item:", item.product_id, item.color);
         }
 
         // ── Send gift shipping confirmation (no pricing shown) ───
@@ -117,7 +111,7 @@ exports.handler = async (event) => {
 
         return {
             statusCode: 200,
-            body: JSON.stringify({ success: true, order_ids: savedIds, receipt: giftReceipt }),
+            body: JSON.stringify({ success: true, order_id: order.id, receipt: giftReceipt }),
         };
     } catch (err) {
         console.error(err);
@@ -127,7 +121,7 @@ exports.handler = async (event) => {
 
 async function sendGiftEmail({ to, name, items }) {
     const itemLines = items.map(i =>
-        `<tr><td style="color:#a09890;padding:6px 0;">${i.product_name}</td><td style="text-align:right;">${i.weight} · ${i.color} × ${i.qty}</td></tr>`
+        `<tr><td style="color:#a09890;padding:6px 0;">${i.product_name}</td><td style="text-align:right;">${i.weight} · ${i.color} × ${i.quantity}</td></tr>`
     ).join("");
 
     await fetch("https://api.resend.com/emails", {

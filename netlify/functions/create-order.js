@@ -1,27 +1,12 @@
 const Razorpay = require("razorpay");
 const { createClient } = require("@supabase/supabase-js");
+const { PRODUCT_MAP, resolveProductKey } = require("./shared/product-map");
 
 const supabase = createClient(
     process.env.SUPABASE_URL,
     process.env.SUPABASE_SERVICE_KEY
 );
 
-const PRODUCT_MAP = {
-    "capsule-1kg": { id: "capsule-1kg", name: "Capsule Dumbbells", weight: "1 KG" },
-    "capsule-2kg": { id: "capsule-2kg", name: "Capsule Dumbbells", weight: "2 KG" },
-    "yoga-belt":   { id: "yoga-belt",   name: "Yoga Belt", weight: "96in" },
-    "yoga-block":  { id: "yoga-block",  name: "Yoga Block", weight: "9x6x3in"},
-};
-
-function resolveProductKey(item) {
-    if (item.id === "capsule-dumbbell") {
-        const w = (item.weight || "").toLowerCase();
-        if (w === "1kg") return "capsule-1kg";
-        if (w === "2kg") return "capsule-2kg";
-        return null;
-    }
-    return item.id;
-}
 
 exports.handler = async (event) => {
     if (event.httpMethod !== "POST") {
@@ -65,7 +50,7 @@ exports.handler = async (event) => {
                     product_name:  product.name,
                     weight:        product.weight,
                     color:         item.color || "Not specified",
-                    qty,
+                    quantity:      qty,
                     unit_paise:    unitPaise,
                     is_early_bird: isEarlyBird,
                 });
@@ -120,34 +105,31 @@ exports.handler = async (event) => {
             });
         }
         const codReceipt = "ritual_cod_" + Date.now();
+        const receiptId = isCod ? codReceipt : rzOrder.id;
 
-        // ── Save order to Supabase ────────────────
-        // For multi-item carts, create one order record per line item
-        const savedIds = [];
-        for (const item of orderItems) {
-            const orderData = {
-                product_id:       item.product_id,
-                product_name:     item.product_name,
-                weight:           item.weight,
-                color:            item.color,
-                quantity:         item.qty,
-                amount_paise:     item.unit_paise * item.qty,
-                razorpay_order_id: isCod ? codReceipt : rzOrder.id,
-                status:           isCod ? "cod_unpaid" : "pending",
-                payment_method:   isCod ? "cod" : "online",
-                shipping_address: [address, landmark, city, state, pincode].filter(Boolean).join(", "),
-            };
-            if (user_id) {
-                orderData.user_id = user_id;
-            } else {
-                orderData.guest_name  = name;
-                orderData.guest_email = email;
-                orderData.guest_phone = phone;
-            }
+// ── Save ONE order row for the whole cart ────────────────
+        const orderData = {
+            razorpay_order_id: isCod ? codReceipt : rzOrder.id,
+            status:            isCod ? "cod_unpaid" : "pending",
+            payment_method:    isCod ? "cod" : "online",
+            items:             orderItems,
+            amount_paise:      totalPaise,
+            shipping_address:  [address, landmark, city, state, pincode].filter(Boolean).join(", "),
+        };
+        if (user_id) {
+            orderData.user_id = user_id;
+        } else {
+            orderData.guest_name  = name;
+            orderData.guest_email = email;
+            orderData.guest_phone = phone;
+        }
 
-            const { data: order } = await supabase
-                .from("orders").insert(orderData).select("id").single();
-            if (order) savedIds.push(order.id);
+        const { data: order, error: insertErr } = await supabase
+            .from("orders").insert(orderData).select("id").single();
+
+        if (insertErr || !order) {
+            console.error("Order insert error:", insertErr);
+            return { statusCode: 500, body: JSON.stringify({ error: "Failed to save order — please try again." }) };
         }
 
         if (isCod) {
@@ -164,34 +146,33 @@ exports.handler = async (event) => {
             const amount    = (totalPaise / 100).toLocaleString("en-IN");
             const orderTime = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
             const itemLines = orderItems.map(i =>
-                `<tr><td style="color:#a09890;padding:6px 0;">${i.product_name}</td><td style="text-align:right;">${i.weight} · ${i.color} × ${i.qty}</td></tr>`
+                `<tr><td style="color:#a09890;padding:6px 0;">${i.product_name}</td><td style="text-align:right;">${i.weight} · ${i.color} × ${i.quantity}</td></tr>`
             ).join("");
 
             // Customer confirmation
-            sendEmail({
+            await sendEmail({
                 to: email,
-                subject: "Your order is confirmed ✦ The Ritual Co.",
+                subject: "Your COD order is confirmed ✦ The Ritual Co.",
                 html: `
-                <div style="font-family:Georgia,serif;max-width:560px;margin:0 auto;color:#3a3330;padding:40px 24px;">
-                  <p style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#a09890;margin:0 0 32px;">The Ritual Co.</p>
-                  <h1 style="font-size:24px;font-weight:400;margin:0 0 8px;">Order confirmed.</h1>
-                  <p style="font-size:15px;color:#7a6f68;margin:0 0 32px;">Thank you, ${name}. Your capsule dumbbells are reserved.</p>
-                  <div style="border:1px solid #e8e2dc;border-radius:10px;padding:20px 24px;margin-bottom:32px;">
-                    <table style="width:100%;font-size:13px;border-collapse:collapse;">
-                      ${itemLines}
-                      <tr><td style="color:#a09890;padding:6px 0;">Payment</td><td style="text-align:right;">Cash on Delivery</td></tr>
-                      <tr><td style="color:#a09890;padding:6px 0;">Amount due on delivery</td><td style="text-align:right;">₹${amount}</td></tr>
-                      <tr><td style="color:#a09890;padding:6px 0;">Ships</td><td style="text-align:right;">June 2026</td></tr>
-                    </table>
-                  </div>
-                  <p style="font-size:13px;color:#7a6f68;line-height:1.7;margin:0 0 24px;">
-                    This is a Cash on Delivery order — please keep ₹${amount} ready at delivery.
-                    We'll send tracking once dispatched. Reply here or WhatsApp us with any questions.
-                  </p>
-                  <p style="font-size:13px;color:#a09890;margin:0;">— Gitika & the Ritual Co. team</p>
-                  <hr style="border:none;border-top:1px solid #e8e2dc;margin:32px 0;">
-                  <p style="font-size:11px;color:#c0b8b0;margin:0;">The Ritual Co. · <a href="https://theritualco.in" style="color:#c0b8b0;">theritualco.in</a></p>
-                </div>`,
+                        <div style="font-family: Georgia, serif; max-width: 560px; margin: 0 auto; color: #3a3330; padding: 40px 24px;">
+                        <p style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #a09890; margin: 0 0 32px;">The Ritual Co.</p>
+                        <h1 style="font-size: 24px; font-weight: 400; margin: 0 0 8px;">Order confirmed — pay on delivery.</h1>
+                        <p style="font-size: 15px; color: #7a6f68; margin: 0 0 32px;">Thank you, ${name.split(" ")[0]}. Your order is reserved and will ship soon.</p>
+                        <div style="border: 1px solid #e8e2dc; border-radius: 10px; padding: 20px 24px; margin-bottom: 32px;">
+                        <table style="width: 100%; font-size: 13px; border-collapse: collapse;">
+                        ${itemLines}
+                        <tr><td style="color:#a09890;padding-top:10px;border-top:1px solid #e8e2dc;">Amount due on delivery</td><td style="text-align:right;font-weight:500;padding-top:10px;border-top:1px solid #e8e2dc;">₹${amount}</td></tr>
+                        </table>
+                        </div>
+                        <p style="font-size: 13px; color: #7a6f68; line-height: 1.7; margin: 0 0 24px;">
+                        Please keep the exact amount ready for our delivery partner. We'll send a shipping notification with tracking details once dispatched.
+                        </p>
+                        <p style="font-size: 13px; color: #a09890; margin: 0;">— Gitika &amp; the Ritual Co. team</p>
+                        <hr style="border: none; border-top: 1px solid #e8e2dc; margin: 32px 0;">
+                        <p style="font-size: 11px; color: #c0b8b0; margin: 0;">
+                        The Ritual Co. · <a href="https://theritualco.in" style="color: #c0b8b0;">theritualco.in</a>
+                        </p>
+                        </div>`,
                             }).catch((e) => console.error("[COD_EMAIL_CUSTOMER_ERROR]", e.message));
 
                             // Owner notification
@@ -205,7 +186,7 @@ exports.handler = async (event) => {
                   <tr><td style="padding:6px 20px 6px 0;color:#888">Email</td><td>${email}</td></tr>
                   <tr><td style="padding:6px 20px 6px 0;color:#888">Phone</td><td>${phone}</td></tr>
                   <tr><td style="padding:6px 20px 6px 0;color:#888">Address</td><td>${address}</td></tr>
-                  <tr><td style="padding:6px 20px 6px 0;color:#888">Items</td><td>${orderItems.map(i => `${i.product_name} ${i.weight} ${i.color} ×${i.qty}`).join("<br>")}</td></tr>
+                  <tr><td style="padding:6px 20px 6px 0;color:#888">Items</td><td>${orderItems.map(i => `${i.product_name} ${i.weight} ${i.color} ×${i.quantity}`).join("<br>")}</td></tr>
                   <tr><td style="padding:6px 20px 6px 0;color:#888">Payment</td><td><strong>COD</strong></td></tr>
                   <tr><td style="padding:6px 20px 6px 0;color:#888">Amount due</td><td><strong>₹${amount}</strong></td></tr>
                   <tr><td style="padding:6px 20px 6px 0;color:#888">Receipt</td><td style="font-size:12px;color:#555">${codReceipt}</td></tr>
@@ -236,7 +217,7 @@ exports.handler = async (event) => {
                 order_id:          isCod ? codReceipt : rzOrder.id,
                 amount:            totalPaise,
                 currency:          "INR",
-                internal_order_ids: savedIds,
+                internal_order_ids: order.id,
                 items:             orderItems,
                 payment_method:    isCod ? "cod" : "online",
             }),
@@ -257,6 +238,7 @@ async function sendEmail({ to, subject, html }) {
         },
         body: JSON.stringify({
             from: "The Ritual Co. <hello@theritualco.in>",
+            reply_to: "theritualcoofficial@gmail.com",
             to, subject, html,
         }),
     });

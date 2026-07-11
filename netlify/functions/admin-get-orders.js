@@ -1,17 +1,9 @@
 const { createClient } = require("@supabase/supabase-js");
+const { verifyAdminToken, getTokenFromEvent } = require("./shared/verify-admin-token");
 
 exports.handler = async (event) => {
-    const crypto = require("crypto");
-    function verifyAdminToken(token) {
-        if (!token) return false;
-        const [expires, hmac] = token.split(".");
-        if (!expires || !hmac) return false;
-        if (Date.now() > parseInt(expires)) return false;
-        const expected = crypto.createHmac("sha256", process.env.ADMIN_PASSWORD).update(expires).digest("hex");
-        try { return crypto.timingSafeEqual(Buffer.from(hmac), Buffer.from(expected)); } catch { return false; }
-    }
-
-    if (!verifyAdminToken(event.headers["x-admin-token"])) {
+    const token = getTokenFromEvent(event);
+    if (!verifyAdminToken(token)) {
         return { statusCode: 401, body: "Unauthorized" };
     }
 

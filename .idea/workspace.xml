@@ -4,12 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="allow shipping for cod + creator orders">
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="bug fixes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/account/orders.html" beforeDir="false" afterPath="$PROJECT_DIR$/account/orders.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/yoga/yoga-bloglist.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/yoga/yoga-bloglist.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contact.html" beforeDir="false" afterPath="$PROJECT_DIR$/contact.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/home.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/netlify/functions/admin-get-orders.js" beforeDir="false" afterPath="$PROJECT_DIR$/netlify/functions/admin-get-orders.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/netlify/functions/create-creator-order.js" beforeDir="false" afterPath="$PROJECT_DIR$/netlify/functions/create-creator-order.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/netlify/functions/create-order.js" beforeDir="false" afterPath="$PROJECT_DIR$/netlify/functions/create-order.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/netlify/functions/morning-briefing.js" beforeDir="false" afterPath="$PROJECT_DIR$/netlify/functions/morning-briefing.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/netlify/functions/shared/verify-admin-token.js" beforeDir="false" afterPath="$PROJECT_DIR$/netlify/functions/shared/verify-admin-token.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/netlify/functions/update-order.js" beforeDir="false" afterPath="$PROJECT_DIR$/netlify/functions/update-order.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/netlify/functions/verify-payment.js" beforeDir="false" afterPath="$PROJECT_DIR$/netlify/functions/verify-payment.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,61 +38,61 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.3344818886965353" />
-      <entry key="MS500" value="1.8049284928831641" />
-      <entry key="S2" value="2.3737703896629263" />
-      <entry key="S5" value="3.5754718159163974" />
-      <entry key="S10" value="4.7123729118795055" />
-      <entry key="S30" value="8.714995576608533" />
-      <entry key="S60" value="15.028884779473886" />
-      <entry key="M2" value="25.877504854951095" />
-      <entry key="M5" value="48.2917061642814" />
-      <entry key="M10" value="67.2066816709281" />
-      <entry key="M15" value="77.1752711986333" />
-      <entry key="M30" value="94.36780492499005" />
-      <entry key="H1" value="119.05543244562321" />
-      <entry key="H2" value="157.45764367018506" />
-      <entry key="H4" value="200.98522139324254" />
-      <entry key="D1" value="285.3912851681242" />
-      <entry key="W1" value="507.88166908690516" />
+      <entry key="MS100" value="1.1767767298086644" />
+      <entry key="MS500" value="1.7476068364193906" />
+      <entry key="S2" value="2.6426029154441704" />
+      <entry key="S5" value="3.2946148768476395" />
+      <entry key="S10" value="3.6120316402386763" />
+      <entry key="S30" value="3.8618860706322207" />
+      <entry key="S60" value="3.9503057685463054" />
+      <entry key="M2" value="4.921217702437812" />
+      <entry key="M5" value="16.89799778506818" />
+      <entry key="M10" value="38.74463629668424" />
+      <entry key="M15" value="53.7140991353551" />
+      <entry key="M30" value="79.74111407153079" />
+      <entry key="H1" value="110.66086734885201" />
+      <entry key="H2" value="153.03641104183856" />
+      <entry key="H4" value="199.53686529026618" />
+      <entry key="D1" value="288.08708826030244" />
+      <entry key="W1" value="511.5494597625191" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="4.056938411778934E-78" />
-      <entry key="MS500" value="3.325602964364321E-16" />
-      <entry key="S2" value="1.5702349977803385E-4" />
-      <entry key="S5" value="0.04633227001546963" />
-      <entry key="S10" value="0.35217084725101006" />
-      <entry key="S30" value="1.48302443685521" />
-      <entry key="S60" value="2.346427554719733" />
-      <entry key="M2" value="3.3832392573885763" />
-      <entry key="M5" value="6.72090388060828" />
-      <entry key="M10" value="11.309431025795694" />
-      <entry key="M15" value="14.049261779268653" />
-      <entry key="M30" value="17.81058480736267" />
-      <entry key="H1" value="20.195555651986194" />
-      <entry key="H2" value="21.540841252179444" />
-      <entry key="H4" value="22.259175569667935" />
-      <entry key="D1" value="23.265421320882428" />
-      <entry key="W1" value="24.515184633586415" />
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="1.8420301125243367E-90" />
+      <entry key="S5" value="1.9661489140960714E-36" />
+      <entry key="S10" value="2.2941394691038143E-18" />
+      <entry key="S30" value="2.7697279404999164E-6" />
+      <entry key="S60" value="0.003206649943867756" />
+      <entry key="M2" value="0.12507050767904274" />
+      <entry key="M5" value="1.797035120424585" />
+      <entry key="M10" value="5.847970814074062" />
+      <entry key="M15" value="9.05099791663606" />
+      <entry key="M30" value="14.29551020080314" />
+      <entry key="H1" value="18.0932484457522" />
+      <entry key="H2" value="20.388864054986023" />
+      <entry key="H4" value="21.655801401597877" />
+      <entry key="D1" value="23.15910575312131" />
+      <entry key="W1" value="24.499149403923678" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.083936111987756" />
-      <entry key="MS500" value="1.7313988921826355" />
-      <entry key="S2" value="2.3490434922876533" />
-      <entry key="S5" value="3.586700650915191" />
-      <entry key="S10" value="4.973540933574533" />
-      <entry key="S30" value="10.070182405953243" />
-      <entry key="S60" value="17.25431305497926" />
-      <entry key="M2" value="29.14995588825828" />
-      <entry key="M5" value="54.91634228236116" />
-      <entry key="M10" value="78.43817670259595" />
-      <entry key="M15" value="91.16109782270561" />
-      <entry key="M30" value="112.13860582842966" />
-      <entry key="H1" value="139.22807471187545" />
-      <entry key="H2" value="178.98576339553796" />
-      <entry key="H4" value="223.23751947315918" />
-      <entry key="D1" value="308.65539807532366" />
-      <entry key="W1" value="532.3966308100187" />
+      <entry key="MS100" value="1.1457936647273916" />
+      <entry key="MS500" value="1.7389512926482353" />
+      <entry key="S2" value="2.6393015252489493" />
+      <entry key="S5" value="3.292934738247883" />
+      <entry key="S10" value="3.611102236002885" />
+      <entry key="S30" value="3.8615551619945374" />
+      <entry key="S60" value="3.9531771146656967" />
+      <entry key="M2" value="5.042106825901304" />
+      <entry key="M5" value="18.66925831164286" />
+      <entry key="M10" value="44.5522900504664" />
+      <entry key="M15" value="62.7242184949647" />
+      <entry key="M30" value="94.00468629717972" />
+      <entry key="H1" value="128.7335847482721" />
+      <entry key="H2" value="173.41323245749084" />
+      <entry key="H4" value="221.18597490661938" />
+      <entry key="D1" value="311.24489145843813" />
+      <entry key="W1" value="536.0483863845832" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -174,14 +178,6 @@
       <workItem from="1779695741143" duration="8369000" />
       <workItem from="1780831623909" duration="98941000" />
       <workItem from="1781737896564" duration="11840000" />
-    </task>
-    <task id="LOCAL-00116" summary="add fitness brand article">
-      <option name="closed" value="true" />
-      <created>1781990202425</created>
-      <option name="number" value="00116" />
-      <option name="presentableId" value="LOCAL-00116" />
-      <option name="project" value="LOCAL" />
-      <updated>1781990202425</updated>
     </task>
     <task id="LOCAL-00117" summary="fix">
       <option name="closed" value="true" />
@@ -567,14 +563,21 @@
       <option name="project" value="LOCAL" />
       <updated>1783792894461</updated>
     </task>
-    <option name="localTasksCounter" value="165" />
+    <task id="LOCAL-00165" summary="bug fixes">
+      <option name="closed" value="true" />
+      <created>1783798253322</created>
+      <option name="number" value="00165" />
+      <option name="presentableId" value="LOCAL-00165" />
+      <option name="project" value="LOCAL" />
+      <updated>1783798253322</updated>
+    </task>
+    <option name="localTasksCounter" value="166" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update metapixel" />
     <MESSAGE value="add yoga" />
     <MESSAGE value="add yoga mats and ankle weights coming soon" />
     <MESSAGE value="clean" />
@@ -599,7 +602,8 @@
     <MESSAGE value="Create compliance db and fetch from it instead of local storage" />
     <MESSAGE value="fix morning briefing" />
     <MESSAGE value="allow shipping for cod + creator orders" />
-    <option name="LAST_COMMIT_MESSAGE" value="allow shipping for cod + creator orders" />
+    <MESSAGE value="bug fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="bug fixes" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
