@@ -8,7 +8,6 @@
     <style>
         *{box-sizing:border-box;margin:0;padding:0;}
         body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f2ee;color:#3a3330;min-height:100vh;font-size:14px;}
-
         /* Lock */
         #lock{position:fixed;inset:0;background:#f5f2ee;display:flex;align-items:center;justify-content:center;z-index:100;}
         .lock-card{background:#fff;border:0.5px solid #e0dbd4;border-radius:12px;padding:40px;width:320px;text-align:center;}
@@ -19,7 +18,6 @@
         .lock-btn{width:100%;padding:11px;background:#3a3330;color:#fff;border:none;border-radius:8px;font-size:14px;font-family:inherit;cursor:pointer;}
         .lock-btn:hover{background:#1a1714;}
         .lock-err{font-size:12px;color:#c0392b;margin-top:8px;display:none;}
-
         /* App */
         #app{display:none;}
         .topbar{background:#fff;border-bottom:0.5px solid #e0dbd4;padding:0 28px;height:52px;display:flex;align-items:center;justify-content:space-between;}
@@ -31,14 +29,12 @@
         .logout-btn:hover{color:#3a3330;}
         .nav-link{font-size:12px;color:#a09890;text-decoration:none;padding:4px 10px;border-radius:6px;}
         .nav-link:hover{background:#f5f2ee;color:#3a3330;}
-
         /* Stats */
         .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:20px 28px;}
         .stat{background:#fff;border:0.5px solid #e0dbd4;border-radius:10px;padding:16px 18px;}
         .stat-val{font-size:24px;font-weight:500;color:#1a1714;margin-bottom:2px;}
         .stat-lbl{font-size:11px;color:#a09890;}
         .stat-sub{font-size:11px;color:#a09890;margin-top:4px;}
-
         /* Filters */
         .filters{padding:0 28px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
         .filter-btn{padding:6px 14px;border:0.5px solid #d0cbc4;border-radius:20px;background:#fff;font-size:12px;font-family:inherit;cursor:pointer;color:#7a6f68;}
@@ -46,7 +42,6 @@
         .filter-btn.active{background:#3a3330;color:#fff;border-color:#3a3330;}
         .search-input{padding:7px 12px;border:0.5px solid #d0cbc4;border-radius:8px;font-size:13px;font-family:inherit;background:#fff;color:#3a3330;width:220px;margin-left:auto;}
         .search-input:focus{outline:none;border-color:#3a3330;}
-
         /* Table */
         .table-wrap{padding:0 28px 28px;overflow-x:auto;}
         table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;border:0.5px solid #e0dbd4;overflow:hidden;}
@@ -54,32 +49,31 @@
         td{padding:12px 14px;border-bottom:0.5px solid #f0ebe5;vertical-align:middle;}
         tr:last-child td{border-bottom:none;}
         tr:hover td{background:#faf8f5;}
-
         .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:500;}
         .badge-paid{background:#eaf3de;color:#3b6d11;}
         .badge-shipped{background:#e6f1fb;color:#185fa5;}
         .badge-delivered{background:#e1f5ee;color:#0f6e56;}
         .badge-pending{background:#faeeda;color:#854f0b;}
         .badge-refunded{background:#fcebeb;color:#a32d2d;}
-
+        .badge-cod_unpaid{background:#faeeda;color:#854f0b;}
+        .badge-gifted{background:#f2e9fb;color:#6b3fa0;}
         .dot{width:6px;height:6px;border-radius:50%;display:inline-block;}
         .dot-paid{background:#639922;}
         .dot-shipped{background:#378add;}
         .dot-delivered{background:#1d9e75;}
         .dot-pending{background:#ef9f27;}
         .dot-refunded{background:#e24b4a;}
-
+        .dot-cod_unpaid{background:#ef9f27;}
+        .dot-gifted{background:#9b6fd0;}
         .btn-sm{padding:5px 12px;border:0.5px solid #d0cbc4;border-radius:6px;font-size:12px;font-family:inherit;cursor:pointer;background:#fff;color:#3a3330;}
         .btn-sm:hover{background:#f5f2ee;}
         .btn-ship{background:#3a3330;color:#fff;border-color:#3a3330;}
         .btn-ship:hover{background:#1a1714;}
-
         .order-id{font-family:monospace;font-size:11px;color:#a09890;}
         .customer-name{font-weight:500;color:#1a1714;}
         .customer-email{font-size:12px;color:#a09890;}
         .amount{font-weight:500;}
         .empty{text-align:center;padding:60px 20px;color:#a09890;}
-
         /* Modal */
         .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;z-index:200;display:none;}
         .modal{background:#fff;border-radius:12px;padding:28px;width:440px;max-width:90vw;}
@@ -98,7 +92,6 @@
         .modal-status{font-size:12px;margin-top:8px;}
         .modal-status.success{color:#27ae60;}
         .modal-status.error{color:#c0392b;}
-
         /* Order detail panel */
         .detail-overlay{position:fixed;inset:0;background:rgba(0,0,0,.25);z-index:150;display:none;}
         .detail-panel{position:fixed;right:0;top:0;bottom:0;width:380px;background:#fff;border-left:0.5px solid #e0dbd4;overflow-y:auto;z-index:160;transform:translateX(100%);transition:transform .2s ease;}
@@ -144,29 +137,16 @@
 
     <!-- Stats -->
     <div class="stats">
-        <div class="stat">
-            <div class="stat-val" id="s-total">—</div>
-            <div class="stat-lbl">Total orders</div>
-        </div>
-        <div class="stat">
-            <div class="stat-val" id="s-revenue">—</div>
-            <div class="stat-lbl">Total revenue</div>
-            <div class="stat-sub" id="s-revenue-sub"></div>
-        </div>
-        <div class="stat">
-            <div class="stat-val" id="s-pending">—</div>
-            <div class="stat-lbl">To ship</div>
-        </div>
-        <div class="stat">
-            <div class="stat-val" id="s-shipped">—</div>
-            <div class="stat-lbl">Shipped</div>
-        </div>
+        <div class="stat"><div class="stat-val" id="s-total">—</div><div class="stat-lbl">Total orders</div></div>
+        <div class="stat"><div class="stat-val" id="s-revenue">—</div><div class="stat-lbl">Total revenue</div><div class="stat-sub" id="s-revenue-sub"></div></div>
+        <div class="stat"><div class="stat-val" id="s-pending">—</div><div class="stat-lbl">To ship</div></div>
+        <div class="stat"><div class="stat-val" id="s-shipped">—</div><div class="stat-lbl">Shipped</div></div>
     </div>
 
     <!-- Filters -->
     <div class="filters">
         <button class="filter-btn active" onclick="setFilter('all', this)">All</button>
-        <button class="filter-btn" onclick="setFilter('paid', this)">To ship</button>
+        <button class="filter-btn" onclick="setFilter('to_ship', this)">To ship</button>
         <button class="filter-btn" onclick="setFilter('shipped', this)">Shipped</button>
         <button class="filter-btn" onclick="setFilter('delivered', this)">Delivered</button>
         <button class="filter-btn" onclick="setFilter('refunded', this)">Refunded</button>
@@ -178,19 +158,9 @@
     <div class="table-wrap">
         <table>
             <thead>
-            <tr>
-                <th>Order</th>
-                <th>Customer</th>
-                <th>Product</th>
-                <th>Amount</th>
-                <th>Status</th>
-                <th>Date</th>
-                <th>Actions</th>
-            </tr>
+            <tr><th>Order</th><th>Customer</th><th>Product</th><th>Amount</th><th>Status</th><th>Date</th><th>Actions</th></tr>
             </thead>
-            <tbody id="orders-tbody">
-            <tr><td colspan="7" class="empty">Loading orders...</td></tr>
-            </tbody>
+            <tbody id="orders-tbody"><tr><td colspan="7" class="empty">Loading orders...</td></tr></tbody>
         </table>
     </div>
 </div>
@@ -231,10 +201,7 @@
 <!-- Detail panel -->
 <div class="detail-overlay" id="detail-overlay" onclick="closeDetail()"></div>
 <div class="detail-panel" id="detail-panel">
-    <div class="detail-header">
-        <h2>Order details</h2>
-        <button class="close-btn" onclick="closeDetail()">×</button>
-    </div>
+    <div class="detail-header"><h2>Order details</h2><button class="close-btn" onclick="closeDetail()">×</button></div>
     <div class="detail-body" id="detail-body"></div>
 </div>
 
@@ -242,8 +209,13 @@
     let allOrders = [];
     let currentFilter = "all";
     let shipOrderId = null;
-
     let SESSION_TOKEN = null;
+
+    // Statuses that still need to be shipped. cod_unpaid = COD order awaiting cash
+    // collection; gifted = ₹0 creator/collaboration order. Both need the same
+    // "mark shipped" flow as a regular paid order.
+    const TO_SHIP_STATUSES = ["paid", "cod_unpaid", "gifted"];
+    const STATUS_LABELS = { paid: "paid", cod_unpaid: "COD", gifted: "gift", shipped: "shipped", delivered: "delivered", pending: "pending", refunded: "refunded" };
 
     async function unlock() {
         const pass = document.getElementById("lock-pass").value;
@@ -292,7 +264,6 @@
 
     document.getElementById("lock-pass").addEventListener("keydown", e => { if (e.key === "Enter") unlock(); });
 
-
     async function loadOrders() {
         try {
             const res = await fetch("/.netlify/functions/admin-get-orders", {
@@ -313,9 +284,8 @@
         const revenue = allOrders
             .filter(o => PAID_STATUSES.includes(o.status))
             .reduce((sum, o) => sum + (o.amount_paise || 0), 0) / 100;
-        const toShip = allOrders.filter(o => o.status === "paid").length;
+        const toShip = allOrders.filter(o => TO_SHIP_STATUSES.includes(o.status)).length;
         const shipped = allOrders.filter(o => o.status === "shipped" || o.status === "delivered").length;
-
         document.getElementById("s-total").textContent = total;
         document.getElementById("s-revenue").textContent = "₹" + revenue.toLocaleString("en-IN");
         document.getElementById("s-revenue-sub").textContent = `avg ₹${total ? Math.round(revenue / total).toLocaleString("en-IN") : 0}`;
@@ -333,12 +303,10 @@
     function renderOrders() {
         const q = document.getElementById("search").value.toLowerCase();
         let orders = allOrders;
-
         if (currentFilter !== "all") {
-            if (currentFilter === "paid") orders = orders.filter(o => o.status === "paid");
+            if (currentFilter === "to_ship") orders = orders.filter(o => TO_SHIP_STATUSES.includes(o.status));
             else orders = orders.filter(o => o.status === currentFilter);
         }
-
         if (q) {
             orders = orders.filter(o =>
                 (o.guest_name || "").toLowerCase().includes(q) ||
@@ -347,18 +315,16 @@
                 (o.razorpay_payment_id || "").toLowerCase().includes(q)
             );
         }
-
         if (orders.length === 0) {
             document.getElementById("orders-tbody").innerHTML = `<tr><td colspan="7" class="empty">No orders found</td></tr>`;
             return;
         }
-
         document.getElementById("orders-tbody").innerHTML = orders.map(o => {
             const date = new Date(o.created_at).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
             const amount = "₹" + ((o.amount_paise || 0) / 100).toLocaleString("en-IN");
             const status = o.status || "paid";
-            const badge = `<span class="badge badge-${status}"><span class="dot dot-${status}"></span>${status}</span>`;
-            const shipBtn = status === "paid"
+            const badge = `<span class="badge badge-${status}"><span class="dot dot-${status}"></span>${STATUS_LABELS[status] || status}</span>`;
+            const shipBtn = TO_SHIP_STATUSES.includes(status)
                 ? `<button class="btn-sm btn-ship" onclick="openShip('${o.id}', event)">Mark shipped</button>`
                 : status === "shipped"
                     ? `<button class="btn-sm" onclick="markDelivered('${o.id}')">Mark delivered</button>`
@@ -369,13 +335,9 @@
             const email = o.guest_email || o.customer_email || "";
             const product = o.product_name || "—";
             const shortId = (o.razorpay_payment_id || o.id || "").slice(-8);
-
             return `<tr onclick="openDetail('${o.id}')" style="cursor:pointer;">
       <td><span class="order-id">#${shortId}</span></td>
-      <td>
-        <div class="customer-name">${name}</div>
-        <div class="customer-email">${email}</div>
-      </td>
+      <td><div class="customer-name">${name}</div><div class="customer-email">${email}</div></td>
       <td>${product}${o.weight ? ` · ${o.weight}` : ""}${o.color ? ` · ${o.color}` : ""}</td>
       <td class="amount">${amount}</td>
       <td>${badge}</td>
@@ -389,8 +351,9 @@
         e && e.stopPropagation();
         shipOrderId = id;
         const order = allOrders.find(o => o.id === id);
+        const codNote = order.status === "cod_unpaid" ? " · COD — confirm cash collected before shipping" : order.status === "gifted" ? " · Gift order" : "";
         document.getElementById("ship-modal-sub").textContent =
-            `${order.guest_name || "Customer"} · ${order.product_name || "Order"} · ₹${((order.amount_paise||0)/100).toLocaleString("en-IN")}`;
+            `${order.guest_name || "Customer"} · ${order.product_name || "Order"} · ₹${((order.amount_paise||0)/100).toLocaleString("en-IN")}${codNote}`;
         document.getElementById("ship-tracking").value = "";
         document.getElementById("ship-note").value = "";
         document.getElementById("ship-status").textContent = "";
@@ -410,7 +373,6 @@
         btn.disabled = true;
         btn.textContent = "Sending...";
         status.textContent = "";
-
         try {
             const res = await fetch("/.netlify/functions/update-order", {
                 method: "POST",
@@ -425,7 +387,6 @@
             if (!res.ok) throw new Error(await res.text());
             status.textContent = "Marked as shipped & email sent.";
             status.className = "modal-status success";
-            // Update local state
             const o = allOrders.find(x => x.id === shipOrderId);
             if (o) { o.status = "shipped"; o.tracking_number = document.getElementById("ship-tracking").value; }
             updateStats();
@@ -457,7 +418,6 @@
         if (!o) return;
         const date = new Date(o.created_at).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
         const amount = "₹" + ((o.amount_paise || 0) / 100).toLocaleString("en-IN");
-
         document.getElementById("detail-body").innerHTML = `
     <div class="detail-section">
       <div class="detail-section-title">Customer</div>
@@ -472,7 +432,7 @@
       <div class="detail-row"><span class="detail-key">Weight</span><span class="detail-val">${o.weight || "—"}</span></div>
       <div class="detail-row"><span class="detail-key">Colour</span><span class="detail-val">${o.color || "—"}</span></div>
       <div class="detail-row"><span class="detail-key">Amount</span><span class="detail-val">${amount}</span></div>
-      <div class="detail-row"><span class="detail-key">Status</span><span class="detail-val">${o.status || "—"}</span></div>
+      <div class="detail-row"><span class="detail-key">Status</span><span class="detail-val">${STATUS_LABELS[o.status] || o.status || "—"}</span></div>
       <div class="detail-row"><span class="detail-key">Date</span><span class="detail-val">${date} IST</span></div>
     </div>
     <div class="detail-section">
@@ -486,10 +446,9 @@
       <div class="detail-row"><span class="detail-key">Tracking</span><span class="detail-val">${o.tracking_number}</span></div>
       ${o.shipped_at ? `<div class="detail-row"><span class="detail-key">Shipped at</span><span class="detail-val">${new Date(o.shipped_at).toLocaleString("en-IN",{timeZone:"Asia/Kolkata"})} IST</span></div>` : ""}
     </div>` : ""}
-    ${o.status === "paid" ? `<button class="btn-primary" style="width:100%;margin-top:8px;" onclick="openShip('${o.id}')">Mark as shipped</button>` : ""}
+    ${TO_SHIP_STATUSES.includes(o.status) ? `<button class="btn-primary" style="width:100%;margin-top:8px;" onclick="openShip('${o.id}')">Mark as shipped</button>` : ""}
     ${o.status === "shipped" ? `<button class="btn-outline" style="width:100%;margin-top:8px;" onclick="markDelivered('${o.id}')">Mark as delivered</button>` : ""}
   `;
-
         document.getElementById("detail-overlay").style.display = "block";
         document.getElementById("detail-panel").classList.add("open");
     }
@@ -499,7 +458,6 @@
         document.getElementById("detail-panel").classList.remove("open");
     }
 
-    // Close modal on overlay click
     document.getElementById("ship-modal").addEventListener("click", function(e) {
         if (e.target === this) closeModal();
     });
@@ -508,11 +466,9 @@
         const pendingCount = allOrders.filter(o => o.status === "pending").length;
         if (pendingCount === 0) { alert("No pending orders to clear."); return; }
         if (!confirm(`Delete all ${pendingCount} pending orders? This cannot be undone.`)) return;
-
         const btn = document.getElementById("clear-pending-btn");
         btn.textContent = "Deleting...";
         btn.disabled = true;
-
         try {
             const res = await fetch("/.netlify/functions/admin-delete-orders", {
                 method: "POST",

@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="Create compliance db and fetch from it instead of local storage">
-      <change beforePath="$PROJECT_DIR$/netlify/functions/morning-briefing.js" beforeDir="false" afterPath="$PROJECT_DIR$/netlify/functions/morning-briefing.js" afterDir="false" />
-    </list>
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="fix morning briefing" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,23 +28,23 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0000965090028109" />
-      <entry key="S2" value="1.4557319179593613" />
-      <entry key="S5" value="4.573244347746934" />
-      <entry key="S10" value="8.624352070291968" />
-      <entry key="S30" value="13.946395715234669" />
-      <entry key="S60" value="15.82577844953984" />
-      <entry key="M2" value="16.880799489461356" />
-      <entry key="M5" value="18.03370213034465" />
-      <entry key="M10" value="19.934081821413034" />
-      <entry key="M15" value="21.930811036284517" />
-      <entry key="M30" value="29.627787102066055" />
-      <entry key="H1" value="49.23885267102037" />
-      <entry key="H2" value="80.3516955324213" />
-      <entry key="H4" value="111.28406150997141" />
-      <entry key="D1" value="171.26911416966163" />
-      <entry key="W1" value="387.6005417678769" />
+      <entry key="MS100" value="1.0010416923491634" />
+      <entry key="MS500" value="1.3404212429181233" />
+      <entry key="S2" value="2.7784616297121367" />
+      <entry key="S5" value="3.8297043468553675" />
+      <entry key="S10" value="4.351675511266086" />
+      <entry key="S30" value="4.7778516919636385" />
+      <entry key="S60" value="5.305493850523326" />
+      <entry key="M2" value="7.702483451987479" />
+      <entry key="M5" value="13.718309508018399" />
+      <entry key="M10" value="18.867254531159436" />
+      <entry key="M15" value="22.219988956603718" />
+      <entry key="M30" value="31.255666081749318" />
+      <entry key="H1" value="51.35367961265888" />
+      <entry key="H2" value="82.96272315550293" />
+      <entry key="H4" value="114.61746435417082" />
+      <entry key="D1" value="175.83897912730308" />
+      <entry key="W1" value="392.4613438387662" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -56,35 +54,35 @@
       <entry key="S10" value="0.0" />
       <entry key="S30" value="0.0" />
       <entry key="S60" value="0.0" />
-      <entry key="M2" value="2.1615833595644454E-279" />
-      <entry key="M5" value="3.419076321605439E-112" />
-      <entry key="M10" value="1.8490744499898972E-56" />
-      <entry key="M15" value="6.992561023581226E-38" />
-      <entry key="M30" value="2.6443451029661826E-19" />
-      <entry key="H1" value="5.142319615665841E-10" />
-      <entry key="H2" value="2.2676683213525364E-5" />
-      <entry key="H4" value="0.004762004117336044" />
-      <entry key="D1" value="0.41017101653541094" />
-      <entry key="W1" value="1.543441390217705" />
+      <entry key="M2" value="3.536915049531306E-280" />
+      <entry key="M5" value="1.6574859342352944E-112" />
+      <entry key="M10" value="1.2874338562564274E-56" />
+      <entry key="M15" value="5.493088767260308E-38" />
+      <entry key="M30" value="2.343733936960489E-19" />
+      <entry key="H1" value="4.841212592894962E-10" />
+      <entry key="H2" value="2.200275572035228E-5" />
+      <entry key="H4" value="0.004690709511401483" />
+      <entry key="D1" value="0.4091410898756697" />
+      <entry key="W1" value="1.5428871458783144" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9794202975869268" />
-      <entry key="MS500" value="0.9959458465740615" />
-      <entry key="S2" value="1.452470334319454" />
-      <entry key="S5" value="4.555668327649069" />
-      <entry key="S10" value="8.600417767359632" />
-      <entry key="S30" value="13.930674482291318" />
-      <entry key="S60" value="15.816457414555163" />
-      <entry key="M2" value="16.87571784744238" />
-      <entry key="M5" value="18.031368720492875" />
-      <entry key="M10" value="19.9325543251644" />
-      <entry key="M15" value="21.929550520863383" />
-      <entry key="M30" value="29.626600475492893" />
-      <entry key="H1" value="49.23749656810551" />
-      <entry key="H2" value="80.35049579174233" />
-      <entry key="H4" value="111.28796597075106" />
-      <entry key="D1" value="171.67903590208448" />
-      <entry key="W1" value="389.1439135292103" />
+      <entry key="MS100" value="0.980438358471076" />
+      <entry key="MS500" value="1.2916647759630284" />
+      <entry key="S2" value="2.6730529608146303" />
+      <entry key="S5" value="3.763531248127861" />
+      <entry key="S10" value="4.3131925734413885" />
+      <entry key="S30" value="4.763650243940823" />
+      <entry key="S60" value="5.297967669515192" />
+      <entry key="M2" value="7.697967384603639" />
+      <entry key="M5" value="13.715693277353237" />
+      <entry key="M10" value="18.86544659462678" />
+      <entry key="M15" value="22.218502055998933" />
+      <entry key="M30" value="31.254365798505102" />
+      <entry key="H1" value="51.35227858693888" />
+      <entry key="H2" value="82.9614968922669" />
+      <entry key="H4" value="114.62127926702424" />
+      <entry key="D1" value="176.24786637654302" />
+      <entry key="W1" value="394.00416064039996" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -170,14 +168,6 @@
       <workItem from="1779695741143" duration="8369000" />
       <workItem from="1780831623909" duration="98941000" />
       <workItem from="1781737896564" duration="11840000" />
-    </task>
-    <task id="LOCAL-00114" summary="fix seo issues">
-      <option name="closed" value="true" />
-      <created>1781989377427</created>
-      <option name="number" value="00114" />
-      <option name="presentableId" value="LOCAL-00114" />
-      <option name="project" value="LOCAL" />
-      <updated>1781989377427</updated>
     </task>
     <task id="LOCAL-00115" summary="add pilates blogs">
       <option name="closed" value="true" />
@@ -563,14 +553,21 @@
       <option name="project" value="LOCAL" />
       <updated>1783791909668</updated>
     </task>
-    <option name="localTasksCounter" value="163" />
+    <task id="LOCAL-00163" summary="fix morning briefing">
+      <option name="closed" value="true" />
+      <created>1783792221472</created>
+      <option name="number" value="00163" />
+      <option name="presentableId" value="LOCAL-00163" />
+      <option name="project" value="LOCAL" />
+      <updated>1783792221473</updated>
+    </task>
+    <option name="localTasksCounter" value="164" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="upgrade to node 20" />
     <MESSAGE value="add more validations for address+ autofill + yogabelt in map" />
     <MESSAGE value="update metapixel" />
     <MESSAGE value="add yoga" />
@@ -595,7 +592,8 @@
     <MESSAGE value="bug fix" />
     <MESSAGE value="add creator order" />
     <MESSAGE value="Create compliance db and fetch from it instead of local storage" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create compliance db and fetch from it instead of local storage" />
+    <MESSAGE value="fix morning briefing" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix morning briefing" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
