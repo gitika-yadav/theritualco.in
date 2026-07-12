@@ -93,13 +93,13 @@
             "offers":{
                 "@type":"AggregateOffer",
                 "offerCount":"2",
-                "lowPrice":"1499.00",
-                "highPrice":"1999.00",
+                "lowPrice":"1999.00",
+                "highPrice":"2499.00",
                 "priceCurrency":"INR",
                 "availability":"https://schema.org/InStock",
                 "offers":[
-                    {"@type":"Offer","sku":"TRC-CAPSULE-1KG","price":"1499","priceCurrency":"INR","availability":"https://schema.org/InStock"},
-                    {"@type":"Offer","sku":"TRC-CAPSULE-2KG","price":"1999","priceCurrency":"INR","availability":"https://schema.org/InStock"}
+                    {"@type":"Offer","sku":"TRC-CAPSULE-1KG","price":"1999","priceCurrency":"INR","availability":"https://schema.org/InStock"},
+                    {"@type":"Offer","sku":"TRC-CAPSULE-2KG","price":"2499","priceCurrency":"INR","availability":"https://schema.org/InStock"}
                 ]
             }
         }
@@ -146,7 +146,7 @@
         <p class="option-heading">Weight &mdash; <em id="weight-name">1 kg set</em></p>
         <div class="weight-picker" role="group" aria-label="Weight options">
             <button class="weight-option active selected" data-name="1 kg set" data-weight="1kg"
-                    data-launch="₹1,499" data-retail="₹1,999"
+                    data-launch="₹1,999" data-retail="₹2,499"
                     aria-pressed="true" onclick="selectWeight(this)">
                 <span class="weight-option__kg">1 kg</span>
                 <span class="weight-option__detail">
@@ -159,8 +159,8 @@
                     aria-pressed="false" onclick="selectWeight(this)">
                 <span class="weight-option__kg">2 kg</span>
                 <span class="weight-option__detail">
-                    <span class="weight-option__launch">&#8377;1,999</span>
-                    <span class="weight-option__retail">&#8377;2,499</span>
+                    <span class="weight-option__launch">&#8377;2,499</span>
+                    <span class="weight-option__retail">&#8377;2,999</span>
                 </span>
             </button>
         </div>
@@ -175,8 +175,8 @@
 
         <div class="price-block">
             <div class="price-row">
-                <span class="price" id="price-launch">&#8377;1,499</span>
-                <span class="price-retail" id="price-retail">&#8377;1,999</span>
+                <span class="price" id="price-launch">&#8377;1,999</span>
+                <span class="price-retail" id="price-retail">&#8377;2,499</span>
             </div>
             <span class="price-note"><strong>Early Bird</strong> · First 100 orders only</span>
         </div>
@@ -424,7 +424,7 @@
 
         const weightVal = weight ? weight.dataset.weight : '1kg';
         const colorVal  = color  ? color.dataset.color   : 'Cream';
-        const priceVal  = weight ? parseInt(weight.dataset.launch.replace(/[^\d]/g, ''), 10) : 1499;
+        const priceVal  = weight ? parseInt(weight.dataset.launch.replace(/[^\d]/g, ''), 10) : 1999;
         const nameVal   = 'Capsule Dumbbells';
 
         Cart.add({
@@ -462,12 +462,12 @@
 <script>
     gtag('event', 'view_item', {
         currency: 'INR',
-        value: 1499,
+        value: 1999,
         items: [{
             item_id: 'capsule-dumbbell',
             item_name: 'Capsule Dumbbells',
             item_category: 'Dumbbells',
-            price: 1499,
+            price: 1999,
             quantity: 1
         }]
     });
