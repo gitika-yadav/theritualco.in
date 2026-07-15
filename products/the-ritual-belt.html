@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-D366Q7R3XB"></script>
     <script>
@@ -9,18 +10,33 @@
         gtag('js', new Date());
         gtag('config', 'G-D366Q7R3XB');
     </script>
+
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>The Ritual Belt – Yoga Strap – The Ritual Co.</title>
     <meta name="description" content="Organic cotton yoga belt with adjustable metal buckle. Stretch deeper, correct alignment, improve posture. Minimal wellness design."/>
     <link rel="icon" type="image/png" href="/images/favicon.png"/>
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"/>
+
     <link rel="stylesheet" href="/css/global.css"/>
     <link rel="stylesheet" href="/css/navbar.css"/>
     <link rel="stylesheet" href="/css/footer.css"/>
     <link rel="stylesheet" href="/css/products.css"/>
     <link rel="stylesheet" href="/css/product-page.css"/>
+
     <link rel="preload" as="image" href="/images/yoga-belt.webp"/>
+
+    <style>
+        .product__thumbs{display:flex;gap:8px;margin-top:12px;justify-content:center;}
+        .product__thumbs .thumb{width:56px;height:56px;border-radius:6px;overflow:hidden;border:2px solid transparent;padding:0;cursor:pointer;background:none;flex-shrink:0;}
+        .product__thumbs .thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+        .product__thumbs .thumb.active{border-color:#3a3330;}
+        .product__thumbs.hidden{display:none;}
+        .product__thumbs{display:flex;gap:8px;margin-top:12px;justify-content:center;}
+        .product__thumbs .thumb{width:56px;height:56px;border-radius:6px;overflow:hidden;border:2px solid transparent;padding:0;cursor:pointer;background:none;flex-shrink:0;}
+        .product__thumbs .thumb img{width:100%;height:100%;object-fit:cover;display:block;}</style>
+
     <script type="application/ld+json">
         {
             "@context":"https://schema.org",
@@ -65,7 +81,13 @@
 <main class="product">
     <!-- IMAGE -->
     <div class="product__visual" role="region" aria-label="Product image">
-        <img id="main-img" src="/images/yoga-belt.webp" alt="The Ritual Belt in Cream – The Ritual Co." loading="eager"/>
+        <img id="main-img" src="/images/yoga-belt-cream-1.webp" alt="The Ritual Belt in Cream – The Ritual Co." loading="eager"/>
+        <div class="product__thumbs">
+            <button class="thumb active" onclick="document.getElementById('main-img').src='/images/yoga-belt-cream-1.webp'; setActiveThumb(this);"><img src="/images/yoga-belt-cream-1.webp" alt="View 1"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-belt-cream-2.webp'; setActiveThumb(this);"><img src="/images/yoga-belt-cream-2.webp" alt="View 2"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-belt-cream-3.webp'; setActiveThumb(this);"><img src="/images/yoga-belt-cream-3.webp" alt="View 3"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-belt-cream-4.webp'; setActiveThumb(this);"><img src="/images/yoga-belt-cream-4.webp" alt="View 4"/></button>
+        </div>
     </div>
 
     <!-- INFO -->
@@ -75,20 +97,17 @@
         <p class="product__tagline">Stretch deeper.<br>Move with intention.</p>
 
         <div class="opt">
-            <label class="opt__label">Colour</label>
+            <label class="opt__label">Colour &mdash; <span id="colour-name">Cream</span></label>
             <div class="swatches" role="radiogroup" aria-label="Colour" style="gap:16px;">
-
                 <div class="swatch-wrap">
-                    <button class="swatch  is-selected" data-color="Cream" data-img="/images/yoga-belt.webp"  style="--sw:#f3eadf" aria-label="Cream" aria-checked="true" role="radio"></button>
+                    <button class="swatch is-selected" data-name="Cream" data-color="Cream" data-img="/images/yoga-belt-cream-1.webp" style="--sw:#f3eadf" aria-label="Cream" aria-checked="true" role="radio" onclick="selectColour(this)"></button>
                     <span class="swatch-label">Cream</span>
                 </div>
-
                 <div class="swatch-wrap">
                     <button class="swatch sold-out" disabled style="--sw:#6f4e37" aria-label="Coffee — Sold Out" title="Sold Out"></button>
                     <span class="swatch-label">Coffee</span>
                     <span class="sold-out-label">Sold Out</span>
                 </div>
-
                 <div class="swatch-wrap">
                     <button class="swatch sold-out" disabled style="--sw:#1f1f1f" aria-label="Black — Sold Out" title="Sold Out"></button>
                     <span class="swatch-label">Black</span>
@@ -114,7 +133,6 @@
         </div>
 
         <button type="button" class="btn-primary" id="preorder-btn">Add to Cart</button>
-        <a href="/#waitlist" class="btn-secondary">Join Waitlist</a>
 
         <div class="trust">
             <span class="trust__item"><span class="trust__dot"></span>Pan-India delivery</span>
@@ -253,18 +271,47 @@
     </div>
 </div>
 
-<script src="/javascript/init.js"></script>
-
 <script>
+    function setActiveThumb(btn) {
+        document.querySelectorAll('.product__thumbs .thumb').forEach(function(t) { t.classList.remove('active'); });
+        btn.classList.add('active');
+    }
+</script>
+<script src="/javascript/init.js"></script>
+<script>
+    var creamGallery = ["/images/yoga-belt-cream-1.webp","/images/yoga-belt-cream-2.webp","/images/yoga-belt-cream-3.webp","/images/yoga-belt-cream-4.webp"];
+
+    function updateGallery(colorName) {
+        var thumbsWrap = document.getElementById('product-thumbs');
+        if (colorName === 'Cream') {
+            thumbsWrap.classList.remove('hidden');
+            document.getElementById('main-img').src = creamGallery[0];
+            thumbsWrap.querySelectorAll('.thumb').forEach(function(t, i) { t.classList.toggle('active', i === 0); });
+        } else {
+            thumbsWrap.classList.add('hidden');
+        }
+    }
+
+    document.querySelectorAll('.product__thumbs .thumb').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            document.getElementById('main-img').src = btn.dataset.img;
+            document.querySelectorAll('.product__thumbs .thumb').forEach(function(t) { t.classList.remove('active'); });
+            btn.classList.add('active');
+        });
+    });
+
     function selectColour(btn) {
         document.querySelectorAll('.swatch').forEach(function(s) {
-            s.classList.remove('active','selected');
+            s.classList.remove('active','selected','is-selected');
             s.setAttribute('aria-pressed','false');
+            s.setAttribute('aria-checked','false');
         });
-        btn.classList.add('active','selected');
+        btn.classList.add('active','selected','is-selected');
         btn.setAttribute('aria-pressed','true');
+        btn.setAttribute('aria-checked','true');
         document.getElementById('colour-name').textContent = btn.dataset.name;
-        switchProductImage(btn);
+        updateGallery(btn.dataset.name);
+        if (btn.dataset.name !== 'Cream') switchProductImage(btn);
     }
 
     function switchProductImage(btn) {
@@ -306,22 +353,21 @@
         });
     });
 </script>
-
 <script>
     document.getElementById('preorder-btn').addEventListener('click', function() {
         if (typeof Cart === 'undefined') {
             window.location = '/cart.html';
             return;
         }
-        var color = document.querySelector('.color-option.selected');
+        var color = document.querySelector('.swatch.is-selected');
         var colorVal = color ? color.dataset.color : 'Cream';
         Cart.add({
-            id:     'yoga-belt',
-            name:   'The Ritual Belt',
+            id: 'yoga-belt',
+            name: 'The Ritual Belt',
             weight: '96in',
-            color:  colorVal,
-            price:  349,
-            image:  '/images/yoga-belt.webp'
+            color: colorVal,
+            price: 349,
+            image: '/images/yoga-belt-cream-1.webp'
         });
         gtag('event', 'add_to_cart', {
             currency: 'INR',
@@ -335,10 +381,8 @@
         }
     });
 </script>
-
 <script>window.PRODUCT_SLUG = 'yoga-belt';</script>
 <script src="/javascript/reviews.js"></script>
-
 <script>
     gtag('event', 'view_item', {
         currency: 'INR',
