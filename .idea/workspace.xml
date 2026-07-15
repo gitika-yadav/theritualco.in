@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="update dumbbell prices">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="update belt + block price">
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/products/products.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/products.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sitemap.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sitemap.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,23 +32,23 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0000000021664799" />
-      <entry key="S2" value="1.0069379438491148" />
-      <entry key="S5" value="1.175685808582764" />
-      <entry key="S10" value="1.7073088509846" />
-      <entry key="S30" value="4.342812062892159" />
-      <entry key="S60" value="8.078280401387198" />
-      <entry key="M2" value="14.58573867348014" />
-      <entry key="M5" value="25.58822547742545" />
-      <entry key="M10" value="32.36006135396565" />
-      <entry key="M15" value="35.195720232192734" />
-      <entry key="M30" value="38.39147661991725" />
-      <entry key="H1" value="40.17048081762644" />
-      <entry key="H2" value="43.633888178534974" />
-      <entry key="H4" value="70.1655056107039" />
-      <entry key="D1" value="299.7197282828734" />
-      <entry key="W1" value="614.6524165646111" />
+      <entry key="MS100" value="1.000000066595503" />
+      <entry key="MS500" value="1.0367019366019414" />
+      <entry key="S2" value="1.4388258476312532" />
+      <entry key="S5" value="1.7977411455572199" />
+      <entry key="S10" value="2.2231123912333297" />
+      <entry key="S30" value="3.571780173038988" />
+      <entry key="S60" value="5.418686396985783" />
+      <entry key="M2" value="7.775947659259067" />
+      <entry key="M5" value="10.369481784467578" />
+      <entry key="M10" value="11.569231826661989" />
+      <entry key="M15" value="12.018135806660215" />
+      <entry key="M30" value="12.4944152398016" />
+      <entry key="H1" value="12.74341814501897" />
+      <entry key="H2" value="12.870745395318847" />
+      <entry key="H4" value="12.935212983466522" />
+      <entry key="D1" value="43.82925042617355" />
+      <entry key="W1" value="457.16304253401483" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -55,36 +57,36 @@
       <entry key="S5" value="0.0" />
       <entry key="S10" value="0.0" />
       <entry key="S30" value="0.0" />
-      <entry key="S60" value="2.820886625992095E-261" />
-      <entry key="M2" value="1.173064662840523E-130" />
-      <entry key="M5" value="4.39970320356567E-52" />
-      <entry key="M10" value="9.150368927073179E-26" />
-      <entry key="M15" value="5.662202583026762E-17" />
-      <entry key="M30" value="3.5755604850619906E-8" />
-      <entry key="H1" value="9.04875399469177E-4" />
-      <entry key="H2" value="0.14418800983801763" />
-      <entry key="H4" value="1.8211357447633143" />
-      <entry key="D1" value="15.329093115897349" />
-      <entry key="W1" value="23.09671660759397" />
+      <entry key="S60" value="0.0" />
+      <entry key="M2" value="0.0" />
+      <entry key="M5" value="0.0" />
+      <entry key="M10" value="5.585924415194402E-168" />
+      <entry key="M15" value="8.778555054777723E-112" />
+      <entry key="M30" value="1.4078712679534294E-55" />
+      <entry key="H1" value="1.7955528382709966E-27" />
+      <entry key="H2" value="2.031111904968055E-13" />
+      <entry key="H4" value="2.161447397832767E-6" />
+      <entry key="D1" value="1.5773092650209812" />
+      <entry key="W1" value="16.6903170788574" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9592641193252643" />
-      <entry key="MS500" value="0.9917167328868276" />
-      <entry key="S2" value="1.0048462012975976" />
-      <entry key="S5" value="1.1746962881846241" />
-      <entry key="S10" value="1.7064036518515509" />
-      <entry key="S30" value="4.340871086094768" />
-      <entry key="S60" value="8.075928004923387" />
-      <entry key="M2" value="14.58335645073216" />
-      <entry key="M5" value="25.58642965473309" />
-      <entry key="M10" value="32.358896335413746" />
-      <entry key="M15" value="35.194868076483814" />
-      <entry key="M30" value="38.3910077672198" />
-      <entry key="H1" value="40.17113740263379" />
-      <entry key="H2" value="43.77783264221621" />
-      <entry key="H4" value="71.98588803380552" />
-      <entry key="D1" value="315.0478303790926" />
-      <entry key="W1" value="637.7488989372808" />
+      <entry key="MS100" value="0.7578583347856335" />
+      <entry key="MS500" value="0.9809245005496683" />
+      <entry key="S2" value="1.4194629784628405" />
+      <entry key="S5" value="1.7879859711433879" />
+      <entry key="S10" value="2.216830958356793" />
+      <entry key="S30" value="3.5685468063747288" />
+      <entry key="S60" value="5.416576210329329" />
+      <entry key="M2" value="7.774581627194262" />
+      <entry key="M5" value="10.368789666020882" />
+      <entry key="M10" value="11.568850667856928" />
+      <entry key="M15" value="12.017872815379434" />
+      <entry key="M30" value="12.494278994732666" />
+      <entry key="H1" value="12.743348773936502" />
+      <entry key="H2" value="12.870710389652396" />
+      <entry key="H4" value="12.935197560134599" />
+      <entry key="D1" value="45.406454776795265" />
+      <entry key="W1" value="473.8531899277667" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -170,14 +172,6 @@
       <workItem from="1779695741143" duration="8369000" />
       <workItem from="1780831623909" duration="98941000" />
       <workItem from="1781737896564" duration="11840000" />
-    </task>
-    <task id="LOCAL-00128" summary="clean">
-      <option name="closed" value="true" />
-      <created>1782579607006</created>
-      <option name="number" value="00128" />
-      <option name="presentableId" value="LOCAL-00128" />
-      <option name="project" value="LOCAL" />
-      <updated>1782579607006</updated>
     </task>
     <task id="LOCAL-00129" summary="add gtags for checkout journey + fix sitemap genration">
       <option name="closed" value="true" />
@@ -563,14 +557,21 @@
       <option name="project" value="LOCAL" />
       <updated>1783849749260</updated>
     </task>
-    <option name="localTasksCounter" value="177" />
+    <task id="LOCAL-00177" summary="update belt + block price">
+      <option name="closed" value="true" />
+      <created>1784133037437</created>
+      <option name="number" value="00177" />
+      <option name="presentableId" value="LOCAL-00177" />
+      <option name="project" value="LOCAL" />
+      <updated>1784133037437</updated>
+    </task>
+    <option name="localTasksCounter" value="178" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix contact page" />
     <MESSAGE value="update about page" />
     <MESSAGE value="fix blog css" />
     <MESSAGE value="fix seo" />
@@ -595,7 +596,8 @@
     <MESSAGE value="change ankle weights photo" />
     <MESSAGE value="add color filter" />
     <MESSAGE value="update dumbbell prices" />
-    <option name="LAST_COMMIT_MESSAGE" value="update dumbbell prices" />
+    <MESSAGE value="update belt + block price" />
+    <option name="LAST_COMMIT_MESSAGE" value="update belt + block price" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
