@@ -85,8 +85,8 @@ body.tr-product-page .product {
 
 /* ── IMAGE PANEL ── */
 body.tr-product-page .product__visual {
-    position: sticky;
-    top: 84px;
+    /*position: sticky;*/
+    /*top: 84px;*/
     width: 100%;
     aspect-ratio: 4 / 5;
     max-height: calc(100vh - 130px);
