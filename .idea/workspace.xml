@@ -4,69 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="update belt image">
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="add new images">
+      <change afterPath="$PROJECT_DIR$/images/capsule-dumbbell-black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/capsule-dumbbell-milk-tea.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/ritual-cuff-black.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/capsule-dumbbell-black.webp" beforeDir="false" afterPath="$PROJECT_DIR$/images/capsule-dumbbell-black.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/capsule-dumbbell-cream.webp" beforeDir="false" afterPath="$PROJECT_DIR$/images/capsule-dumbbell-cream.webp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/dist/axios.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/dist/axios.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/dist/axios.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/dist/axios.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/dist/axios.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/dist/axios.min.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/dist/axios.min.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/dist/browser/axios.cjs" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/dist/browser/axios.cjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/dist/browser/axios.cjs.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/dist/esm/axios.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/dist/esm/axios.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/dist/esm/axios.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/dist/esm/axios.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/dist/esm/axios.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/dist/esm/axios.min.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/dist/esm/axios.min.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/dist/node/axios.cjs" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/dist/node/axios.cjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/dist/node/axios.cjs.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/index.d.cts" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/index.d.cts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/index.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/lib/adapters/adapters.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/lib/adapters/adapters.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/lib/adapters/fetch.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/lib/adapters/fetch.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/lib/adapters/http.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/lib/adapters/http.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/lib/adapters/xhr.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/lib/adapters/xhr.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/lib/core/Axios.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/lib/core/Axios.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/lib/core/AxiosError.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/lib/core/AxiosError.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/lib/core/AxiosHeaders.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/lib/core/AxiosHeaders.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/lib/core/buildFullPath.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/lib/core/buildFullPath.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/lib/core/mergeConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/lib/core/mergeConfig.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/lib/defaults/transitional.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/lib/defaults/transitional.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/lib/env/data.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/lib/env/data.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/lib/helpers/AxiosURLSearchParams.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/lib/helpers/AxiosURLSearchParams.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/lib/helpers/HttpStatusCode.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/lib/helpers/HttpStatusCode.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/lib/helpers/buildURL.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/lib/helpers/buildURL.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/lib/helpers/combineURLs.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/lib/helpers/combineURLs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/lib/helpers/composeSignals.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/lib/helpers/composeSignals.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/lib/helpers/cookies.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/lib/helpers/cookies.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/lib/helpers/estimateDataURLDecodedBytes.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/lib/helpers/estimateDataURLDecodedBytes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/lib/helpers/formDataToJSON.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/lib/helpers/formDataToJSON.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/lib/helpers/formDataToStream.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/lib/helpers/formDataToStream.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/lib/helpers/fromDataURI.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/lib/helpers/fromDataURI.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/lib/helpers/parseHeaders.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/lib/helpers/parseHeaders.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/lib/helpers/progressEventReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/lib/helpers/progressEventReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/lib/helpers/resolveConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/lib/helpers/resolveConfig.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/lib/helpers/shouldBypassProxy.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/lib/helpers/shouldBypassProxy.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/lib/helpers/toFormData.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/lib/helpers/toFormData.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/lib/helpers/validator.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/lib/helpers/validator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/lib/utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/lib/utils.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/axios/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/axios/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/form-data/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/form-data/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/form-data/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/form-data/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/form-data/lib/form_data.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/form-data/lib/form_data.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/form-data/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/form-data/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/hasown/.eslintrc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/hasown/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/hasown/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/hasown/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/hasown/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/capsule-dumbbell.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/capsule-dumbbell.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/products/products.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/products.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/products/the-ritual-belt.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/the-ritual-belt.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/the-ritual-block.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/the-ritual-block.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sitemap.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sitemap.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,61 +38,61 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0000010550041312" />
-      <entry key="S5" value="1.0061592471209466" />
-      <entry key="S10" value="1.1109719892759746" />
-      <entry key="S30" value="1.7657984512244949" />
-      <entry key="S60" value="2.4071805993767397" />
-      <entry key="M2" value="4.038407466022539" />
-      <entry key="M5" value="9.130417154903714" />
-      <entry key="M10" value="14.800541283534919" />
-      <entry key="M15" value="18.595410833823163" />
-      <entry key="M30" value="26.70269144384579" />
-      <entry key="H1" value="38.42651596833067" />
-      <entry key="H2" value="51.19428556905208" />
-      <entry key="H4" value="61.19125192215361" />
-      <entry key="D1" value="101.17308526505896" />
-      <entry key="W1" value="514.4619994683658" />
+      <entry key="MS100" value="1.001939663789775" />
+      <entry key="MS500" value="1.3196787504142382" />
+      <entry key="S2" value="2.3689381777302496" />
+      <entry key="S5" value="3.394836834641597" />
+      <entry key="S10" value="4.618857404391026" />
+      <entry key="S30" value="7.956586046190517" />
+      <entry key="S60" value="10.992634575735016" />
+      <entry key="M2" value="14.382883082410439" />
+      <entry key="M5" value="18.10088760244556" />
+      <entry key="M10" value="20.314165941430808" />
+      <entry key="M15" value="22.501427062385993" />
+      <entry key="M30" value="30.852130156789347" />
+      <entry key="H1" value="46.43650190158201" />
+      <entry key="H2" value="65.8049705105006" />
+      <entry key="H4" value="82.59507179160096" />
+      <entry key="D1" value="130.94205481191122" />
+      <entry key="W1" value="545.2646527668743" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
       <entry key="S2" value="0.0" />
-      <entry key="S5" value="0.0" />
-      <entry key="S10" value="0.0" />
-      <entry key="S30" value="0.0" />
-      <entry key="S60" value="0.0" />
-      <entry key="M2" value="0.0" />
-      <entry key="M5" value="0.0" />
-      <entry key="M10" value="2.953461416760173E-172" />
-      <entry key="M15" value="1.2366511387725891E-114" />
-      <entry key="M30" value="5.284148671733343E-57" />
-      <entry key="H1" value="3.478597903757284E-28" />
-      <entry key="H2" value="8.939986691318525E-14" />
-      <entry key="H4" value="1.4339901924620331E-6" />
-      <entry key="D1" value="1.473048703076641" />
-      <entry key="W1" value="16.52805564061987" />
+      <entry key="S5" value="1.0498290256384709E-191" />
+      <entry key="S10" value="3.3609899599591006E-96" />
+      <entry key="S30" value="1.9770120379419706E-32" />
+      <entry key="S60" value="1.9217261115419035E-16" />
+      <entry key="M2" value="1.9427563586652713E-8" />
+      <entry key="M5" value="0.0012445814493089165" />
+      <entry key="M10" value="0.049873022741307844" />
+      <entry key="M15" value="0.17069389959240705" />
+      <entry key="M30" value="0.5842599252187388" />
+      <entry key="H1" value="1.080969828014028" />
+      <entry key="H2" value="1.4703497941630073" />
+      <entry key="H4" value="1.7148469098449528" />
+      <entry key="D1" value="3.379800670001703" />
+      <entry key="W1" value="18.4515578312531" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.7900413118633771" />
-      <entry key="MS500" value="0.9539595505475581" />
-      <entry key="S2" value="0.9882866921062214" />
-      <entry key="S5" value="1.0014229961817729" />
-      <entry key="S10" value="1.1083113471104031" />
-      <entry key="S30" value="1.7643063818318467" />
-      <entry key="S60" value="2.4061448202529307" />
-      <entry key="M2" value="4.0375374998228715" />
-      <entry key="M5" value="9.129629417173739" />
-      <entry key="M10" value="14.799900931660877" />
-      <entry key="M15" value="18.59487088808678" />
-      <entry key="M30" value="26.702292586087797" />
-      <entry key="H1" value="38.42622489080114" />
-      <entry key="H2" value="51.194093054427476" />
-      <entry key="H4" value="61.19113945547929" />
-      <entry key="D1" value="102.64601655592884" />
-      <entry key="W1" value="530.9898842311068" />
+      <entry key="MS100" value="0.8905667367628083" />
+      <entry key="MS500" value="1.2888266673463544" />
+      <entry key="S2" value="2.353768513405656" />
+      <entry key="S5" value="3.3856095788077694" />
+      <entry key="S10" value="4.612523681956002" />
+      <entry key="S30" value="7.95322020229821" />
+      <entry key="S60" value="10.990498259499377" />
+      <entry key="M2" value="14.381584137692297" />
+      <entry key="M5" value="18.101505851772846" />
+      <entry key="M10" value="20.36353465117482" />
+      <entry key="M15" value="22.671489781230328" />
+      <entry key="M30" value="31.435539027542983" />
+      <entry key="H1" value="47.51667907893989" />
+      <entry key="H2" value="67.2747540097752" />
+      <entry key="H4" value="84.30957427075636" />
+      <entry key="D1" value="134.32169463081675" />
+      <entry key="W1" value="563.7160336035296" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -192,17 +139,17 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/images" />
+      <recent name="$PROJECT_DIR$/products" />
       <recent name="$PROJECT_DIR$/category/category-dumbbells/bloglist" />
       <recent name="$PROJECT_DIR$/category/category-womens-wellness/bloglist" />
       <recent name="$PROJECT_DIR$/category/category-weightloss/bloglist" />
-      <recent name="$PROJECT_DIR$/category/category-ritual-mindset/bloglist" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/images" />
       <recent name="$PROJECT_DIR$/blog/womens-wellness" />
       <recent name="$PROJECT_DIR$/blog/weightloss" />
       <recent name="$PROJECT_DIR$/blog/ritual-mindset" />
       <recent name="$PROJECT_DIR$/blog/homegym" />
-      <recent name="$PROJECT_DIR$/blog/dumbbells" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -234,22 +181,6 @@
       <workItem from="1779695741143" duration="8369000" />
       <workItem from="1780831623909" duration="98941000" />
       <workItem from="1781737896564" duration="11840000" />
-    </task>
-    <task id="LOCAL-00133" summary="update about page">
-      <option name="closed" value="true" />
-      <created>1782588555032</created>
-      <option name="number" value="00133" />
-      <option name="presentableId" value="LOCAL-00133" />
-      <option name="project" value="LOCAL" />
-      <updated>1782588555032</updated>
-    </task>
-    <task id="LOCAL-00134" summary="fix blog css">
-      <option name="closed" value="true" />
-      <created>1782595074856</created>
-      <option name="number" value="00134" />
-      <option name="presentableId" value="LOCAL-00134" />
-      <option name="project" value="LOCAL" />
-      <updated>1782595074856</updated>
     </task>
     <task id="LOCAL-00135" summary="fix seo">
       <option name="closed" value="true" />
@@ -627,15 +558,29 @@
       <option name="project" value="LOCAL" />
       <updated>1784141677327</updated>
     </task>
-    <option name="localTasksCounter" value="182" />
+    <task id="LOCAL-00182" summary="remove early bird pricing">
+      <option name="closed" value="true" />
+      <created>1785922865722</created>
+      <option name="number" value="00182" />
+      <option name="presentableId" value="LOCAL-00182" />
+      <option name="project" value="LOCAL" />
+      <updated>1785922865722</updated>
+    </task>
+    <task id="LOCAL-00183" summary="add new images">
+      <option name="closed" value="true" />
+      <created>1785926109463</created>
+      <option name="number" value="00183" />
+      <option name="presentableId" value="LOCAL-00183" />
+      <option name="project" value="LOCAL" />
+      <updated>1785926109463</updated>
+    </task>
+    <option name="localTasksCounter" value="184" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix blog css" />
-    <MESSAGE value="fix seo" />
     <MESSAGE value="add missing favicons" />
     <MESSAGE value="add admin" />
     <MESSAGE value="add new product pages" />
@@ -659,7 +604,9 @@
     <MESSAGE value="update dumbbell prices" />
     <MESSAGE value="update belt + block price" />
     <MESSAGE value="update belt image" />
-    <option name="LAST_COMMIT_MESSAGE" value="update belt image" />
+    <MESSAGE value="remove early bird pricing" />
+    <MESSAGE value="add new images" />
+    <option name="LAST_COMMIT_MESSAGE" value="add new images" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
