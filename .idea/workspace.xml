@@ -4,18 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="add new images">
-      <change afterPath="$PROJECT_DIR$/images/pilates-ball-black.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/pilates-ball-coffee.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/pilates-ball-cream.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/pilates-ball-pink.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/the-ritual-ball.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/products/the-ritual-ball.html" afterDir="false" />
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="add pilates ball product">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/netlify/functions/shared/product-map.js" beforeDir="false" afterPath="$PROJECT_DIR$/netlify/functions/shared/product-map.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/products/capsule-dumbbell.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/capsule-dumbbell.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/products/products.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/products.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/products/the-ritual-ball.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/the-ritual-ball.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/products/the-ritual-belt.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/the-ritual-belt.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sitemap.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sitemap.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/products/the-ritual-block.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/the-ritual-block.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/products/the-ritual-cuffs.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/the-ritual-cuffs.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/products/the-ritual-mat.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/the-ritual-mat.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,61 +37,61 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.000000000031848" />
-      <entry key="MS500" value="1.0079579000964374" />
-      <entry key="S2" value="1.3637102988881498" />
-      <entry key="S5" value="2.375672700359025" />
-      <entry key="S10" value="3.78408394736646" />
-      <entry key="S30" value="6.0746475846502985" />
-      <entry key="S60" value="7.528410569526921" />
-      <entry key="M2" value="10.230633830106697" />
-      <entry key="M5" value="17.517845268384182" />
-      <entry key="M10" value="24.984987149853985" />
-      <entry key="M15" value="30.164713226362174" />
-      <entry key="M30" value="42.290802605100154" />
-      <entry key="H1" value="61.44080993694932" />
-      <entry key="H2" value="86.13637115851982" />
-      <entry key="H4" value="108.9901949013071" />
-      <entry key="D1" value="165.7835249341614" />
-      <entry key="W1" value="581.4292930477994" />
+      <entry key="MS100" value="1.757912351192192" />
+      <entry key="MS500" value="2.178744946662695" />
+      <entry key="S2" value="3.296689002582529" />
+      <entry key="S5" value="5.148214886596127" />
+      <entry key="S10" value="7.960262881717979" />
+      <entry key="S30" value="14.299587777310734" />
+      <entry key="S60" value="20.126215722279046" />
+      <entry key="M2" value="28.3438173162057" />
+      <entry key="M5" value="50.54461951695764" />
+      <entry key="M10" value="76.93753003221427" />
+      <entry key="M15" value="93.4855122974441" />
+      <entry key="M30" value="121.48647592218994" />
+      <entry key="H1" value="151.2218992442163" />
+      <entry key="H2" value="182.9917512913332" />
+      <entry key="H4" value="210.77284172156598" />
+      <entry key="D1" value="273.12815919616236" />
+      <entry key="W1" value="689.7391637234126" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
       <entry key="S2" value="0.0" />
       <entry key="S5" value="0.0" />
-      <entry key="S10" value="8.128327792405232E-184" />
-      <entry key="S30" value="1.2317445378027997E-61" />
-      <entry key="S60" value="4.796750802105968E-31" />
-      <entry key="M2" value="9.70613152280941E-16" />
-      <entry key="M5" value="1.4944261438350473E-6" />
-      <entry key="M10" value="0.0017281890840516998" />
-      <entry key="M15" value="0.01814269130751226" />
-      <entry key="M30" value="0.19047937364444642" />
-      <entry key="H1" value="0.6172121971630229" />
-      <entry key="H2" value="1.1110436689324141" />
-      <entry key="H4" value="1.4906668278544486" />
-      <entry key="D1" value="3.3017964255344308" />
-      <entry key="W1" value="18.390111135244457" />
+      <entry key="S10" value="1.870397932073736E-212" />
+      <entry key="S30" value="3.5034687379538436E-71" />
+      <entry key="S60" value="8.089765962017256E-36" />
+      <entry key="M2" value="3.986030085310419E-18" />
+      <entry key="M5" value="1.6590986760143953E-7" />
+      <entry key="M10" value="5.758244980657193E-4" />
+      <entry key="M15" value="0.008719688380416778" />
+      <entry key="M30" value="0.132052789884105" />
+      <entry key="H1" value="0.5139067395613441" />
+      <entry key="H2" value="1.013808750988348" />
+      <entry key="H4" value="1.423944427836172" />
+      <entry key="D1" value="3.2766926119356587" />
+      <entry key="W1" value="18.37007125007027" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.8705505632963982" />
-      <entry key="MS500" value="0.9757314834474489" />
-      <entry key="S2" value="1.2920132708184264" />
-      <entry key="S5" value="2.300145696430195" />
-      <entry key="S10" value="3.716672213171037" />
-      <entry key="S30" value="6.035077683547602" />
-      <entry key="S60" value="7.504940513624583" />
-      <entry key="M2" value="10.217681894810294" />
-      <entry key="M5" value="17.512138582138974" />
-      <entry key="M10" value="24.98367383647625" />
-      <entry key="M15" value="30.18072127618383" />
-      <entry key="M30" value="42.479940061494354" />
-      <entry key="H1" value="62.05702853248313" />
-      <entry key="H2" value="87.24671405410659" />
-      <entry key="H4" value="110.4804252838936" />
-      <entry key="D1" value="169.08514129405233" />
-      <entry key="W1" value="599.8192245004462" />
+      <entry key="MS100" value="0.9892686380471665" />
+      <entry key="MS500" value="1.8946169133319026" />
+      <entry key="S2" value="3.2037683102379577" />
+      <entry key="S5" value="5.1010420812971144" />
+      <entry key="S10" value="7.929388341644318" />
+      <entry key="S30" value="14.283430786524425" />
+      <entry key="S60" value="20.115181651918583" />
+      <entry key="M2" value="28.33578448173593" />
+      <entry key="M5" value="50.536656756587504" />
+      <entry key="M10" value="76.93067108824121" />
+      <entry key="M15" value="93.48785813125767" />
+      <entry key="M30" value="121.6142040485185" />
+      <entry key="H1" value="151.73305587648974" />
+      <entry key="H2" value="184.003895951373" />
+      <entry key="H4" value="212.19584016782846" />
+      <entry key="D1" value="276.40458252301124" />
+      <entry key="W1" value="708.1090424853345" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -183,14 +180,6 @@
       <workItem from="1779695741143" duration="8369000" />
       <workItem from="1780831623909" duration="98941000" />
       <workItem from="1781737896564" duration="11840000" />
-    </task>
-    <task id="LOCAL-00139" summary="add admin">
-      <option name="closed" value="true" />
-      <created>1783118541791</created>
-      <option name="number" value="00139" />
-      <option name="presentableId" value="LOCAL-00139" />
-      <option name="project" value="LOCAL" />
-      <updated>1783118541791</updated>
     </task>
     <task id="LOCAL-00140" summary="add new product pages">
       <option name="closed" value="true" />
@@ -576,14 +565,21 @@
       <option name="project" value="LOCAL" />
       <updated>1785928983147</updated>
     </task>
-    <option name="localTasksCounter" value="188" />
+    <task id="LOCAL-00188" summary="add pilates ball product">
+      <option name="closed" value="true" />
+      <created>1785929146897</created>
+      <option name="number" value="00188" />
+      <option name="presentableId" value="LOCAL-00188" />
+      <option name="project" value="LOCAL" />
+      <updated>1785929146897</updated>
+    </task>
+    <option name="localTasksCounter" value="189" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add missing favicons" />
     <MESSAGE value="add admin" />
     <MESSAGE value="add new product pages" />
     <MESSAGE value="correct colors" />
@@ -608,7 +604,8 @@
     <MESSAGE value="update belt image" />
     <MESSAGE value="remove early bird pricing" />
     <MESSAGE value="add new images" />
-    <option name="LAST_COMMIT_MESSAGE" value="add new images" />
+    <MESSAGE value="add pilates ball product" />
+    <option name="LAST_COMMIT_MESSAGE" value="add pilates ball product" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
