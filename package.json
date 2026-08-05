@@ -21,11 +21,11 @@
   },
   "homepage": "https://github.com/gitika-yadav/theritualco.in#readme",
   "dependencies": {
+    "@supabase/supabase-js": "^2.112.0",
     "googleapis": "^149.0.0",
     "jsdom": "^26.1.0",
     "node-fetch": "^2.7.0",
-    "razorpay": "^2.9.6",
-    "@supabase/supabase-js": "^2.45.0"
+    "razorpay": "^2.9.6"
   },
   "devDependencies": {
     "prettier": "^3.8.3"
