@@ -394,7 +394,7 @@ main{
 
 @media (max-width: 720px) {
   .kits-section { padding: 60px 6%; }
-  .kits-grid { grid-template-columns: 1fr; }
+  .kits-grid { grid-template-columns: repeat(2, 1fr); }
   .kits-title { font-size: 30px; }
 }
 
