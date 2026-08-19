@@ -1,22 +1,37 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 <nav class="navbar">
     <div class="nav-left">
-        <div class="nav-toggle" id="hamburger">
-            <i class="fas fa-bars"></i>
+        <div class="nav-toggle" id="hamburger" aria-label="Menu" aria-expanded="false">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
         </div>
         <a href="/" class="nav-logo">The Ritual Co</a>
     </div>
 
     <ul class="nav-links" id="nav-links">
-        <li><a href="/about">About</a></li>
-        <li><a href="/products/products">Products</a></li>
+        <li class="nav-item-expandable">
+            <a href="/products/products" class="nav-link-expand" id="products-trigger">
+                Products
+                <span class="nav-expand-icon">+</span>
+            </a>
+            <ul class="nav-submenu" id="products-submenu">
+                <li><a href="/products/capsule-dumbbell.html">Capsule Dumbbells</a></li>
+                <li><a href="/products/the-ritual-belt.html">The Ritual Belt</a></li>
+                <li><a href="/products/the-ritual-block.html">The Ritual Block</a></li>
+                <li><a href="/products/the-ritual-mat.html">The Ritual Mat</a></li>
+                <li><a href="/products/the-ritual-cuffs.html">The Ritual Cuffs</a></li>
+                <li><a href="/products/the-ritual-ball.html">The Ritual Ball</a></li>
+                <li><a href="/products/bundles.html">Kits</a></li>
+            </ul>
+        </li>
         <li><a href="/faq">FAQ</a></li>
         <li><a href="/blog">Blog</a></li>
+        <li><a href="/about">About</a></li>
         <li><a href="/contact">Contact Us</a></li>
     </ul>
 
     <div class="nav-icons">
-        <!-- Account -->
         <a href="/account/orders.html" class="nav-icon" id="nav-account" title="My Account" style="display:none">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
@@ -29,8 +44,6 @@
                 <circle cx="12" cy="7" r="4"/>
             </svg>
         </a>
-
-        <!-- Cart -->
         <button class="nav-icon nav-cart-btn" id="nav-cart-btn" title="Cart">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>

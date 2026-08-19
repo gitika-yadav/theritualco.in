@@ -26,64 +26,33 @@ main{
 /* HERO */
 
 .hero{
-
   min-height:100vh;
-
   padding:120px 8%;
-
   display:flex;
-
   align-items:center;
-
   justify-content:space-between;
-
   gap:80px;
-
-  background:
-
-          linear-gradient(
-                  180deg,
-                  #F8F4EE 0%,
-                  #F5EFE8 100%
-          );
-
+  background: linear-gradient(180deg, #F8F4EE 0%, #F5EFE8 100%);
   position:relative;
 
 }
 
 .hero:before{
-
   content:"";
-
   position:absolute;
-
   inset:0;
-
   opacity:.025;
-
-  background-image:
-
-          radial-gradient(
+  background-image: radial-gradient(
                   #000 1px,
-                  transparent 1px
-          );
-
-  background-size:
-
-          24px 24px;
-
+                  transparent 1px);
+  background-size: 24px 24px;
   pointer-events:none;
-
 }
 
 .hero-left{
-
   flex:1;
-
   max-width:540px;
-
   z-index:2;
-
 }
 
 .hero-right{
@@ -94,52 +63,18 @@ main{
 }
 
 .hero-right img{
-
   width:100%;
-
   max-width:620px;
-
   border-radius:32px;
-
-  box-shadow:
-
-          0 40px 90px
-          rgba(
-                  0,
-                  0,
-                  0,
-                  0.10
-          );
-
-  animation:
-
-          float 7s ease-in-out infinite;
-
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.10);
+  animation: float 7s ease-in-out infinite;
 }
 
 @keyframes float{
-
-  0%{
-
-    transform:
-            translateY(0);
-
+  0%{transform: translateY(0);}
+  50%{transform: translateY(-10px);}
+  100%{transform: translateY(0);
   }
-
-  50%{
-
-    transform:
-            translateY(-10px);
-
-  }
-
-  100%{
-
-    transform:
-            translateY(0);
-
-  }
-
 }
 
 
@@ -193,53 +128,28 @@ main{
 }
 
 .hero-button{
-
   display:inline-flex;
-
   margin-top:42px;
-
-  padding:
-
-          18px 34px;
-
+  padding: 18px 34px;
   background:#171717;
-
   color:white;
-
   text-decoration:none;
-
   border-radius:999px;
-
   transition:.35s;
-
   font-size:14px;
-
   letter-spacing:.08em;
-
 }
 
 .hero-button:hover{
-
-  transform:
-
-          translateY(-3px);
-
+  transform: translateY(-3px);
   box-shadow:
-
           0 18px 45px
-          rgba(
-                  0,
-                  0,
-                  0,
-                  0.15
-          );
-
+          rgba(0, 0, 0, 0.15);
 }
 
 /* PROOF */
 
 .proof-strip{
-
   display:flex;
   justify-content:center;
   gap:60px;
@@ -399,108 +309,58 @@ main{
   .kits-title { font-size: 30px; }
 }
 
-
-
 /* PHILOSOPHY */
 
 .philosophy{
-
-  padding:
-
-          160px 8%;
-
+  padding: 160px 8%;
   display:flex;
-
   gap:100px;
-
   align-items:center;
-
 }
 
 .philosophy h2{
 
-  font-family:
-
-          'Cormorant Garamond',
-          serif;
-
+  font-family: 'Cormorant Garamond', serif;
   font-size:64px;
-
   line-height:1;
-
   margin-bottom:30px;
-
   font-weight:500;
-
 }
 
 .philosophy p{
-
   font-size:18px;
-
   line-height:1.9;
-
   color:#666;
-
 }
 
 .philosophy-image img{
-
   width:100%;
-
   border-radius:28px;
-
   box-shadow:
-
           0 30px 70px
-          rgba(
-                  0,
-                  0,
-                  0,
-                  0.08
-          );
-
+          rgba(0, 0, 0, 0.08);
 }
 
 /* PRODUCT */
 
 .signature-product{
-
-  padding:
-
-          160px 8%;
-
+  padding: 160px 8%;
   display:flex;
-
   gap:100px;
-
   align-items:center;
-
   background:#FCFAF8;
-
 }
 
 .signature-product img{
-
   width:100%;
-
   border-radius:32px;
-
 }
 
 .signature-product h2{
-
-  font-family:
-
-          'Cormorant Garamond',
-          serif;
-
+  font-family: 'Cormorant Garamond', serif;
   font-size:70px;
-
   margin-bottom:24px;
-
   font-weight:500;
-
 }
 
 .price-old {
@@ -526,86 +386,45 @@ main{
 
 /* MATERIALS */
 .craftsmanship{
-
   background:#171717;
-
   padding:120px 8%;
-
   display:grid;
-
-  grid-template-columns:
-repeat(4,1fr);
-
+  grid-template-columns: repeat(4,1fr);
   gap:24px;
-
 }
 
 .craftsmanship div{
 
-  background:
-          rgba(
-                  255,
-                  255,
-                  255,
-                  0.04
-          );
-
+  background: rgba(255, 255, 255, 0.04);
   padding:42px;
-
   border-radius:26px;
-
   transition:.35s;
-
   color:#FFFFFF;
-
   border:
           1px solid
-          rgba(
-                  255,
-                  255,
-                  255,
-                  0.08
-          );
-
+          rgba(255, 255, 255, 0.08);
 }
 
 .craftsmanship h3{
-
   color:#FFFFFF;
-
   font-size:20px;
-
   font-weight:500;
-
   margin-bottom:18px;
-
   font-family:
           'Cormorant Garamond',
           serif;
-
 }
 
 .craftsmanship p{
 
-  color:
-          rgba(
-                  255,
-                  255,
-                  255,
-                  0.72
-          );
-
+  color: rgba(255, 255, 255, 0.72);
   line-height:1.7;
-
   font-size:15px;
-
 }
 
 .craftsmanship div:hover{
 
-  transform:
-          translateY(-6px);
-
+  transform: translateY(-6px);
   background:
           rgba(
                   255,
@@ -677,17 +496,11 @@ repeat(4,1fr);
 .waitlist form{
 
   display:flex;
-
   flex-direction:column;
-
   gap:18px;
-
   max-width:520px;
-
   margin:auto;
-
   margin-top:44px;
-
 }
 
 .waitlist input{
@@ -714,9 +527,7 @@ repeat(4,1fr);
   .philosophy,
   .signature-product,
   .founder {
-
     flex-direction: column;
-
   }
 
   .hero {

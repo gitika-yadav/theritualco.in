@@ -1,10 +1,23 @@
-// javascript/navbar.js
-
 // ── Hamburger ─────────────────────────────────
 const hamburger = document.getElementById("hamburger");
 const navLinks  = document.getElementById("nav-links");
 if (hamburger && navLinks) {
-    hamburger.addEventListener("click", () => navLinks.classList.toggle("active"));
+    hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("active");
+        navLinks.classList.toggle("active");
+    });
+}
+
+// Products: expand submenu on mobile instead of navigating away
+const productsTrigger = document.getElementById("products-trigger");
+const productsItem = productsTrigger ? productsTrigger.closest(".nav-item-expandable") : null;
+if (productsTrigger && productsItem) {
+    productsTrigger.addEventListener("click", (e) => {
+        if (window.innerWidth <= 900) {
+            e.preventDefault();
+            productsItem.classList.toggle("open");
+        }
+    });
 }
 
 // ── Load script helper ────────────────────────

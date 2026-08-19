@@ -49,7 +49,6 @@
   letter-spacing:.12em;
   color:#171717;
 }
-
 .nav-toggle{
   display:none;
   width:48px;
@@ -60,13 +59,29 @@
   position:relative;
   align-items:center;
   justify-content:center;
-  font-size:24px;
+  flex-direction:column;
+  gap:5px;
   z-index:100000;
   flex-shrink:0;
+  background:none;
+  border:none;
 }
-
-.nav-toggle i{
-  pointer-events:none;
+.hamburger-line{
+  display:block;
+  width:22px;
+  height:2px;
+  background:#171717;
+  border-radius:2px;
+  transition:transform .3s ease, opacity .3s ease;
+}
+.nav-toggle.active .hamburger-line:nth-child(1){
+  transform:translateY(7px) rotate(45deg);
+}
+.nav-toggle.active .hamburger-line:nth-child(2){
+  opacity:0;
+}
+.nav-toggle.active .hamburger-line:nth-child(3){
+  transform:translateY(-7px) rotate(-45deg);
 }
 
 @media(max-width:900px){
@@ -75,24 +90,31 @@
     position:fixed;
     top:88px;
     left:0;
-    width:100vw;
+    width:82%;
+    max-width:340px;
     height:calc(100vh - 88px);
     background:#F7F2EC;
     display:flex;
     flex-direction:column;
     align-items:flex-start;
-    padding:48px 40px;
-    gap:42px;
+    padding:32px 28px;
+    gap:8px;
     z-index:999999;
     transform:translateX(-100%);
     transition:transform .3s ease;
     overflow-y:auto;
     margin:0;
-
+    box-shadow:4px 0 24px rgba(0,0,0,.08);
   }
 
   #nav-links.active{
     transform:translateX(0)!important;
+  }
+
+  .nav-links > li{
+    width:100%;
+    padding:12px 0;
+    border-bottom:1px solid rgba(0,0,0,.06);
   }
 
   .nav-links a{
@@ -104,4 +126,62 @@
     display: flex;
   }
 
+  /* Expandable Products item */
+  .nav-item-expandable{
+    display:flex;
+    flex-direction:column;
+  }
+  .nav-link-expand{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    width:100%;
+  }
+  .nav-expand-icon{
+    font-size:18px;
+    font-weight:300;
+    transition:transform .25s ease;
+    line-height:1;
+  }
+  .nav-item-expandable.open .nav-expand-icon{
+    transform:rotate(45deg);
+  }
+   .nav-submenu{
+    list-style:none;
+    margin:0;
+    padding:0;
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .3s ease;
+    width:100%;
+  }
+  .nav-item-expandable.open .nav-submenu{
+    max-height:400px;
+    padding-top:10px;
+  }
+  .nav-submenu li{
+    padding:9px 0 9px 14px;
+    border-bottom:none;
+  }
+  .nav-submenu a{
+    font-size:13px;
+    letter-spacing:.08em;
+    text-transform:none;
+    color:#4a4540;
+  }
+
+  #navbar-placeholder .nav-links > li{
+    padding:12px 0;
+  }
+
+  #navbar-placeholder .nav-links {
+    padding:32px 28px;
+  }
+}
+
+/* Desktop: submenu never shows, plain link behaviour */
+@media(min-width:901px){
+  .nav-submenu, .nav-expand-icon{
+    display:none;
+  }
 }
