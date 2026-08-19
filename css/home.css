@@ -913,4 +913,8 @@ repeat(4,1fr);
   .founder {
     gap: 40px;
   }
+
+  .founder h2 {
+    font-size: 32px;
+  }
 }
