@@ -787,9 +787,9 @@ repeat(4,1fr);
 
 .collection-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 24px;
-  max-width: 900px;
+  max-width: 1280px;
   margin: 0 auto;
 }
 
@@ -856,9 +856,23 @@ repeat(4,1fr);
   letter-spacing: 0.05em;
 }
 
+@media (max-width: 1024px) {
+  .collection-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 @media (max-width: 600px) {
   .collection-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .collection-name {
+    font-size: 0.95rem;
+  }
+  .collection-cta {
+    padding: 8px 18px;
+    font-size: 0.78rem;
   }
 }
 
