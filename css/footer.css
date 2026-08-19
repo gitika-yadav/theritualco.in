@@ -153,16 +153,33 @@ MOBILE
     padding: 50px 20px 25px;
   }
   .footer-links {
-    flex-direction: column;
-    gap: 35px;
-    text-align: center;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 12px;
+    text-align: left;
   }
   .footer-column {
-    align-items: center;
+    align-items: flex-start;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .footer-column h4 {
+    font-size: 13px;
+    margin-bottom: 10px;
   }
   .footer-brand h3 {
     font-size: 1.3rem;
   }
+
+  .footer-column a {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+  .footer-brand h3 {
+    font-size: 1.3rem;
+  }
+
   .whatsapp-float {
     width: 50px;
     height: 50px;
