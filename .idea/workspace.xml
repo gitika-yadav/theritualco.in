@@ -5,8 +5,44 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="fix cart drawer buttons">
+      <change afterPath="$PROJECT_DIR$/images/yoga-belt-black.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/yoga-belt-coffee.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/cart.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/cart.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/ankleweights-kony-1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/ankleweights-kony-2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/ankleweights-kony-3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/banner.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/black.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/capsule-dumbbell-black.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/capsule-dumbbell-grey.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/capsule-dumbbell-milk-tea.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/capsule-dumbbell-peach.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/cream.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/favicon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/flat-dumbbell.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/founder.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/img.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/img_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/img_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/pilates-ball-black.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/pilates-ball-coffee.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/pilates-ball-cream.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/pilates-ball-pink.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/pink.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/ritual-cuff-black.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/the-ritual-ball.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/yoga-belt-cream-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/yoga-belt-cream-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/yoga-belt-cream-3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/yoga-belt-cream-4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/yoga-belt.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/yoga-belt.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/yoga-mat-black.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/yoga-mat-coffee.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/yoga-mat-cream.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/yoga-mat-pink.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/products/products.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/products.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,61 +67,61 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0000000000000013" />
-      <entry key="MS500" value="1.001174499617417" />
-      <entry key="S2" value="1.2919732882756227" />
-      <entry key="S5" value="2.3072886310080643" />
-      <entry key="S10" value="3.9154838562031262" />
-      <entry key="S30" value="6.933535950393516" />
-      <entry key="S60" value="8.276109586200791" />
-      <entry key="M2" value="9.271487146732996" />
-      <entry key="M5" value="11.162584990674537" />
-      <entry key="M10" value="13.817316220908085" />
-      <entry key="M15" value="17.453346018271763" />
-      <entry key="M30" value="31.4258054132403" />
-      <entry key="H1" value="53.423016311032654" />
-      <entry key="H2" value="74.64392493541416" />
-      <entry key="H4" value="89.72325856898861" />
-      <entry key="D1" value="105.46324840306016" />
-      <entry key="W1" value="283.51662283065843" />
+      <entry key="MS100" value="1.000008524226605" />
+      <entry key="MS500" value="1.1015281624510531" />
+      <entry key="S2" value="1.819308306122554" />
+      <entry key="S5" value="2.393864126395072" />
+      <entry key="S10" value="2.8818611833673082" />
+      <entry key="S30" value="4.185830330539343" />
+      <entry key="S60" value="5.293259212454479" />
+      <entry key="M2" value="6.763638487716707" />
+      <entry key="M5" value="10.19343483440155" />
+      <entry key="M10" value="15.025189965934041" />
+      <entry key="M15" value="19.460644770193586" />
+      <entry key="M30" value="33.667366157549345" />
+      <entry key="H1" value="56.746659166282925" />
+      <entry key="H2" value="80.41677216664239" />
+      <entry key="H4" value="97.92467169706944" />
+      <entry key="D1" value="116.70928863259806" />
+      <entry key="W1" value="295.23050616911837" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
-      <entry key="S2" value="0.0" />
-      <entry key="S5" value="0.0" />
-      <entry key="S10" value="0.0" />
-      <entry key="S30" value="0.0" />
-      <entry key="S60" value="0.0" />
-      <entry key="M2" value="0.0" />
-      <entry key="M5" value="0.0" />
-      <entry key="M10" value="0.0" />
-      <entry key="M15" value="0.0" />
-      <entry key="M30" value="2.129677457564176E-203" />
-      <entry key="H1" value="6.526306104149663E-102" />
-      <entry key="H2" value="3.6128306019108243E-51" />
-      <entry key="H4" value="8.500389419971955E-26" />
-      <entry key="D1" value="2.0484561207837317E-4" />
-      <entry key="W1" value="4.6082721716804285" />
+      <entry key="S2" value="5.439150682718937E-99" />
+      <entry key="S5" value="4.945525393582887E-40" />
+      <entry key="S10" value="2.2238537257614054E-20" />
+      <entry key="S30" value="2.8121300810514714E-7" />
+      <entry key="S60" value="5.302952084501112E-4" />
+      <entry key="M2" value="0.023028139491719942" />
+      <entry key="M5" value="0.2212603222640592" />
+      <entry key="M10" value="0.47038316537059344" />
+      <entry key="M15" value="0.6048316561549666" />
+      <entry key="M30" value="0.77770923625412" />
+      <entry key="H1" value="0.8818782434407368" />
+      <entry key="H2" value="0.9390837254690005" />
+      <entry key="H4" value="0.9690633237663054" />
+      <entry key="D1" value="0.9949795545061532" />
+      <entry key="W1" value="5.602915057997539" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9460576467255971" />
-      <entry key="MS500" value="0.9900310147723433" />
-      <entry key="S2" value="1.2430125741846825" />
-      <entry key="S5" value="2.1986313403094466" />
-      <entry key="S10" value="3.789942332625375" />
-      <entry key="S30" value="6.84514545419913" />
-      <entry key="S60" value="8.221227140862053" />
-      <entry key="M2" value="9.240763668660954" />
-      <entry key="M5" value="11.149405474246349" />
-      <entry key="M10" value="13.810535557906313" />
-      <entry key="M15" value="17.44868387224842" />
-      <entry key="M30" value="31.42302836701629" />
-      <entry key="H1" value="53.42112592199688" />
-      <entry key="H2" value="74.64269388830256" />
-      <entry key="H4" value="89.72253339000137" />
-      <entry key="D1" value="105.46331244034086" />
-      <entry key="W1" value="288.1248260348997" />
+      <entry key="MS100" value="0.9794286463874851" />
+      <entry key="MS500" value="1.0969565486034734" />
+      <entry key="S2" value="1.8174177174527621" />
+      <entry key="S5" value="2.3928695799630515" />
+      <entry key="S10" value="2.8812672486528395" />
+      <entry key="S30" value="4.185213077724935" />
+      <entry key="S60" value="5.291793877057355" />
+      <entry key="M2" value="6.782504632185188" />
+      <entry key="M5" value="10.406775779537316" />
+      <entry key="M10" value="15.487568191971118" />
+      <entry key="M15" value="20.058557838483207" />
+      <entry key="M30" value="34.44028286856044" />
+      <entry key="H1" value="57.625374428223594" />
+      <entry key="H2" value="81.35389754366895" />
+      <entry key="H4" value="98.89261490954539" />
+      <entry key="D1" value="117.70405592269589" />
+      <entry key="W1" value="300.83334193941596" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -174,14 +210,6 @@
       <workItem from="1779695741143" duration="8369000" />
       <workItem from="1780831623909" duration="98941000" />
       <workItem from="1781737896564" duration="11840000" />
-    </task>
-    <task id="LOCAL-00147" summary="bug fix">
-      <option name="closed" value="true" />
-      <created>1783684602260</created>
-      <option name="number" value="00147" />
-      <option name="presentableId" value="LOCAL-00147" />
-      <option name="project" value="LOCAL" />
-      <updated>1783684602260</updated>
     </task>
     <task id="LOCAL-00148" summary="fix yoga mat mm and price">
       <option name="closed" value="true" />
@@ -567,7 +595,15 @@
       <option name="project" value="LOCAL" />
       <updated>1787136069405</updated>
     </task>
-    <option name="localTasksCounter" value="196" />
+    <task id="LOCAL-00196" summary="fix cart drawer buttons">
+      <option name="closed" value="true" />
+      <created>1787136945575</created>
+      <option name="number" value="00196" />
+      <option name="presentableId" value="LOCAL-00196" />
+      <option name="project" value="LOCAL" />
+      <updated>1787136945575</updated>
+    </task>
+    <option name="localTasksCounter" value="197" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
