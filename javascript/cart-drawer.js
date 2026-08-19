@@ -27,7 +27,7 @@
             : `<div class="cd-item-img cd-item-placeholder"></div>`}
         <div class="cd-item-info">
           <p class="cd-item-name">${item.name}</p>
-          <p class="cd-item-meta">${item.weight} · ${item.color}</p>
+          <p class="cd-item-meta">${[item.weight, item.color].filter(Boolean).join(" · ")}</p>
           <p class="cd-item-price">₹${(item.price).toLocaleString("en-IN")}</p>
         </div>
         <div class="cd-item-qty">

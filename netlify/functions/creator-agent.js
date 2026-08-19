@@ -284,7 +284,7 @@ async function morningBriefing() {
         pendingApprovals.map(a => "- " + a.title).join("\n") || "None",
         "",
         "BRAND BRIEF FOR DRAFTING:",
-        "Product: Silicone Capsule Dumbbells (1kg ₹1,499 / 2kg ₹1,999 early bird)",
+        "Product: Silicone Capsule Dumbbells (1kg ₹2,499 / 2kg ₹2,999 early bird)",
         "Content needed: Dedicated reel, tag @theritualco.in, unique discount code in caption",
         "Deadline: 14 days from receiving product",
         "Tone: Aesthetic, aspirational. Think morning routines, soft lighting, lifestyle.",

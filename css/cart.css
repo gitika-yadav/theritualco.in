@@ -74,6 +74,7 @@
     width: 400px;
     max-width: 100vw;
     height: 100vh;
+    height: 100dvh; /* dvh accounts for mobile browser chrome; vh is the fallback for older browsers */
     background: #faf8f6;
     z-index: 999;
     display: flex;
@@ -124,6 +125,7 @@
 /* ── Drawer items ──────────────────────────── */
 #cd-items {
     flex: 1;
+    min-height: 0;
     overflow-y: auto;
     padding: 16px 24px;
 }
@@ -607,10 +609,5 @@
 
     #cd-footer {
         padding-bottom: calc(20px + env(safe-area-inset-bottom));
-    }
-
-    #cd-items {
-        max-height: calc(100vh - 200px);
-        overflow-y: auto;
     }
 }

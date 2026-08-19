@@ -107,7 +107,7 @@
             : `<div class="cart-item-img"></div>`}
         <div class="cart-item-info">
           <p class="cart-item-name">${item.name}</p>
-          <p class="cart-item-meta">${item.weight} · ${item.color}</p>
+          <p class="cart-item-meta">${[item.weight, item.color].filter(Boolean).join(" · ")}</p>
           <p class="cart-item-price">₹${(item.price * item.qty).toLocaleString("en-IN")}</p>
         </div>
         <div class="cart-item-qty">

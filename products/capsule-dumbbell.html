@@ -451,7 +451,11 @@
             }]
         });
 
-        window.location = '/cart.html';
+        if (window.CartDrawer) {
+            CartDrawer.open();
+        } else {
+            window.location = '/cart.html';
+        }
     });
 </script>
 

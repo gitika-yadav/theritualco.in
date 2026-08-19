@@ -35,11 +35,11 @@ document.addEventListener(
 
                     ?
 
-                    "1999"
+                    "2999"
 
                     :
 
-                    "1499";
+                    "2499";
 
         }
 

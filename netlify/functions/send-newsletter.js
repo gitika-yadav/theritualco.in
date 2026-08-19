@@ -62,16 +62,16 @@ function buildLaunchEmail(firstName) {
         <tr>
           <td style="padding:6px 0;color:#888;">1 kg set</td>
           <td style="text-align:right;">
-            <span style="text-decoration:line-through;color:#c0b8b0;margin-right:8px;">₹1,999</span>
-            <strong style="color:#1a1714;">₹1,499</strong>
+            <span style="text-decoration:line-through;color:#c0b8b0;margin-right:8px;">₹2,499</span>
+            <strong style="color:#1a1714;">₹2,499</strong>
             <span style="font-size:11px;color:#a09890;margin-left:6px;">early bird</span>
           </td>
         </tr>
         <tr>
           <td style="padding:6px 0;color:#888;">2 kg set</td>
           <td style="text-align:right;">
-            <span style="text-decoration:line-through;color:#c0b8b0;margin-right:8px;">₹2,499</span>
-            <strong style="color:#1a1714;">₹1,999</strong>
+            <span style="text-decoration:line-through;color:#c0b8b0;margin-right:8px;">₹2,999</span>
+            <strong style="color:#1a1714;">₹2,999</strong>
             <span style="font-size:11px;color:#a09890;margin-left:6px;">early bird</span>
           </td>
         </tr>

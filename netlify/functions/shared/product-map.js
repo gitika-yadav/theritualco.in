@@ -14,6 +14,7 @@ const PRODUCT_MAP = {
     "yoga-mat-5mm":      { id: "yoga-mat-5mm",      name: "The Ritual Mat",   weight: "5mm" },
     "ankle-weights-2lb": { id: "ankle-weights-2lb", name: "The Ritual Cuffs", weight: "2lb" },
     "pilates-ball":      { id: "pilates-ball",      name: "The Ritual Ball", weight: null },
+    "pilates-ring":      { id: "pilates-ring",      name: "The Ritual Ring", weight:null },
 };
 
 function resolveProductKey(item) {
