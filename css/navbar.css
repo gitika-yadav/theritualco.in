@@ -170,8 +170,20 @@
     color:#4a4540;
   }
 
-  #navbar-placeholder .nav-links > li{
-    padding:12px 0;
+  #navbar-placeholder .nav-links > li {
+    padding: 0; /* move padding from the li onto the link itself, so the whole row is clickable */
+  }
+
+  #navbar-placeholder .nav-links > li > a,
+  #navbar-placeholder .nav-link-expand {
+    display: block;
+    width: 100%;
+    padding: 12px 0;
+  }
+  #navbar-placeholder .nav-submenu li > a {
+    display: block;
+    width: 100%;
+    padding: 9px 0 9px 14px;
   }
 
   #navbar-placeholder .nav-links {
