@@ -285,45 +285,55 @@
     color: #3a3330;
 }
 
-.cd-btn-primary {
+#cart-drawer .cd-btn-secondary {
     display: block;
     width: 100%;
-    padding: 13px;
+    padding: 15px;
+    min-height: 48px;
+    background: transparent;
+    color: #3a3330;
+    border: 1.5px solid #3a3330;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    margin-bottom: 12px;
+    transition: background 0.2s, color 0.2s;
+    box-sizing: border-box;
+}
+
+#cart-drawer .cd-btn-secondary:hover {
+    background: #3a3330;
+    color: #fff;
+}
+
+#cart-drawer .cd-btn-primary {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    min-height: 48px;
     background: #3a3330;
     color: #fff;
     border-radius: 8px;
     font-family: 'DM Sans', sans-serif;
-    font-size: 12px;
+    font-size: 13px;
+    font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     text-align: center;
     text-decoration: none;
-    margin-bottom: 10px;
+    margin-top: 4px;
     transition: background 0.2s;
     box-sizing: border-box;
 }
 
-.cd-btn-primary:hover { background: #5a4f48; }
-
-.cd-btn-secondary {
-    display: block;
-    width: 100%;
-    padding: 12px;
-    background: transparent;
-    color: #7a6f68;
-    border: 1px solid #e8e2dc;
-    border-radius: 8px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-align: center;
-    text-decoration: none;
-    transition: border-color 0.2s;
-    box-sizing: border-box;
+#cart-drawer .cd-btn-primary:hover {
+    background: #1a1714;
 }
-
-.cd-btn-secondary:hover { border-color: #c0b8b0; }
 
 /* ── Cart page ─────────────────────────────── */
 .cart-wrap {
