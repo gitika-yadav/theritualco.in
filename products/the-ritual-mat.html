@@ -125,6 +125,15 @@
 <!--        <button type="button" class="btn-primary" id="preorder-btn">Add to Cart</button>-->
         <a href="/#waitlist" class="btn-secondary">Join Waitlist</a>
 
+        <div id="sticky-cart-bar" class="sticky-cart-bar">
+            <img id="sticky-cart-img" src="" alt="" />
+            <div class="sticky-cart-info">
+                <span id="sticky-cart-name"></span>
+                <span id="sticky-cart-price"></span>
+            </div>
+            <button id="sticky-cart-btn" class="sticky-cart-btn">Add to Cart</button>
+        </div>
+
         <div class="trust">
             <span class="trust__item"><span class="trust__dot"></span>Pan-India delivery</span>
             <span class="trust__item"><span class="trust__dot"></span>2–5 day shipping</span>
@@ -351,5 +360,6 @@
         items: [{ item_id: 'yoga-mat-5mm', item_name: 'The Ritual Mat 5mm', price: 4999 }]
     });
 </script>
+<script src="/javascript/sticky-cart-bar.js"></script>
 </body>
 </html>

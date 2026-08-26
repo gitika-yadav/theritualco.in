@@ -132,6 +132,15 @@
 <!--            <span class="price-note">Free shipping on orders above &#8377;999</span>-->
         </div>
 
+        <div id="sticky-cart-bar" class="sticky-cart-bar">
+            <img id="sticky-cart-img" src="" alt="" />
+            <div class="sticky-cart-info">
+                <span id="sticky-cart-name"></span>
+                <span id="sticky-cart-price"></span>
+            </div>
+            <button id="sticky-cart-btn" class="sticky-cart-btn">Add to Cart</button>
+        </div>
+
         <button type="button" class="btn-primary" id="preorder-btn">Add to Cart</button>
 
         <div class="trust">
@@ -368,5 +377,6 @@
         items: [{ item_id: 'yoga-belt', item_name: 'The Ritual Belt', price: 499 }]
     });
 </script>
+<script src="/javascript/sticky-cart-bar.js"></script>
 </body>
 </html>
