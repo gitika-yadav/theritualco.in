@@ -1,3 +1,6 @@
+const isCapsuleOutOfStock =
+    window.location.pathname.includes('/products/capsule-dumbbell');
+
 (function () {
     var bar = document.getElementById('sticky-cart-bar');
     var mainBtn = document.getElementById('preorder-btn');

@@ -637,3 +637,20 @@ body.tr-product-page .sticky-cart-btn:hover { background: #1a1714; }
 @media (min-width: 901px) {
     body.tr-product-page .sticky-cart-bar { display: none; }
 }
+
+.out-of-stock-badge {
+    display: inline-block;
+    margin: 8px 0 18px;
+    padding: 7px 12px;
+    border: 1px solid rgba(43, 43, 41, 0.2);
+    border-radius: 999px;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.sticky-cart-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    pointer-events: none;
+}

@@ -96,10 +96,10 @@
                 "lowPrice":"2499.00",
                 "highPrice":"2499.00",
                 "priceCurrency":"INR",
-                "availability":"https://schema.org/InStock",
+                "availability":"https://schema.org/OutOfStock",
                 "offers":[
-                    {"@type":"Offer","sku":"TRC-CAPSULE-1KG","price":"2499","priceCurrency":"INR","availability":"https://schema.org/InStock"},
-                    {"@type":"Offer","sku":"TRC-CAPSULE-2KG","price":"2999","priceCurrency":"INR","availability":"https://schema.org/InStock"}
+                    {"@type":"Offer","sku":"TRC-CAPSULE-1KG","price":"2499","priceCurrency":"INR","availability":"https://schema.org/OutOfStock"},
+                    {"@type":"Offer","sku":"TRC-CAPSULE-2KG","price":"2999","priceCurrency":"INR","availability":"https://schema.org/OutOfStock"}
                 ]
             }
         }
@@ -110,13 +110,24 @@
 <div id="navbar-placeholder"></div>
 
 <main class="product">
+<!--    <div id="sticky-cart-bar" class="sticky-cart-bar">-->
+<!--        <img id="sticky-cart-img" src="" alt="" />-->
+<!--        <div class="sticky-cart-info">-->
+<!--            <span id="sticky-cart-name"></span>-->
+<!--            <span id="sticky-cart-price"></span>-->
+<!--        </div>-->
+<!--        <button id="sticky-cart-btn" class="sticky-cart-btn">Add to Cart</button>-->
+<!--    </div>-->
+
     <div id="sticky-cart-bar" class="sticky-cart-bar">
         <img id="sticky-cart-img" src="" alt="" />
         <div class="sticky-cart-info">
             <span id="sticky-cart-name"></span>
             <span id="sticky-cart-price"></span>
         </div>
-        <button id="sticky-cart-btn" class="sticky-cart-btn">Add to Cart</button>
+        <button id="sticky-cart-btn" class="sticky-cart-btn" disabled>
+            Out of stock
+        </button>
     </div>
 
     <!-- IMAGE -->
@@ -137,6 +148,8 @@
         <h1 class="product__title">Capsule<br>Dumbbells</h1>
 
         <p class="product__tagline">Soft, strong, and<br>unapologetically minimal.</p>
+
+<!--        <div class="out-of-stock-badge">Out of stock</div>-->
 
         <p class="option-heading">Colour &mdash; <em id="colour-name">Cream</em></p>
         <div class="swatches" role="group" aria-label="Colour options">
@@ -190,7 +203,8 @@
             </div>
         </div>
 
-        <button type="button" class="btn-primary" id="preorder-btn">Add to cart</button>
+<!--        <button type="button" class="btn-primary" id="preorder-btn">Add to cart</button>-->
+        <button type="button" class="btn-primary" id="preorder-btn" disabled>Out of stock</button>
 <!--        <a href="/#waitlist" class="btn-secondary">Join Waitlist</a>-->
 
         <div class="trust">
@@ -422,6 +436,7 @@
 <!-- Add to cart: uses your Cart.add() API from cart.js -->
 <script>
     document.getElementById('preorder-btn').addEventListener('click', function() {
+        if (true) return;
         /* Wait for cart.js to be loaded */
         if (typeof Cart === 'undefined') {
             window.location = '/cart.html';
