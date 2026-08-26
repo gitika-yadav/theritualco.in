@@ -32,6 +32,12 @@
     </ul>
 
     <div class="nav-icons">
+        <button class="nav-icon" id="nav-search-btn" title="Search" aria-label="Search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+        </button>
         <a href="/account/orders.html" class="nav-icon" id="nav-account" title="My Account" style="display:none">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
@@ -83,5 +89,24 @@
         </svg>
         <p>Your cart is empty.</p>
         <a href="/products/products">Shop now →</a>
+    </div>
+</div>
+
+<div id="search-overlay">
+    <div id="search-panel">
+        <div class="search-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input type="text" id="search-input" placeholder="Search products..." autocomplete="off"/>
+            <button id="search-close" aria-label="Close search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+                    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+        </div>
+        <div id="search-results"></div>
+        <div id="search-empty" style="display:none">No products found. Try a different search.</div>
     </div>
 </div>

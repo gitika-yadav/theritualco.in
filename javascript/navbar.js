@@ -86,3 +86,73 @@ if (typeof Cart === "undefined") {
         }
     } catch(e) { /* non-blocking */ }
 })();
+
+
+// ── Search ──────────────────────────────────────
+function loadScript(src, cb) {
+    if (document.querySelector('script[src="' + src + '"]')) {
+        if (cb) cb();
+        return;
+    }
+    const s = document.createElement("script");
+    s.src = src;
+    if (cb) s.onload = cb;
+    document.body.appendChild(s);
+}
+
+const searchBtn = document.getElementById("nav-search-btn");
+const searchOverlay = document.getElementById("search-overlay");
+
+if (searchBtn && searchOverlay) {
+    loadScript("/javascript/search-index.js", function () {
+        const input = document.getElementById("search-input");
+        const resultsEl = document.getElementById("search-results");
+        const emptyEl = document.getElementById("search-empty");
+        const closeBtn = document.getElementById("search-close");
+
+        function open() {
+            searchOverlay.classList.add("is-open");
+            document.body.style.overflow = "hidden";
+            setTimeout(function () { input.focus(); }, 150);
+        }
+        function close() {
+            searchOverlay.classList.remove("is-open");
+            document.body.style.overflow = "";
+            input.value = "";
+            render([]);
+        }
+        function render(items) {
+            if (items.length === 0) {
+                resultsEl.innerHTML = "";
+                emptyEl.style.display = input.value.trim() ? "block" : "none";
+                return;
+            }
+            emptyEl.style.display = "none";
+            resultsEl.innerHTML = items.map(function (item) {
+                return '<a class="search-result" href="' + item.url + '">' +
+                    '<img src="' + item.image + '" alt=""/>' +
+                    '<div class="search-result-text">' +
+                    '<span class="search-result-name">' + item.name + '</span>' +
+                    '<span class="search-result-desc">' + item.desc + '</span>' +
+                    '</div></a>';
+            }).join("");
+        }
+        function doSearch(query) {
+            const q = query.trim().toLowerCase();
+            if (!q) { render([]); return; }
+            const index = window.RITUAL_SEARCH_INDEX || [];
+            render(index.filter(function (item) {
+                return (item.name + " " + item.desc + " " + item.tags).toLowerCase().indexOf(q) !== -1;
+            }));
+        }
+
+        searchBtn.addEventListener("click", open);
+        closeBtn.addEventListener("click", close);
+        searchOverlay.addEventListener("click", function (e) { if (e.target === searchOverlay) close(); });
+        input.addEventListener("input", function () { doSearch(input.value); });
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" && searchOverlay.classList.contains("is-open")) close();
+            if ((e.metaKey || e.ctrlKey) && e.key === "k") { e.preventDefault(); open(); }
+        });
+    });
+}

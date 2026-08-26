@@ -76,7 +76,24 @@
         <a href="/products/products" class="hero-button"> Explore Collection </a>
       </div>
       <div class="hero-right">
-        <img src="images/img.webp" alt="The Ritual Co Capsule Dumbbells" loading="eager" />
+        <div class="hero-carousel" id="hero-carousel">
+          <div class="hero-slide is-active" style="background-image:url('/images/capsule-dumbbell-black.webp')"></div>
+          <div class="hero-slide" style="background-image:url('/images/yoga-belt-cream-2.webp')"></div>
+          <div class="hero-slide" style="background-image:url('/images/the-ritual-block-black.webp')"></div>
+<!--          <div class="hero-slide" style="background-image:url('/images/yoga-mat-coffee.webp')"></div>-->
+
+          <button class="hero-nav hero-nav--prev" aria-label="Previous slide">‹</button>
+          <button class="hero-nav hero-nav--next" aria-label="Next slide">›</button>
+
+          <div class="hero-dots" role="tablist" aria-label="Hero image selector">
+            <button class="hero-dot is-active" data-index="0" aria-label="Slide 1"></button>
+            <button class="hero-dot" data-index="1" aria-label="Slide 2"></button>
+            <button class="hero-dot" data-index="2" aria-label="Slide 3"></button>
+<!--            <button class="hero-dot" data-index="3" aria-label="Slide 4"></button>-->
+          </div>
+
+          <div class="hero-counter"><span id="hero-counter-current">1</span> / <span id="hero-counter-total">3</span></div>
+        </div>
       </div>
     </section>
 
@@ -99,7 +116,7 @@
           </div>
           <div class="collection-card-body">
             <p class="collection-name">The Ritual Capsule Dumbbells</p>
-            <p class="collection-sub">1kg & 2kg · Peach, Grey, Cream, Black</p>
+            <p class="collection-sub">1kg & 2kg </p>
             <div class="collection-price">
               <span class="price-new">from ₹2,499</span>
 <!--              <span class="price-old">₹2,499</span>-->
@@ -323,6 +340,6 @@
     });
   });
 </script>
-
+<script src="/javascript/hero-carousel.js"></script>
 </body>
 </html>
