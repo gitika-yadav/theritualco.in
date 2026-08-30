@@ -110,11 +110,13 @@ exports.handler = async (event) => {
 
         // ── Decrement inventory for every gifted colour ───
         for (const item of orderItems) {
-            const { error: rpcErr } = await supabase.rpc("increment_sold", {
+            const { data: ok, error: rpcErr } = await supabase.rpc("increment_sold", {
                 p_product_id: item.product_id,
                 p_color:      item.color,
+                p_qty:        item.quantity || 1,
             });
             if (rpcErr) console.error("Creator gift inventory increment error:", rpcErr, "item:", item.product_id, item.color);
+            else if (ok === false) console.error("Creator gift oversell rejected:", item.product_id, item.color);
         }
 
         // ── Send gift shipping confirmation (no pricing shown) ───

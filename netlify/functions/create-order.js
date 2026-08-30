@@ -34,7 +34,7 @@ exports.handler = async (event) => {
 
                 const { data: inv, error: invErr } = await supabase
                     .from("inventory")
-                    .select("sold, early_bird_limit, early_bird_price_paise, price_paise, active")
+                    .select("sold, total_stock, early_bird_limit, early_bird_price_paise, price_paise, active")
                     .eq("product_id", product.id)
                     .eq("color", item.color || "default")
                     .single();
@@ -43,6 +43,23 @@ exports.handler = async (event) => {
                 const isEarlyBird = inv.sold < inv.early_bird_limit;
                 const unitPaise   = isEarlyBird ? inv.early_bird_price_paise : inv.price_paise;
                 const qty         = Math.max(1, Math.min(10, parseInt(item.qty) || 1));
+
+                // ── Stock guard: reject if this line would oversell ──
+                const totalStock = Number(inv.total_stock) || 0;
+                const sold       = Number(inv.sold) || 0;
+                const remaining  = Math.max(0, totalStock - sold);
+                if (sold + qty > totalStock) {
+                    return {
+                        statusCode: 409,
+                        body: JSON.stringify({
+                            error: `Only ${remaining} unit${remaining === 1 ? "" : "s"} of ${product.name} (${item.color || "default"}) left in stock. Please reduce the quantity and try again.`,
+                            code: "OUT_OF_STOCK",
+                            available: remaining,
+                            product: product.name,
+                            color: item.color || "default",
+                        }),
+                    };
+                }
 
                 totalPaise += unitPaise * qty;
                 orderItems.push({
@@ -134,11 +151,13 @@ exports.handler = async (event) => {
 
         if (isCod) {
             for (const item of orderItems) {
-                const { error: invErr } = await supabase.rpc("increment_sold", {
+                const { data: ok, error: invErr } = await supabase.rpc("increment_sold", {
                     p_product_id: item.product_id,
                     p_color: item.color,
+                    p_qty: item.quantity || 1,
                 });
                 if (invErr) console.error("COD inventory increment error:", invErr);
+                else if (ok === false) console.error("COD oversell rejected:", item.product_id, item.color);
             }
         }
 
