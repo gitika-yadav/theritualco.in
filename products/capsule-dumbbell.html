@@ -125,9 +125,7 @@
             <span id="sticky-cart-name"></span>
             <span id="sticky-cart-price"></span>
         </div>
-        <button id="sticky-cart-btn" class="sticky-cart-btn" disabled>
-            Out of stock
-        </button>
+        <button id="sticky-cart-btn" class="sticky-cart-btn">Add to Cart</button>
     </div>
 
     <!-- IMAGE -->
@@ -204,7 +202,7 @@
         </div>
 
 <!--        <button type="button" class="btn-primary" id="preorder-btn">Add to cart</button>-->
-        <button type="button" class="btn-primary" id="preorder-btn" disabled>Out of stock</button>
+        <button type="button" class="btn-primary" id="preorder-btn">Add to Cart</button>
 <!--        <a href="/#waitlist" class="btn-secondary">Join Waitlist</a>-->
 
         <div class="trust">
@@ -436,7 +434,7 @@
 <!-- Add to cart: uses your Cart.add() API from cart.js -->
 <script>
     document.getElementById('preorder-btn').addEventListener('click', function() {
-        if (true) return;
+        if (this.disabled) return;
         /* Wait for cart.js to be loaded */
         if (typeof Cart === 'undefined') {
             window.location = '/cart.html';
@@ -501,5 +499,6 @@
     });
 </script>
 <script src="/javascript/sticky-cart-bar.js"></script>
+<script src="/javascript/product-availability.js"></script>
 </body>
 </html>
