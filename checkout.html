@@ -266,6 +266,15 @@
             alert("For Cash on Delivery, please provide a complete, detailed address."); return;
         }
 
+        // ── Stock guard: block checkout if any item exceeds available stock ──
+        for (const item of cart.items) {
+            const available = Cart.getAvailable(item.id, item.weight, item.color);
+            if (Number.isFinite(available) && item.qty > available) {
+                alert("Only " + available + " of " + item.name + " (" + (item.color || "default") + ") left in stock. Please reduce the quantity in your cart and try again.");
+                return;
+            }
+        }
+
         const btn = document.getElementById("payBtn");
         btn.disabled = true; btn.textContent = "Creating order…";
         const codFee  = method === "cod" ? 200 : 0;

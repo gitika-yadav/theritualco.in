@@ -2,14 +2,17 @@
 // Public read-only endpoint. Returns, per product (+ colour), whether the
 // item is in stock or sold out, based on the live `inventory` table:
 //
-//   stock available  -> sold < total_stock   (still units left)
-//   SOLD OUT         -> sold >= total_stock   (restock = raise total_stock in DB)
+//   in stock        -> stock > 0   (remaining units available)
+//   SOLD OUT        -> stock = 0   (restock = raise stock in DB)
+//
+// `stock`  = remaining units (decrements on sale)
+// `sold`   = lifetime units sold (audit trail)
 //
 // Only `active` rows are considered. Output shape:
 //   {
 //     "capsule-1kg": {
-//        "cream":   { in_stock: true,  sold: 0, total_stock: 100, color: "Cream" },
-//        "black":   { in_stock: true,  sold: 0, total_stock: 100, color: "Black" }
+//        "cream":   { in_stock: true,  sold: 0, stock: 100, color: "Cream" },
+//        "black":   { in_stock: true,  sold: 0, stock: 100, color: "Black" }
 //     },
 //     "...": { ... }
 //   }
@@ -33,7 +36,7 @@ exports.handler = async (event) => {
 
         let query = supabase
             .from("inventory")
-            .select("product_id, product_name, color, total_stock, sold, active, early_bird_limit")
+            .select("product_id, product_name, color, stock, sold, active, early_bird_limit")
             .eq("active", true);
 
         if (requested) {
@@ -55,14 +58,14 @@ exports.handler = async (event) => {
 
             if (!availability[pid]) availability[pid] = { in_stock: false, colors: {} };
 
-            const total = Number(row.total_stock) || 0;
+            const remaining = Number(row.stock) || 0;
             const sold = Number(row.sold) || 0;
-            const inStock = sold < total;
+            const inStock = remaining > 0;
 
             availability[pid].colors[color] = {
                 in_stock: inStock,
                 sold: sold,
-                total_stock: total,
+                stock: remaining,
                 color: row.color || "default",
                 early_bird: sold < Number(row.early_bird_limit || 0),
             };

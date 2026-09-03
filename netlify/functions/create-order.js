@@ -34,7 +34,7 @@ exports.handler = async (event) => {
 
                 const { data: inv, error: invErr } = await supabase
                     .from("inventory")
-                    .select("sold, total_stock, early_bird_limit, early_bird_price_paise, price_paise, active")
+                    .select("stock, sold, early_bird_limit, early_bird_price_paise, price_paise, active")
                     .eq("product_id", product.id)
                     .eq("color", item.color || "default")
                     .single();
@@ -44,11 +44,9 @@ exports.handler = async (event) => {
                 const unitPaise   = isEarlyBird ? inv.early_bird_price_paise : inv.price_paise;
                 const qty         = Math.max(1, Math.min(10, parseInt(item.qty) || 1));
 
-                // ── Stock guard: reject if this line would oversell ──
-                const totalStock = Number(inv.total_stock) || 0;
-                const sold       = Number(inv.sold) || 0;
-                const remaining  = Math.max(0, totalStock - sold);
-                if (sold + qty > totalStock) {
+                // ── Stock guard: reject if insufficient remaining units ──
+                const remaining = Number(inv.stock) || 0;
+                if (remaining < qty) {
                     return {
                         statusCode: 409,
                         body: JSON.stringify({

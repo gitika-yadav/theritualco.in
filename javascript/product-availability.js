@@ -3,8 +3,8 @@
    Drives "In stock" / "Out of stock" state from the live Supabase
    `inventory` table via /.netlify/functions/get-availability.
 
-   Sold out when  sold >= total_stock.
-   Back in stock automatically when total_stock is raised in the DB.
+    Sold out when  stock = 0   (remaining units exhausted).
+    Back in stock automatically when stock is raised in the DB.
 
    Used on:
      - individual product pages (windows.PRODUCT_SLUG set, #preorder-btn)

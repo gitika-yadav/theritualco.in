@@ -20,7 +20,13 @@
         emptyEl.style.display  = "none";
         footerEl.style.display = "block";
 
-        itemsEl.innerHTML = cart.items.map(item => `
+        itemsEl.innerHTML = cart.items.map(item => {
+            const available = Cart.getAvailable(item.id, item.weight, item.color);
+            const atLimit = Number.isFinite(available) && item.qty >= available;
+            const plusBtn = atLimit
+                ? `<button class="cd-qty-plus" disabled title="Max stock reached">+</button>`
+                : `<button onclick="CartDrawer.changeQty('${item.key}', ${item.qty + 1})">+</button>`;
+            return `
       <div class="cd-item" data-key="${item.key}">
         ${item.image
             ? `<img src="${item.image}" alt="${item.name}" class="cd-item-img" loading="lazy"/>`
@@ -29,11 +35,12 @@
           <p class="cd-item-name">${item.name}</p>
           <p class="cd-item-meta">${[item.weight, item.color].filter(Boolean).join(" · ")}</p>
           <p class="cd-item-price">₹${(item.price).toLocaleString("en-IN")}</p>
+          ${atLimit ? `<p class="cd-item-stock">Max of ${available} in stock</p>` : ""}
         </div>
         <div class="cd-item-qty">
           <button onclick="CartDrawer.changeQty('${item.key}', ${item.qty - 1})">−</button>
           <span>${item.qty}</span>
-          <button onclick="CartDrawer.changeQty('${item.key}', ${item.qty + 1})">+</button>
+          ${plusBtn}
         </div>
         <button class="cd-item-remove" onclick="Cart.remove('${item.key}')" title="Remove">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">
@@ -41,7 +48,8 @@
           </svg>
         </button>
       </div>
-    `).join("");
+    `;
+        }).join("");
 
         document.getElementById("cd-total").textContent =
             "₹" + Cart.total().toLocaleString("en-IN");

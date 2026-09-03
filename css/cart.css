@@ -213,6 +213,21 @@
 
 .cd-item-qty button:hover { background: #f0ece8; }
 
+.cd-item-qty button:disabled,
+.cd-item-qty .cd-qty-plus:disabled {
+    cursor: default;
+    opacity: 0.4;
+}
+.cd-item-qty button:disabled:hover { background: transparent; }
+
+.cd-item-stock {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: #b4563a;
+    margin: 3px 0 0;
+    letter-spacing: 0.02em;
+}
+
 .cd-item-qty span {
     width: 28px;
     text-align: center;
@@ -428,6 +443,21 @@
 }
 
 .cart-item-qty button:hover { background: #f0ece8; }
+
+.cart-item-qty button:disabled,
+.cart-item-qty .cart-qty-plus:disabled {
+    cursor: default;
+    opacity: 0.4;
+}
+.cart-item-qty button:disabled:hover { background: transparent; }
+
+.cart-item-stock {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: #b4563a;
+    margin: 3px 0 0;
+    letter-spacing: 0.02em;
+}
 
 .cart-item-qty span {
     width: 36px;
