@@ -100,7 +100,13 @@
             currency: 'INR'
         });
 
-        itemsEl.innerHTML = cart.items.map(item => `
+        itemsEl.innerHTML = cart.items.map(item => {
+            const available = Cart.getAvailable(item.id, item.weight, item.color);
+            const atLimit = Number.isFinite(available) && item.qty >= available;
+            const plusBtn = atLimit
+                ? `<button class="cart-qty-plus" disabled title="Max stock reached">+</button>`
+                : `<button onclick="changeQty('${item.key}', ${item.qty + 1})">+</button>`;
+            return `
       <div class="cart-item" data-key="${item.key}">
         ${item.image
             ? `<img src="${item.image}" alt="${item.name}" class="cart-item-img" loading="lazy"/>`
@@ -109,15 +115,17 @@
           <p class="cart-item-name">${item.name}</p>
           <p class="cart-item-meta">${[item.weight, item.color].filter(Boolean).join(" · ")}</p>
           <p class="cart-item-price">₹${(item.price * item.qty).toLocaleString("en-IN")}</p>
+          ${atLimit ? `<p class="cart-item-stock">Max of ${available} in stock</p>` : ""}
         </div>
         <div class="cart-item-qty">
           <button onclick="changeQty('${item.key}', ${item.qty - 1})">−</button>
           <span>${item.qty}</span>
-          <button onclick="changeQty('${item.key}', ${item.qty + 1})">+</button>
+          ${plusBtn}
         </div>
         <button class="cart-item-remove" onclick="removeItem('${item.key}')" title="Remove">×</button>
       </div>
-    `).join("");
+    `;
+        }).join("");
 
         const t = Cart.total();
         subtotal.textContent = "₹" + t.toLocaleString("en-IN");

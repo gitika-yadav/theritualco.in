@@ -1,18 +1,23 @@
 -- ════════════════════════════════════════════════════════════════
--- THE RITUAL CO. — Atomic stock guard migration
+-- THE RITUAL CO. — Inventory schema: stock (remaining) + sold (lifetime)
+--
+-- `stock`  = remaining units available to buy (decrements on sale)
+-- `sold`   = lifetime units sold (increments on sale, audit trail)
+-- Sold out = stock = 0. Restock = raise stock in DB.
+--
 -- Run this ONCE in the Supabase SQL editor against your project.
---
--- Replaces the plain `increment_sold` RPC with an ATOMIC version that
--- only increments `sold` while units remain (sold + qty <= total_stock).
--- This prevents overselling when two orders land at the exact same time
--- (a plain read-then-increment in app code has a race window).
---
--- Upgrading existing function (takes an extra p_qty argument):
---   create-order.js          -> supabase.rpc("increment_sold", { p_product_id, p_color, p_qty, p_slug })
---   verify-payment.js        -> same
---   create-creator-order.js  -> same
 -- ════════════════════════════════════════════════════════════════
 
+-- 1. Rename column
+ALTER TABLE inventory RENAME COLUMN total_stock TO stock;
+
+-- 2. Fix existing data: convert from "cap" to "remaining"
+--    For rows already consistent (sold <= old total): stock = old_total - sold
+--    For oversold rows (sold > old total): clamp to 0
+UPDATE inventory SET stock = GREATEST(0, stock - sold);
+
+-- 3. Atomic RPC: decrements stock + increments sold in one atomic update.
+--    Returns false if stock is insufficient (no row modified, no oversell).
 CREATE OR REPLACE FUNCTION public.increment_sold(
     p_product_id text,
     p_color text,
@@ -23,16 +28,15 @@ LANGUAGE plpgsql
 SECURITY DEFINER
 AS $$
 DECLARE
-    v_new_sold integer;
-    v_result   boolean := false;
+    v_result boolean := false;
 BEGIN
     UPDATE public.inventory
-    SET sold = sold + p_qty
+    SET stock = stock - p_qty,
+        sold  = sold + p_qty
     WHERE product_id = p_product_id
       AND LOWER(color) = LOWER(COALESCE(p_color, 'default'))
       AND active = true
-      AND sold + p_qty <= total_stock
-    RETURNING sold INTO v_new_sold;
+      AND stock >= p_qty;
 
     IF FOUND THEN
         v_result := true;
