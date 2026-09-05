@@ -19,14 +19,15 @@ if (typeof Cart === "undefined") {
             return `${id}__${weight}__${color}`;
         }
 
-        function add({ id, name, weight, color, price, image }) {
+        function add({ id, name, weight, color, price, image, sku }) {
             const cart = get();
-            const key  = itemKey(id, weight, color);
+            const key = itemKey(id, weight, color);
             const existing = cart.items.find(i => i.key === key);
             if (existing) {
                 existing.qty += 1;
+                if (sku && !existing.sku) existing.sku = sku; // backfill for older cart entries
             } else {
-                cart.items.push({ key, id, name, weight, color, price, image, qty: 1 });
+                cart.items.push({ key, id, name, weight, color, price, image, sku, qty: 1 });
             }
             save(cart);
             return cart;

@@ -440,9 +440,10 @@
     </div>
     <div class="detail-section">
       <div class="detail-section-title">Order (${(o.items || []).length} item${(o.items || []).length === 1 ? "" : "s"})</div>
-      ${(o.items || []).map(i => `
-        <div class="detail-row"><span class="detail-key">${i.product_name || "—"}</span><span class="detail-val">${i.weight || ""}${i.weight && i.color ? " · " : ""}${i.color || ""} × ${i.quantity ?? i.qty ?? 1}</span></div>
-      `).join("")}
+     ${(o.items || []).map(i => `
+  <div class="detail-row"><span class="detail-key">${i.product_name || "—"}</span><span class="detail-val">${i.weight || ""}${i.weight && i.color ? " · " : ""}${i.color || ""} × ${i.quantity ?? i.qty ?? 1}</span></div>
+  ${i.sku ? `<div class="detail-row"><span class="detail-key" style="font-size:11px;color:#a09890;">SKU</span><span class="detail-val" style="font-size:11px;font-family:monospace;color:#a09890;">${i.sku}</span></div>` : ""}
+`).join("")}
       <div class="detail-row"><span class="detail-key">Amount</span><span class="detail-val">${amount}</span></div>
       <div class="detail-row"><span class="detail-key">Status</span><span class="detail-val">${STATUS_LABELS[o.status] || o.status || "—"}</span></div>
       <div class="detail-row"><span class="detail-key">Date</span><span class="detail-val">${date} IST</span></div>

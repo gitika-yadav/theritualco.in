@@ -5,5 +5,11 @@ window.RITUAL_SEARCH_INDEX = [
     { name: "The Ritual Mat", desc: "Natural rubber yoga mat, sweat-resistant surface, 5mm.", url: "/products/the-ritual-mat", image: "/images/yoga-mat-coffee.webp", tags: "yoga mat pilates floor" },
     { name: "The Ritual Cuffs", desc: "Baby-soft silicone ankle/wrist weights, 2lb pair.", url: "/products/the-ritual-cuffs", image: "/images/cuffs-black.webp", tags: "ankle wrist weights cuffs" },
     { name: "The Ritual Ball", desc: "Mini pilates ball for core, inner thigh, pelvic floor work.", url: "/products/the-ritual-ball", image: "/images/pilates-ball-black.webp", tags: "pilates ball core pelvic" },
-    { name: "The Yoga Kit", desc: "Mat, Belt, and Block bundled together.", url: "/products/bundles.html", image: "/images/black-combo-yoga-kit.webp", tags: "kit bundle yoga starter" },
+    { name: "The Ritual Ring", desc: "Pilates ring (magic circle) for inner thigh, arm, and core toning. TPR with foam grip handles.", url: "/products/the-ritual-ring", image: "/images/the-ritual-ring.webp", tags: "pilates ring magic circle toning resistance" },
+
+    { name: "Pilates Starter Kit", desc: "Mat + Ring + Ball + 1kg Dumbbells. The approachable first Pilates set.", url: "/products/bundles.html#kit-pilates-starter", image: "/images/pilates-starter-kit.webp", tags: "pilates kit starter foundation bundle mat ring ball dumbbells" },
+    { name: "Pilates Sculpt Kit", desc: "Ring + Ball + 1kg Dumbbells + Ankle Weights. For the mat you already own.", url: "/products/bundles.html#kit-pilates-sculpt", image: "/images/pilates-sculpt-kit.webp", tags: "pilates kit sculpt practice bundle ring ball dumbbells ankle weights" },
+    { name: "Pilates Complete Kit", desc: "Mat + Ring + Ball + 1kg Dumbbells + Ankle Weights + Block. The complete Ritual Pilates set.", url: "/products/bundles.html#kit-pilates-complete", image: "/images/pilates-complete-kit.webp", tags: "pilates kit complete ritual advanced bundle mat ring ball dumbbells ankle weights block" },
+    { name: "Yoga Essentials Kit", desc: "Mat + Belt + 1 Block. Your complete starting yoga practice.", url: "/products/bundles.html#kit-yoga-essentials", image: "/images/black-combo-yoga-kit.webp", tags: "yoga kit essentials foundation bundle mat belt block" },
+    { name: "Yoga Studio Kit", desc: "Belt + 2 Blocks. Studio props for the mat you already own.", url: "/products/bundles.html#kit-yoga-studio", image: "/images/yoga-studio-kit.webp", tags: "yoga kit studio practice bundle belt blocks" },
 ];

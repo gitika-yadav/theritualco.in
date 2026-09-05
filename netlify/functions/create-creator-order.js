@@ -57,7 +57,7 @@ exports.handler = async (event) => {
 
             const { data: inv, error: invErr } = await supabase
                 .from("inventory")
-                .select("active")
+                .select("active, sku")
                 .eq("product_id", product.id)
                 .eq("color", item.color || "default")
                 .single();
@@ -75,6 +75,7 @@ exports.handler = async (event) => {
                 weight:       product.weight,
                 color:        item.color || "Not specified",
                 quantity:     qty,
+                sku_id:       inv.sku || null,
             });
         }
 

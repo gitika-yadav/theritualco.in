@@ -34,7 +34,7 @@ exports.handler = async (event) => {
 
                 const { data: inv, error: invErr } = await supabase
                     .from("inventory")
-                    .select("sold, early_bird_limit, early_bird_price_paise, price_paise, active")
+                    .select("sold, early_bird_limit, early_bird_price_paise, price_paise, active, sku")
                     .eq("product_id", product.id)
                     .eq("color", item.color || "default")
                     .single();
@@ -51,6 +51,7 @@ exports.handler = async (event) => {
                     weight:        product.weight,
                     color:         item.color || "Not specified",
                     quantity:      qty,
+                    sku_id:        inv.sku || null,
                     unit_paise:    unitPaise,
                     is_early_bird: isEarlyBird,
                 });

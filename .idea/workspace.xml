@@ -4,11 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="Add sticky add to cart">
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="add pilates kit images">
+      <change afterPath="$PROJECT_DIR$/images/pilates-complete-kit.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/pilates-sculpt-kit.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/pilates-starter-kit.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/the-ritual-ring.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/yoga-studio-kit.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/products/the-ritual-ring.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/product-page.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/product-page.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javascript/sticky-cart-bar.js" beforeDir="false" afterPath="$PROJECT_DIR$/javascript/sticky-cart-bar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/capsule-dumbbell.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/capsule-dumbbell.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/orders.html" beforeDir="false" afterPath="$PROJECT_DIR$/admin/orders.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javascript/cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/javascript/cart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javascript/search-index.js" beforeDir="false" afterPath="$PROJECT_DIR$/javascript/search-index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/netlify/functions/create-creator-order.js" beforeDir="false" afterPath="$PROJECT_DIR$/netlify/functions/create-creator-order.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/netlify/functions/create-order.js" beforeDir="false" afterPath="$PROJECT_DIR$/netlify/functions/create-order.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/products/bundles.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/bundles.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/products/products.html" beforeDir="false" afterPath="$PROJECT_DIR$/products/products.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sitemap.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sitemap.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,23 +45,23 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.000000027423729" />
-      <entry key="MS500" value="1.030746868212415" />
-      <entry key="S2" value="1.4780782676838935" />
-      <entry key="S5" value="2.02910924844992" />
-      <entry key="S10" value="2.4086845583140573" />
-      <entry key="S30" value="2.772126118539844" />
-      <entry key="S60" value="2.907615216461124" />
-      <entry key="M2" value="3.335433758642779" />
-      <entry key="M5" value="5.201413881186459" />
-      <entry key="M10" value="8.177127996637502" />
-      <entry key="M15" value="10.741641853539853" />
-      <entry key="M30" value="15.676806185418261" />
-      <entry key="H1" value="19.852811437092107" />
-      <entry key="H2" value="22.623599119778373" />
-      <entry key="H4" value="24.227525885105976" />
-      <entry key="D1" value="27.55777441394205" />
-      <entry key="W1" value="250.78048890664" />
+      <entry key="MS100" value="1.2044755146394452" />
+      <entry key="MS500" value="1.7285176551165788" />
+      <entry key="S2" value="2.252184176779647" />
+      <entry key="S5" value="3.3818861715924142" />
+      <entry key="S10" value="4.344526707865617" />
+      <entry key="S30" value="5.487594305927408" />
+      <entry key="S60" value="6.856970014764083" />
+      <entry key="M2" value="10.02558855958444" />
+      <entry key="M5" value="16.97491329577749" />
+      <entry key="M10" value="22.747925486401282" />
+      <entry key="M15" value="25.681429853967508" />
+      <entry key="M30" value="29.824136359695558" />
+      <entry key="H1" value="35.29599447966286" />
+      <entry key="H2" value="46.3152310311178" />
+      <entry key="H4" value="61.053738311406484" />
+      <entry key="D1" value="87.37009083384287" />
+      <entry key="W1" value="312.10686349754957" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -61,33 +73,33 @@
       <entry key="S60" value="0.0" />
       <entry key="M2" value="0.0" />
       <entry key="M5" value="0.0" />
-      <entry key="M10" value="7.645155608314E-309" />
-      <entry key="M15" value="4.3925600019262114E-206" />
-      <entry key="M30" value="2.766895288334384E-103" />
-      <entry key="H1" value="7.401275652345136E-52" />
-      <entry key="H2" value="4.129641289706704E-26" />
-      <entry key="H4" value="3.327632446664759E-13" />
-      <entry key="D1" value="0.02058178856338434" />
-      <entry key="W1" value="3.7013092394059472" />
+      <entry key="M10" value="6.15966E-318" />
+      <entry key="M15" value="3.803337900736223E-212" />
+      <entry key="M30" value="2.5746389084961007E-106" />
+      <entry key="H1" value="2.2577111691038582E-53" />
+      <entry key="H2" value="7.212622968411347E-27" />
+      <entry key="H4" value="1.390675491165689E-13" />
+      <entry key="D1" value="0.017796373865208846" />
+      <entry key="W1" value="3.6252145583597546" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9460576726700245" />
-      <entry key="MS500" value="1.0193786577852177" />
-      <entry key="S2" value="1.4739653231938699" />
-      <entry key="S5" value="2.026815392487886" />
-      <entry key="S10" value="2.4073098889134603" />
-      <entry key="S30" value="2.771594412256208" />
-      <entry key="S60" value="2.907310611118898" />
-      <entry key="M2" value="3.335080258506829" />
-      <entry key="M5" value="5.200776820909339" />
-      <entry key="M10" value="8.176173758129503" />
-      <entry key="M15" value="10.740599272123593" />
-      <entry key="M30" value="15.675900284579198" />
-      <entry key="H1" value="19.852202780130284" />
-      <entry key="H2" value="22.623244823687138" />
-      <entry key="H4" value="24.22733455242314" />
-      <entry key="D1" value="27.57831864073181" />
-      <entry key="W1" value="254.48173290153878" />
+      <entry key="MS100" value="0.9504695490587401" />
+      <entry key="MS500" value="1.6479729669860759" />
+      <entry key="S2" value="2.225371864341856" />
+      <entry key="S5" value="3.365707766861545" />
+      <entry key="S10" value="4.334131184020389" />
+      <entry key="S30" value="5.483189016807824" />
+      <entry key="S60" value="6.854146115536141" />
+      <entry key="M2" value="10.023488190006704" />
+      <entry key="M5" value="16.973538750996315" />
+      <entry key="M10" value="22.746957601154225" />
+      <entry key="M15" value="25.680536522807575" />
+      <entry key="M30" value="29.82325489507291" />
+      <entry key="H1" value="35.29524250453226" />
+      <entry key="H2" value="46.31467282971087" />
+      <entry key="H4" value="61.05336500169386" />
+      <entry key="D1" value="87.387797883021" />
+      <entry key="W1" value="315.7320058085128" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -176,38 +188,6 @@
       <workItem from="1779695741143" duration="8369000" />
       <workItem from="1780831623909" duration="98941000" />
       <workItem from="1781737896564" duration="11840000" />
-    </task>
-    <task id="LOCAL-00172" summary="add color filter">
-      <option name="closed" value="true" />
-      <created>1783808773662</created>
-      <option name="number" value="00172" />
-      <option name="presentableId" value="LOCAL-00172" />
-      <option name="project" value="LOCAL" />
-      <updated>1783808773662</updated>
-    </task>
-    <task id="LOCAL-00173" summary="add color filter">
-      <option name="closed" value="true" />
-      <created>1783808900597</created>
-      <option name="number" value="00173" />
-      <option name="presentableId" value="LOCAL-00173" />
-      <option name="project" value="LOCAL" />
-      <updated>1783808900597</updated>
-    </task>
-    <task id="LOCAL-00174" summary="update dumbbell prices">
-      <option name="closed" value="true" />
-      <created>1783849443625</created>
-      <option name="number" value="00174" />
-      <option name="presentableId" value="LOCAL-00174" />
-      <option name="project" value="LOCAL" />
-      <updated>1783849443625</updated>
-    </task>
-    <task id="LOCAL-00175" summary="update dumbbell prices">
-      <option name="closed" value="true" />
-      <created>1783849523383</created>
-      <option name="number" value="00175" />
-      <option name="presentableId" value="LOCAL-00175" />
-      <option name="project" value="LOCAL" />
-      <updated>1783849523383</updated>
     </task>
     <task id="LOCAL-00176" summary="update dumbbell prices">
       <option name="closed" value="true" />
@@ -569,15 +549,45 @@
       <option name="project" value="LOCAL" />
       <updated>1787769815832</updated>
     </task>
-    <option name="localTasksCounter" value="221" />
+    <task id="LOCAL-00221" summary="Make dumbbells out of stock">
+      <option name="closed" value="true" />
+      <created>1787771128808</created>
+      <option name="number" value="00221" />
+      <option name="presentableId" value="LOCAL-00221" />
+      <option name="project" value="LOCAL" />
+      <updated>1787771128808</updated>
+    </task>
+    <task id="LOCAL-00222" summary="Make dumbbells out of stock">
+      <option name="closed" value="true" />
+      <created>1788620712588</created>
+      <option name="number" value="00222" />
+      <option name="presentableId" value="LOCAL-00222" />
+      <option name="project" value="LOCAL" />
+      <updated>1788620712588</updated>
+    </task>
+    <task id="LOCAL-00223" summary="add pilates kit images">
+      <option name="closed" value="true" />
+      <created>1788627487758</created>
+      <option name="number" value="00223" />
+      <option name="presentableId" value="LOCAL-00223" />
+      <option name="project" value="LOCAL" />
+      <updated>1788627487758</updated>
+    </task>
+    <task id="LOCAL-00224" summary="add pilates kit images">
+      <option name="closed" value="true" />
+      <created>1788637133138</created>
+      <option name="number" value="00224" />
+      <option name="presentableId" value="LOCAL-00224" />
+      <option name="project" value="LOCAL" />
+      <updated>1788637133138</updated>
+    </task>
+    <option name="localTasksCounter" value="225" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add color filter" />
-    <MESSAGE value="update dumbbell prices" />
     <MESSAGE value="update belt + block price" />
     <MESSAGE value="update belt image" />
     <MESSAGE value="remove early bird pricing" />
@@ -601,7 +611,9 @@
     <MESSAGE value="small fix" />
     <MESSAGE value="UI upgrade with dynamic banner and search" />
     <MESSAGE value="Add sticky add to cart" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add sticky add to cart" />
+    <MESSAGE value="Make dumbbells out of stock" />
+    <MESSAGE value="add pilates kit images" />
+    <option name="LAST_COMMIT_MESSAGE" value="add pilates kit images" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
