@@ -1,0 +1,230 @@
+/* ════════════════════════════════════════════════════════════════
+   THE RITUAL CO. — /pilates SEO landing page
+   Pilates Equipment & Weights
+   ════════════════════════════════════════════════════════════════ */
+
+.pilates-hero {
+    text-align: center;
+    padding: 72px 24px 40px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.pilates-hero .eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #a09890;
+    margin: 0 0 16px;
+}
+
+.pilates-hero h1 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(40px, 6vw, 64px);
+    line-height: 1.05;
+    color: #3a3330;
+    margin: 0 0 18px;
+}
+
+.pilates-hero__sub {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #a09890;
+    margin: 0 auto;
+    max-width: 560px;
+}
+
+/* Body copy */
+.pilates-copy {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px;
+}
+
+.pilates-copy h2 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 1.2;
+    color: #3a3330;
+    margin: 0 0 18px;
+}
+
+.pilates-copy p {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.75;
+    color: #5c524c;
+    margin: 0 0 16px;
+}
+
+.pilates-copy ul {
+    padding: 0;
+    margin: 0 0 16px;
+    list-style: none;
+}
+
+.pilates-copy ul li {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.75;
+    color: #5c524c;
+    padding: 4px 0 4px 20px;
+    position: relative;
+}
+
+.pilates-copy ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #C9B99A;
+}
+
+/* Products section */
+.pilates-products {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 24px 24px;
+}
+
+.pilates-products h2,
+.pilates-faq h2,
+.pilates-blog h2 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 1.2;
+    color: #3a3330;
+    margin: 0 0 24px;
+    text-align: center;
+}
+
+/* FAQ */
+.pilates-faq {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 48px 24px;
+}
+
+.pilates-faq .accordion {
+    border-top: 1px solid #e8e2dc;
+}
+
+.pilates-faq .accordion__item {
+    border-bottom: 1px solid #e8e2dc;
+}
+
+.pilates-faq .accordion__trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 19px;
+    color: #3a3330;
+    text-align: left;
+}
+
+.pilates-faq .accordion__trigger:hover { color: #171717; }
+
+.pilates-faq .accordion__icon {
+    font-size: 20px;
+    font-weight: 300;
+    color: #a09890;
+    transition: transform 0.2s;
+    font-family: 'DM Sans', sans-serif;
+}
+
+.pilates-faq .accordion__item.open .accordion__icon {
+    transform: rotate(45deg);
+}
+
+.pilates-faq .accordion__body {
+    display: none;
+}
+
+.pilates-faq .accordion__item.open .accordion__body {
+    display: block;
+}
+
+.pilates-faq .accordion__inner {
+    padding: 0 0 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.75;
+    color: #5c524c;
+}
+
+.pilates-faq .accordion__inner p { margin: 0; }
+
+/* Blog grid */
+.pilates-blog {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px 24px 80px;
+}
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.blog-card {
+    background: #fff;
+    border: 1px solid #e8e2dc;
+    border-radius: 14px;
+    padding: 24px;
+    transition: border-color 0.2s, transform 0.2s;
+}
+
+.blog-card:hover {
+    border-color: #c0b0a8;
+    transform: translateY(-2px);
+}
+
+.blog-card a { text-decoration: none; }
+
+.blog-card h3 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.25;
+    color: #3a3330;
+    margin: 0 0 8px;
+}
+
+.blog-card p {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #a09890;
+    margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .blog-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+    .blog-grid { grid-template-columns: 1fr; }
+    .pilates-hero { padding-top: 48px; }
+}
