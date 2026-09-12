@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D366Q7R3XB"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wholesale | The Ritual Co</title>
+    <meta name="description" content="Wholesale pricing for The Ritual Co. Buy 10 or more units of any product and unlock exclusive wholesale discounts on dumbbells, pilates and fitness equipment.">
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/policy.css">
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+<main>
+    <header>
+        <div id="navbar-placeholder"></div>
+    </header>
+    <section class="container">
+
+        <h1>Wholesale</h1>
+
+        <p>Last Updated: September 2026</p>
+
+        <p>
+            Thank you for your interest in The Ritual Co. We offer exclusive
+            wholesale pricing for gyms, pilates &amp; yoga studios, fitness
+            trainers, resellers, corporate wellness programmes and bulk
+            purchases.
+        </p>
+
+        <h2>Wholesale Discount</h2>
+
+        <p>
+            A wholesale discount applies when you purchase <strong>10 or more
+            units of any single product</strong>. For example, if you buy 10
+            pairs of Capsule Dumbbells, every pair in that order is eligible for
+            the wholesale discount on dumbbells.
+        </p>
+
+        <p>
+            The same rule applies to every item we sell — be it The Ritual Mat,
+            The Ritual Belt, The Ritual Block, The Ritual Cuffs or The Ritual
+            Ball. As long as an item's quantity in your order is <strong>10 or
+            more</strong>, that item is eligible for the wholesale discount.
+        </p>
+
+        <h2>How It Works</h2>
+
+        <ul>
+            <li>Choose at least 10 units of any single product in your order.</li>
+            <li>The wholesale discount is applied to every unit of that product.</li>
+            <li>Items ordered in quantities below 10 units are charged at their regular retail price.</li>
+            <li>For quantities above 10, <a href="https://wa.me/917011199090?text=Hi%20The%20Ritual%20Co.%2C%20I%20have%20a%20query%20about%20wholesale%20pricing." target="_blank" rel="noopener noreferrer">get in touch with us</a> for the best possible bulk pricing.</li>
+        </ul>
+
+        <h2>Who Can Buy Wholesale</h2>
+
+        <p>
+            Wholesale pricing is open to anyone purchasing in bulk — retail
+            stores, online resellers, fitness and pilates studios, gyms,
+            corporates, NGOs and individual bulk buyers.
+        </p>
+
+        <h2>How To Place A Wholesale Order</h2>
+
+        <p>
+            For orders of 10–99 units, you can place your order directly on the
+            website and the wholesale discount will be applied automatically at
+            checkout. For larger orders, or to discuss custom colours, branding
+            or special arrangements, please reach out to our team and we will
+            help you put together the right quote.
+        </p>
+
+        <h2>Contact Our Wholesale Team</h2>
+
+        <p>
+            Email: theritualcoofficial@gmail.com
+        </p>
+
+        <p>
+            We're happy to answer questions, share product catalogues and help
+            you plan your bulk order.
+        </p>
+
+    </section>
+</main>
+<div id="footer-placeholder"></div>
+
+</body>
+
+<!-- Load Navbar and Footer -->
+<script>
+    fetch("/partials/navbar.html")
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById("navbar-placeholder").innerHTML = data;
+            const script = document.createElement('script');
+            script.src = '/javascript/navbar.js';
+            document.body.appendChild(script);
+        });
+
+    fetch("/partials/footer.html")
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById("footer-placeholder").innerHTML = data;
+        });
+</script>
+</html>
