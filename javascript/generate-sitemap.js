@@ -22,10 +22,12 @@ const EXCLUDE_FILES = [
 function priorityFor(urlPath) {
     if (urlPath === "") return "1.0";                       // homepage
     if (/^products\/(capsule-dumbbell|yoga-belt)$/.test(urlPath)) return "0.9"; // live products
+    if (/^products\/(the-ritual-ring|the-ritual-mat|the-ritual-block|the-ritual-ball|the-ritual-cuffs|the-ritual-belt|bundles)$/.test(urlPath)) return "0.8"; // product pages
     if (/^products\/(yoga-mat|ankle-weights)$/.test(urlPath)) return "0.6";     // coming soon
     if (urlPath === "products/products") return "0.9";      // collection
+    if (urlPath === "pilates") return "0.8";                // pilates landing
     if (/^(founder|press)$/.test(urlPath)) return "0.7";
-    if (/^(about|faq|contact)$/.test(urlPath)) return "0.6";
+    if (/^(about|faq|contact|wholesale)$/.test(urlPath)) return "0.6";
     if (urlPath === "blog") return "0.7";
     if (urlPath.startsWith("blog/")) return urlPath.includes("bloglist") ? "0.5" : "0.6";
     if (/(privacy|terms|shipping|refund)/.test(urlPath)) return "0.3";

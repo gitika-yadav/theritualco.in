@@ -4,8 +4,8 @@ const path = require("path");
 const { JSDOM } = require("jsdom");
 
 const BASE_URL = "https://theritualco.in";
-const BLOG_DIR = path.join(__dirname, "category"); // blog folders are inside /category
-const OUTPUT_PATH = path.join(__dirname, "feed.xml");
+const BLOG_DIR = path.join(__dirname, "..", "blog"); // blog folders are inside /blog
+const OUTPUT_PATH = path.join(__dirname, "..", "feed.xml");
 
 function walk(dir) {
   let results = [];
@@ -29,8 +29,9 @@ function parseBlogMetadata(filePath) {
 
   const title = doc.querySelector("title")?.textContent || "Untitled";
   const metaDesc = doc.querySelector('meta[name="description"]')?.content || "";
-  const relativePath = path.relative(__dirname, filePath).replace(/\\/g, "/");
-  const url = `${BASE_URL}/${relativePath}`;
+  const relativePath = path.relative(path.join(__dirname, ".."), filePath).replace(/\\/g, "/");
+  const urlPath = relativePath.replace(/\.html$/, "");
+  const url = `${BASE_URL}/${urlPath}`;
 
   // Look for a publish comment: <!-- published: 2025-06-05T10:00:00Z -->
   const match = html.match(/<!--\s*published:\s*(.*?)\s*-->/);
@@ -39,17 +40,22 @@ function parseBlogMetadata(filePath) {
   return { title, url, description: metaDesc, pubDate };
 }
 
-const blogFiles = walk(BLOG_DIR);
+const blogFiles = walk(BLOG_DIR).filter(
+  (f) => !f.includes("bloglist") && !f.endsWith("article-format.html")
+);
 
+const seen = new Set();
 const itemsXml = blogFiles.map(file => {
   const { title, url, description, pubDate } = parseBlogMetadata(file);
+  if (seen.has(url)) return null;
+  seen.add(url);
   return `    <item>
       <title>${title}</title>
       <link>${url}</link>
       <description>${description}</description>
       <pubDate>${pubDate}</pubDate>
     </item>`;
-}).join("\n");
+}).filter(Boolean).join("\n");
 
 const feedXml = `<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0">
