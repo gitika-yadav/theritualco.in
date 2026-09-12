@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Event Inventory — The Ritual Co. (Admin)</title>
+    <meta name="robots" content="noindex, nofollow"/>
+    <style>
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f7f4ef;color:#1a1a18;max-width:900px;margin:0 auto;padding:40px 20px;}
+        h1{font-size:22px;font-weight:600;margin-bottom:4px;}
+        h2{font-size:15px;font-weight:600;margin:32px 0 14px;color:#3a3330;}
+        p.sub{color:#6b6257;font-size:13px;margin-bottom:24px;}
+        label{display:block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#6b6257;margin:12px 0 6px;}
+        input, select{width:100%;padding:9px 12px;border:1px solid #e5e0d8;border-radius:6px;font-size:13px;background:#fff;box-sizing:border-box;}
+        .form-card{background:#fff;border:1px solid #ece8df;border-radius:10px;padding:20px;margin-bottom:12px;}
+        .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+        .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+        button{cursor:pointer;}
+        #add-btn{width:100%;background:#1a1a18;color:#fff;border:none;padding:12px;border-radius:6px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-top:16px;}
+        #add-btn:disabled{opacity:.5;}
+        table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;border:1px solid #ece8df;margin-bottom:24px;}
+        th{background:#f2efe9;padding:9px 10px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#6b6257;}
+        td{padding:10px;border-top:1px solid #f0ede4;font-size:13px;vertical-align:middle;}
+        .badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:600;text-transform:uppercase;}
+        .badge-out{background:#fdf3e7;color:#8b5a2b;}
+        .badge-partial{background:#f2e9fb;color:#6b3fa0;}
+        .badge-returned{background:#edf4f0;color:#2a6b3a;}
+        .return-btn{background:#fff;border:1px solid #d0c9bc;border-radius:5px;padding:5px 10px;font-size:11px;}
+        .return-btn:hover{background:#f5f2ec;}
+        .still-out{font-weight:600;}
+        .still-out.zero{color:#2a6b3a;}
+        .still-out.nonzero{color:#a04040;}
+        #gate{max-width:320px;margin:100px auto;text-align:center;}
+        #gate input{margin-bottom:10px;}
+        #status-msg{font-size:13px;margin-top:8px;}
+        .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;z-index:200;}
+        .modal{background:#fff;border-radius:10px;padding:22px;width:320px;}
+        .modal h3{font-size:15px;margin-bottom:14px;}
+        .modal-actions{display:flex;gap:8px;margin-top:16px;}
+        .modal-actions button{flex:1;padding:10px;border-radius:6px;font-size:12px;font-weight:600;border:none;}
+        #confirm-return-btn{background:#1a1a18;color:#fff;}
+        #cancel-return-btn{background:#f0ede4;color:#3a3330;}
+    </style>
+</head>
+<body>
+
+<div id="gate">
+    <h1>Admin Access</h1>
+    <input type="password" id="secret-input" placeholder="Admin key"/>
+    <button id="gate-btn" style="width:100%;background:#1a1a18;color:#fff;border:none;padding:12px;border-radius:6px;">Unlock</button>
+</div>
+
+<div id="app" style="display:none;">
+    <h1>Event Inventory</h1>
+    <p class="sub">Track stock leased out for pop-ups/events and log what comes back.</p>
+
+    <h2>Send items to an event</h2>
+    <div class="form-card">
+        <label>Event name</label>
+        <input id="event_name" placeholder="e.g. Diwali Market, Nov 2026"/>
+        <div class="row3">
+            <div>
+                <label>Product</label>
+                <select id="product_id"></select>
+            </div>
+            <div>
+                <label>Colour</label>
+                <select id="color"></select>
+            </div>
+            <div>
+                <label>Quantity</label>
+                <input id="qty_leased" type="number" min="1" value="1"/>
+            </div>
+        </div>
+        <div class="row2">
+            <div>
+                <label>Date out</label>
+                <input id="date_out" type="date"/>
+            </div>
+            <div>
+                <label>Notes (optional)</label>
+                <input id="notes" placeholder="Booth #, contact, etc."/>
+            </div>
+        </div>
+        <button id="add-btn">Log stock going out</button>
+        <p id="status-msg"></p>
+    </div>
+
+    <h2>Currently out</h2>
+    <table id="active-table">
+        <thead><tr><th>Event</th><th>Product</th><th>Leased</th><th>Returned</th><th>Still out</th><th>Status</th><th></th></tr></thead>
+        <tbody id="active-body"><tr><td colspan="7">Loading…</td></tr></tbody>
+    </table>
+
+    <h2>History (fully returned)</h2>
+    <table id="history-table">
+        <thead><tr><th>Event</th><th>Product</th><th>Leased</th><th>Returned</th><th>Date returned</th></tr></thead>
+        <tbody id="history-body"><tr><td colspan="5">Loading…</td></tr></tbody>
+    </table>
+</div>
+
+<div class="modal-overlay" id="return-modal">
+    <div class="modal">
+        <h3>Log return</h3>
+        <label>Quantity returned</label>
+        <input id="return-qty" type="number" min="0"/>
+        <label>Date returned</label>
+        <input id="return-date" type="date"/>
+        <div class="modal-actions">
+            <button id="cancel-return-btn">Cancel</button>
+            <button id="confirm-return-btn">Confirm</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const PRODUCTS = [
+        { id: "capsule-1kg",       name: "Capsule Dumbbells 1kg", colors: ["Black","Cream","Pink","Coffee"] },
+        { id: "capsule-2kg",       name: "Capsule Dumbbells 2kg", colors: ["Black","Cream","Pink","Coffee"] },
+        { id: "yoga-belt",         name: "The Ritual Belt",       colors: ["Cream","Black","Coffee","Pink"] },
+        { id: "yoga-block",        name: "The Ritual Block",      colors: ["Black","Pink","Cream","Coffee"] },
+        { id: "yoga-mat-5mm",      name: "The Ritual Mat",        colors: ["Coffee","Pink","Cream","Black"] },
+        { id: "ankle-weights-2lb", name: "The Ritual Cuffs",      colors: ["Cream","Coffee","Black","Pink"] },
+        { id: "pilates-ball",      name: "The Ritual Ball",       colors: ["Pink","Black","Cream","Coffee"] },
+        { id: "pilates-ring",      name: "The Ritual Ring",       colors: ["Pink","Black","Cream","Coffee"] },
+    ];
+
+    let secretKey = "";
+
+    document.getElementById("gate-btn").addEventListener("click", () => {
+        secretKey = document.getElementById("secret-input").value.trim();
+        if (!secretKey) return alert("Enter the admin key.");
+        document.getElementById("gate").style.display = "none";
+        document.getElementById("app").style.display = "block";
+        initProductSelect();
+        loadEvents();
+    });
+
+    function initProductSelect() {
+        const productSel = document.getElementById("product_id");
+        productSel.innerHTML = PRODUCTS.map(p => `<option value="${p.id}">${p.name}</option>`).join("");
+        refreshColors();
+        productSel.addEventListener("change", refreshColors);
+        document.getElementById("date_out").valueAsDate = new Date();
+    }
+
+    function refreshColors() {
+        const productSel = document.getElementById("product_id");
+        const colorSel = document.getElementById("color");
+        const prod = PRODUCTS.find(p => p.id === productSel.value);
+        colorSel.innerHTML = prod.colors.map(c => `<option value="${c}">${c}</option>`).join("");
+    }
+
+    async function callApi(payload, method = "POST", qs = "") {
+        const res = await fetch("/.netlify/functions/event-inventory" + qs, {
+            method,
+            headers: { "Content-Type": "application/json", "x-admin-token": secretKey, "Authorization": "Bearer " + secretKey },
+            body: method === "POST" ? JSON.stringify(payload) : undefined,
+        });
+        if (!res.ok) throw new Error((await res.json()).error || "Request failed");
+        return res.json();
+    }
+
+    async function loadEvents() {
+        try {
+            const { events } = await callApi(null, "GET", "?action=list");
+            renderActive(events.filter(e => e.status !== "returned"));
+            renderHistory(events.filter(e => e.status === "returned"));
+        } catch (err) {
+            document.getElementById("active-body").innerHTML = `<tr><td colspan="7">Failed to load: ${err.message}</td></tr>`;
+        }
+    }
+
+    function renderActive(events) {
+        const body = document.getElementById("active-body");
+        if (events.length === 0) {
+            body.innerHTML = `<tr><td colspan="7">Nothing currently out.</td></tr>`;
+            return;
+        }
+        body.innerHTML = events.map(e => {
+            const stillOut = e.qty_leased - e.qty_returned;
+            return `
+      <tr>
+        <td>${e.event_name}</td>
+        <td>${e.product_name} · ${e.color}</td>
+        <td>${e.qty_leased}</td>
+        <td>${e.qty_returned}</td>
+        <td class="still-out ${stillOut === 0 ? 'zero' : 'nonzero'}">${stillOut}</td>
+        <td><span class="badge badge-${e.status}">${e.status}</span></td>
+        <td><button class="return-btn" onclick="openReturnModal(${e.id}, ${e.qty_leased}, ${e.qty_returned})">Log return</button></td>
+      </tr>`;
+        }).join("");
+    }
+
+    function renderHistory(events) {
+        const body = document.getElementById("history-body");
+        if (events.length === 0) {
+            body.innerHTML = `<tr><td colspan="5">No fully-returned events yet.</td></tr>`;
+            return;
+        }
+        body.innerHTML = events.map(e => `
+    <tr>
+      <td>${e.event_name}</td>
+      <td>${e.product_name} · ${e.color}</td>
+      <td>${e.qty_leased}</td>
+      <td>${e.qty_returned}</td>
+      <td>${e.date_returned || "—"}</td>
+    </tr>`).join("");
+    }
+
+    document.getElementById("add-btn").addEventListener("click", async () => {
+        const event_name = document.getElementById("event_name").value.trim();
+        const product_id = document.getElementById("product_id").value;
+        const product = PRODUCTS.find(p => p.id === product_id);
+        const color = document.getElementById("color").value;
+        const qty_leased = document.getElementById("qty_leased").value;
+        const date_out = document.getElementById("date_out").value;
+        const notes = document.getElementById("notes").value.trim();
+        const statusMsg = document.getElementById("status-msg");
+
+        if (!event_name || !qty_leased) {
+            statusMsg.textContent = "Event name and quantity are required.";
+            statusMsg.style.color = "#a04040";
+            return;
+        }
+
+        const btn = document.getElementById("add-btn");
+        btn.disabled = true;
+        btn.textContent = "Saving…";
+
+        try {
+            await callApi({ action: "add", event_name, product_id, product_name: product.name, color, qty_leased, date_out, notes });
+            statusMsg.textContent = "✅ Logged.";
+            statusMsg.style.color = "#2a6b3a";
+            document.getElementById("event_name").value = "";
+            document.getElementById("qty_leased").value = "1";
+            document.getElementById("notes").value = "";
+            loadEvents();
+        } catch (err) {
+            statusMsg.textContent = "❌ " + err.message;
+            statusMsg.style.color = "#a04040";
+        } finally {
+            btn.disabled = false;
+            btn.textContent = "Log stock going out";
+        }
+    });
+
+    let returnTargetId = null;
+    function openReturnModal(id, qtyLeased, qtyAlreadyReturned) {
+        returnTargetId = id;
+        document.getElementById("return-qty").value = qtyLeased;
+        document.getElementById("return-date").valueAsDate = new Date();
+        document.getElementById("return-modal").style.display = "flex";
+    }
+    document.getElementById("cancel-return-btn").addEventListener("click", () => {
+        document.getElementById("return-modal").style.display = "none";
+    });
+    document.getElementById("confirm-return-btn").addEventListener("click", async () => {
+        const qty_returned = document.getElementById("return-qty").value;
+        const date_returned = document.getElementById("return-date").value;
+        try {
+            await callApi({ action: "return", id: returnTargetId, qty_returned, date_returned });
+            document.getElementById("return-modal").style.display = "none";
+            loadEvents();
+        } catch (err) {
+            alert("Error: " + err.message);
+        }
+    });
+</script>
+</body>
+</html>
