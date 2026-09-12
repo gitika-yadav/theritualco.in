@@ -25,6 +25,8 @@ html, body {
 
 .main-content {
   flex-grow: 1;
+  width: 100%;
+  box-sizing: border-box;
   padding: 60px 20px;
   max-width: 900px;
   margin: 0 auto;
