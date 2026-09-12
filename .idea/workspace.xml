@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="bug fix">
-      <change afterPath="$PROJECT_DIR$/admin/event-inventory-admin.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/wholesale-order.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/netlify/functions/create-wholesale-order.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/netlify/functions/event-inventory.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sitemap.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sitemap.xml" afterDir="false" />
-    </list>
+    <list default="true" id="ab42f8dd-dc9a-4935-8a5c-565bbe5135d2" name="Changes" comment="add event + wholesale inventory management" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,23 +28,23 @@
 }</component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0415214317499466" />
-      <entry key="MS500" value="1.5382538037270979" />
-      <entry key="S2" value="2.1610367250757574" />
-      <entry key="S5" value="2.56277618206911" />
-      <entry key="S10" value="2.7588909444681615" />
-      <entry key="S30" value="2.913964624893887" />
-      <entry key="S60" value="2.9562278334317895" />
-      <entry key="M2" value="2.9779216375183206" />
-      <entry key="M5" value="2.991122031293625" />
-      <entry key="M10" value="2.9955532049514337" />
-      <entry key="M15" value="2.997033731300829" />
-      <entry key="M30" value="2.998542256191771" />
-      <entry key="H1" value="3.0326869638216993" />
-      <entry key="H2" value="4.450622162068411" />
-      <entry key="H4" value="14.008998866755256" />
-      <entry key="D1" value="70.92071701829298" />
-      <entry key="W1" value="305.9620735396595" />
+      <entry key="MS100" value="1.0000000000007792" />
+      <entry key="MS500" value="1.0063719870959331" />
+      <entry key="S2" value="1.8547620370138311" />
+      <entry key="S5" value="4.242963539338353" />
+      <entry key="S10" value="6.5345736812321515" />
+      <entry key="S30" value="9.156831542700644" />
+      <entry key="S60" value="10.024108342385254" />
+      <entry key="M2" value="10.497582792373956" />
+      <entry key="M5" value="10.795438296009602" />
+      <entry key="M10" value="10.897109554357932" />
+      <entry key="M15" value="10.931270118167797" />
+      <entry key="M30" value="10.965566735717251" />
+      <entry key="H1" value="10.982766249848632" />
+      <entry key="H2" value="10.991378840766453" />
+      <entry key="H4" value="10.995688348792982" />
+      <entry key="D1" value="11.811973966946855" />
+      <entry key="W1" value="172.585913829916" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -64,32 +57,32 @@
       <entry key="M2" value="0.0" />
       <entry key="M5" value="0.0" />
       <entry key="M10" value="0.0" />
-      <entry key="M15" value="1.4874338187503918E-224" />
-      <entry key="M30" value="1.6100994373979897E-112" />
-      <entry key="H1" value="1.7854042595059261E-56" />
-      <entry key="H2" value="2.0282772668896107E-28" />
-      <entry key="H4" value="2.332076792478379E-14" />
-      <entry key="D1" value="0.013215523212407732" />
-      <entry key="W1" value="3.474320153390711" />
+      <entry key="M15" value="0.0" />
+      <entry key="M30" value="1.1122665878305205E-205" />
+      <entry key="H1" value="4.69261217543474E-103" />
+      <entry key="H2" value="1.0398396449687739E-51" />
+      <entry key="H4" value="5.280345880859965E-26" />
+      <entry key="D1" value="1.5143895909469315E-4" />
+      <entry key="W1" value="1.8348730193356713" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.020087230627293" />
-      <entry key="MS500" value="1.531857238366594" />
-      <entry key="S2" value="2.1586843659102066" />
-      <entry key="S5" value="2.5616240533375483" />
-      <entry key="S10" value="2.758262549275485" />
-      <entry key="S30" value="2.913741292181673" />
-      <entry key="S60" value="2.9561142727341636" />
-      <entry key="M2" value="2.977864370639222" />
-      <entry key="M5" value="2.9910990060788407" />
-      <entry key="M10" value="2.9955416724572084" />
-      <entry key="M15" value="2.997026038541399" />
-      <entry key="M30" value="2.9985384069665635" />
-      <entry key="H1" value="3.032684416608818" />
-      <entry key="H2" value="4.450605129851354" />
-      <entry key="H4" value="14.008934818305454" />
-      <entry key="D1" value="70.933865494908" />
-      <entry key="W1" value="309.4363243267767" />
+      <entry key="MS100" value="0.97942029758769" />
+      <entry key="MS500" value="1.002187657021737" />
+      <entry key="S2" value="1.8356562437619837" />
+      <entry key="S5" value="4.196432019985751" />
+      <entry key="S10" value="6.490962501636559" />
+      <entry key="S30" value="9.134600292464011" />
+      <entry key="S60" value="10.011738132726148" />
+      <entry key="M2" value="10.491057237949942" />
+      <entry key="M5" value="10.792742696890736" />
+      <entry key="M10" value="10.895747208952196" />
+      <entry key="M15" value="10.930358631673492" />
+      <entry key="M30" value="10.965109358367318" />
+      <entry key="H1" value="10.982537151521141" />
+      <entry key="H2" value="10.991264189048412" />
+      <entry key="H4" value="10.995630997277722" />
+      <entry key="D1" value="11.812115075456687" />
+      <entry key="W1" value="174.42074884912574" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -178,14 +171,6 @@
       <workItem from="1779695741143" duration="8369000" />
       <workItem from="1780831623909" duration="98941000" />
       <workItem from="1781737896564" duration="11840000" />
-    </task>
-    <task id="LOCAL-00178" summary="update belt + block price">
-      <option name="closed" value="true" />
-      <created>1784133148241</created>
-      <option name="number" value="00178" />
-      <option name="presentableId" value="LOCAL-00178" />
-      <option name="project" value="LOCAL" />
-      <updated>1784133148241</updated>
     </task>
     <task id="LOCAL-00179" summary="update belt + block price">
       <option name="closed" value="true" />
@@ -571,14 +556,21 @@
       <option name="project" value="LOCAL" />
       <updated>1788674979265</updated>
     </task>
-    <option name="localTasksCounter" value="227" />
+    <task id="LOCAL-00227" summary="add event + wholesale inventory management">
+      <option name="closed" value="true" />
+      <created>1789232031476</created>
+      <option name="number" value="00227" />
+      <option name="presentableId" value="LOCAL-00227" />
+      <option name="project" value="LOCAL" />
+      <updated>1789232031476</updated>
+    </task>
+    <option name="localTasksCounter" value="228" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="remove early bird pricing" />
     <MESSAGE value="add new images" />
     <MESSAGE value="add pilates ball product" />
     <MESSAGE value="change color names" />
@@ -603,7 +595,8 @@
     <MESSAGE value="add pilates kit images" />
     <MESSAGE value="add kits" />
     <MESSAGE value="bug fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="bug fix" />
+    <MESSAGE value="add event + wholesale inventory management" />
+    <option name="LAST_COMMIT_MESSAGE" value="add event + wholesale inventory management" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

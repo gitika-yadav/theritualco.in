@@ -126,14 +126,28 @@
     ];
 
     let secretKey = "";
-
-    document.getElementById("gate-btn").addEventListener("click", () => {
-        secretKey = document.getElementById("secret-input").value.trim();
-        if (!secretKey) return alert("Enter the admin key.");
-        document.getElementById("gate").style.display = "none";
-        document.getElementById("app").style.display = "block";
-        initProductSelect();
-        loadEvents();
+    document.getElementById("gate-btn").addEventListener("click", async () => {
+        const password = document.getElementById("secret-input").value.trim();
+        if (!password) return alert("Enter the admin key.");
+        try {
+            const res = await fetch("/.netlify/functions/admin-auth", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ password }),
+            });
+            if (!res.ok) {
+                alert("Incorrect password.");
+                return;
+            }
+            const { token } = await res.json();
+            secretKey = token;
+            document.getElementById("gate").style.display = "none";
+            document.getElementById("app").style.display = "block";
+            initProductSelect();
+            loadEvents();
+        } catch (e) {
+            alert("Network error — try again.");
+        }
     });
 
     function initProductSelect() {
