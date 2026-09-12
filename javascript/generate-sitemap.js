@@ -27,6 +27,7 @@ function priorityFor(urlPath) {
     if (urlPath === "products/products") return "0.9";      // collection
     if (urlPath === "pilates") return "0.8";                // pilates landing
     if (urlPath === "tulamove-vs-theritualco") return "0.8";// competitive comparison
+    if (urlPath === "kosha-yoga-vs-theritualco") return "0.8"; // competitive comparison
     if (/^(founder|press)$/.test(urlPath)) return "0.7";
     if (/^(about|faq|contact|wholesale)$/.test(urlPath)) return "0.6";
     if (urlPath === "blog") return "0.7";

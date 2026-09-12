@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">
+  <channel>
+    <title>The Ritual Co. Products</title>
+    <link>https://theritualco.in/products/products</link>
+    <description>Aesthetic pilates, yoga and strength equipment for Indian homes</description>
+
+  <item>
+    <g:id>TRC-CAPSULE-1KG</g:id>
+    <title>Capsule Silicone Dumbbells (1 kg)</title>
+    <link>https://theritualco.in/products/capsule-dumbbell</link>
+    <description>Soft-touch, skin-safe silicone over cast-iron core. Ergonomic ~35 mm grip in 1 kg & 2 kg. Pastel colours.</description>
+    <image_link>https://theritualco.in/images/capsule-dumbbell.jpg</image_link>
+    <availability>out of stock</availability>
+    <price>2499 INR</price>
+    <brand>The Ritual Co.</brand>
+    <condition>new</condition>
+    <google_product_category>Sporting Goods > Exercise & Fitness Equipment</google_product_category>
+    <product_type>Sporting Goods > Exercise & Fitness Equipment</product_type>
+    <color>Pink, Coffee, Cream, Black</color>
+    <custom_label_0>pilates</custom_label_0>
+  </item>
+  <item>
+    <g:id>TRC-CAPSULE-2KG</g:id>
+    <title>Capsule Silicone Dumbbells (2 kg)</title>
+    <link>https://theritualco.in/products/capsule-dumbbell</link>
+    <description>Soft-touch, skin-safe silicone over cast-iron core. Ergonomic ~35 mm grip in 1 kg & 2 kg. Pastel colours.</description>
+    <image_link>https://theritualco.in/images/capsule-dumbbell.jpg</image_link>
+    <availability>out of stock</availability>
+    <price>2999 INR</price>
+    <brand>The Ritual Co.</brand>
+    <condition>new</condition>
+    <google_product_category>Sporting Goods > Exercise & Fitness Equipment</google_product_category>
+    <product_type>Sporting Goods > Exercise & Fitness Equipment</product_type>
+    <color>Pink, Coffee, Cream, Black</color>
+    <custom_label_0>pilates</custom_label_0>
+  </item>
+  <item>
+    <g:id>TRC-PILATES-BALL</g:id>
+    <title>The Ritual Ball</title>
+    <link>https://theritualco.in/products/the-ritual-ball</link>
+    <description>Mini pilates ball for core, inner thigh, and pelvic floor work. Anti-burst, skin-safe PVC, 25cm diameter, comes with inflation straw.</description>
+    <image_link>https://theritualco.in/images/pilates-ball-cream.webp</image_link>
+    <availability>in stock</availability>
+    <price>999.00 INR</price>
+    <brand>The Ritual Co.</brand>
+    <condition>new</condition>
+    <google_product_category>Sporting Goods > Exercise & Fitness Equipment</google_product_category>
+    <product_type>Sporting Goods > Exercise & Fitness Equipment</product_type>
+    <color>Cream, Black, Pink</color>
+    <custom_label_0>pilates</custom_label_0>
+  </item>
+  <item>
+    <g:id>TRC-YOGA-BELT</g:id>
+    <title>The Ritual Belt</title>
+    <link>https://theritualco.in/products/the-ritual-belt</link>
+    <description>Organic cotton yoga belt with adjustable metal buckle. 96 inch long, 1.5 inch wide. Stretch deeper, correct alignment, improve posture.</description>
+    <image_link>https://theritualco.in/images/yoga-belt.webp</image_link>
+    <availability>in stock</availability>
+    <price>499.00 INR</price>
+    <brand>The Ritual Co.</brand>
+    <condition>new</condition>
+    <google_product_category>Sporting Goods > Exercise & Fitness Equipment</google_product_category>
+    <product_type>Sporting Goods > Exercise & Fitness Equipment</product_type>
+    <color>Cream, Coffee</color>
+    <custom_label_0>pilates</custom_label_0>
+  </item>
+  <item>
+    <g:id>TRC-BLOCK</g:id>
+    <title>The Ritual Block</title>
+    <link>https://theritualco.in/products/the-ritual-block</link>
+    <description>Dense EVA foam yoga block in pastel colourways. 23cm x 15cm x 10cm. Supports every pose, deepens every stretch.</description>
+    <image_link>https://theritualco.in/images/the-ritual-block-black.webp</image_link>
+    <availability>in stock</availability>
+    <price>899.00 INR</price>
+    <brand>The Ritual Co.</brand>
+    <condition>new</condition>
+    <google_product_category>Sporting Goods > Exercise & Fitness Equipment</google_product_category>
+    <product_type>Sporting Goods > Exercise & Fitness Equipment</product_type>
+    <color>Black, Pink, Cream, Coffee</color>
+    <custom_label_0>pilates</custom_label_0>
+  </item>
+  <item>
+    <g:id>TRC-CUFFS-2LB</g:id>
+    <title>The Ritual Cuffs</title>
+    <link>https://theritualco.in/products/the-ritual-cuffs</link>
+    <description>Baby-soft silicone ankle weights. Adjustable, waterproof, all-day comfortable. 2lb per cuff. Sold as a pair.</description>
+    <image_link>https://theritualco.in/images/ankle-weights.webp</image_link>
+    <availability>in stock</availability>
+    <price>3499.00 INR</price>
+    <brand>The Ritual Co.</brand>
+    <condition>new</condition>
+    <google_product_category>Sporting Goods > Exercise & Fitness Equipment</google_product_category>
+    <product_type>Sporting Goods > Exercise & Fitness Equipment</product_type>
+    <color>Cream, Coffee, Black, Pink</color>
+    <custom_label_0>pilates</custom_label_0>
+  </item>
+  <item>
+    <g:id>TRC-MAT-5MM</g:id>
+    <title>The Ritual Mat</title>
+    <link>https://theritualco.in/products/the-ritual-mat</link>
+    <description>A minimal, pastel yoga mat with natural rubber base and sweat-resistant surface. 5mm thickness. 183cm x 61cm.</description>
+    <image_link>https://theritualco.in/images/yoga-mat-coffee.webp</image_link>
+    <availability>in stock</availability>
+    <price>4999.00 INR</price>
+    <brand>The Ritual Co.</brand>
+    <condition>new</condition>
+    <google_product_category>Sporting Goods > Exercise & Fitness Equipment</google_product_category>
+    <product_type>Sporting Goods > Exercise & Fitness Equipment</product_type>
+    <color>Cream, Coffee, Black, Pink</color>
+    <custom_label_0>pilates</custom_label_0>
+  </item>
+  <item>
+    <g:id>TRC-PILATES-RING</g:id>
+    <title>The Ritual Ring</title>
+    <link>https://theritualco.in/products/the-ritual-ring</link>
+    <description>Pilates ring (magic circle) for inner thigh, arm, and core toning. Dual foam-padded handles, 14-inch diameter, studio-standard resistance.</description>
+    <image_link>https://theritualco.in/images/pilates-ring-cream.webp</image_link>
+    <availability>preorder</availability>
+    <price>1499.00 INR</price>
+    <brand>The Ritual Co.</brand>
+    <condition>new</condition>
+    <google_product_category>Sporting Goods > Exercise & Fitness Equipment</google_product_category>
+    <product_type>Sporting Goods > Exercise & Fitness Equipment</product_type>
+    <color>Cream, Black, Pink, Coffee</color>
+    <custom_label_0>pilates</custom_label_0>
+  </item>
+
+  </channel>
+</rss>
