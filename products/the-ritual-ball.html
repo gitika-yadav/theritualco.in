@@ -143,8 +143,8 @@
             <span class="price-note">Free shipping on orders above &#8377;999</span>
         </div>
 
-<!--        <button type="button" class="btn-primary" id="preorder-btn">Add to Cart</button>-->
-        <a href="/#waitlist" class="btn-secondary">Join Waitlist </a>
+        <button type="button" class="btn-primary" id="preorder-btn">Preorder Now</button>
+
 
         <div class="trust">
             <span class="trust__item"><span class="trust__dot"></span>Pan-India delivery</span>
@@ -363,7 +363,7 @@
             name: 'The Ritual Ball',
             color: colorVal,
             price: 999,
-            image: '/images/pilates-ball-cream.webp'
+            image: (document.getElementById('main-img') || {}).getAttribute('src') || '/images/pilates-ball-cream.webp'
         });
         gtag('event', 'add_to_cart', {
             currency: 'INR',

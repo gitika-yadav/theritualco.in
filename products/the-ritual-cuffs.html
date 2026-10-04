@@ -45,7 +45,7 @@
             "name":"The Ritual Cuffs",
             "brand":{"@type":"Brand","name":"The Ritual Co."},
             "description":"Baby-soft silicone ankle weights. Adjustable, waterproof, all-day comfortable. 2lb per cuff. Sold as a pair.",
-            "image":["https://theritualco.in/images/ankle-weights.webp"],
+            "image":["https://theritualco.in/images/cuffs-cream.webp"],
             "sku":"TRC-CUFFS",
             "category":"SportingGoods",
             "material":"Silicone",
@@ -80,9 +80,9 @@
 <main class="product">
     <!-- IMAGE -->
     <div class="product__visual is-contain" role="region" aria-label="Product image">
-        <img id="main-img" src="/images/ankleweights-kony-3.webp" alt="The Ritual Cuffs – The Ritual Co." loading="eager"/>
-        <img src="/images/ankleweights-kony-1.webp" alt="The Ritual Cuffs – The Ritual Co." loading="lazy"/>
-        <img src="/images/ankleweights-kony-2.webp" alt="The Ritual Cuffs – The Ritual Co." loading="lazy"/>
+        <img id="main-img" src="/images/cuffs-cream.webp" alt="The Ritual Cuffs – The Ritual Co." loading="eager"/>
+        <img src="/images/cuffs-black.webp" alt="The Ritual Cuffs – The Ritual Co." loading="lazy"/>
+        <img src="/images/cuffs-coffee.webp" alt="The Ritual Cuffs – The Ritual Co." loading="lazy"/>
     </div>
 
     <!-- INFO -->
@@ -135,8 +135,8 @@
             <span class="price-note">Free shipping on orders above &#8377;999</span>
         </div>
 
-<!--        <button type="button" class="btn-primary" id="preorder-btn">Add to Cart</button>-->
-        <a href="/#waitlist" class="btn-secondary">Join Waitlist</a>
+        <button type="button" class="btn-primary" id="preorder-btn">Preorder Now</button>
+
 
         <div id="sticky-cart-bar" class="sticky-cart-bar">
             <img id="sticky-cart-img" src="" alt="" />
@@ -351,7 +351,7 @@
             weight: '2lb',
             color: colorVal,
             price: 3499,
-            image: '/images/ankle-weights.webp'
+            image: (document.getElementById('main-img') || {}).getAttribute('src') || '/images/cuffs-cream.webp'
         });
         gtag('event', 'add_to_cart', {
             currency: 'INR',

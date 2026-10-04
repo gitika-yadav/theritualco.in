@@ -132,8 +132,7 @@
             <span class="price-note">Free shipping on orders above &#8377;999</span>
         </div>
 
-<!--        <button type="button" class="btn-primary" id="preorder-btn">Add to Cart</button>-->
-        <a href="/#waitlist" class="btn-secondary">Join Waitlist</a>
+        <button type="button" class="btn-primary" id="preorder-btn">Preorder Now</button>
 
         <div id="sticky-cart-bar" class="sticky-cart-bar">
             <img id="sticky-cart-img" src="" alt="" />
@@ -347,7 +346,7 @@
             weight: '5mm',
             color: colorVal,
             price: 4999,
-            image: '/images/yoga-mat-coffee.webp'
+            image: (document.getElementById('main-img') || {}).getAttribute('src') || '/images/yoga-mat-coffee.webp'
         });
         gtag('event', 'add_to_cart', {
             currency: 'INR',
