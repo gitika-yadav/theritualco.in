@@ -699,3 +699,18 @@ main{
   .v2 .v2-waitlist input[type="email"],.v2 .v2-waitlist button{grid-column:1/-1}
   .v2 .v2-waitlist button{width:auto;justify-self:start}
 }
+
+.signature-product a {
+  display: inline-block;
+  padding: 15px 32px;
+  background: #171717;
+  color: #fff;
+  border-radius: 999px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  border: 0;
+}
+.signature-product a:hover { background: #3a3330; }
