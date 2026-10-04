@@ -67,46 +67,44 @@
   <div id="navbar-placeholder"></div>
   <main>
 
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero-left">
-        <p class="eyebrow">THE RITUAL CO.</p>
-        <h1>Because<br />Movement<br />Is A Ritual.</h1>
-        <p class="hero-copy">Thoughtfully designed strength essentials for homes that value beauty as much as discipline.</p>
-        <a href="/products/products" class="hero-button"> Explore Collection </a>
+    <div class="v2">
+    <!-- Announcement -->
+    <div class="v2-bar">
+      <div class="v2-bar__inner">
+        <span>Free shipping above ₹999</span>
+        <span>Cash on delivery available</span>
+        <span class="v2-bar__more">7-day returns</span>
+        <span class="v2-bar__more">Preorders ship in 2–3 weeks</span>
       </div>
-      <div class="hero-right">
-        <div class="hero-carousel" id="hero-carousel">
-          <div class="hero-slide is-active" style="background-image:url('/images/capsule-dumbbell-coffee.webp')"></div>
-          <div class="hero-slide" style="background-image:url('/images/yoga-mat-tricolor.webp')"></div>
-          <div class="hero-slide" style="background-image:url('/images/yoga-belt-cream-2.webp')"></div>
-          <div class="hero-slide" style="background-image:url('/images/cuffs-pink.webp')"></div>
-          <div class="hero-slide" style="background-image:url('/images/the-ritual-block-black.webp')"></div>
+    </div>
 
-
-          <button class="hero-nav hero-nav--prev" aria-label="Previous slide">‹</button>
-          <button class="hero-nav hero-nav--next" aria-label="Next slide">›</button>
-
-          <div class="hero-dots" role="tablist" aria-label="Hero image selector">
-            <button class="hero-dot is-active" data-index="0" aria-label="Slide 1"></button>
-            <button class="hero-dot" data-index="1" aria-label="Slide 2"></button>
-            <button class="hero-dot" data-index="2" aria-label="Slide 3"></button>
-            <button class="hero-dot" data-index="3" aria-label="Slide 4"></button>
-            <button class="hero-dot" data-index="4" aria-label="Slide 5"></button>
-          </div>
-
-          <div class="hero-counter"><span id="hero-counter-current">1</span> / <span id="hero-counter-total">5</span></div>
+    <!-- Hero: pick a colour, the whole panel follows -->
+    <section class="v2-hero" id="v2-hero" data-theme="black" aria-label="The Ritual Co.">
+      <div class="v2-hero__media">
+        <img src="/images/capsule-dumbbell-black.webp" alt="Capsule dumbbells in Onyx Black" class="is-active" fetchpriority="high"/>
+        <img src="/images/capsule-dumbbell-cream.webp" alt="Capsule dumbbells in Vanilla Cream" loading="lazy"/>
+        <img src="/images/capsule-dumbbell-pink.webp" alt="Capsule dumbbells in Strawberry Milk" loading="lazy"/>
+        <img src="/images/capsule-dumbbell-coffee.webp" alt="Capsule dumbbells in Oat Latte" loading="lazy"/>
+      </div>
+      <div class="v2-hero__panel">
+        <h1 class="v2-hero__title">Because movement is a ritual.</h1>
+        <p class="v2-hero__sub">Dumbbells, yoga and pilates essentials in colours that match your home.</p>
+        <div class="v2-hero__actions">
+          <a class="v2-btn" href="/products/products">Shop the collection</a>
+          <a class="v2-link" href="/products/bundles">See the kits</a>
+        </div>
+        <div class="v2-colours" role="group" aria-label="Choose a colourway">
+          <button class="v2-swatch is-active" data-theme="black" data-name="Onyx Black" aria-label="Onyx Black" aria-pressed="true"><i style="background:#1c1a19"></i></button>
+          <button class="v2-swatch" data-theme="cream" data-name="Vanilla Cream" aria-label="Vanilla Cream" aria-pressed="false"><i style="background:#efe6d8"></i></button>
+          <button class="v2-swatch" data-theme="pink" data-name="Strawberry Milk" aria-label="Strawberry Milk" aria-pressed="false"><i style="background:#f1cdc6"></i></button>
+          <button class="v2-swatch" data-theme="coffee" data-name="Oat Latte" aria-label="Oat Latte" aria-pressed="false"><i style="background:#6b4e3b"></i></button>
+          <span class="v2-colours__name" id="v2-colour-name" aria-live="polite">Onyx Black</span>
         </div>
       </div>
     </section>
+    </div>
 
-    <!-- PROOF -->
-    <section class="proof-strip">
-      <div>Designed For Beautiful Homes</div>
-      <div>Medical Grade Silicone</div>
-      <div>Women's Ergonomics</div>
-      <div>Minimal Wellness Design</div>
-    </section>
+
     <!-- COLLECTION -->
     <section class="collection">
       <p class="section-label">SHOP THE COLLECTION</p>
@@ -170,7 +168,33 @@
             <span class="collection-cta">Preorder Now</span>
           </div>
         </a>
+        <a href="/products/the-ritual-block" class="collection-card">
+          <div class="collection-img-wrap">
+          <img src="/images/the-ritual-block-black.webp" alt="The Ritual Block" loading="lazy"/>
+          </div>
+          <div class="collection-card-body">
+            <p class="collection-name">The Ritual Block</p>
+            <p class="collection-sub">  EVA Foam · Lightweight</p>
+            <div class="collection-price">
+              <span class="price-new">₹899</span>
+            </div>
+            <span class="collection-cta">Coming Soon</span>
+          </div>
+        </a>
 
+        <a href="/products/the-ritual-ball" class="collection-card">
+          <div class="collection-img-wrap">
+          <img src="/images/pilates-ball-black.webp" alt="The Ritual Ball" loading="lazy"/>
+          </div>
+          <div class="collection-card-body">
+            <p class="collection-name">The Ritual Ball</p>
+            <p class="collection-sub"> High quality PVC ·  Aesthetic design</p>
+            <div class="collection-price">
+              <span class="price-new">₹999</span>
+            </div>
+            <span class="collection-cta">Preorder Now</span>
+          </div>
+        </a>
       </div>
     </section>
 
@@ -252,32 +276,50 @@
       </div>
     </section>
 
-    <!-- FOUNDER -->
-    <section class="founder">
-      <div>
-        <img src="images/founder.webp" alt="Gitika Yadav, Founder of The Ritual Co." loading="lazy" />
+    <!-- REVIEWS: add a reviews section here once you have 5+ real reviews. Leaving it out is better than showing an empty one. -->
+    <div class="v2">
+    <section class="v2-section v2-waitlist">
+      <div class="v2-wrap">
+        <h2 class="v2-h2">Hear about restocks and launches first</h2>
+        <p class="v2-lede">One email when something new lands. Nothing else.</p>
+
+        <form id="waitlist-form">
+          <input id="name" name="name" required placeholder="Name" />
+          <input id="email" name="email" type="email" required placeholder="Email" />
+          <input id="phone" name="phone" required placeholder="Phone" />
+          <input name="nickname" style="display:none" tabindex="-1" autocomplete="off" />
+          <button type="submit">Reserve Your Spot</button>
+        </form>
+        <div id="confirmation" style="display:none">You're on the list.</div>
       </div>
-      <div>
-        <p class="eyebrow">FOUNDER</p>
-        <h2>Built by an engineer, fitness enthusiast, and someone who wanted wellness products beautiful enough to deserve space at home.</h2>
-        <p>— Gitika Yadav</p>
-        <p>Founder</p>
-      </div>
+    </section>
+    </div>
+
+
+    <!-- PROOF -->
+    <section class="proof-strip">
+      <div>Designed For Beautiful Homes</div>
+      <div>Medical Grade Silicone</div>
+      <div>Women's Ergonomics</div>
+      <div>Minimal Wellness Design</div>
     </section>
 
-    <!-- WAITLIST -->
-    <section id="waitlist" class="waitlist">
-      <h2>Join the Waitlist</h2>
-      <p>Be first to know about restocks and new drops.</p>
-      <form id="waitlist-form">
-        <input id="name" name="name" required placeholder="Name" />
-        <input id="email" name="email" type="email" required placeholder="Email" />
-        <input id="phone" name="phone" required placeholder="Phone" />
-        <input name="nickname" style="display:none" tabindex="-1" autocomplete="off" />
-        <button type="submit">Reserve Your Spot</button>
-      </form>
-      <div id="confirmation" style="display:none">You're on the list.</div>
+    <!-- FAQ -->
+    <div class="v2">
+    <section class="v2-section">
+      <div class="v2-wrap">
+        <h2 class="v2-h2">Questions</h2>
+        <div class="v2-faq" style="margin-top:28px">
+          <details><summary>When will my preorder ship?</summary><p>Preorder items (the Mat, Cuffs, Ball and all kits) ship within 2–3 weeks. You get an email the moment yours is dispatched, and delivery then takes 2–5 working days.</p></details>
+          <details><summary>Do you offer cash on delivery?</summary><p>Yes, across India, for a ₹200 handling fee. You can also pay online.</p></details>
+          <details><summary>What is your return policy?</summary><p>Returns are accepted within 7 days of delivery for unused items in their original condition.</p></details>
+          <details><summary>Can I choose different colours inside a kit?</summary><p>Each kit ships in one colourway so every piece matches. Choose Black, Cream, Pink or Coffee on the kit page.</p></details>
+          <details><summary>Is the silicone safe for skin?</summary><p>Yes. Our dumbbells use soft-touch, skin-safe silicone over a cast-iron core.</p></details>
+          <details><summary>Do you ship across India?</summary><p>Yes, pan-India. Shipping is free on orders above ₹999.</p></details>
+        </div>
+      </div>
     </section>
+    </div>
 
   </main>
 
@@ -341,6 +383,7 @@
     });
   });
 </script>
-<script src="/javascript/hero-carousel.js"></script>
+<!--<script src="/javascript/hero-carousel.js"></script>-->
+<script src="/javascript/home-v2.js"></script>
 </body>
 </html>

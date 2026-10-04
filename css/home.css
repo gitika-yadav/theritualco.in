@@ -23,108 +23,44 @@ main{
   overflow:hidden;
 }
 
-/* HERO */
 
-.hero{
-  min-height:100vh;
-  padding:120px 8%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:80px;
-  background: linear-gradient(180deg, #F8F4EE 0%, #F5EFE8 100%);
-  position:relative;
+/* ---------- Announcement bar ---------- */
+.v2-bar{margin-top:88px;background:#171717;color:#F7F2EC;font-size:12.5px;letter-spacing:.02em}
+.v2-bar__inner{max-width:1240px;margin:0 auto;padding:10px 20px;display:flex;justify-content:center;gap:28px}
+.v2-bar span+span{border-left:1px solid rgba(247,242,236,.3);padding-left:28px}
+.v2-bar .v2-bar__more{display:none}
+@media(min-width:700px){.v2-bar .v2-bar__more{display:inline}}
 
+/* ---------- Hero: the page changes colour with the colourway ---------- */
+.v2-hero{--bg:#1c1a19;--fg:#f4ede4;--sub:rgba(244,237,228,.78);background:var(--bg);color:var(--fg);transition:background-color .9s ease,color .9s ease;display:grid;grid-template-columns:1fr}
+.v2-hero[data-theme="black"]{--bg:#1c1a19;--fg:#f4ede4;--sub:rgba(244,237,228,.78)}
+.v2-hero[data-theme="cream"]{--bg:#efe6d8;--fg:#171717;--sub:rgba(23,23,23,.68)}
+.v2-hero[data-theme="pink"]{--bg:#f1cdc6;--fg:#2a1a18;--sub:rgba(42,26,24,.7)}
+.v2-hero[data-theme="coffee"]{--bg:#6b4e3b;--fg:#f6ece1;--sub:rgba(246,236,225,.8)}
+
+.v2-hero__media{position:relative;aspect-ratio:1/1;max-height:52svh;width:100%;overflow:hidden;touch-action:pan-y}
+.v2-hero__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .9s ease}
+.v2-hero__media img.is-active{opacity:1}
+
+.v2-hero__panel{padding:26px 20px 34px}
+.v2-hero__title{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(40px,11vw,76px);line-height:.98;letter-spacing:-.015em;margin-bottom:14px}
+.v2-hero__sub{color:var(--sub);max-width:36ch;margin-bottom:22px;font-size:15.5px;transition:color .9s ease}
+.v2-hero__actions{display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin-bottom:26px}
+.v2 .v2-btn{display:inline-block;padding:15px 30px;border-radius:999px;background:var(--fg);color:var(--bg);font-weight:600;font-size:14px;transition:background-color .9s ease,color .9s ease}
+.v2-hero .v2-link{color:var(--fg)}
+
+.v2-colours{display:flex;align-items:center;gap:12px}
+.v2-swatch{width:34px;height:34px;border-radius:50%;border:2px solid transparent;padding:3px;background:none;cursor:pointer}
+.v2-swatch i{display:block;width:100%;height:100%;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.18)}
+.v2-swatch.is-active{border-color:var(--fg)}
+.v2-colours__name{font-size:13px;color:var(--sub);margin-left:6px;min-width:96px}
+
+@media(min-width:900px){
+  .v2-hero{grid-template-columns:minmax(0,5fr) minmax(0,7fr);min-height:calc(100svh - 88px - 38px);max-height:860px}
+  .v2-hero__media{order:2;aspect-ratio:auto;max-height:none;height:100%}
+  .v2-hero__panel{order:1;display:flex;flex-direction:column;justify-content:center;padding:64px 56px 64px max(40px,calc((100vw - 1240px)/2 + 20px))}
 }
 
-.hero:before{
-  content:"";
-  position:absolute;
-  inset:0;
-  opacity:.025;
-  background-image: radial-gradient(
-                  #000 1px,
-                  transparent 1px);
-  background-size: 24px 24px;
-  pointer-events:none;
-}
-
-.hero-left{
-  flex:1;
-  max-width:540px;
-  z-index:2;
-}
-
-.hero-right{
-  flex:1;
-  display:flex;
-  justify-content:center;
-  z-index:2;
-}
-
-/*.hero-right img{*/
-/*  width:100%;*/
-/*  max-width:620px;*/
-/*  border-radius:32px;*/
-/*  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.10);*/
-/*  animation: float 7s ease-in-out infinite;*/
-/*}*/
-
-@keyframes float{
-  0%{transform: translateY(0);}
-  50%{transform: translateY(-10px);}
-  100%{transform: translateY(0);
-  }
-}
-
-
-.eyebrow{
-  font-size:12px;
-  letter-spacing:.22em;
-  color:#777;
-  margin-bottom:22px;
-}
-
-.hero h1{
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(
-                  68px,
-                  9vw,
-                  120px
-          );
-
-  line-height:.9;
-  font-weight:500;
-  letter-spacing:-3px;
-}
-
-.hero-copy{
-  font-size:18px;
-  line-height:1.9;
-  margin-top:36px;
-  color:var(--muted);
-  max-width:420px;
-}
-
-.hero-button{
-  display:inline-flex;
-  margin-top:42px;
-  padding: 18px 34px;
-  background:#171717;
-  color:white;
-  text-decoration:none;
-  border-radius:999px;
-  transition:.35s;
-  font-size:14px;
-  letter-spacing:.08em;
-}
-
-.hero-button:hover{
-  transform: translateY(-3px);
-  box-shadow:
-          0 18px 45px
-          rgba(0, 0, 0, 0.15);
-}
 
 /* PROOF */
 
@@ -143,7 +79,6 @@ main{
 }
 /* ─────────────────────────────────────────────
    KITS SECTION — Homepage + Bundles page
-   Add to home.css or global.css
 ───────────────────────────────────────────── */
 
 .kits-section {
@@ -440,62 +375,23 @@ main{
 
 /* WAITLIST */
 
-.waitlist{
-
-  padding:
-
-          160px 8%;
-
-  text-align:center;
-
-  background:#FCFAF8;
-
+/* ---------- Waitlist: restyles ANY form pasted inside, whatever its old classes ---------- */
+.v2 .v2-waitlist{background:#171717;color:#F7F2EC}
+.v2 .v2-waitlist .v2-lede{color:rgba(247,242,236,.72)}
+.v2 .v2-waitlist form{display:grid;grid-template-columns:1fr;grid-auto-flow:row dense;gap:12px;max-width:560px;margin:0;padding:0;background:none;border:0;box-shadow:none}
+.v2 .v2-waitlist input:not([type="hidden"]):not([type="checkbox"]){display:block;width:100%;height:52px;margin:0;padding:0 22px;border-radius:999px;border:1px solid rgba(247,242,236,.32);background:transparent;color:#F7F2EC;font:400 15px 'Inter',sans-serif;box-shadow:none;-webkit-appearance:none;appearance:none}
+.v2 .v2-waitlist input::placeholder{color:rgba(247,242,236,.55);opacity:1}
+.v2 .v2-waitlist input:focus{outline:none;border-color:#F7F2EC}
+.v2 .v2-waitlist button{width:100%;height:52px;margin:0;padding:0 30px;border-radius:999px;border:0;background:#F7F2EC;color:#171717;font:600 14px 'Inter',sans-serif;cursor:pointer;box-shadow:none}
+@media(min-width:700px){
+  .v2 .v2-waitlist form{grid-template-columns:1fr 1fr}
+  .v2 .v2-waitlist input[type="email"],.v2 .v2-waitlist button{grid-column:1/-1}
+  .v2 .v2-waitlist button{width:auto;justify-self:start}
 }
-
-.waitlist h2{
-
-  font-family:
-
-          'Cormorant Garamond',
-          serif;
-
-  font-size:72px;
-
-  margin-bottom:18px;
-
-}
-
-.waitlist form{
-
-  display:flex;
-  flex-direction:column;
-  gap:18px;
-  max-width:520px;
-  margin:auto;
-  margin-top:44px;
-}
-
-.waitlist input{
-  padding:22px;
-  border:none;
-  border-radius:16px;
-  font-size:16px;
-}
-
-.waitlist button{
-  padding:22px;
-  border:none;
-  border-radius:999px;
-  background:#171717;
-  color:white;
-  cursor:pointer;
-}
-
 /* MOBILE */
 
 @media(max-width:900px) {
 
-  .hero,
   .philosophy,
   .signature-product,
   .founder {
@@ -664,18 +560,12 @@ main{
 @media (max-width: 900px) {
   .philosophy,
   .signature-product,
-  .founder,
-  .waitlist {
+  .founder{
     padding: 60px 6%;
   }
 
   .craftsmanship {
     padding: 60px 6%;
-  }
-
-  .hero {
-    padding: 120px 6% 60px;
-    gap: 40px;
   }
 
   .proof-strip {
@@ -704,40 +594,108 @@ main{
   }
 }
 
-.hero-carousel { position: relative; width: 100%; height: 100%; min-height: 480px; border-radius: 4px; overflow: hidden; }
-.hero-slide {
-  position: absolute; inset: 0;
-  background-size: cover; background-position: center;
-  opacity: 0; transform: scale(1.04);
-  transition: opacity 1.2s cubic-bezier(0.4,0,0.2,1), transform 6s cubic-bezier(0.4,0,0.2,1);
-}
-.hero-slide.is-active { opacity: 1; transform: scale(1); z-index: 1; }
 
-.hero-nav {
-  position: absolute; top: 50%; transform: translateY(-50%);
-  width: 40px; height: 40px; border-radius: 50%; border: none;
-  background: rgba(255,255,255,0.85); color: #1a1714; font-size: 20px;
-  cursor: pointer; z-index: 3; display: flex; align-items: center; justify-content: center;
-  transition: background 0.2s;
-}
-.hero-nav:hover { background: #fff; }
-.hero-nav--prev { left: 16px; }
-.hero-nav--next { right: 16px; }
+/* ==========================================================
+   The Ritual Co. homepage v2
+   EVERYTHING is scoped under .v2, so wrap the new sections in:
+       <div class="v2"> ... </div>
+   (body class is no longer needed). Because every rule starts with
+   .v2, it beats the old home.css / global.css rules for h1, h2,
+   a, input and button that were overriding the new design.
+   ========================================================== */
+.v2{margin:0;background:#F7F2EC;color:#171717;font-family:'Inter',system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.v2 *,.v2 *::before,.v2 *::after{box-sizing:border-box}
+.v2 img{display:block;max-width:100%}
+.v2 a{color:inherit;text-decoration:none}
+.v2 h1,.v2 h2,.v2 h3,.v2 p,.v2 ul{margin:0;padding:0}
+.v2 ul{list-style:none}
+.v2 :focus-visible{outline:2px solid #BA6B74;outline-offset:3px}
+.v2 .v2-wrap{max-width:1240px;margin:0 auto;padding:0 20px}
+.v2 .v2-section{padding:64px 0}
+.v2 .v2-h2{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(32px,6vw,52px);line-height:1.06;letter-spacing:-.01em;margin-bottom:12px}
+.v2 .v2-lede{color:#6E6E6E;max-width:46ch;margin-bottom:32px}
+.v2 .v2-link{border-bottom:1px solid currentColor;padding-bottom:2px;font-weight:500}
+.v2 .v2-bar{margin-top:88px;background:#171717;color:#F7F2EC;font-size:12.5px;letter-spacing:.02em}
+.v2 .v2-bar__inner{max-width:1240px;margin:0 auto;padding:10px 20px;display:flex;justify-content:center;gap:28px}
+.v2 .v2-bar span+span{border-left:1px solid rgba(247,242,236,.3);padding-left:28px}
+.v2 .v2-bar .v2-bar__more{display:none}
+@media(min-width:700px){.v2 .v2-bar .v2-bar__more{display:inline}}
+.v2 .v2-hero{--bg:#1c1a19;--fg:#f4ede4;--sub:rgba(244,237,228,.78);background:var(--bg);color:var(--fg);transition:background-color .9s ease,color .9s ease;display:grid;grid-template-columns:1fr}
+.v2 .v2-hero[data-theme="black"]{--bg:#1c1a19;--fg:#f4ede4;--sub:rgba(244,237,228,.78)}
+.v2 .v2-hero[data-theme="cream"]{--bg:#efe6d8;--fg:#171717;--sub:rgba(23,23,23,.68)}
+.v2 .v2-hero[data-theme="pink"]{--bg:#f1cdc6;--fg:#2a1a18;--sub:rgba(42,26,24,.7)}
+.v2 .v2-hero[data-theme="coffee"]{--bg:#6b4e3b;--fg:#f6ece1;--sub:rgba(246,236,225,.8)}
+.v2 .v2-hero__media{position:relative;aspect-ratio:1/1;max-height:52svh;width:100%;overflow:hidden;touch-action:pan-y}
+.v2 .v2-hero__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .9s ease}
+.v2 .v2-hero__media img.is-active{opacity:1}
+.v2 .v2-hero__panel{padding:26px 20px 34px}
+.v2 .v2-hero__title{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(40px,11vw,76px);line-height:.98;letter-spacing:-.015em;margin-bottom:14px}
+.v2 .v2-hero__sub{color:var(--sub);max-width:36ch;margin-bottom:22px;font-size:15.5px;transition:color .9s ease}
+.v2 .v2-hero__actions{display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin-bottom:26px}
+.v2 .v2-btn{display:inline-block;padding:15px 30px;border-radius:999px;background:var(--fg);color:var(--bg);font-weight:600;font-size:14px;transition:background-color .9s ease,color .9s ease}
+.v2 .v2-hero .v2-link{color:var(--fg)}
+.v2 .v2-colours{display:flex;align-items:center;gap:12px}
+.v2 .v2-swatch{width:34px;height:34px;border-radius:50%;border:2px solid transparent;padding:3px;background:none;cursor:pointer}
+.v2 .v2-swatch i{display:block;width:100%;height:100%;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.18)}
+.v2 .v2-swatch.is-active{border-color:var(--fg)}
+.v2 .v2-colours__name{font-size:13px;color:var(--sub);margin-left:6px;min-width:96px}
+@media(min-width:900px){.v2 .v2-hero{grid-template-columns:minmax(0,5fr) minmax(0,7fr);min-height:calc(100svh - 88px - 38px);max-height:860px}.v2 .v2-hero__media{order:2;aspect-ratio:auto;max-height:none;height:100%}.v2 .v2-hero__panel{order:1;display:flex;flex-direction:column;justify-content:center;padding:64px 56px 64px max(40px,calc((100vw - 1240px)/2 + 20px))}}
+.v2 .v2-kits{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -20px;padding:0 20px 8px;scrollbar-width:none}
+.v2 .v2-kits::-webkit-scrollbar{display:none}
+.v2 .v2-kit{flex:0 0 68%;scroll-snap-align:start}
+.v2 .v2-kit img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:4px;background:#e9e1d6}
+.v2 .v2-kit h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:22px;line-height:1.15;margin-top:12px}
+.v2 .v2-kit p{font-size:13.5px;color:#6E6E6E;line-height:1.45;margin-top:3px}
+.v2 .v2-kit__price{color:#171717!important;font-weight:600;margin-top:8px!important;font-size:15px!important}
+.v2 .v2-tag{color:#BA6B74;font-size:12.5px;font-weight:600}
+@media(min-width:700px){.v2 .v2-kit{flex-basis:34%}}
+@media(min-width:1100px){.v2 .v2-kits{display:grid;grid-template-columns:repeat(5,1fr);overflow:visible;margin:0;padding:0}.v2 .v2-kit{flex:none}}
+.v2 .v2-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:30px 14px}
+.v2 .v2-item img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:4px;background:#e9e1d6}
+.v2 .v2-item h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:20px;line-height:1.15;margin-top:10px}
+.v2 .v2-item p{font-size:14px;color:#6E6E6E;margin-top:3px}
+@media(min-width:900px){.v2 .v2-grid{grid-template-columns:repeat(3,1fr);gap:44px 28px}.v2 .v2-item h3{font-size:24px}}
+.v2 .v2-colourways{display:grid;grid-template-columns:repeat(2,1fr);gap:22px 12px;margin-bottom:56px}
+.v2 .v2-colourways a{display:block}
+.v2 .v2-colourways img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:4px;background:#e9e1d6}
+.v2 .v2-colourways span{display:flex;align-items:center;gap:10px;margin-top:12px;font-family:'Cormorant Garamond',serif;font-size:21px;line-height:1.1}
+.v2 .v2-colourways i{flex:0 0 auto;width:16px;height:16px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.2)}
+.v2 .v2-facts{display:grid;gap:32px}
+.v2 .v2-facts div{border-top:1px solid #171717;padding-top:16px}
+.v2 .v2-facts h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:24px;margin-bottom:6px;line-height:1.1}
+.v2 .v2-facts p{color:#555;font-size:15px;max-width:38ch}
+@media(min-width:900px){.v2 .v2-facts{grid-template-columns:repeat(3,1fr);gap:40px}.v2 .v2-colourways{grid-template-columns:repeat(4,1fr);gap:24px}.v2 .v2-colourways span{font-size:23px}}
+.v2 .v2-founder{background:#ECE4DA}
+.v2 .v2-founder__grid{display:grid;gap:28px;align-items:center}
+.v2 .v2-founder img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:4px;max-width:420px}
+.v2 .v2-founder blockquote{margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(25px,4.6vw,38px);line-height:1.2}
+.v2 .v2-founder cite{display:block;margin-top:18px;font-style:normal;font-size:14px;color:#555}
+@media(min-width:900px){.v2 .v2-founder__grid{grid-template-columns:5fr 7fr;gap:72px}}
+.v2 .v2-faq{max-width:760px}
+.v2 .v2-faq details{border-bottom:1px solid #d9d0c4}
+.v2 .v2-faq summary{list-style:none;cursor:pointer;padding:20px 40px 20px 0;font-weight:500;position:relative}
+.v2 .v2-faq summary::-webkit-details-marker{display:none}
+.v2 .v2-faq summary::after{content:"+";position:absolute;right:4px;top:50%;transform:translateY(-50%);font-size:22px;font-weight:300}
+.v2 .v2-faq details[open] summary::after{content:"\2212"}
+.v2 .v2-faq details p{padding:0 0 20px;color:#555;max-width:62ch}
+@media(min-width:900px){.v2 .v2-section{padding:96px 0}.v2 .v2-wrap{padding:0 40px}}
+@media(prefers-reduced-motion:reduce){.v2 .v2-hero,.v2 .v2-hero__media img,.v2 .v2-btn,.v2 .v2-hero__sub{transition:none}}
 
-.hero-dots { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 3; }
-.hero-dot { width: 8px; height: 8px; border-radius: 50%; border: none; background: rgba(255,255,255,0.5); cursor: pointer; padding: 0; transition: background 0.3s, transform 0.3s; }
-.hero-dot.is-active { background: #fff; transform: scale(1.3); }
+/* ---------- Hard overrides: win against old global heading / link / input rules ---------- */
+.v2 .v2-hero__title,.v2 .v2-h2{color:inherit}
+.v2 .v2-btn{text-decoration:none;border:0;cursor:pointer}
+.v2 .v2-hero .v2-link{color:var(--fg);text-decoration:none}
 
-.hero-counter {
-  position: absolute; top: 20px; right: 20px; z-index: 3; color: #fff;
-  font-size: 12px; letter-spacing: 0.08em;
-  background: rgba(0,0,0,0.3); padding: 4px 10px; border-radius: 20px;
-}
-
-@media (max-width: 900px) {
-  .hero-nav { width: 34px; height: 34px; font-size: 16px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-slide { transition: opacity 0.3s !important; transform: none !important; }
+/* ---------- Waitlist: restyles ANY form pasted inside, whatever its old classes ---------- */
+.v2 .v2-waitlist{background:#171717;color:#F7F2EC}
+.v2 .v2-waitlist .v2-lede{color:rgba(247,242,236,.72)}
+.v2 .v2-waitlist form{display:grid;grid-template-columns:1fr;grid-auto-flow:row dense;gap:12px;max-width:560px;margin:0;padding:0;background:none;border:0;box-shadow:none}
+.v2 .v2-waitlist input:not([type="hidden"]):not([type="checkbox"]){display:block;width:100%;height:52px;margin:0;padding:0 22px;border-radius:999px;border:1px solid rgba(247,242,236,.32);background:transparent;color:#F7F2EC;font:400 15px 'Inter',sans-serif;box-shadow:none;-webkit-appearance:none;appearance:none}
+.v2 .v2-waitlist input::placeholder{color:rgba(247,242,236,.55);opacity:1}
+.v2 .v2-waitlist input:focus{outline:none;border-color:#F7F2EC}
+.v2 .v2-waitlist button{width:100%;height:52px;margin:0;padding:0 30px;border-radius:999px;border:0;background:#F7F2EC;color:#171717;font:600 14px 'Inter',sans-serif;cursor:pointer;box-shadow:none}
+@media(min-width:700px){
+  .v2 .v2-waitlist form{grid-template-columns:1fr 1fr}
+  .v2 .v2-waitlist input[type="email"],.v2 .v2-waitlist button{grid-column:1/-1}
+  .v2 .v2-waitlist button{width:auto;justify-self:start}
 }
