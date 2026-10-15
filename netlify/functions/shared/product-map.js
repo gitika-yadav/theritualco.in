@@ -15,7 +15,7 @@ const PRODUCT_MAP = {
     "ankle-weights-2lb": { id: "ankle-weights-2lb", name: "The Ritual Cuffs", weight: "2lb" },
     "pilates-ball":      { id: "pilates-ball",      name: "The Ritual Ball", weight: "25cm" },
     "pilates-ring":      { id: "pilates-ring",      name: "The Ritual Ring", weight: "Standard" },
-
+    "grip-socks":        { id: "grip-socks",        name: "The Ritual Grip Socks", weight: "Standard"}
 };
 
 function resolveProductKey(item) {
