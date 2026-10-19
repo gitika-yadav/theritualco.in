@@ -6,7 +6,10 @@
 const https = require("https");
 
 // ── CONFIG ────────────────────────────────────────────────────────────────────
-const TO_EMAIL = "theritualcoofficial@gmail.com";
+const TO_EMAILS = [
+    "theritualcoofficial@gmail.com",
+    "pritipanday15032001@gmail.com",
+];
 const FROM_EMAIL = "hello@theritualco.in";
 const FROM_NAME = "The Ritual Co";
 
@@ -253,7 +256,7 @@ exports.handler = async (event) => {
         // Send via Resend
         const emailPayload = JSON.stringify({
             from: `${FROM_NAME} <${FROM_EMAIL}>`,
-            to: [TO_EMAIL],
+            to: TO_EMAILS,
             subject: `☀️ Ritual Co briefing — ${new Date().toLocaleDateString("en-IN", { day: "numeric", month: "short", timeZone: "Asia/Kolkata" })}`,
             html,
         });
