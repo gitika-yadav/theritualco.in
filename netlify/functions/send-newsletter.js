@@ -109,7 +109,7 @@ function buildLaunchEmail(firstName) {
           </td>
         </tr>
         <tr>
-          <td style="padding:6px 0;font-size:12px;color:#a09890;" colspan="2">Free shipping on orders above ₹999</td>
+          <td style="padding:6px 0;font-size:12px;color:#a09890;" colspan="2">Free shipping across India</td>
         </tr>
       </table>
     </div>
