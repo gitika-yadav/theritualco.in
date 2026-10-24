@@ -166,7 +166,7 @@ exports.handler = async (event) => {
         }
         totalPaise = Math.max(0, totalPaise - discountPaise);
 
-        const COD_FEE_PAISE = 20000; // ₹200
+        const COD_FEE_PAISE = 9900; // ₹99
         if (isCod) totalPaise += COD_FEE_PAISE;
 
         let rzOrder = null;
