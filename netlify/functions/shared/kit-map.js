@@ -62,6 +62,18 @@ const KIT_MAP = {
             { product_id: "yoga-block", qty: 1 },
         ],
     },
+    // Fixed-colour set: each component carries its own `color`, which
+    // overrides the customer's chosen colour (see create-order.js).
+    "grip-socks-trio": {
+        id: "grip-socks-trio",
+        name: "The Ritual Socks — The Trio",
+        price_paise: 149900,
+        components: [
+            { product_id: "grip-socks", qty: 1, color: "Cream" },
+            { product_id: "grip-socks", qty: 1, color: "Pink" },
+            { product_id: "grip-socks", qty: 1, color: "Coffee" },
+        ],
+    },
 };
 
 module.exports = { KIT_MAP };

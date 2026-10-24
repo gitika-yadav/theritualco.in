@@ -54,13 +54,24 @@
                 {"@type":"PropertyValue","name":"Material","value":"Cotton blend with silicone grips"},
                 {"@type":"PropertyValue","name":"Sold as","value":"1 pair"}
             ],
-            "offers":{
-                "@type":"Offer",
-                "sku":"TRC-SOCKS",
-                "price":"699.00",
-                "priceCurrency":"INR",
-                "availability":"https://schema.org/InStock"
-            }
+            "offers":[
+                {
+                    "@type":"Offer",
+                    "sku":"TRC-SOCKS",
+                    "name":"The Solo (1 pair)",
+                    "price":"699.00",
+                    "priceCurrency":"INR",
+                    "availability":"https://schema.org/InStock"
+                },
+                {
+                    "@type":"Offer",
+                    "sku":"TRC-SOCKS-TRIO",
+                    "name":"The Trio (3 pairs)",
+                    "price":"1499.00",
+                    "priceCurrency":"INR",
+                    "availability":"https://schema.org/InStock"
+                }
+            ]
         }
     </script>
 </head>
@@ -79,7 +90,26 @@
         <h1 class="product__title">The Ritual<br>Socks</h1>
         <p class="product__tagline">Grip the mat.<br>Move with confidence.</p>
 
-        <div class="opt">
+        <p class="option-heading">Choose &mdash; <em id="pack-name">The Solo &middot; 1 pair</em></p>
+        <div class="weight-picker" role="group" aria-label="Pack options">
+            <button type="button" class="weight-option active" data-pack="single" data-name="The Solo &middot; 1 pair"
+                    aria-pressed="true" onclick="selectPack(this)">
+                <span class="weight-option__kg">The Solo</span>
+                <span class="weight-option__detail">
+                    <span class="weight-option__launch">&#8377;699</span>
+                </span>
+            </button>
+            <button type="button" class="weight-option" data-pack="trio" data-name="The Trio &middot; 3 pairs, Cream, Pink &amp; Coffee"
+                    aria-pressed="false" onclick="selectPack(this)">
+                <span class="weight-option__kg">The Trio</span>
+                <span class="weight-option__detail">
+                    <span class="weight-option__launch">&#8377;1,499</span>
+                    <span class="weight-option__retail">&#8377;2,097</span>
+                </span>
+            </button>
+        </div>
+
+        <div class="opt" id="colour-opt">
             <label class="opt__label">Colour &mdash; <span id="colour-name">Cream</span></label>
             <div class="swatches" role="radiogroup" aria-label="Colour" style="gap:16px;">
                 <div class="swatch-wrap">
@@ -102,7 +132,7 @@
             <li>Soft, breathable cotton blend — comfortable for long sessions</li>
             <li>Snug, supportive fit with a non-restrictive cuff</li>
             <li>Three muted shades to match your mat and kit</li>
-            <li>Sold as a pair</li>
+            <li>The Solo, one pair, or The Trio, one pair in each shade</li>
         </ul>
 
         <div class="price-block">
@@ -113,10 +143,14 @@
             </div>
             <span class="price-note">Early Bird &middot; Free shipping on orders above &#8377;999</span>
             -->
-            <div class="price-row">
+            <div class="price-row" id="price-single">
                 <span class="price" id="price-launch" data-price-product="grip-socks">&#8377;699</span>
             </div>
-            <span class="price-note">Free shipping on orders above &#8377;999</span>
+            <div class="price-row" id="price-trio" style="display:none;">
+                <span class="price">&#8377;1,499</span>
+                <span class="price-retail">&#8377;2,097</span>
+            </div>
+            <span class="price-note" id="price-note">Free shipping on orders above &#8377;999</span>
         </div>
 
         <button type="button" class="btn-primary" id="preorder-btn">Add to Cart</button>
@@ -152,7 +186,7 @@
                         <table class="specs-table">
                             <tbody>
                             <tr><td>Material</td><td>Cotton blend with silicone grips</td></tr>
-                            <tr><td>Sold as</td><td>1 pair</td></tr>
+                            <tr><td>Sold as</td><td>The Solo (1 pair) or The Trio (3 pairs: Cream, Pink, Coffee)</td></tr>
                             <tr><td>Size</td><td>Free size</td></tr>
                             <tr><td>Colours</td><td>Cream, Pink, Coffee</td></tr>
                             <tr><td>Best for</td><td>Pilates, Reformer, Barre, Yoga, Rehab</td></tr>
@@ -286,6 +320,31 @@
         switchProductImage(btn);
     }
 
+    var TRIO_PRICE = 1499;
+
+    function selectPack(btn) {
+        document.querySelectorAll('.weight-option').forEach(function(o) {
+            o.classList.remove('active');
+            o.setAttribute('aria-pressed','false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-pressed','true');
+        document.getElementById('pack-name').innerHTML = btn.dataset.name;
+
+        var isTrio = btn.dataset.pack === 'trio';
+        document.getElementById('colour-opt').style.display = isTrio ? 'none' : '';
+        document.getElementById('price-single').style.display = isTrio ? 'none' : '';
+        document.getElementById('price-trio').style.display = isTrio ? '' : 'none';
+        document.getElementById('price-note').innerHTML = isTrio
+            ? 'One pair each in Cream, Pink &amp; Coffee &middot; Free shipping'
+            : 'Free shipping on orders above &#8377;999';
+    }
+
+    function isTrioSelected() {
+        var active = document.querySelector('.weight-option.active');
+        return !!active && active.dataset.pack === 'trio';
+    }
+
     function switchProductImage(btn) {
         var img = document.getElementById('main-img');
         var newSrc = btn.dataset.img;
@@ -329,6 +388,22 @@
     document.getElementById('preorder-btn').addEventListener('click', function() {
         if (typeof Cart === 'undefined') {
             window.location = '/cart.html';
+            return;
+        }
+        if (isTrioSelected()) {
+            Cart.add({
+                id: 'grip-socks-trio',
+                name: 'The Ritual Socks — The Trio',
+                color: 'Cream / Pink / Coffee',
+                price: TRIO_PRICE,
+                image: '/images/grip-socks.webp'
+            });
+            gtag('event', 'add_to_cart', {
+                currency: 'INR',
+                value: TRIO_PRICE,
+                items: [{ item_id: 'grip-socks-trio', item_name: 'The Ritual Socks — The Trio', price: TRIO_PRICE }]
+            });
+            if (window.CartDrawer) { CartDrawer.open(); } else { window.location = '/cart.html'; }
             return;
         }
         var color = document.querySelector('.swatch.is-selected');

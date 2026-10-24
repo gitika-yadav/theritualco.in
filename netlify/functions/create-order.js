@@ -44,12 +44,13 @@ exports.handler = async (event) => {
                 for (const comp of kit.components) {
                     const compProduct = PRODUCT_MAP[comp.product_id];
                     if (!compProduct) { kitValid = false; break; }
+                    const compColor = comp.color || kitColor; // fixed-colour sets (e.g. sock trio) override the chosen colour
 
                     const { data: inv, error: invErr } = await supabase
                         .from("inventory")
                         .select("active")
                         .eq("product_id", comp.product_id)
-                        .eq("color", kitColor)
+                        .eq("color", compColor)
                         .single();
 
                     if (invErr || !inv || !inv.active) { kitValid = false; break; }
@@ -58,7 +59,7 @@ exports.handler = async (event) => {
                         product_id:    comp.product_id,
                         product_name:  compProduct.name + " (from " + kit.name + ")",
                         weight:        compProduct.weight,
-                        color:         kitColor,
+                        color:         compColor,
                         quantity:      comp.qty,
                         unit_paise:    0, // component price not separately charged — kit has one bundled price
                         is_early_bird: false,
