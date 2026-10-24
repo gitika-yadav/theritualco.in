@@ -7,9 +7,14 @@
 // IMPORTANT: whenever a kit's contents or price change, update it here —
 // this is the single source of truth for kit composition.
 
+// When a pre-order product is short of stock, orders still go through,
+// are marked is_preorder, and take no stock until fulfilled.
+const PREORDER_SHIPS = "December";
+
 const KIT_MAP = {
     "yoga-essentials-kit": {
         id: "yoga-essentials-kit",
+        preorder: true, // can be ordered while a piece is out of stock; ships at restock
         name: "Yoga Essentials Kit",
         price_paise: 639700,
         components: [
@@ -20,6 +25,7 @@ const KIT_MAP = {
     },
     "yoga-studio-kit": {
         id: "yoga-studio-kit",
+        preorder: true, // can be ordered while a piece is out of stock; ships at restock
         name: "Yoga Studio Kit",
         price_paise: 229700,
         components: [
@@ -29,6 +35,7 @@ const KIT_MAP = {
     },
     "pilates-starter-kit": {
         id: "pilates-starter-kit",
+        preorder: true, // can be ordered while a piece is out of stock; ships at restock
         name: "Pilates Starter Kit",
         price_paise: 999600,
         components: [
@@ -40,6 +47,7 @@ const KIT_MAP = {
     },
     "pilates-sculpt-kit": {
         id: "pilates-sculpt-kit",
+        preorder: true, // can be ordered while a piece is out of stock; ships at restock
         name: "Pilates Sculpt Kit",
         price_paise: 849600,
         components: [
@@ -51,6 +59,7 @@ const KIT_MAP = {
     },
     "pilates-complete-kit": {
         id: "pilates-complete-kit",
+        preorder: true, // can be ordered while a piece is out of stock; ships at restock
         name: "Pilates Complete Kit",
         price_paise: 1439400,
         components: [
@@ -76,4 +85,4 @@ const KIT_MAP = {
     },
 };
 
-module.exports = { KIT_MAP };
+module.exports = { KIT_MAP, PREORDER_SHIPS };

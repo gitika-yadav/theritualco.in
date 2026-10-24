@@ -15,6 +15,10 @@
 
     // Map a page's PRODUCT_SLUG -> inventory product_id(s).
     // weight "1kg"/"2kg" resolves capsule variants; "" means single-id.
+    // Products that stay orderable as a pre-order when out of stock
+    // (mirror of `preorder: true` in netlify/functions/shared/product-map.js).
+    var PREORDER = { "capsule-dumbbell": "Pre-order · Ships in December" };
+
     var SLUG_MAP = {
         "capsule-dumbbell": { ids: ["capsule-1kg", "capsule-2kg"], weightAware: true },
         "yoga-belt":        { ids: ["yoga-belt"], weightAware: false },
@@ -108,7 +112,11 @@
             var soldOut = currentOutOfStock();
             if (soldOut === null) return;
 
-            if (soldOut) {
+            if (soldOut && PREORDER[slug]) {
+                preorder.disabled = false;
+                preorder.textContent = PREORDER[slug];
+                if (sticky) { sticky.disabled = false; sticky.textContent = PREORDER[slug]; }
+            } else if (soldOut) {
                 preorder.disabled = true;
                 preorder.textContent = "Out of stock";
                 if (sticky) { sticky.disabled = true; sticky.textContent = "Out of stock"; }

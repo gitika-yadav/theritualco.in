@@ -1,7 +1,7 @@
 const Razorpay = require("razorpay");
 const { createClient } = require("@supabase/supabase-js");
 const { PRODUCT_MAP, resolveProductKey } = require("./shared/product-map");
-const { KIT_MAP } = require("./shared/kit-map");
+const { KIT_MAP, PREORDER_SHIPS } = require("./shared/kit-map");
 
 const supabase = createClient(
     process.env.SUPABASE_URL,
@@ -66,9 +66,9 @@ exports.handler = async (event) => {
                     const need = (comp.qty || 1) * kitQty;
                     const have = (Number(inv.stock) || 0) - (reserved[resKey(comp.product_id, compColor)] || 0);
                     if (have < need) {
-                        kitValid = false;
-                        shortOf = compProduct.name + " (" + compColor + ")";
-                        break;
+                        shortOf = shortOf || (compProduct.name + " (" + compColor + ")");
+                        // Pre-order kits keep going so the full kit is recorded; others stop here.
+                        if (!kit.preorder) { kitValid = false; break; }
                     }
 
                     kitLineItems.push({
@@ -83,7 +83,8 @@ exports.handler = async (event) => {
                     });
                 }
 
-                if (shortOf) {
+                const isPreorder = !!(shortOf && kit.preorder);
+                if (shortOf && !isPreorder) {
                     return {
                         statusCode: 409,
                         body: JSON.stringify({
@@ -99,22 +100,26 @@ exports.handler = async (event) => {
                     continue; // whole kit skipped, matches existing silent-skip pattern elsewhere in this loop
                 }
 
-                for (const c of kitLineItems) {
-                    const k = resKey(c.product_id, c.color);
-                    reserved[k] = (reserved[k] || 0) + c.quantity * kitQty;
+                // A pre-order takes no stock now; it's fulfilled from the restock.
+                if (!isPreorder) {
+                    for (const c of kitLineItems) {
+                        const k = resKey(c.product_id, c.color);
+                        reserved[k] = (reserved[k] || 0) + c.quantity * kitQty;
+                    }
                 }
 
                 // One summary line for what the customer actually bought...
                 totalPaise += kit.price_paise * kitQty;
                 orderItems.push({
                     product_id:    kit.id,
-                    product_name:  kit.name,
+                    product_name:  isPreorder ? `${kit.name} (Pre-order — ships ${PREORDER_SHIPS})` : kit.name,
                     weight:        null,
                     color:         kitColor,
                     quantity:      kitQty,
                     unit_paise:    kit.price_paise,
                     is_early_bird: false,
                     is_kit: true,
+                    is_preorder: isPreorder,
                     kit_components: kitLineItems, // ...plus the full breakdown, for packing/fulfillment
                 });
 
@@ -140,7 +145,8 @@ exports.handler = async (event) => {
 
             // ── Stock guard: reject if insufficient remaining units ──
             const remaining = (Number(inv.stock) || 0) - (reserved[resKey(product.id, item.color)] || 0);
-            if (remaining < qty) {
+            const isPreorder = remaining < qty && !!product.preorder;
+            if (remaining < qty && !isPreorder) {
                 return {
                     statusCode: 409,
                     body: JSON.stringify({
@@ -153,17 +159,18 @@ exports.handler = async (event) => {
                 };
             }
 
-            reserved[resKey(product.id, item.color)] = (reserved[resKey(product.id, item.color)] || 0) + qty;
+            if (!isPreorder) reserved[resKey(product.id, item.color)] = (reserved[resKey(product.id, item.color)] || 0) + qty;
             totalPaise += unitPaise * qty;
             orderItems.push({
                 product_id:    product.id,
-                product_name:  product.name,
+                product_name:  isPreorder ? `${product.name} (Pre-order — ships ${PREORDER_SHIPS})` : product.name,
                 weight:        product.weight,
                 color:         item.color || "Not specified",
                 quantity:      qty,
                 sku_id:        inv.sku || null,
                 unit_paise:    unitPaise,
                 is_early_bird: isEarlyBird,
+                is_preorder:   isPreorder,
             });
         }
 
@@ -245,6 +252,7 @@ exports.handler = async (event) => {
 
         if (isCod) {
             for (const orderItem of orderItems) {
+                if (orderItem.is_preorder) continue; // no stock to take yet — fulfilled at restock
                 if (orderItem.is_kit) {
                     // Decrement each component separately
                     for (const comp of orderItem.kit_components) {
