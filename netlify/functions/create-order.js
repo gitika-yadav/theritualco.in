@@ -29,6 +29,11 @@ exports.handler = async (event) => {
         const orderItems = [];
 
 
+        // Units already claimed by earlier cart lines, per product + colour,
+        // so a kit and a single (or two kits) can't both take the last unit.
+        const reserved = {};
+        const resKey = (pid, color) => pid + "|" + String(color || "default").toLowerCase();
+
         for (const item of cart) {
             const kit = KIT_MAP[item.id];
 
@@ -38,7 +43,9 @@ exports.handler = async (event) => {
                 //    that colour, the whole kit line is skipped (all-or-nothing —
                 //    a kit can't ship half-finished).
                 const kitColor = item.color || "default";
+                const kitQty   = Math.max(1, Math.min(10, parseInt(item.qty) || 1));
                 let kitValid = true;
+                let shortOf  = null;
                 const kitLineItems = [];
 
                 for (const comp of kit.components) {
@@ -48,12 +55,21 @@ exports.handler = async (event) => {
 
                     const { data: inv, error: invErr } = await supabase
                         .from("inventory")
-                        .select("active")
+                        .select("active, stock")
                         .eq("product_id", comp.product_id)
                         .eq("color", compColor)
                         .single();
 
                     if (invErr || !inv || !inv.active) { kitValid = false; break; }
+
+                    // ── Stock guard: every piece of the kit must be in stock ──
+                    const need = (comp.qty || 1) * kitQty;
+                    const have = (Number(inv.stock) || 0) - (reserved[resKey(comp.product_id, compColor)] || 0);
+                    if (have < need) {
+                        kitValid = false;
+                        shortOf = compProduct.name + " (" + compColor + ")";
+                        break;
+                    }
 
                     kitLineItems.push({
                         product_id:    comp.product_id,
@@ -67,19 +83,35 @@ exports.handler = async (event) => {
                     });
                 }
 
+                if (shortOf) {
+                    return {
+                        statusCode: 409,
+                        body: JSON.stringify({
+                            error: `${kit.name} is out of stock right now (${shortOf} unavailable). Please remove it from your cart and try again.`,
+                            code: "OUT_OF_STOCK",
+                            product: kit.name,
+                            color: kitColor,
+                        }),
+                    };
+                }
                 if (!kitValid) {
                     console.error(`Kit "${kit.id}" unavailable in colour "${kitColor}" — one or more components inactive`);
                     continue; // whole kit skipped, matches existing silent-skip pattern elsewhere in this loop
                 }
 
+                for (const c of kitLineItems) {
+                    const k = resKey(c.product_id, c.color);
+                    reserved[k] = (reserved[k] || 0) + c.quantity * kitQty;
+                }
+
                 // One summary line for what the customer actually bought...
-                totalPaise += kit.price_paise;
+                totalPaise += kit.price_paise * kitQty;
                 orderItems.push({
                     product_id:    kit.id,
                     product_name:  kit.name,
                     weight:        null,
                     color:         kitColor,
-                    quantity:      1,
+                    quantity:      kitQty,
                     unit_paise:    kit.price_paise,
                     is_early_bird: false,
                     is_kit: true,
@@ -107,7 +139,7 @@ exports.handler = async (event) => {
             const qty         = Math.max(1, Math.min(10, parseInt(item.qty) || 1));
 
             // ── Stock guard: reject if insufficient remaining units ──
-            const remaining = Number(inv.stock) || 0;
+            const remaining = (Number(inv.stock) || 0) - (reserved[resKey(product.id, item.color)] || 0);
             if (remaining < qty) {
                 return {
                     statusCode: 409,
@@ -121,6 +153,7 @@ exports.handler = async (event) => {
                 };
             }
 
+            reserved[resKey(product.id, item.color)] = (reserved[resKey(product.id, item.color)] || 0) + qty;
             totalPaise += unitPaise * qty;
             orderItems.push({
                 product_id:    product.id,
