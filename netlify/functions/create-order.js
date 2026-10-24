@@ -218,6 +218,7 @@ exports.handler = async (event) => {
                         const { error: invErr } = await supabase.rpc("increment_sold", {
                             p_product_id: comp.product_id,
                             p_color:      comp.color,
+                            p_qty:        (comp.quantity || 1) * (orderItem.quantity || 1),
                         });
                         if (invErr) console.error("Kit component inventory increment error:", invErr, comp.product_id, comp.color);
                     }
