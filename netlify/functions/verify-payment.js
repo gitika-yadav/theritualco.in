@@ -72,6 +72,7 @@ exports.handler = async (event) => {
         // ── Increment inventory sold count — once per line item, per colour ───
         const items = order.items || [];
         for (const item of items) {
+            if (item.is_preorder) continue; // no stock to take yet — fulfilled at restock
             if (item.is_kit) {
                 for (const comp of item.kit_components) {
                     const { error: invErr } = await supabase.rpc("increment_sold", {
@@ -82,7 +83,7 @@ exports.handler = async (event) => {
                     if (invErr) console.error("Kit component inventory increment error:", invErr, comp.product_id, comp.color);
                 }
             } else {
-                const { error: invErr } = await supabase.rpc("increment_sold", {
+                const { data: ok, error: invErr } = await supabase.rpc("increment_sold", {
                     p_product_id: item.product_id,
                     p_color:      item.color,
                     p_qty:        (item.quantity ?? item.qty ?? 1),

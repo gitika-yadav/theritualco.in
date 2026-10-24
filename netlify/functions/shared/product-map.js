@@ -7,8 +7,8 @@
 // silently skipped (this caused the "No valid items in cart" bug).
 
 const PRODUCT_MAP = {
-    "capsule-1kg":       { id: "capsule-1kg",       name: "Capsule Dumbbells", weight: "1 KG" },
-    "capsule-2kg":       { id: "capsule-2kg",       name: "Capsule Dumbbells", weight: "2 KG" },
+    "capsule-1kg":       { id: "capsule-1kg",       name: "Capsule Dumbbells", weight: "1 KG", preorder: true },
+    "capsule-2kg":       { id: "capsule-2kg",       name: "Capsule Dumbbells", weight: "2 KG", preorder: true },
     "yoga-belt":         { id: "yoga-belt",         name: "The Ritual Belt",  weight: "96in" },
     "yoga-block":        { id: "yoga-block",        name: "The Ritual Block", weight: "9x6x3in" },
     "yoga-mat-5mm":      { id: "yoga-mat-5mm",      name: "The Ritual Mat",   weight: "5mm" },
