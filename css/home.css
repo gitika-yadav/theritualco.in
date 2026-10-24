@@ -714,3 +714,7 @@ main{
   border: 0;
 }
 .signature-product a:hover { background: #3a3330; }
+/* Keep hero links clear of the floating WhatsApp button on phones */
+@media (max-width: 600px) {
+  .v2-hero__actions { padding-right: 64px; }
+}
