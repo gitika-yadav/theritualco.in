@@ -27,6 +27,7 @@
                    src="https://www.facebook.com/tr?id=1372190218138137&ev=PageView&noscript=1"
     /></noscript>
     <!-- End Meta Pixel Code -->
+    <script src="/javascript/meta-pixel.js"></script>
 </head>
 <body>
 <div id="navbar-placeholder"></div>
@@ -92,13 +93,6 @@
 
         hasItems.style.display = "block";
         isEmpty.style.display  = "none";
-
-        fbq('track', 'AddToCart', {
-            content_ids: ['capsule-dumbbell'],
-            content_type: 'product',
-            value: Cart.total(),
-            currency: 'INR'
-        });
 
         itemsEl.innerHTML = cart.items.map(item => {
             const available = Cart.getAvailable(item.id, item.weight, item.color);

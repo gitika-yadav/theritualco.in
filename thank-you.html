@@ -10,6 +10,7 @@
     <link rel="icon" type="image/png" href="/images/favicon.png"/>
     <link rel="stylesheet" href="/css/thank-you.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet"/>
+    <script src="/javascript/meta-pixel.js"></script>
 </head>
 <body>
 <div id="navbar-placeholder"></div>
@@ -66,12 +67,23 @@
 </script>
 
 <script>
-    const amount = localStorage.getItem('rc_last_order_amount') || 2499;
-    fbq('track', 'Purchase', {
-        value: parseFloat(amount),
-        currency: 'INR'
-    });
-    localStorage.removeItem('rc_last_order_amount');
+    // Fire Purchase once per order. Nothing is sent on a reload or a direct
+    // visit (no stored order), and eventID lets Meta de-duplicate repeats.
+    (function () {
+        var order = null;
+        try { order = JSON.parse(localStorage.getItem('rc_last_order') || 'null'); } catch (e) {}
+        if (order && order.value && window.trackMeta) {
+            window.trackMeta('Purchase', {
+                content_ids: order.content_ids || [],
+                content_type: 'product',
+                num_items: order.num_items,
+                value: parseFloat(order.value),
+                currency: 'INR'
+            }, order.id);
+        }
+        localStorage.removeItem('rc_last_order');
+        localStorage.removeItem('rc_last_order_amount');
+    })();
 </script>
 </body>
 </html>

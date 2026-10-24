@@ -36,6 +36,7 @@
                    src="https://www.facebook.com/tr?id=1372190218138137&ev=PageView&noscript=1"
     /></noscript>
     <!-- End Meta Pixel Code -->
+    <script src="/javascript/meta-pixel.js"></script>
 </head>
 <body>
 <div id="navbar-placeholder"></div>
@@ -304,6 +305,16 @@
             }))
         });
 
+        if (window.trackMeta) {
+            window.trackMeta('InitiateCheckout', {
+                content_ids: Cart.get().items.map(i => i.id),
+                content_type: 'product',
+                num_items: Cart.count(),
+                value: finalAmount,
+                currency: 'INR'
+            });
+        }
+
         if (method === "cod") {
             btn.textContent = "Placing order…";
             try {
@@ -331,7 +342,6 @@
                     transaction_id: order.order_id || ("COD-" + Date.now()),
                     value: finalAmount, currency: "INR"
                 });
-                fbq('track', 'Purchase', { value: finalAmount, currency: 'INR' });
                 if (appliedDiscount) {
                     await fetch("/.netlify/functions/apply-discount", {
                         method: "POST",
@@ -339,6 +349,12 @@
                         body: JSON.stringify({ code: appliedDiscount.code })
                     }).catch(() => {});
                 }
+                localStorage.setItem('rc_last_order', JSON.stringify({
+                    id: order.order_id || ("COD-" + Date.now()),
+                    value: finalAmount,
+                    content_ids: Cart.get().items.map(i => i.id),
+                    num_items: Cart.count()
+                }));
                 Cart.clear();
                 localStorage.setItem('rc_last_order_amount', finalAmount);
                 window.location.href = "/thank-you.html";
@@ -374,10 +390,6 @@
             }
 
             gtag("event", "begin_checkout", { currency: "INR", value: order.amount / 100 });
-            fbq('track', 'InitiateCheckout', {
-                value: Cart.total(),
-                currency: 'INR'
-            });
 
             const rzp = new Razorpay({
                 key:         "rzp_live_T9AlUY5JK50B2P",
@@ -420,6 +432,12 @@
                             body: JSON.stringify({ code: appliedDiscount.code })
                         }).catch(() => {});
                     }
+                    localStorage.setItem('rc_last_order', JSON.stringify({
+                        id: response.razorpay_payment_id,
+                        value: finalAmount,
+                        content_ids: Cart.get().items.map(i => i.id),
+                        num_items: Cart.count()
+                    }));
                     Cart.clear();
                     localStorage.setItem('rc_last_order_amount', finalAmount);
                     window.location.href = "/thank-you.html";
