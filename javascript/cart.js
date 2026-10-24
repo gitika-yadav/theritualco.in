@@ -105,6 +105,15 @@ function norm(key) {
                 cart.items.push({ key, id, name, weight, color, price, image, sku, qty: 1 });
             }
             save(cart);
+            if (window.trackMeta) {
+                window.trackMeta('AddToCart', {
+                    content_ids: [id],
+                    content_name: name,
+                    content_type: 'product',
+                    value: Number(price) || 0,
+                    currency: 'INR'
+                });
+            }
             return cart;
         }
 
