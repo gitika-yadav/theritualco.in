@@ -16,6 +16,11 @@
  NODE_VERSION = "22"
 
 [[redirects]]
+ from = "/meta-catalog.csv"
+ to   = "/.netlify/functions/meta-catalog"
+ status = 200
+
+[[redirects]]
  from = "/account"
  to   = "/account/orders"
  status = 301
