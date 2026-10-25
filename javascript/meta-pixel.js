@@ -24,9 +24,24 @@
         fbq('track', 'PageView');
     }
 
+    // Product ids sent to Meta must match item_group_id in the catalog feed
+    // (/meta-catalog.csv). A few pages use a different id for the same product.
+    var CATALOG_ID_ALIASES = {
+        'ankle-weights': 'ankle-weights-2lb',
+        'yoga-mat': 'yoga-mat-5mm',
+        'capsule-dumbbell-1kg': 'capsule-dumbbell',
+        'capsule-dumbbell-2kg': 'capsule-dumbbell'
+    };
+
     window.trackMeta = function (event, params, eventId) {
         try {
             if (typeof window.fbq !== 'function') return;
+            if (params && Array.isArray(params.content_ids)) {
+                params.content_ids = params.content_ids.map(function (id) {
+                    return CATALOG_ID_ALIASES[id] || id;
+                });
+                params.content_type = 'product_group';
+            }
             if (eventId) fbq('track', event, params || {}, { eventID: String(eventId) });
             else fbq('track', event, params || {});
         } catch (e) { /* tracking must never break the page */ }
