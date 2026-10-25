@@ -141,8 +141,8 @@
         document.getElementById('review-rating').value = '0';
         document.querySelectorAll('#rating-input button')
             .forEach(b => b.classList.remove('filled'));
-        statusEl.textContent =
-            'Thank you! Your review will appear once it\u2019s approved.';
+        statusEl.textContent = 'Thank you! Your review has been posted.';
+        loadReviews();
     }
 
     formEl.addEventListener('submit', submitReview);
