@@ -569,7 +569,7 @@ body.tr-product-page .rating-input button {
 }
 .rating-input button svg { width: 22px; height: 22px; }
 .rating-input button:hover { transform: scale(1.15); }
-.rating-input button.filled { color: var(--sand); }
+body.tr-product-page .rating-input button.filled { color: var(--sand); }
 .review-form .btn-primary { margin-top: 8px; margin-bottom: 0; }
 body.tr-product-page .review-form__status {
     font-size: 12px;
