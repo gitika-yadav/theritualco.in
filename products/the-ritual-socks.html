@@ -35,6 +35,16 @@
 
     <link rel="preload" as="image" href="/images/grip-socks.webp"/>
 
+    <style>
+        body.tr-product-page .product__media {
+            position: sticky;
+            top: 84px;
+        }
+        .product__thumbs{display:flex;gap:8px;margin-top:12px;justify-content:center;}
+        .product__thumbs .thumb{width:56px;height:56px;border-radius:6px;overflow:hidden;border:2px solid transparent;padding:0;cursor:pointer;background:none;flex-shrink:0;}
+        .product__thumbs .thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+        .product__thumbs .thumb.active{border-color:#3a3330;}</style>
+
     <script type="application/ld+json">
         {
             "@context":"https://schema.org",
@@ -89,8 +99,15 @@
 
 <main class="product">
     <!-- IMAGE -->
-    <div class="product__visual" role="region" aria-label="Product image">
-        <img id="main-img" src="/images/grip-socks.webp" alt="The Ritual Socks in Cream – The Ritual Co." loading="eager"/>
+    <div class="product__media">
+        <div class="product__visual" role="region" aria-label="Product image">
+            <img id="main-img" src="/images/grip-socks.webp" alt="The Ritual Socks in Cream – The Ritual Co." loading="eager"/>
+        </div>
+        <div class="product__thumbs">
+            <button class="thumb active" onclick="document.getElementById('main-img').src='/images/grip-socks.webp'; setActiveThumb(this);"><img src="/images/grip-socks.webp" alt="View 1"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/grip-socks-pink-1.webp'; setActiveThumb(this);"><img src="/images/grip-socks-pink-1.webp" alt="The Ritual Socks in Pink, grip sole – View 2" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/grip-socks-pink-2.webp'; setActiveThumb(this);"><img src="/images/grip-socks-pink-2.webp" alt="The Ritual Socks in Pink on a mat – View 3" loading="lazy"/></button>
+        </div>
     </div>
 
     <!-- INFO -->
@@ -444,6 +461,12 @@
         value: getCurrentPrice("grip-socks") || 699,
         items: [{ item_id: 'grip-socks', item_name: 'The Ritual Grip Socks', price: 699 }]
     });
+</script>
+<script>
+    function setActiveThumb(btn) {
+        document.querySelectorAll('.product__thumbs .thumb').forEach(function(t) { t.classList.remove('active'); });
+        btn.classList.add('active');
+    }
 </script>
 </body>
 </html>
