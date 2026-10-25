@@ -47,7 +47,8 @@ exports.handler = async (event) => {
         product: product ? product.trim() : null,
         rating,
         body: reviewBody.trim(),
-        approved: false
+        approved: true   // published immediately; set to false in Supabase to hide
+
     });
 
     if (error) {
