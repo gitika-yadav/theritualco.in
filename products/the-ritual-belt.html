@@ -373,7 +373,7 @@
             weight: '96in',
             color: colorVal,
             price: 499,
-            image: '/images/yoga-belt-cream-1.webp'
+            image: (color && color.dataset.img) || '/images/yoga-belt-cream-1.webp'
         });
         gtag('event', 'add_to_cart', {
             currency: 'INR',

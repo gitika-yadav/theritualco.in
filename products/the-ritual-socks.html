@@ -143,7 +143,7 @@
                     <span class="swatch-label">Cream</span>
                 </div>
                 <div class="swatch-wrap">
-                    <button class="swatch" data-name="Pink" data-color="Pink" data-img="/images/grip-socks.webp" style="--sw:#f8c8b8" aria-label="Pink" aria-checked="false" role="radio" onclick="selectColour(this)"></button>
+                    <button class="swatch" data-name="Pink" data-color="Pink" data-img="/images/grip-socks-pink-1.webp" style="--sw:#f8c8b8" aria-label="Pink" aria-checked="false" role="radio" onclick="selectColour(this)"></button>
                     <span class="swatch-label">Pink</span>
                 </div>
                 <div class="swatch-wrap">
@@ -374,6 +374,10 @@
     function switchProductImage(btn) {
         var img = document.getElementById('main-img');
         var newSrc = btn.dataset.img;
+        document.querySelectorAll('.product__thumbs .thumb').forEach(function(t) {
+            var timg = t.querySelector('img');
+            t.classList.toggle('active', !!timg && timg.getAttribute('src') === newSrc);
+        });
         if (!newSrc || img.getAttribute('src') === newSrc) return;
         var probe = new Image();
         probe.onload = function() {
@@ -439,7 +443,7 @@
             name: 'The Ritual Grip Socks',
             color: colorVal,
             price: getCurrentPrice("grip-socks") || 699,
-            image: (document.getElementById('main-img') || {}).getAttribute ? document.getElementById('main-img').getAttribute('src') : '/images/grip-socks.webp'
+            image: (color && color.dataset.img) || '/images/grip-socks.webp'
         });
         gtag('event', 'add_to_cart', {
             currency: 'INR',
