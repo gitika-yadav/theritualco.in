@@ -107,6 +107,7 @@
             <button class="thumb active" onclick="document.getElementById('main-img').src='/images/grip-socks.webp'; setActiveThumb(this);"><img src="/images/grip-socks.webp" alt="View 1"/></button>
             <button class="thumb" onclick="document.getElementById('main-img').src='/images/grip-socks-pink-1.webp'; setActiveThumb(this);"><img src="/images/grip-socks-pink-1.webp" alt="The Ritual Socks in Pink, grip sole – View 2" loading="lazy"/></button>
             <button class="thumb" onclick="document.getElementById('main-img').src='/images/grip-socks-pink-2.webp'; setActiveThumb(this);"><img src="/images/grip-socks-pink-2.webp" alt="The Ritual Socks in Pink on a mat – View 3" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/grip-socks-trio.webp'; setActiveThumb(this);"><img src="/images/grip-socks-trio.webp" alt="The Ritual Socks Trio in Cream, Coffee and Pink – View 4" loading="lazy"/></button>
         </div>
     </div>
 
@@ -347,6 +348,7 @@
     }
 
     var TRIO_PRICE = 1499;
+    var TRIO_IMG = '/images/grip-socks-trio.webp';
 
     function selectPack(btn) {
         document.querySelectorAll('.weight-option').forEach(function(o) {
@@ -364,6 +366,11 @@
         document.getElementById('price-note').innerHTML = isTrio
             ? 'One pair each in Cream, Pink &amp; Coffee &middot; Free shipping'
             : 'Free shipping across India';
+
+        var swatch = document.querySelector('.swatch.is-selected');
+        switchProductImage(isTrio
+            ? { dataset: { img: TRIO_IMG, name: 'Cream, Pink & Coffee' } }
+            : (swatch || { dataset: { img: '/images/grip-socks.webp', name: 'Cream' } }));
     }
 
     function isTrioSelected() {
@@ -426,7 +433,7 @@
                 name: 'The Ritual Socks — The Trio',
                 color: 'Cream / Pink / Coffee',
                 price: TRIO_PRICE,
-                image: '/images/grip-socks.webp'
+                image: TRIO_IMG
             });
             gtag('event', 'add_to_cart', {
                 currency: 'INR',
