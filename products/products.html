@@ -308,6 +308,13 @@
         btn.classList.add('active');
         applyFilters();
     }
+
+    // Deep link from the homepage palette: /products/products?color=pink
+    (function () {
+        const c = new URLSearchParams(location.search).get('color');
+        const btn = c && document.querySelector(`.color-filter-btn[data-color="${CSS.escape(c)}"]`);
+        if (btn) filterByColor(c, btn);
+    })();
 </script>
 
 
