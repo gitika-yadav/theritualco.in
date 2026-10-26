@@ -35,6 +35,16 @@
 
     <link rel="preload" as="image" href="/images/cuffs-cream.webp"/>
 
+    <style>
+        body.tr-product-page .product__media {
+            position: sticky;
+            top: 84px;
+        }
+        .product__thumbs{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;justify-content:center;}
+        .product__thumbs .thumb{width:56px;height:56px;border-radius:6px;overflow:hidden;border:2px solid transparent;padding:0;cursor:pointer;background:none;flex-shrink:0;}
+        .product__thumbs .thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+        .product__thumbs .thumb.active{border-color:#3a3330;}</style>
+
     <script type="application/ld+json">
         {
             "@context":"https://schema.org",
@@ -88,10 +98,21 @@
 
 <main class="product">
     <!-- IMAGE -->
-    <div class="product__visual is-contain" role="region" aria-label="Product image">
-        <img id="main-img" src="/images/cuffs-cream.webp" alt="The Ritual Cuffs – The Ritual Co." loading="eager"/>
-        <img src="/images/cuffs-black.webp" alt="The Ritual Cuffs – The Ritual Co." loading="lazy"/>
-        <img src="/images/cuffs-coffee.webp" alt="The Ritual Cuffs – The Ritual Co." loading="lazy"/>
+    <div class="product__media">
+        <div class="product__visual is-contain" role="region" aria-label="Product image">
+            <img id="main-img" src="/images/cuffs-cream.webp" alt="The Ritual Cuffs – The Ritual Co." loading="eager"/>
+        </div>
+        <div class="product__thumbs">
+            <button class="thumb active" onclick="document.getElementById('main-img').src='/images/cuffs-cream.webp'; setActiveThumb(this);"><img src="/images/cuffs-cream.webp" alt="The Ritual Cuffs in Vanilla Cream"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/cuffs-coffee.webp'; setActiveThumb(this);"><img src="/images/cuffs-coffee.webp" alt="The Ritual Cuffs in Oat Latte" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/cuffs-black.webp'; setActiveThumb(this);"><img src="/images/cuffs-black.webp" alt="The Ritual Cuffs in Onyx Black" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/cuffs-pink.webp'; setActiveThumb(this);"><img src="/images/cuffs-pink.webp" alt="The Ritual Cuffs in Strawberry Milk" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/cuffs-pink-wrists-back.webp'; setActiveThumb(this);"><img src="/images/cuffs-pink-wrists-back.webp" alt="Pink Ritual Cuffs worn on the wrists" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/cuffs-pink-hands.webp'; setActiveThumb(this);"><img src="/images/cuffs-pink-hands.webp" alt="Pink Ritual Cuffs on both wrists, close-up" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/cuffs-cream-ankles-ball.webp'; setActiveThumb(this);"><img src="/images/cuffs-cream-ankles-ball.webp" alt="Cream Ritual Cuffs on the ankles with The Ritual Ball" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/cuffs-coffee-wrists.webp'; setActiveThumb(this);"><img src="/images/cuffs-coffee-wrists.webp" alt="Oat Latte Ritual Cuffs worn on the wrists" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/cuffs-black-wrists.webp'; setActiveThumb(this);"><img src="/images/cuffs-black-wrists.webp" alt="Black Ritual Cuffs worn on the wrists" loading="lazy"/></button>
+        </div>
     </div>
 
     <!-- INFO -->
@@ -301,6 +322,10 @@
     function switchProductImage(btn) {
         var img = document.getElementById('main-img');
         var newSrc = btn.dataset.img;
+        document.querySelectorAll('.product__thumbs .thumb').forEach(function(t) {
+            var timg = t.querySelector('img');
+            t.classList.toggle('active', !!timg && timg.getAttribute('src') === newSrc);
+        });
         if (!newSrc || img.getAttribute('src') === newSrc) return;
         var probe = new Image();
         probe.onload = function() {
@@ -360,7 +385,7 @@
             weight: '2lb',
             color: colorVal,
             price: 3499,
-            image: (document.getElementById('main-img') || {}).getAttribute('src') || '/images/cuffs-cream.webp'
+            image: (colorBtn && colorBtn.dataset.img) || '/images/cuffs-cream.webp'
         });
         if (window.CartDrawer) {
             CartDrawer.open();
@@ -377,6 +402,12 @@
         value: 3499,
         items: [{ item_id: 'ankle-weights-2lb', item_name: 'The Ritual Cuffs 2 lb', price: 3499 }]
     });
+</script>
+<script>
+    function setActiveThumb(btn) {
+        document.querySelectorAll('.product__thumbs .thumb').forEach(function(t) { t.classList.remove('active'); });
+        btn.classList.add('active');
+    }
 </script>
 <script src="/javascript/sticky-cart-bar.js"></script>
 <script src="/javascript/product-availability.js"></script>
