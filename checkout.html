@@ -203,6 +203,18 @@
 
     renderSummary();
     document.getElementById("payment").addEventListener("change", renderSummary);
+
+    // ── GA4 begin_checkout (once per visit to the checkout page) ──
+    if (Cart.count() > 0 && typeof gtag === 'function') {
+        gtag('event', 'begin_checkout', {
+            currency: 'INR',
+            value: Cart.total(),
+            items: Cart.get().items.map(i => ({
+                item_id: i.id, item_name: i.name, item_variant: i.weight,
+                price: i.price, quantity: i.qty
+            }))
+        });
+    }
     window.addEventListener("cart:updated", renderSummary);
 
     // ── Pre-fill if logged in ─────────────────────
@@ -353,7 +365,12 @@
                     id: order.order_id || ("COD-" + Date.now()),
                     value: finalAmount,
                     content_ids: Cart.get().items.map(i => i.id),
-                    num_items: Cart.count()
+                    num_items: Cart.count(),
+                    payment_type: 'COD',
+                    items: Cart.get().items.map(i => ({
+                        item_id: i.id, item_name: i.name, item_variant: i.weight,
+                        price: i.price, quantity: i.qty
+                    }))
                 }));
                 Cart.clear();
                 localStorage.setItem('rc_last_order_amount', finalAmount);
@@ -436,7 +453,12 @@
                         id: response.razorpay_payment_id,
                         value: finalAmount,
                         content_ids: Cart.get().items.map(i => i.id),
-                        num_items: Cart.count()
+                        num_items: Cart.count(),
+                        payment_type: 'Online',
+                        items: Cart.get().items.map(i => ({
+                            item_id: i.id, item_name: i.name, item_variant: i.weight,
+                            price: i.price, quantity: i.qty
+                        }))
                     }));
                     Cart.clear();
                     localStorage.setItem('rc_last_order_amount', finalAmount);
