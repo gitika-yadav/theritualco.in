@@ -10,6 +10,14 @@
     <link rel="icon" type="image/png" href="/images/favicon.png"/>
     <link rel="stylesheet" href="/css/thank-you.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet"/>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D366Q7R3XB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-D366Q7R3XB');
+    </script>
     <script src="/javascript/meta-pixel.js"></script>
 </head>
 <body>
@@ -72,6 +80,15 @@
     (function () {
         var order = null;
         try { order = JSON.parse(localStorage.getItem('rc_last_order') || 'null'); } catch (e) {}
+        if (order && order.value && typeof gtag === 'function') {
+            gtag('event', 'purchase', {
+                transaction_id: String(order.id),
+                currency: 'INR',
+                value: parseFloat(order.value),
+                payment_type: order.payment_type,
+                items: order.items || (order.content_ids || []).map(function (id) { return { item_id: id }; })
+            });
+        }
         if (order && order.value && window.trackMeta) {
             window.trackMeta('Purchase', {
                 content_ids: order.content_ids || [],
