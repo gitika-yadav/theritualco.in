@@ -1,5 +1,5 @@
 // javascript/home-v2.js
-// The hero shows the dumbbells in each colourway. Picking a colour (or letting
+// The hero shows the collection in each colourway. Picking a colour (or letting
 // it autoplay) swaps the photo AND recolours the whole hero panel.
 (function () {
     var hero = document.getElementById('v2-hero');
