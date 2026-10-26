@@ -44,7 +44,10 @@
         .product__thumbs{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;justify-content:center;}
         .product__thumbs .thumb{width:56px;height:56px;border-radius:6px;overflow:hidden;border:2px solid transparent;padding:0;cursor:pointer;background:none;flex-shrink:0;}
         .product__thumbs .thumb img{width:100%;height:100%;object-fit:cover;display:block;}
-        .product__thumbs .thumb.active{border-color:#3a3330;}</style>
+        .product__thumbs .thumb.active{border-color:#3a3330;}
+        /* sold-out colours: viewable, not buyable */
+        .swatch.sold-out{cursor:pointer;opacity:.6;}
+        .swatch.sold-out.is-selected{opacity:1;}</style>
 
     <script type="application/ld+json">
         {
@@ -131,12 +134,12 @@
                     <span class="swatch-label">Strawberry Milk</span>
                 </div>
                 <div class="swatch-wrap">
-                    <button class="swatch sold-out" disabled style="--sw:#f3eadf" aria-label="Cream — Sold Out" title="Sold Out"></button>
+                    <button class="swatch sold-out" data-color="Cream" data-img="/images/block-cream-childspose.webp" style="--sw:#f3eadf" aria-label="Cream — Sold Out" aria-checked="false" role="radio" title="Sold Out"></button>
                     <span class="swatch-label">Vanilla Cream</span>
                     <span class="sold-out-label">Sold Out</span>
                 </div>
                 <div class="swatch-wrap">
-                    <button class="swatch sold-out" disabled style="--sw:#6f4e37" aria-label="Coffee — Sold Out" title="Sold Out"></button>
+                    <button class="swatch sold-out" data-color="Coffee" data-img="/images/block-all-colours.webp" style="--sw:#6f4e37" aria-label="Coffee — Sold Out" aria-checked="false" role="radio" title="Sold Out"></button>
                     <span class="swatch-label">Oat latte</span>
                     <span class="sold-out-label">Sold Out</span>
                 </div>
@@ -340,7 +343,7 @@
         };
         probe.src = newSrc;
     }
-    document.querySelectorAll('.swatch:not(.sold-out)').forEach(function(s) {
+    document.querySelectorAll('.swatch').forEach(function(s) {
         s.addEventListener('click', function() {
             document.querySelectorAll('.swatch').forEach(function(x) {
                 x.classList.remove('is-selected','active','selected');
@@ -349,8 +352,29 @@
             s.classList.add('is-selected','active','selected');
             s.setAttribute('aria-checked','true');
             switchProductImage(s);
+            setTimeout(syncSoldOut, 20); // after product-availability.js has updated the button
         });
     });
+
+    // Sold-out colours can be viewed (photo + highlight) but not bought.
+    function syncSoldOut() {
+        var sel = document.querySelector('.swatch.is-selected');
+        var soldOut = !!sel && sel.classList.contains('sold-out');
+        ['preorder-btn', 'sticky-cart-btn'].forEach(function (id) {
+            var b = document.getElementById(id);
+            if (!b) return;
+            if (soldOut) {
+                if (!b.dataset.soldOutLock) b.dataset.prevText = b.textContent;
+                b.dataset.soldOutLock = '1';
+                b.disabled = true;
+                b.textContent = 'Sold out';
+            } else if (b.dataset.soldOutLock) {
+                delete b.dataset.soldOutLock;
+                b.disabled = false;
+                b.textContent = b.dataset.prevText || 'Add to Cart';
+            }
+        });
+    }
     function toggleAcc(trigger) {
         var item = trigger.closest('.accordion__item');
         var isOpen = item.classList.contains('open');
@@ -380,6 +404,7 @@
             return;
         }
         var colorBtn = document.querySelector('.swatch.is-selected');
+        if (colorBtn && colorBtn.classList.contains('sold-out')) return;
         var colorVal = colorBtn ? colorBtn.dataset.color : 'Black';
         Cart.add({
             id: 'yoga-block',
