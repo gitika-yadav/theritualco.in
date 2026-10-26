@@ -29,6 +29,16 @@
     <link rel="stylesheet" href="/css/footer.css"/>
     <link rel="stylesheet" href="/css/products.css"/>
     <link rel="preload" as="image" href="/images/the-ritual-ring.webp"/>
+
+    <style>
+        body.tr-product-page .product__media {
+            position: sticky;
+            top: 84px;
+        }
+        .product__thumbs{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;justify-content:center;}
+        .product__thumbs .thumb{width:56px;height:56px;border-radius:6px;overflow:hidden;border:2px solid transparent;padding:0;cursor:pointer;background:none;flex-shrink:0;}
+        .product__thumbs .thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+        .product__thumbs .thumb.active{border-color:#3a3330;}</style>
     <script type="application/ld+json">
         {
             "@context":"https://schema.org",
@@ -85,8 +95,17 @@
 <main class="product">
 
     <!-- IMAGE -->
-    <div class="product__visual" role="region" aria-label="Product image">
-        <img id="main-img" src="/images/the-ritual-ring.webp" alt="The Ritual Ring in Cream – The Ritual Co." loading="eager"/>
+    <div class="product__media">
+        <div class="product__visual" role="region" aria-label="Product image">
+            <img id="main-img" src="/images/the-ritual-ring.webp" alt="The Ritual Ring in Cream – The Ritual Co." loading="eager"/>
+        </div>
+        <div class="product__thumbs">
+            <button class="thumb active" onclick="document.getElementById('main-img').src='/images/the-ritual-ring.webp'; setActiveThumb(this);"><img src="/images/the-ritual-ring.webp" alt="The Ritual Ring – View 1"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/the-ritual-ring-all-colours.webp'; setActiveThumb(this);"><img src="/images/the-ritual-ring-all-colours.webp" alt="The Ritual Ring in Cream, Coffee and Black – View 2" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/the-ritual-ring-detail.webp'; setActiveThumb(this);"><img src="/images/the-ritual-ring-detail.webp" alt="The Ritual Ring padded handles – View 3" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/the-ritual-ring-black.webp'; setActiveThumb(this);"><img src="/images/the-ritual-ring-black.webp" alt="The Ritual Ring in Black, shoulder stretch – View 4" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/the-ritual-ring-pink.webp'; setActiveThumb(this);"><img src="/images/the-ritual-ring-pink.webp" alt="The Ritual Ring in Pink, shoulder stretch – View 5" loading="lazy"/></button>
+        </div>
     </div>
 
     <!-- INFO -->
@@ -103,11 +122,11 @@
                     <span class="swatch-label">Vanilla Cream</span>
                 </div>
                 <div class="swatch-wrap">
-                    <button class="swatch" data-name="Black" data-color="Black" data-img="/images/the-ritual-ring.webp" style="--sw:#1f1f1f" aria-label="Black" aria-checked="false" role="radio" onclick="selectColour(this)"></button>
+                    <button class="swatch" data-name="Black" data-color="Black" data-img="/images/the-ritual-ring-black.webp" style="--sw:#1f1f1f" aria-label="Black" aria-checked="false" role="radio" onclick="selectColour(this)"></button>
                     <span class="swatch-label">Onyx Black</span>
                 </div>
                 <div class="swatch-wrap">
-                    <button class="swatch" data-name="Pink" data-color="Pink" data-img="/images/the-ritual-ring.webp" style="--sw:#f8c8b8" aria-label="Pink" aria-checked="false" role="radio" onclick="selectColour(this)"></button>
+                    <button class="swatch" data-name="Pink" data-color="Pink" data-img="/images/the-ritual-ring-pink.webp" style="--sw:#f8c8b8" aria-label="Pink" aria-checked="false" role="radio" onclick="selectColour(this)"></button>
                     <span class="swatch-label">Strawberry Milk</span>
                 </div>
                 <div class="swatch-wrap">
@@ -315,6 +334,10 @@
     function switchProductImage(btn) {
         var img = document.getElementById('main-img');
         var newSrc = btn.dataset.img;
+        document.querySelectorAll('.product__thumbs .thumb').forEach(function(t) {
+            var timg = t.querySelector('img');
+            t.classList.toggle('active', !!timg && timg.getAttribute('src') === newSrc);
+        });
         if (!newSrc || img.getAttribute('src') === newSrc) return;
         var probe = new Image();
         probe.onload = function() {
@@ -366,7 +389,7 @@
                 name: 'The Ritual Ring',
                 color: colorVal,
                 price: 1499,
-                image: '/images/the-ritual-ring.webp'
+                image: (color && color.dataset.img) || '/images/the-ritual-ring.webp'
             });
             gtag('event', 'add_to_cart', {
                 currency: 'INR',
@@ -389,6 +412,12 @@
         value: 1499,
         items: [{ item_id: 'pilates-ring', item_name: 'The Ritual Ring', price: 1499 }]
     });
+</script>
+<script>
+    function setActiveThumb(btn) {
+        document.querySelectorAll('.product__thumbs .thumb').forEach(function(t) { t.classList.remove('active'); });
+        btn.classList.add('active');
+    }
 </script>
 <script src="/javascript/sticky-cart-bar.js"></script>
 
