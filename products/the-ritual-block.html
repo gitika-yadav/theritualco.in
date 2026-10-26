@@ -20,7 +20,7 @@
     <meta property="og:site_name" content="The Ritual Co."/>
     <meta property="og:title" content="The Ritual Block – EVA Foam Yoga Block &amp; Balance Block – The Ritual Co."/>
     <meta property="og:description" content="Dense EVA foam yoga block in pastel colourways — the ideal balance block for alignment, seated poses and deeper stretches. Skin-safe, stable, beautifully minimal."/>
-    <meta property="og:image" content="https://theritualco.in/images/the-ritual-block-black.webp"/>
+    <meta property="og:image" content="https://theritualco.in/images/block-black-childspose.webp"/>
     <meta property="og:url" content="https://theritualco.in/products/the-ritual-block"/>
     <meta name="twitter:card" content="summary_large_image"/>
     <link rel="icon" type="image/png" href="/images/favicon.png"/>
@@ -34,7 +34,17 @@
     <link rel="stylesheet" href="/css/products.css"/>
 
 
-    <link rel="preload" as="image" href="/images/the-ritual-block-black.webp"/>
+    <link rel="preload" as="image" href="/images/block-black-childspose.webp"/>
+
+    <style>
+        body.tr-product-page .product__media {
+            position: sticky;
+            top: 84px;
+        }
+        .product__thumbs{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;justify-content:center;}
+        .product__thumbs .thumb{width:56px;height:56px;border-radius:6px;overflow:hidden;border:2px solid transparent;padding:0;cursor:pointer;background:none;flex-shrink:0;}
+        .product__thumbs .thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+        .product__thumbs .thumb.active{border-color:#3a3330;}</style>
 
     <script type="application/ld+json">
         {
@@ -54,7 +64,7 @@
             "name":"The Ritual Block",
             "brand":{"@type":"Brand","name":"The Ritual Co."},
             "description":"Dense EVA foam yoga block in pastel colourways. 23cm x 15cm x 10cm. Supports every pose, deepens every stretch.",
-            "image":["https://theritualco.in/images/the-ritual-block-black.webp","https://theritualco.in/images/the-ritual-block-pink.webp"],
+            "image":["https://theritualco.in/images/block-black-childspose.webp","https://theritualco.in/images/block-pink-backbend.webp"],
             "sku":"TRC-BLOCK",
             "category":"SportingGoods",
             "material":"EVA foam",
@@ -90,8 +100,17 @@
 
 <main class="product">
     <!-- IMAGE -->
-    <div class="product__visual is-contain" role="region" aria-label="Product image">
-        <img id="main-img" src="/images/the-ritual-block-black.webp" alt="The Ritual Block in Black – The Ritual Co." loading="eager"/>
+    <div class="product__media">
+        <div class="product__visual is-contain" role="region" aria-label="Product image">
+            <img id="main-img" src="/images/block-black-childspose.webp" alt="The Ritual Block in Black – The Ritual Co." loading="eager"/>
+        </div>
+        <div class="product__thumbs">
+            <button class="thumb active" onclick="document.getElementById('main-img').src='/images/block-black-childspose.webp'; setActiveThumb(this);"><img src="/images/block-black-childspose.webp" alt="Black Ritual Block in child&#39;s pose"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/block-pink-backbend.webp'; setActiveThumb(this);"><img src="/images/block-pink-backbend.webp" alt="Pink Ritual Block supporting a back bend" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/block-all-colours.webp'; setActiveThumb(this);"><img src="/images/block-all-colours.webp" alt="The Ritual Block in all four colours" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/block-cream-childspose.webp'; setActiveThumb(this);"><img src="/images/block-cream-childspose.webp" alt="Cream Ritual Block in child&#39;s pose" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/block-black-shoulder.webp'; setActiveThumb(this);"><img src="/images/block-black-shoulder.webp" alt="Black Ritual Block held on the shoulder" loading="lazy"/></button>
+        </div>
     </div>
 
     <!-- INFO -->
@@ -104,11 +123,11 @@
             <label class="opt__label option-heading">Colour</label>
             <div class="swatches" role="radiogroup" aria-label="Colour" style="gap:16px;">
                 <div class="swatch-wrap">
-                    <button class="swatch is-selected active" data-color="Black" data-img="/images/the-ritual-block-black.webp" style="--sw:#1f1f1f" aria-label="Black" aria-checked="true" role="radio"></button>
+                    <button class="swatch is-selected active" data-color="Black" data-img="/images/block-black-childspose.webp" style="--sw:#1f1f1f" aria-label="Black" aria-checked="true" role="radio"></button>
                     <span class="swatch-label">Onyx Black</span>
                 </div>
                 <div class="swatch-wrap">
-                    <button class="swatch" data-color="Pink" data-img="/images/the-ritual-block-pink.webp" style="--sw:#f8c8b8" aria-label="Pink" aria-checked="false" role="radio"></button>
+                    <button class="swatch" data-color="Pink" data-img="/images/block-pink-backbend.webp" style="--sw:#f8c8b8" aria-label="Pink" aria-checked="false" role="radio"></button>
                     <span class="swatch-label">Strawberry Milk</span>
                 </div>
                 <div class="swatch-wrap">
@@ -305,6 +324,10 @@
     function switchProductImage(btn) {
         var img = document.getElementById('main-img');
         var newSrc = btn.dataset.img;
+        document.querySelectorAll('.product__thumbs .thumb').forEach(function(t) {
+            var timg = t.querySelector('img');
+            t.classList.toggle('active', !!timg && timg.getAttribute('src') === newSrc);
+        });
         if (!newSrc || img.getAttribute('src') === newSrc) return;
         var probe = new Image();
         probe.onload = function() {
@@ -363,7 +386,7 @@
             name: 'The Ritual Block',
             color: colorVal,
             price: 899,
-            image: '/images/the-ritual-block-black.webp'
+            image: (colorBtn && colorBtn.dataset.img) || '/images/block-black-childspose.webp'
         });
         if (window.CartDrawer) {
             CartDrawer.open();
@@ -380,6 +403,12 @@
         value: 899,
         items: [{ item_id: 'yoga-block', item_name: 'The Ritual Block', price: 899 }]
     });
+</script>
+<script>
+    function setActiveThumb(btn) {
+        document.querySelectorAll('.product__thumbs .thumb').forEach(function(t) { t.classList.remove('active'); });
+        btn.classList.add('active');
+    }
 </script>
 <script src="/javascript/sticky-cart-bar.js"></script>
 <script src="/javascript/product-availability.js"></script>
