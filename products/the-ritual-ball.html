@@ -104,12 +104,15 @@
             <img id="main-img" src="/images/pilates-ball-cream.webp" alt="The Ritual Ball in Cream – The Ritual Co." loading="eager"/>
         </div>
         <div class="product__thumbs">
-            <button class="thumb active" onclick="document.getElementById('main-img').src='/images/pilates-ball-cream.webp'; setActiveThumb(this);"><img src="/images/pilates-ball-cream.webp" alt="The Ritual Ball in Cream – View 1"/></button>
-            <button class="thumb" onclick="document.getElementById('main-img').src='/images/pilates-ball-pink-lifestyle.webp'; setActiveThumb(this);"><img src="/images/pilates-ball-pink-lifestyle.webp" alt="The Ritual Ball in Pink, side plank – View 2" loading="lazy"/></button>
-            <button class="thumb" onclick="document.getElementById('main-img').src='/images/pilates-ball-coffee-cuffs.webp'; setActiveThumb(this);"><img src="/images/pilates-ball-coffee-cuffs.webp" alt="The Ritual Ball in Coffee with The Ritual Cuffs – View 3" loading="lazy"/></button>
-            <button class="thumb" onclick="document.getElementById('main-img').src='/images/pilates-ball-coffee-socks.webp'; setActiveThumb(this);"><img src="/images/pilates-ball-coffee-socks.webp" alt="The Ritual Ball in Coffee with The Ritual Socks – View 4" loading="lazy"/></button>
-            <button class="thumb" onclick="document.getElementById('main-img').src='/images/pilates-ball-black-kit.webp'; setActiveThumb(this);"><img src="/images/pilates-ball-black-kit.webp" alt="The Ritual Ball in Black with ring, dumbbells and cuffs – View 5" loading="lazy"/></button>
-            <button class="thumb" onclick="document.getElementById('main-img').src='/images/pilates-ball-cream-kit.webp'; setActiveThumb(this);"><img src="/images/pilates-ball-cream-kit.webp" alt="The Ritual Ball in Cream with the full pilates kit – View 6" loading="lazy"/></button>
+            <button class="thumb active" onclick="document.getElementById('main-img').src='/images/pilates-ball-cream.webp'; setActiveThumb(this);"><img src="/images/pilates-ball-cream.webp" alt="The Ritual Ball in Vanilla Cream"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/pilates-ball-black.webp'; setActiveThumb(this);"><img src="/images/pilates-ball-black.webp" alt="The Ritual Ball in Onyx Black" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/pilates-ball-pink.webp'; setActiveThumb(this);"><img src="/images/pilates-ball-pink.webp" alt="The Ritual Ball in Strawberry Milk" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/pilates-ball-coffee.webp'; setActiveThumb(this);"><img src="/images/pilates-ball-coffee.webp" alt="The Ritual Ball in Oat Latte" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/pilates-ball-pink-lifestyle.webp'; setActiveThumb(this);"><img src="/images/pilates-ball-pink-lifestyle.webp" alt="The Ritual Ball in Pink, side plank" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/pilates-ball-coffee-cuffs.webp'; setActiveThumb(this);"><img src="/images/pilates-ball-coffee-cuffs.webp" alt="The Ritual Ball in Coffee with The Ritual Cuffs" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/pilates-ball-coffee-socks.webp'; setActiveThumb(this);"><img src="/images/pilates-ball-coffee-socks.webp" alt="The Ritual Ball in Coffee with The Ritual Socks" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/pilates-ball-black-kit.webp'; setActiveThumb(this);"><img src="/images/pilates-ball-black-kit.webp" alt="The Ritual Ball in Black with ring, dumbbells and cuffs" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/pilates-ball-cream-kit.webp'; setActiveThumb(this);"><img src="/images/pilates-ball-cream-kit.webp" alt="The Ritual Ball in Cream with the full pilates kit" loading="lazy"/></button>
         </div>
     </div>
 
@@ -343,13 +346,10 @@
     function switchProductImage(btn) {
         var img = document.getElementById('main-img');
         var newSrc = btn.dataset.img;
-        var firstThumb = document.querySelector('.product__thumbs .thumb');
-        if (firstThumb && newSrc) {
-            firstThumb.setAttribute('onclick', "document.getElementById('main-img').src='" + newSrc + "'; setActiveThumb(this);");
-            firstThumb.querySelector('img').src = newSrc;
-            firstThumb.querySelector('img').alt = 'The Ritual Ball in ' + btn.dataset.name + ' – View 1';
-            setActiveThumb(firstThumb);
-        }
+        document.querySelectorAll('.product__thumbs .thumb').forEach(function(t) {
+            var timg = t.querySelector('img');
+            t.classList.toggle('active', !!timg && timg.getAttribute('src') === newSrc);
+        });
         if (!newSrc || img.getAttribute('src') === newSrc) return;
         var probe = new Image();
         probe.onload = function() {
