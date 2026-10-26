@@ -165,6 +165,14 @@
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&display=swap" rel="stylesheet"/>
     <script src="/javascript/meta-pixel.js"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D366Q7R3XB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-D366Q7R3XB');
+    </script>
 </head>
 <body>
 <div id="navbar-placeholder"></div>
@@ -289,6 +297,7 @@
                 : error.message);
             btn.disabled = false; btn.textContent = "Sign in";
         } else {
+            if (typeof gtag === "function") gtag("event", "login", { method: "email" });
             // Redirect to orders or wherever they came from
             const next = new URLSearchParams(window.location.search).get("next") || "/account/orders.html";
             window.location.href = next;
@@ -311,6 +320,7 @@
             showError(error.message);
             btn.disabled = false; btn.textContent = "Create account";
         } else {
+            if (typeof gtag === "function") gtag("event", "sign_up", { method: "email" });
             showSuccess("Account created! Check your email to verify, then sign in.");
             btn.disabled = false; btn.textContent = "Create account";
             switchTab("login");

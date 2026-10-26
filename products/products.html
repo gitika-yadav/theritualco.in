@@ -330,13 +330,37 @@
 </script>
 
 <script>
-    gtag('event', 'view_item_list', {
-        item_list_name: 'All Products',
-        items: [
-            { item_id: 'capsule-dumbbell-1kg', item_name: 'The Ritual Capsule Dumbbells 1kg', price: 2499 },
-            { item_id: 'yoga-belt', item_name: 'The Ritual Belt', price: 499 }
-        ]
-    });
+    // GA4: product list view + clicks, built from the cards on the page
+    (function () {
+        var IDS = {
+            'capsule-dumbbell': 'capsule-dumbbell', 'the-ritual-belt': 'yoga-belt', 'the-ritual-block': 'yoga-block',
+            'the-ritual-mat': 'yoga-mat-5mm', 'the-ritual-cuffs': 'ankle-weights-2lb', 'the-ritual-ball': 'pilates-ball',
+            'the-ritual-ring': 'pilates-ring', 'the-ritual-socks': 'grip-socks', 'bundles': 'kits'
+        };
+        function itemFor(card, index) {
+            var link = card.querySelector('a[href*="/products/"]');
+            var href = card.getAttribute('data-href') || (link ? link.getAttribute('href') : '');
+            var slug = (href.match(/\/products\/([^./?#]+)/) || [])[1] || '';
+            var name = card.querySelector('.product-card__name');
+            var price = card.querySelector('.product-card__price');
+            return {
+                item_id: IDS[slug] || slug,
+                item_name: name ? name.textContent.trim() : slug,
+                price: price ? (parseInt(price.textContent.replace(/[^\d]/g, ''), 10) || undefined) : undefined,
+                item_list_name: 'All Products',
+                index: index
+            };
+        }
+        var cards = Array.prototype.slice.call(document.querySelectorAll('.product-card'));
+        if (typeof gtag !== 'function' || !cards.length) return;
+        gtag('event', 'view_item_list', { item_list_name: 'All Products', items: cards.map(itemFor) });
+        cards.forEach(function (card, i) {
+            card.addEventListener('click', function (e) {
+                if (!e.target.closest('a')) return;
+                gtag('event', 'select_item', { item_list_name: 'All Products', items: [itemFor(card, i)] });
+            });
+        });
+    })();
 </script>
 <script src="/javascript/scroll-reveal.js"></script>
 <script src="/javascript/product-availability.js"></script>

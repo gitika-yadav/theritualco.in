@@ -149,7 +149,15 @@ if (searchBtn && searchOverlay) {
         searchBtn.addEventListener("click", open);
         closeBtn.addEventListener("click", close);
         searchOverlay.addEventListener("click", function (e) { if (e.target === searchOverlay) close(); });
-        input.addEventListener("input", function () { doSearch(input.value); });
+        var gaSearchTimer;
+        input.addEventListener("input", function () {
+            doSearch(input.value);
+            clearTimeout(gaSearchTimer);
+            var term = input.value.trim();
+            if (term.length >= 2) gaSearchTimer = setTimeout(function () {
+                if (typeof window.gtag === "function") window.gtag("event", "search", { search_term: term });
+            }, 1200);
+        });
         document.addEventListener("keydown", function (e) {
             if (e.key === "Escape" && searchOverlay.classList.contains("is-open")) close();
             if ((e.metaKey || e.ctrlKey) && e.key === "k") { e.preventDefault(); open(); }

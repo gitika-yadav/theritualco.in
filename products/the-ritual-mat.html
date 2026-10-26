@@ -383,11 +383,6 @@
             price: 4999,
             image: (colorBtn && colorBtn.dataset.img) || '/images/yoga-mat-coffee.webp'
         });
-        gtag('event', 'add_to_cart', {
-            currency: 'INR',
-            value: 4999,
-            items: [{ item_id: 'yoga-mat-5mm', item_name: 'The Ritual Mat 5mm', price: 4999 }]
-        });
         if (window.CartDrawer) {
             CartDrawer.open();
         } else {

@@ -16,6 +16,29 @@ if (typeof Cart === "undefined") {
             window.dispatchEvent(new CustomEvent("cart:updated", { detail: cart }));
         }
 
+        // ── Google Analytics (GA4) ecommerce events ──
+        // Sent from here so every Add to Cart / remove on any page is tracked
+        // the same way, with the real price and variant.
+        function gaItem(i, qty) {
+            return {
+                item_id: i.id,
+                item_name: i.name,
+                item_variant: [i.color, i.weight].filter(Boolean).join(' / ') || undefined,
+                price: Number(i.price) || 0,
+                quantity: qty != null ? qty : (i.qty || 1)
+            };
+        }
+        function gaEvent(name, items, value) {
+            try {
+                if (typeof window.gtag !== 'function' || !items.length) return;
+                window.gtag('event', name, { currency: 'INR', value: value, items: items });
+            } catch (e) { /* tracking must never break the cart */ }
+        }
+        function trackViewCart() {
+            const c = get();
+            gaEvent('view_cart', c.items.map(i => gaItem(i)), total());
+        }
+
         function itemKey(id, weight, color) {
             return `${id}__${weight}__${color}`;
         }
@@ -110,6 +133,7 @@ function norm(key) {
                 cart.items.push({ key, id, name, weight, color, price, image, sku, qty: 1 });
             }
             save(cart);
+            gaEvent('add_to_cart', [gaItem({ id, name, weight, color, price }, 1)], Number(price) || 0);
             if (window.trackMeta) {
                 window.trackMeta('AddToCart', {
                     content_ids: [id],
@@ -124,8 +148,10 @@ function norm(key) {
 
         function remove(key) {
             const cart = get();
+            const gone = cart.items.find(i => i.key === key);
             cart.items = cart.items.filter(i => i.key !== key);
             save(cart);
+            if (gone) gaEvent('remove_from_cart', [gaItem(gone)], (Number(gone.price) || 0) * gone.qty);
         }
 
         function updateQty(key, qty) {
@@ -139,8 +165,11 @@ function norm(key) {
             const capped = Number.isFinite(available) ? Math.min(qty, available) : qty;
             if (capped < qty) toast("Only " + available + " available");
 
+            const before = item.qty;
             item.qty = capped;
             save(cart);
+            if (capped > before) gaEvent('add_to_cart', [gaItem(item, capped - before)], (Number(item.price) || 0) * (capped - before));
+            if (capped < before) gaEvent('remove_from_cart', [gaItem(item, before - capped)], (Number(item.price) || 0) * (before - capped));
         }
 
         function clear() { save({ items: [] }); }
@@ -164,7 +193,7 @@ function norm(key) {
         window.addEventListener("cart:updated", updateBadge);
         document.addEventListener("DOMContentLoaded", updateBadge);
 
-        return { get, add, remove, updateQty, clear, count, total, itemKey, getAvailable, getInCartQty, getRemaining, toast };
+        return { get, add, remove, updateQty, clear, count, total, itemKey, getAvailable, getInCartQty, getRemaining, toast, trackViewCart };
     })();
 
 } // end guard

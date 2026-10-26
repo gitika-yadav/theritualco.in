@@ -375,11 +375,6 @@
             price: 499,
             image: (color && color.dataset.img) || '/images/yoga-belt-cream-1.webp'
         });
-        gtag('event', 'add_to_cart', {
-            currency: 'INR',
-            value: 499,
-            items: [{ item_id: 'yoga-belt', item_name: 'The Ritual Belt', price: 499 }]
-        });
         if (window.CartDrawer) {
             CartDrawer.open();
         } else {

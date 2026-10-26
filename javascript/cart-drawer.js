@@ -57,6 +57,7 @@
 
     function open() {
         render();
+        if (window.Cart && Cart.trackViewCart) Cart.trackViewCart();
         document.getElementById("cart-drawer").classList.add("is-open");
         document.getElementById("cart-drawer-overlay").classList.add("is-open");
         document.body.style.overflow = "hidden";
