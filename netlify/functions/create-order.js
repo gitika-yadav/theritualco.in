@@ -26,6 +26,7 @@ exports.handler = async (event) => {
         // ── Calculate total from cart ─────────────
         // Always validate price server-side against inventory
         let totalPaise = 0;
+        let noCodePaise = 0; // kit lines already discounted: discount codes don't apply to them
         const orderItems = [];
 
 
@@ -110,6 +111,7 @@ exports.handler = async (event) => {
 
                 // One summary line for what the customer actually bought...
                 totalPaise += kit.price_paise * kitQty;
+                if (kit.noCodes) noCodePaise += kit.price_paise * kitQty;
                 orderItems.push({
                     product_id:    kit.id,
                     product_name:  isPreorder ? `${kit.name} (Pre-order — ships ${PREORDER_SHIPS})` : kit.name,
@@ -188,7 +190,8 @@ exports.handler = async (event) => {
                 .eq("code", body.discount_code.toUpperCase().trim())
                 .single();
 
-            const cartRupees = totalPaise / 100; // note: includes COD fee — see caveat below
+            const codePaise = Math.max(0, totalPaise - noCodePaise); // codes only apply to non-kit items
+            const cartRupees = codePaise / 100;
             const valid = dc && dc.active
                 && (!dc.expires_at || new Date(dc.expires_at) >= new Date())
                 && (!dc.usage_limit || dc.used_count < dc.usage_limit)
@@ -196,10 +199,10 @@ exports.handler = async (event) => {
 
             if (valid) {
                 if (dc.type === "percentage") {
-                    discountPaise = Math.round((totalPaise * dc.value) / 100);
+                    discountPaise = Math.round((codePaise * dc.value) / 100);
                     if (dc.max_discount) discountPaise = Math.min(discountPaise, dc.max_discount * 100);
                 } else if (dc.type === "fixed") {
-                    discountPaise = Math.min(dc.value * 100, totalPaise);
+                    discountPaise = Math.min(dc.value * 100, codePaise);
                 }
                 // free_shipping: nothing to subtract (shipping already free)
             }

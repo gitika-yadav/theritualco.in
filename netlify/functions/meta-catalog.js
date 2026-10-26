@@ -81,19 +81,19 @@ const ITEMS = [
     },
 
     // ── Kits (preorder) ──
-    { id: 'KIT-PILATES-STARTER', group: 'pilates-starter-kit', title: 'Pilates Starter Kit – Mat, Ring, Ball & Dumbbells', price: 9996, path: '/products/pilates-starter-kit', img: 'KIT-PILATES-STARTER', avail: 'preorder',
+    { id: 'KIT-PILATES-STARTER', group: 'pilates-starter-kit', title: 'Pilates Starter Kit – Mat, Ring, Ball & Dumbbells', price: 9996, salePrice: 8799, path: '/products/pilates-starter-kit', img: 'KIT-PILATES-STARTER', avail: 'preorder',
       desc: 'The Ritual Mat, Ring, Ball and 1kg Capsule Dumbbells. Everything to start pilates at home. Preorder now.' },
-    { id: 'KIT-PILATES-SCULPT', group: 'pilates-sculpt-kit', title: 'Pilates Sculpt Kit – Ring, Ball, Dumbbells & Cuffs', price: 8496, path: '/products/pilates-sculpt-kit', img: 'KIT-PILATES-SCULPT', avail: 'preorder',
+    { id: 'KIT-PILATES-SCULPT', group: 'pilates-sculpt-kit', title: 'Pilates Sculpt Kit – Ring, Ball, Dumbbells & Cuffs', price: 8496, salePrice: 7499, path: '/products/pilates-sculpt-kit', img: 'KIT-PILATES-SCULPT', avail: 'preorder',
       desc: 'For the mat you already own: The Ritual Ring, Ball, 1kg Capsule Dumbbells and Cuffs ankle weights. Preorder now.' },
-    { id: 'KIT-PILATES-COMPLETE', group: 'pilates-complete-kit', title: 'Pilates Complete Kit – All Six Pieces', price: 14394, path: '/products/pilates-complete-kit', img: 'KIT-PILATES-COMPLETE', avail: 'preorder',
+    { id: 'KIT-PILATES-COMPLETE', group: 'pilates-complete-kit', title: 'Pilates Complete Kit – All Six Pieces', price: 14394, salePrice: 12199, path: '/products/pilates-complete-kit', img: 'KIT-PILATES-COMPLETE', avail: 'preorder',
       desc: 'Mat, ring, ball, 1kg dumbbells, cuffs and a block: the complete home pilates set. Preorder now.' },
-    { id: 'KIT-YOGA-ESSENTIALS', group: 'yoga-essentials-kit', title: 'Yoga Essentials Kit – Mat, Belt & Block', price: 6397, path: '/products/yoga-essentials-kit', img: 'KIT-YOGA-ESSENTIALS', avail: 'preorder',
+    { id: 'KIT-YOGA-ESSENTIALS', group: 'yoga-essentials-kit', title: 'Yoga Essentials Kit – Mat, Belt & Block', price: 6397, salePrice: 5799, path: '/products/yoga-essentials-kit', img: 'KIT-YOGA-ESSENTIALS', avail: 'preorder',
       desc: 'The Ritual Mat, Belt and Block bundled together for a complete home yoga practice. Preorder now.' },
-    { id: 'KIT-YOGA-STUDIO', group: 'yoga-studio-kit', title: 'Yoga Studio Kit – Belt & Two Blocks', price: 2297, path: '/products/yoga-studio-kit', img: 'KIT-YOGA-STUDIO', avail: 'preorder',
+    { id: 'KIT-YOGA-STUDIO', group: 'yoga-studio-kit', title: 'Yoga Studio Kit – Belt & Two Blocks', price: 2297, salePrice: 2099, path: '/products/yoga-studio-kit', img: 'KIT-YOGA-STUDIO', avail: 'preorder',
       desc: 'For the mat you already own: The Ritual Belt and two Ritual Blocks. Preorder now.' },
 ];
 
-const COLUMNS = ['id', 'title', 'description', 'availability', 'condition', 'price', 'link', 'image_link',
+const COLUMNS = ['id', 'title', 'description', 'availability', 'condition', 'price', 'sale_price', 'link', 'image_link',
     'brand', 'item_group_id', 'color', 'size', 'google_product_category', 'gender', 'age_group'];
 
 function csvCell(v) {
@@ -128,6 +128,7 @@ exports.handler = async () => {
         availability: availabilityFor(item),
         condition: 'new',
         price: `${item.price.toFixed(2)} INR`,
+        sale_price: item.salePrice ? `${item.salePrice.toFixed(2)} INR` : '',
         link: SITE + item.path,
         image_link: `${SITE}/images/catalog/${item.img}.jpg`,
         brand: BRAND,

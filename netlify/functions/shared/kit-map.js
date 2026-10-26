@@ -16,7 +16,8 @@ const KIT_MAP = {
         id: "yoga-essentials-kit",
         preorder: true, // can be ordered while a piece is out of stock; ships at restock
         name: "Yoga Essentials Kit",
-        price_paise: 639700,
+        price_paise: 579900, mrp_paise: 639700, // kit price; mrp = pieces bought separately
+        noCodes: true, // discount codes don't stack on kits
         components: [
             { product_id: "yoga-mat-5mm", qty: 1 },
             // No pink belt: the pink kit ships with a Cream belt.
@@ -28,7 +29,8 @@ const KIT_MAP = {
         id: "yoga-studio-kit",
         preorder: true, // can be ordered while a piece is out of stock; ships at restock
         name: "Yoga Studio Kit",
-        price_paise: 229700,
+        price_paise: 209900, mrp_paise: 229700, // kit price; mrp = pieces bought separately
+        noCodes: true, // discount codes don't stack on kits
         components: [
             // No pink belt: the pink kit ships with a Cream belt.
             { product_id: "yoga-belt", qty: 1, colorMap: { Pink: "Cream" } },
@@ -39,7 +41,8 @@ const KIT_MAP = {
         id: "pilates-starter-kit",
         preorder: true, // can be ordered while a piece is out of stock; ships at restock
         name: "Pilates Starter Kit",
-        price_paise: 999600,
+        price_paise: 879900, mrp_paise: 999600, // kit price; mrp = pieces bought separately
+        noCodes: true, // discount codes don't stack on kits
         components: [
             { product_id: "yoga-mat-5mm", qty: 1 },
             { product_id: "pilates-ring", qty: 1 },
@@ -51,7 +54,8 @@ const KIT_MAP = {
         id: "pilates-sculpt-kit",
         preorder: true, // can be ordered while a piece is out of stock; ships at restock
         name: "Pilates Sculpt Kit",
-        price_paise: 849600,
+        price_paise: 749900, mrp_paise: 849600, // kit price; mrp = pieces bought separately
+        noCodes: true, // discount codes don't stack on kits
         components: [
             { product_id: "pilates-ring", qty: 1 },
             { product_id: "pilates-ball", qty: 1 },
@@ -63,7 +67,8 @@ const KIT_MAP = {
         id: "pilates-complete-kit",
         preorder: true, // can be ordered while a piece is out of stock; ships at restock
         name: "Pilates Complete Kit",
-        price_paise: 1439400,
+        price_paise: 1219900, mrp_paise: 1439400, // kit price; mrp = pieces bought separately
+        noCodes: true, // discount codes don't stack on kits
         components: [
             { product_id: "yoga-mat-5mm", qty: 1 },
             { product_id: "pilates-ring", qty: 1 },
