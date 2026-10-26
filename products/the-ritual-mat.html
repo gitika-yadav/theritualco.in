@@ -35,6 +35,16 @@
 
     <link rel="preload" as="image" href="/images/yoga-mat-coffee.webp"/>
 
+    <style>
+        body.tr-product-page .product__media {
+            position: sticky;
+            top: 84px;
+        }
+        .product__thumbs{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;justify-content:center;}
+        .product__thumbs .thumb{width:56px;height:56px;border-radius:6px;overflow:hidden;border:2px solid transparent;padding:0;cursor:pointer;background:none;flex-shrink:0;}
+        .product__thumbs .thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+        .product__thumbs .thumb.active{border-color:#3a3330;}</style>
+
     <script type="application/ld+json">
         {
             "@context":"https://schema.org",
@@ -88,8 +98,17 @@
 
 <main class="product">
     <!-- IMAGE -->
-    <div class="product__visual is-contain" role="region" aria-label="Product image">
-        <img id="main-img" src="/images/yoga-mat-coffee.webp" alt="The Ritual Mat in Coffee – The Ritual Co." loading="eager"/>
+    <div class="product__media">
+        <div class="product__visual is-contain" role="region" aria-label="Product image">
+            <img id="main-img" src="/images/yoga-mat-coffee.webp" alt="The Ritual Mat in Coffee – The Ritual Co." loading="eager"/>
+        </div>
+        <div class="product__thumbs">
+            <button class="thumb active" onclick="document.getElementById('main-img').src='/images/yoga-mat-coffee.webp'; setActiveThumb(this);"><img src="/images/yoga-mat-coffee.webp" alt="The Ritual Mat in Coffee – View 1"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-mat-all-colours.webp'; setActiveThumb(this);"><img src="/images/yoga-mat-all-colours.webp" alt="The Ritual Mat in all four colours – View 2" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-mat-lifestyle-1.webp'; setActiveThumb(this);"><img src="/images/yoga-mat-lifestyle-1.webp" alt="The Ritual Mat in Cream with pilates kit – View 3" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-mat-lifestyle-2.webp'; setActiveThumb(this);"><img src="/images/yoga-mat-lifestyle-2.webp" alt="Stretching on The Ritual Mat in Coffee – View 4" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-mat-flatlay.webp'; setActiveThumb(this);"><img src="/images/yoga-mat-flatlay.webp" alt="The Ritual Mat colours laid flat – View 5" loading="lazy"/></button>
+        </div>
     </div>
 
     <!-- INFO -->
@@ -296,6 +315,13 @@
     function switchProductImage(btn) {
         var img = document.getElementById('main-img');
         var newSrc = btn.dataset.img;
+        var firstThumb = document.querySelector('.product__thumbs .thumb');
+        if (firstThumb && newSrc) {
+            firstThumb.setAttribute('onclick', "document.getElementById('main-img').src='" + newSrc + "'; setActiveThumb(this);");
+            firstThumb.querySelector('img').src = newSrc;
+            firstThumb.querySelector('img').alt = 'The Ritual Mat in ' + btn.dataset.color + ' – View 1';
+            setActiveThumb(firstThumb);
+        }
         if (!newSrc || img.getAttribute('src') === newSrc) return;
         var probe = new Image();
         probe.onload = function() {
@@ -355,7 +381,7 @@
             weight: '5mm',
             color: colorVal,
             price: 4999,
-            image: (document.getElementById('main-img') || {}).getAttribute('src') || '/images/yoga-mat-coffee.webp'
+            image: (colorBtn && colorBtn.dataset.img) || '/images/yoga-mat-coffee.webp'
         });
         gtag('event', 'add_to_cart', {
             currency: 'INR',
@@ -377,6 +403,12 @@
         value: 4999,
         items: [{ item_id: 'yoga-mat-5mm', item_name: 'The Ritual Mat 5mm', price: 4999 }]
     });
+</script>
+<script>
+    function setActiveThumb(btn) {
+        document.querySelectorAll('.product__thumbs .thumb').forEach(function(t) { t.classList.remove('active'); });
+        btn.classList.add('active');
+    }
 </script>
 <script src="/javascript/sticky-cart-bar.js"></script>
 <script src="/javascript/product-availability.js"></script>
