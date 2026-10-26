@@ -40,7 +40,7 @@
             position: sticky;
             top: 84px;
         }
-        .product__thumbs{display:flex;gap:8px;margin-top:12px;justify-content:center;}
+        .product__thumbs{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;justify-content:center;}
         .product__thumbs .thumb{width:56px;height:56px;border-radius:6px;overflow:hidden;border:2px solid transparent;padding:0;cursor:pointer;background:none;flex-shrink:0;}
         .product__thumbs .thumb img{width:100%;height:100%;object-fit:cover;display:block;}
         .product__thumbs .thumb.active{border-color:#3a3330;}</style>
@@ -104,10 +104,17 @@
             <img id="main-img" src="/images/yoga-belt-cream-1.webp" alt="The Ritual Belt in Cream – The Ritual Co." loading="eager"/>
         </div>
         <div class="product__thumbs">
-            <button class="thumb active" onclick="document.getElementById('main-img').src='/images/yoga-belt-cream-1.webp'; setActiveThumb(this);"><img src="/images/yoga-belt-cream-1.webp" alt="View 1"/></button>
-            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-belt-cream-2.webp'; setActiveThumb(this);"><img src="/images/yoga-belt-cream-2.webp" alt="View 2"/></button>
-            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-belt-cream-3.webp'; setActiveThumb(this);"><img src="/images/yoga-belt-cream-3.webp" alt="View 3"/></button>
-            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-belt-cream-4.webp'; setActiveThumb(this);"><img src="/images/yoga-belt-cream-4.webp" alt="View 4"/></button>
+            <button class="thumb active" onclick="document.getElementById('main-img').src='/images/yoga-belt-cream-1.webp'; setActiveThumb(this);"><img src="/images/yoga-belt-cream-1.webp" alt="The Ritual Belt in Vanilla Cream"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-belt-cream-2.webp'; setActiveThumb(this);"><img src="/images/yoga-belt-cream-2.webp" alt="The Ritual Belt in Vanilla Cream, coiled"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-belt-cream-3.webp'; setActiveThumb(this);"><img src="/images/yoga-belt-cream-3.webp" alt="The Ritual Belt in Vanilla Cream, D-ring"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-belt-cream-4.webp'; setActiveThumb(this);"><img src="/images/yoga-belt-cream-4.webp" alt="The Ritual Belt in Vanilla Cream, label detail"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-belt-coffee-roll.webp'; setActiveThumb(this);"><img src="/images/yoga-belt-coffee-roll.webp" alt="The Ritual Belt in Oat Latte" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-mat-lifestyle-2.webp'; setActiveThumb(this);"><img src="/images/yoga-mat-lifestyle-2.webp" alt="Stretching with The Ritual Belt in Oat Latte" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-belt-coffee-hold.webp'; setActiveThumb(this);"><img src="/images/yoga-belt-coffee-hold.webp" alt="The Ritual Belt in Oat Latte, label detail" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-belt-coffee-ankle.webp'; setActiveThumb(this);"><img src="/images/yoga-belt-coffee-ankle.webp" alt="The Ritual Belt in Oat Latte looped around the foot" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-belt-black-stretch.webp'; setActiveThumb(this);"><img src="/images/yoga-belt-black-stretch.webp" alt="Stretching with The Ritual Belt in Onyx Black" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-belt-black-stretch-wide.webp'; setActiveThumb(this);"><img src="/images/yoga-belt-black-stretch-wide.webp" alt="Pigeon stretch with The Ritual Belt in Onyx Black" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-belt-black.webp'; setActiveThumb(this);"><img src="/images/yoga-belt-black.webp" alt="The Ritual Belt in Onyx Black" loading="lazy"/></button>
         </div>
     </div>
 
@@ -125,11 +132,11 @@
                     <span class="swatch-label">Vanilla Cream</span>
                 </div>
                 <div class="swatch-wrap">
-                    <button class="swatch" data-name="Coffee" data-color="Coffee" data-img="/images/yoga-belt-coffee.webp" style="--sw:#6f4e37" aria-label="Coffee" aria-checked="false" role="radio" onclick="selectColour(this)"></button>
+                    <button class="swatch" data-name="Coffee" data-color="Coffee" data-img="/images/yoga-belt-coffee-roll.webp" style="--sw:#6f4e37" aria-label="Coffee" aria-checked="false" role="radio" onclick="selectColour(this)"></button>
                     <span class="swatch-label">Oat Latte</span>
                 </div>
                 <div class="swatch-wrap">
-                    <button class="swatch" data-name="Black" data-color="Black" data-img="/images/yoga-belt-black.webp" style="--sw:#1f1f1f" aria-label="Black" aria-checked="false" role="radio" onclick="selectColour(this)"></button>
+                    <button class="swatch" data-name="Black" data-color="Black" data-img="/images/yoga-belt-black-stretch.webp" style="--sw:#1f1f1f" aria-label="Black" aria-checked="false" role="radio" onclick="selectColour(this)"></button>
                     <span class="swatch-label">Onyx Black</span>
                 </div>
             </div>
@@ -317,7 +324,13 @@
         btn.classList.add('active','selected','is-selected');
         btn.setAttribute('aria-pressed','true');
         btn.setAttribute('aria-checked','true');
-        document.getElementById('colour-name').textContent = btn.dataset.name;
+        var cn = document.getElementById('colour-name');
+        if (cn) cn.textContent = btn.parentElement.querySelector('.swatch-label').textContent;
+        switchProductImage(btn);
+        document.querySelectorAll('.product__thumbs .thumb').forEach(function(t) {
+            var im = t.querySelector('img');
+            t.classList.toggle('active', !!im && im.getAttribute('src') === btn.dataset.img);
+        });
     }
 
     function switchProductImage(btn) {
