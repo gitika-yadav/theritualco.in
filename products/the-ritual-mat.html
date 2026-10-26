@@ -103,11 +103,14 @@
             <img id="main-img" src="/images/yoga-mat-coffee.webp" alt="The Ritual Mat in Coffee – The Ritual Co." loading="eager"/>
         </div>
         <div class="product__thumbs">
-            <button class="thumb active" onclick="document.getElementById('main-img').src='/images/yoga-mat-coffee.webp'; setActiveThumb(this);"><img src="/images/yoga-mat-coffee.webp" alt="The Ritual Mat in Coffee – View 1"/></button>
-            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-mat-all-colours.webp'; setActiveThumb(this);"><img src="/images/yoga-mat-all-colours.webp" alt="The Ritual Mat in all four colours – View 2" loading="lazy"/></button>
-            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-mat-lifestyle-1.webp'; setActiveThumb(this);"><img src="/images/yoga-mat-lifestyle-1.webp" alt="The Ritual Mat in Cream with pilates kit – View 3" loading="lazy"/></button>
-            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-mat-lifestyle-2.webp'; setActiveThumb(this);"><img src="/images/yoga-mat-lifestyle-2.webp" alt="Stretching on The Ritual Mat in Coffee – View 4" loading="lazy"/></button>
-            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-mat-flatlay.webp'; setActiveThumb(this);"><img src="/images/yoga-mat-flatlay.webp" alt="The Ritual Mat colours laid flat – View 5" loading="lazy"/></button>
+            <button class="thumb active" onclick="document.getElementById('main-img').src='/images/yoga-mat-coffee.webp'; setActiveThumb(this);"><img src="/images/yoga-mat-coffee.webp" alt="The Ritual Mat in Oat Latte"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-mat-pink.webp'; setActiveThumb(this);"><img src="/images/yoga-mat-pink.webp" alt="The Ritual Mat in Strawberry Milk" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-mat-cream.webp'; setActiveThumb(this);"><img src="/images/yoga-mat-cream.webp" alt="The Ritual Mat in Vanilla Cream" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-mat-black.webp'; setActiveThumb(this);"><img src="/images/yoga-mat-black.webp" alt="The Ritual Mat in Onyx Black" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-mat-all-colours.webp'; setActiveThumb(this);"><img src="/images/yoga-mat-all-colours.webp" alt="The Ritual Mat in all four colours" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-mat-lifestyle-1.webp'; setActiveThumb(this);"><img src="/images/yoga-mat-lifestyle-1.webp" alt="The Ritual Mat in Cream with pilates kit" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-mat-lifestyle-2.webp'; setActiveThumb(this);"><img src="/images/yoga-mat-lifestyle-2.webp" alt="Stretching on The Ritual Mat in Coffee" loading="lazy"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-mat-flatlay.webp'; setActiveThumb(this);"><img src="/images/yoga-mat-flatlay.webp" alt="The Ritual Mat colours laid flat" loading="lazy"/></button>
         </div>
     </div>
 
@@ -315,13 +318,10 @@
     function switchProductImage(btn) {
         var img = document.getElementById('main-img');
         var newSrc = btn.dataset.img;
-        var firstThumb = document.querySelector('.product__thumbs .thumb');
-        if (firstThumb && newSrc) {
-            firstThumb.setAttribute('onclick', "document.getElementById('main-img').src='" + newSrc + "'; setActiveThumb(this);");
-            firstThumb.querySelector('img').src = newSrc;
-            firstThumb.querySelector('img').alt = 'The Ritual Mat in ' + btn.dataset.color + ' – View 1';
-            setActiveThumb(firstThumb);
-        }
+        document.querySelectorAll('.product__thumbs .thumb').forEach(function(t) {
+            var timg = t.querySelector('img');
+            t.classList.toggle('active', !!timg && timg.getAttribute('src') === newSrc);
+        });
         if (!newSrc || img.getAttribute('src') === newSrc) return;
         var probe = new Image();
         probe.onload = function() {
