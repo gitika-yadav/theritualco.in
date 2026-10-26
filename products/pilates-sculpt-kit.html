@@ -223,7 +223,7 @@
 
     function updateKitThumbnails(colorName) {
         document.querySelectorAll('.kit-contents__img').forEach(function(img) {
-            var newSrc = img.dataset['img' + colorName];
+            var newSrc = img.getAttribute('data-img' + colorName.toLowerCase());
             if (newSrc) img.src = newSrc;
         });
     }

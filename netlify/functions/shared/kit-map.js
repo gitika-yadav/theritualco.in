@@ -19,7 +19,8 @@ const KIT_MAP = {
         price_paise: 639700,
         components: [
             { product_id: "yoga-mat-5mm", qty: 1 },
-            { product_id: "yoga-belt", qty: 1 },
+            // No pink belt: the pink kit ships with a Cream belt.
+            { product_id: "yoga-belt", qty: 1, colorMap: { Pink: "Cream" } },
             { product_id: "yoga-block", qty: 1 },
         ],
     },
