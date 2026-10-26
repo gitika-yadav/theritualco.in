@@ -51,7 +51,7 @@ exports.handler = async (event) => {
                 for (const comp of kit.components) {
                     const compProduct = PRODUCT_MAP[comp.product_id];
                     if (!compProduct) { kitValid = false; break; }
-                    const compColor = comp.color || kitColor; // fixed-colour sets (e.g. sock trio) override the chosen colour
+                    const compColor = comp.color || (comp.colorMap && comp.colorMap[kitColor]) || kitColor; // fixed-colour sets (e.g. sock trio) override the chosen colour; colorMap swaps a missing shade (pink kit -> cream belt)
 
                     const { data: inv, error: invErr } = await supabase
                         .from("inventory")

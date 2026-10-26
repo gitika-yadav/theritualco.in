@@ -29,7 +29,8 @@ const KIT_MAP = {
         name: "Yoga Studio Kit",
         price_paise: 229700,
         components: [
-            { product_id: "yoga-belt", qty: 1 },
+            // No pink belt: the pink kit ships with a Cream belt.
+            { product_id: "yoga-belt", qty: 1, colorMap: { Pink: "Cream" } },
             { product_id: "yoga-block", qty: 2 },
         ],
     },

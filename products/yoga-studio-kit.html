@@ -82,34 +82,34 @@
         <p class="product__tagline">For the mat you already own.<br>Belt to deepen every stretch, two blocks to support and extend your reach.</p>
 
         <div class="opt">
-            <label class="opt__label">Colour &mdash; <span id="colour-name">Black</span></label>
+            <label class="opt__label">Colour &mdash; <span id="colour-name">Onyx Black</span></label>
             <div class="swatches" role="radiogroup" aria-label="Colour" style="gap:16px;">
                 <div class="swatch-wrap">
-                    <button class="swatch is-selected" data-name="Black" data-color="Black" data-img="/images/yoga-belt-black.webp" style="--sw:#1f1f1f" aria-label="Black" aria-checked="true" role="radio" onclick="selectColour(this)"></button>
-                    <span class="swatch-label">Black</span>
+                    <button class="swatch is-selected" data-name="Black" data-color="Black" data-img="/images/yoga-belt-black.webp" style="--sw:#1f1f1f" aria-label="Onyx Black" aria-checked="true" role="radio" onclick="selectColour(this)"></button>
+                    <span class="swatch-label">Onyx Black</span>
                 </div>
                 <div class="swatch-wrap">
-                    <button class="swatch" data-name="Cream" data-color="Cream" data-img="/images/yoga-belt-cream-1.webp" style="--sw:#f3eadf" aria-label="Cream" aria-checked="false" role="radio" onclick="selectColour(this)"></button>
-                    <span class="swatch-label">Cream</span>
+                    <button class="swatch" data-name="Cream" data-color="Cream" data-img="/images/yoga-belt-cream-1.webp" style="--sw:#f3eadf" aria-label="Vanilla Cream" aria-checked="false" role="radio" onclick="selectColour(this)"></button>
+                    <span class="swatch-label">Vanilla Cream</span>
                 </div>
                 <div class="swatch-wrap">
-                    <button class="swatch" data-name="Pink" data-color="Pink" data-img="/images/yoga-belt-pink.webp" style="--sw:#f8c8b8" aria-label="Pink" aria-checked="false" role="radio" onclick="selectColour(this)"></button>
-                    <span class="swatch-label">Pink</span>
+                    <button class="swatch" data-name="Pink" data-color="Pink" data-img="/images/block-pink-backbend.webp" style="--sw:#f8c8b8" aria-label="Strawberry Milk" aria-checked="false" role="radio" onclick="selectColour(this)"></button>
+                    <span class="swatch-label">Strawberry Milk</span>
                 </div>
                 <div class="swatch-wrap">
-                    <button class="swatch" data-name="Coffee" data-color="Coffee" data-img="/images/yoga-belt-coffee.webp" style="--sw:#6f4e37" aria-label="Coffee" aria-checked="false" role="radio" onclick="selectColour(this)"></button>
-                    <span class="swatch-label">Coffee</span>
+                    <button class="swatch" data-name="Coffee" data-color="Coffee" data-img="/images/yoga-belt-coffee-roll.webp" style="--sw:#6f4e37" aria-label="Oat Latte" aria-checked="false" role="radio" onclick="selectColour(this)"></button>
+                    <span class="swatch-label">Oat Latte</span>
                 </div>
             </div>
-            <p style="font-size:11px;color:#a09890;margin-top:8px;">One colour applies to all pieces in this kit.</p>
+            <p id="kit-colour-note" style="font-size:11px;color:#a09890;margin-top:8px;">One colour applies to all pieces in this kit.</p>
         </div>
 
         <div class="kit-contents">
             <a href="/products/the-ritual-belt" class="kit-contents__row">
-                <img class="kit-contents__img" data-imgBlack="/images/yoga-belt-black.webp" data-imgCream="/images/yoga-belt-cream-1.webp" data-imgPink="/images/yoga-belt-pink.webp" data-imgCoffee="/images/yoga-belt-coffee.webp" src="/images/yoga-belt-black.webp" alt="The Ritual Belt"/>
+                <img class="kit-contents__img" data-imgBlack="/images/yoga-belt-black.webp" data-imgCream="/images/yoga-belt-cream-1.webp" data-imgPink="/images/yoga-belt-cream-1.webp" data-imgCoffee="/images/yoga-belt-coffee-roll.webp" src="/images/yoga-belt-black.webp" alt="The Ritual Belt"/>
                 <span class="kit-contents__text">
 <span class="kit-contents__name">The Ritual Belt</span>
-<span class="kit-contents__desc">96in &middot; Organic cotton</span>
+<span class="kit-contents__desc" id="belt-desc">96in &middot; Organic cotton</span>
 </span>
                 <span class="kit-contents__price">₹499</span>
             </a>
@@ -198,14 +198,19 @@
         btn.classList.add('active','selected','is-selected');
         btn.setAttribute('aria-pressed','true');
         btn.setAttribute('aria-checked','true');
-        document.getElementById('colour-name').textContent = btn.dataset.name;
+        document.getElementById('colour-name').textContent = btn.parentElement.querySelector('.swatch-label').textContent;
         switchProductImage(btn);
         updateKitThumbnails(btn.dataset.name);
+        var isPink = btn.dataset.color === 'Pink';
+        document.getElementById('kit-colour-note').textContent = isPink
+            ? 'Strawberry Milk blocks with a Vanilla Cream belt.'
+            : 'One colour applies to all pieces in this kit.';
+        document.getElementById('belt-desc').innerHTML = '96in &middot; Organic cotton' + (isPink ? ' &middot; Vanilla Cream' : '');
     }
 
     function updateKitThumbnails(colorName) {
         document.querySelectorAll('.kit-contents__img').forEach(function(img) {
-            var newSrc = img.dataset['img' + colorName];
+            var newSrc = img.getAttribute('data-img' + colorName.toLowerCase());
             if (newSrc) img.src = newSrc;
         });
     }
@@ -247,12 +252,13 @@
         }
         var color = document.querySelector('.swatch.is-selected');
         var colorVal = color ? color.dataset.color : 'Black';
+        var cartImg = (color && color.dataset.img) || '/images/yoga-belt-black.webp';
         Cart.add({
             id: 'yoga-studio-kit',
             name: 'Yoga Studio Kit',
             color: colorVal,
             price: 2297,
-            image: '/images/yoga-belt-black.webp'
+            image: cartImg
         });
         if (window.CartDrawer) {
             CartDrawer.open();
