@@ -768,3 +768,16 @@ main{
 .collection-cta--outline{background:transparent;color:#1a1a1a;box-shadow:inset 0 0 0 1px #1a1a1a}
 @media (max-width:1024px) and (min-width:601px){.collection-grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:600px){.collection-badge{top:8px;left:8px;font-size:9px;padding:4px 8px}.collection-card-body{padding:14px}.collection-note{display:block;width:100%;font-size:.72rem}.collection-price{flex-wrap:wrap;gap:2px 8px}}
+/* Collection: compact mobile tiles */
+@media (max-width:600px){
+  .collection{padding:56px 16px}
+  .collection-heading{font-size:1.6rem;margin-bottom:24px}
+  .collection-grid{gap:10px}
+  .collection-card{border-radius:14px}
+  .collection-card:hover{transform:none;box-shadow:none}
+  .collection-card-body{padding:10px 12px 12px}
+  .collection-name{font-size:.9rem;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .collection-sub,.collection-note,.collection-cta{display:none}
+  .collection-price{margin:0}
+  .collection-price .price-new{font-size:.85rem}
+}
