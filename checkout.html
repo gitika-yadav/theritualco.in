@@ -495,11 +495,23 @@
 <script>
     let appliedDiscount = null;
 
+    // Kits are already discounted, so discount codes only apply to the other items.
+    const NO_CODE_KITS = ["yoga-essentials-kit", "yoga-studio-kit", "pilates-starter-kit", "pilates-sculpt-kit", "pilates-complete-kit"];
+    function codeEligibleTotal() {
+        return (Cart.get().items || []).filter(i => !NO_CODE_KITS.includes(i.id))
+            .reduce((sum, i) => sum + i.price * (i.qty || 1), 0);
+    }
+
     async function applyDiscount() {
         const code = document.getElementById("discount-input").value.trim();
         const btn = document.getElementById("apply-discount-btn");
         const msg = document.getElementById("discount-msg");
         if (!code) return;
+        if (codeEligibleTotal() === 0) {
+            msg.textContent = "Discount codes can't be used on kits — kit prices are already discounted.";
+            msg.style.color = "#c0392b";
+            return;
+        }
         btn.disabled = true;
         btn.textContent = "Checking...";
         msg.textContent = "";
@@ -507,7 +519,7 @@
             const res = await fetch("/.netlify/functions/validate-discount", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ code, cart_total: Cart.total(), email: "" })
+                body: JSON.stringify({ code, cart_total: codeEligibleTotal(), email: "" })
             });
             const data = await res.json();
             if (!res.ok) {
