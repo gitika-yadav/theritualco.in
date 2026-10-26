@@ -401,11 +401,6 @@
             price: 999,
             image: (color && color.dataset.img) || '/images/pilates-ball-cream.webp'
         });
-        gtag('event', 'add_to_cart', {
-            currency: 'INR',
-            value: 999,
-            items: [{ item_id: 'pilates-ball', item_name: 'The Ritual Ball', price: 999 }]
-        });
         if (window.CartDrawer) {
             CartDrawer.open();
         } else {

@@ -25,6 +25,17 @@
             });
         });
 
+    // GA4: WhatsApp / phone / email clicks (floating button, wholesale, contact links)
+    document.addEventListener("click", function (e) {
+        var a = e.target.closest && e.target.closest("a[href]");
+        if (!a || typeof window.gtag !== "function") return;
+        var href = a.getAttribute("href") || "";
+        var method = /wa\.me|whatsapp/i.test(href) ? "whatsapp"
+                   : /^tel:/i.test(href) ? "phone"
+                   : /^mailto:/i.test(href) ? "email" : null;
+        if (method) window.gtag("event", "contact_click", { method: method, page_path: location.pathname });
+    }, true);
+
     // Load footer partial
     fetch("/partials/footer.html")
         .then(function(r) { return r.text(); })

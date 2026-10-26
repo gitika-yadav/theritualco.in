@@ -1012,6 +1012,7 @@
                     body: JSON.stringify(data)
                 })
                     .then(function() {
+                        if (typeof gtag === 'function') gtag('event', 'generate_lead', { lead_source: formId });
                         form.reset();
                         document.getElementById(confirmId).style.display = 'block';
                     })

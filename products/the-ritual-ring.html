@@ -390,11 +390,6 @@
                 price: 1499,
                 image: (color && color.dataset.img) || '/images/the-ritual-ring-all-colours.webp'
             });
-            gtag('event', 'add_to_cart', {
-                currency: 'INR',
-                value: 1499,
-                items: [{ item_id: 'pilates-ring', item_name: 'The Ritual Ring', price: 1499 }]
-            });
             if (window.CartDrawer) {
                 CartDrawer.open();
             } else {

@@ -448,11 +448,6 @@
                 price: TRIO_PRICE,
                 image: TRIO_IMG
             });
-            gtag('event', 'add_to_cart', {
-                currency: 'INR',
-                value: TRIO_PRICE,
-                items: [{ item_id: 'grip-socks-trio', item_name: 'The Ritual Socks — The Trio', price: TRIO_PRICE }]
-            });
             if (window.CartDrawer) { CartDrawer.open(); } else { window.location = '/cart.html'; }
             return;
         }
@@ -464,11 +459,6 @@
             color: colorVal,
             price: getCurrentPrice("grip-socks") || 699,
             image: (color && color.dataset.img) || '/images/grip-socks-cream-1.webp'
-        });
-        gtag('event', 'add_to_cart', {
-            currency: 'INR',
-            value: getCurrentPrice("grip-socks") || 699,
-            items: [{ item_id: 'grip-socks', item_name: 'The Ritual Grip Socks', price: 699 }]
         });
         if (window.CartDrawer) {
             CartDrawer.open();

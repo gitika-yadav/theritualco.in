@@ -462,19 +462,6 @@
             image:  '/images/img.webp'
         });
 
-        /* GA4 add_to_cart */
-        gtag('event', 'add_to_cart', {
-            currency: 'INR',
-            value: priceVal,
-            items: [{
-                item_id: 'capsule-dumbbell',
-                item_name: 'Capsule Dumbbells',
-                item_variant: weightVal,   // '1kg' / '2kg' — captures the variant
-                item_category: 'Dumbbells',
-                price: priceVal,
-                quantity: 1
-            }]
-        });
 
         if (window.CartDrawer) {
             CartDrawer.open();

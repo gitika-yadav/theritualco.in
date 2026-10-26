@@ -362,11 +362,6 @@
             price: 3499,
             image: (document.getElementById('main-img') || {}).getAttribute('src') || '/images/cuffs-cream.webp'
         });
-        gtag('event', 'add_to_cart', {
-            currency: 'INR',
-            value: 3499,
-            items: [{ item_id: 'ankle-weights-2lb', item_name: 'The Ritual Cuffs 2 lb', price: 3499 }]
-        });
         if (window.CartDrawer) {
             CartDrawer.open();
         } else {

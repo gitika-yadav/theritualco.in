@@ -370,6 +370,7 @@
             .then((r) => r.json())
             .then(() => {
               gtag("event", "waitlist_signup");
+              gtag("event", "generate_lead", { lead_source: "homepage_waitlist" });
               form.style.display = "none";
               document.getElementById("confirmation").style.display = "block";
             })
