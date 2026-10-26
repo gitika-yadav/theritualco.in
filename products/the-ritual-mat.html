@@ -20,7 +20,7 @@
     <meta property="og:site_name" content="The Ritual Co."/>
     <meta property="og:title" content="The Ritual Mat – Natural Rubber Grip Yoga Mat – The Ritual Co."/>
     <meta property="og:description" content="Aesthetic, natural rubber yoga mat with sweat-resistant grip. 5mm thick, non-slip base, 183cm x 61cm. Bold alternative to mass-market grip yoga mats, designed to live in your space."/>
-    <meta property="og:image" content="https://theritualco.in/images/yoga-mat-lifestyle-2.webp"/>
+    <meta property="og:image" content="https://theritualco.in/images/yoga-mat-all-colours.webp"/>
     <meta property="og:url" content="https://theritualco.in/products/the-ritual-mat"/>
     <meta name="twitter:card" content="summary_large_image"/>
     <link rel="icon" type="image/png" href="/images/favicon.png"/>
@@ -33,7 +33,7 @@
     <link rel="stylesheet" href="/css/footer.css"/>
     <link rel="stylesheet" href="/css/products.css"/>
 
-    <link rel="preload" as="image" href="/images/yoga-mat-lifestyle-2.webp"/>
+    <link rel="preload" as="image" href="/images/yoga-mat-all-colours.webp"/>
 
     <style>
         body.tr-product-page .product__media {
@@ -63,7 +63,7 @@
             "name":"The Ritual Mat",
             "brand":{"@type":"Brand","name":"The Ritual Co."},
             "description":"A minimal, pastel yoga mat with natural rubber base and sweat-resistant surface. 5mm thickness. 183cm x 61cm.",
-            "image":["https://theritualco.in/images/yoga-mat-lifestyle-2.webp"],
+            "image":["https://theritualco.in/images/yoga-mat-all-colours.webp","https://theritualco.in/images/yoga-mat-lifestyle-2.webp"],
             "sku":"TRC-MAT",
             "category":"SportingGoods",
             "material":"Natural rubber, Sweat-resistant top layer",
@@ -92,6 +92,7 @@
         }
     </script>
     <script src="/javascript/meta-pixel.js"></script>
+<style>@keyframes nudge{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}.swatches.needs-choice{animation:nudge .35s ease 2}</style>
 </head>
 <body class="tr-product-page">
 <div id="navbar-placeholder"></div>
@@ -100,14 +101,14 @@
     <!-- IMAGE -->
     <div class="product__media">
         <div class="product__visual is-contain" role="region" aria-label="Product image">
-            <img id="main-img" src="/images/yoga-mat-lifestyle-2.webp" alt="Stretching on The Ritual Mat in Oat Latte – The Ritual Co." loading="eager"/>
+            <img id="main-img" src="/images/yoga-mat-all-colours.webp" alt="The Ritual Mat in Strawberry Milk, Oat Latte, Vanilla Cream and Onyx Black – The Ritual Co." loading="eager"/>
         </div>
         <div class="product__thumbs">
-            <button class="thumb active" onclick="document.getElementById('main-img').src='/images/yoga-mat-lifestyle-2.webp'; setActiveThumb(this);"><img src="/images/yoga-mat-lifestyle-2.webp" alt="The Ritual Mat in Oat Latte"/></button>
+            <button class="thumb active" onclick="document.getElementById('main-img').src='/images/yoga-mat-all-colours.webp'; setActiveThumb(this);"><img src="/images/yoga-mat-all-colours.webp" alt="The Ritual Mat in all four colours"/></button>
+            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-mat-lifestyle-2.webp'; setActiveThumb(this);"><img src="/images/yoga-mat-lifestyle-2.webp" alt="The Ritual Mat in Oat Latte" loading="lazy"/></button>
             <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-mat-pink-lifestyle.webp'; setActiveThumb(this);"><img src="/images/yoga-mat-pink-lifestyle.webp" alt="Pilates on The Ritual Mat in Strawberry Milk" loading="lazy"/></button>
             <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-mat-lifestyle-1.webp'; setActiveThumb(this);"><img src="/images/yoga-mat-lifestyle-1.webp" alt="The Ritual Mat in Vanilla Cream with the pilates kit" loading="lazy"/></button>
             <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-mat-black-lifestyle.webp'; setActiveThumb(this);"><img src="/images/yoga-mat-black-lifestyle.webp" alt="The Ritual Mat in Onyx Black" loading="lazy"/></button>
-            <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-mat-all-colours.webp'; setActiveThumb(this);"><img src="/images/yoga-mat-all-colours.webp" alt="The Ritual Mat in all four colours" loading="lazy"/></button>
             <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-mat-rolled-all-colours.webp'; setActiveThumb(this);"><img src="/images/yoga-mat-rolled-all-colours.webp" alt="The Ritual Mat in Onyx Black, Vanilla Cream, Oat Latte and Strawberry Milk, half unrolled" loading="lazy"/></button>
             <button class="thumb" onclick="document.getElementById('main-img').src='/images/yoga-mat-flatlay.webp'; setActiveThumb(this);"><img src="/images/yoga-mat-flatlay.webp" alt="The Ritual Mat colours laid flat" loading="lazy"/></button>
         </div>
@@ -120,10 +121,10 @@
         <p class="product__tagline">A mat that earns its place<br>on your floor.</p>
 
         <div class="opt">
-            <label class="opt__label option-heading">Colour</label>
+            <label class="opt__label option-heading">Colour <span id="colour-chosen" style="text-transform:none;letter-spacing:0;color:#8a817a;font-weight:400"></span></label>
             <div class="swatches" role="radiogroup" aria-label="Colour" style="gap:16px;">
                 <div class="swatch-wrap">
-                    <button class="swatch is-selected active" data-color="Coffee" data-img="/images/yoga-mat-lifestyle-2.webp" style="--sw:#6f4e37" aria-label="Coffee" aria-checked="true" role="radio"></button>
+                    <button class="swatch" data-color="Coffee" data-img="/images/yoga-mat-lifestyle-2.webp" style="--sw:#6f4e37" aria-label="Coffee" aria-checked="false" role="radio"></button>
                     <span class="swatch-label">Oat Latte</span>
                 </div>
                 <div class="swatch-wrap">
@@ -341,6 +342,8 @@
             });
             s.classList.add('is-selected','active','selected');
             s.setAttribute('aria-checked','true');
+            var hint = document.getElementById('colour-chosen');
+            if (hint) { hint.style.color = '#8a817a'; hint.textContent = '· ' + s.parentElement.querySelector('.swatch-label').textContent; }
             switchProductImage(s);
         });
     });
@@ -367,13 +370,29 @@
     });
 </script>
 <script>
+    (function () {
+        var c = new URLSearchParams(location.search).get('color');
+        if (!c) return;
+        var b = Array.prototype.find.call(document.querySelectorAll('.swatch'), function (x) { return x.dataset.color.toLowerCase() === c.toLowerCase(); });
+        if (b) b.click();
+    })();
     document.getElementById('preorder-btn').addEventListener('click', function() {
         if (typeof Cart === 'undefined') {
             window.location = '/cart.html';
             return;
         }
         var colorBtn = document.querySelector('.swatch.is-selected');
-        var colorVal = colorBtn ? colorBtn.dataset.color : 'Coffee';
+        if (!colorBtn) {
+            var sw = document.querySelector('.swatches');
+            var hint = document.getElementById('colour-chosen');
+            if (hint) { hint.textContent = '· Please choose a colour'; hint.style.color = '#b0413e'; }
+            if (sw) {
+                sw.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                sw.classList.remove('needs-choice'); void sw.offsetWidth; sw.classList.add('needs-choice');
+            }
+            return;
+        }
+        var colorVal = colorBtn.dataset.color;
         Cart.add({
             id: 'yoga-mat-5mm',
             name: 'The Ritual Mat',
