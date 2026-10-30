@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D366Q7R3XB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-D366Q7R3XB');
+    </script>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="icon" type="image/png" href="/images/favicon.png"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Sans:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/global.css"/>
+    <link rel="stylesheet" href="/css/navbar.css"/>
+    <link rel="stylesheet" href="/css/footer.css"/>
+    <link rel="stylesheet" href="/css/cart.css"/>
+    <link rel="stylesheet" href="/css/events.css"/>
+    <script src="/javascript/meta-pixel.js"></script>
+    <title>Event | The Ritual Co.</title>
+    <meta name="description" content="Book your spot at a The Ritual Co. event."/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content="https://theritualco.in/images/yoga-mat-pink-lifestyle.webp"/>
+</head>
+<body>
+<div class="page-wrapper">
+    <div id="navbar-placeholder"></div>
+    <main class="ev-wrap" id="ev-root"><div class="ev-layout"><div class="ev-skel"></div><div class="ev-skel"></div></div></main>
+    <div id="footer-placeholder"></div>
+</div>
+<script src="/javascript/cart.js"></script>
+<script>
+    fetch("/partials/navbar.html").then(r => r.text()).then(html => {
+        document.getElementById("navbar-placeholder").innerHTML = html;
+        ["/javascript/cart-drawer.js", "/javascript/navbar.js"].forEach(src => {
+            const s = document.createElement("script"); s.src = src; document.body.appendChild(s);
+        });
+    });
+    fetch("/partials/footer.html").then(r => r.text()).then(html => {
+        document.getElementById("footer-placeholder").innerHTML = html;
+    });
+</script>
+<script>
+(function () {
+    var root = document.getElementById("ev-root");
+    var slug = decodeURIComponent(location.pathname.replace(/\/+$/, "").split("/").pop() || "");
+    var params = new URLSearchParams(location.search);
+    var invite = params.get("invite") || "";
+    var EV = null;
+
+    var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+    var rupees = function (n) { return "₹" + Number(n).toLocaleString("en-IN"); };
+    function dateStr(iso) { return new Date(iso).toLocaleDateString("en-IN", { timeZone: "Asia/Kolkata", weekday: "long", day: "numeric", month: "long" }); }
+    function timeStr(iso) { return new Date(iso).toLocaleTimeString("en-IN", { timeZone: "Asia/Kolkata", hour: "numeric", minute: "2-digit", hour12: true }); }
+    function calLink(e) {
+        var z = function (d) { return new Date(d).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, ""); };
+        var end = e.ends_at || new Date(new Date(e.starts_at).getTime() + 90 * 60000).toISOString();
+        return "https://calendar.google.com/calendar/render?" + new URLSearchParams({
+            action: "TEMPLATE", text: e.title + " — The Ritual Co.", dates: z(e.starts_at) + "/" + z(end),
+            location: [e.venue_name, e.venue_address].filter(Boolean).join(", "), details: location.origin + "/events/" + e.slug
+        }).toString();
+    }
+
+    function notFound() {
+        document.title = "Event not found | The Ritual Co.";
+        root.innerHTML = '<p class="ev-eyebrow">Events</p><h1 class="ev-h1">We couldn\'t find that event.</h1>' +
+            '<p class="ev-muted">It may have been moved. <a href="/events" style="color:#3a3330;">See all events</a>.</p>';
+    }
+
+    function bookingBlock(d) {
+        var e = d.event;
+        if (e.status === "cancelled") return '<div class="ev-closed"><strong>This event has been cancelled.</strong>Everyone booked has been contacted. <a href="/events" style="color:#3a3330;">See other events</a>.</div>';
+        if (d.past) return '<div class="ev-closed"><strong>This event has happened.</strong>Thank you to everyone who came. <a href="/events" style="color:#3a3330;">See what\'s next</a>.</div>';
+        if (!d.invited) return '<div class="ev-closed"><strong>By invitation only.</strong>This is a private session. If you\'ve been invited, please open the link from your invitation.</div>';
+        if (d.spots_left <= 0) return '<div class="ev-closed"><strong>Fully booked.</strong>Spots sometimes open up. DM us on <a href="https://instagram.com/theritualco.in" style="color:#3a3330;">Instagram</a> to join the waitlist.</div>';
+        var max = Math.min(e.max_per_booking || 4, d.spots_left);
+        var opts = "";
+        for (var i = 1; i <= max; i++) opts += '<option value="' + i + '">' + i + (i === 1 ? " spot" : " spots") + (e.price ? " · " + rupees(e.price * i) : "") + '</option>';
+        var note = e.price
+            ? "Secure payment via Razorpay. Full refund up to 48 hours before the event."
+            : (e.access === "invite" ? "You're on the guest list once you confirm." : "Free to attend. Please only RSVP if you can make it.");
+        return '<form class="ev-form" id="ev-form" novalidate>' +
+            '<div class="ev-form__grid">' +
+            '<input class="span-2" name="name" placeholder="Full name" autocomplete="name" required>' +
+            '<input name="email" type="email" placeholder="Email" autocomplete="email" required>' +
+            '<input name="phone" type="tel" placeholder="Phone" autocomplete="tel" required>' +
+            '<input name="instagram" placeholder="Instagram handle (optional)">' +
+            '<select name="qty"' + (max === 1 ? ' style="display:none"' : '') + '>' + opts + '</select>' +
+            '</div>' +
+            '<button class="ev-btn" type="submit">' + (e.price ? "Book your spot · " + rupees(e.price) : (e.access === "invite" ? "Confirm my spot" : "RSVP")) + '</button>' +
+            '<p class="ev-form__err" id="ev-err"></p>' +
+            '<p class="ev-form__note">' + note + '</p></form>';
+    }
+
+    function render(d) {
+        var e = d.event; EV = e;
+        document.title = e.title + " | The Ritual Co. Events";
+        var spots = e.status === "published" && !d.past
+            ? '<span class="ev-spots' + (d.spots_left <= 5 ? " is-low" : "") + '">' + (d.spots_left <= 0 ? "Sold out" : d.spots_left + " of " + e.capacity + " spots left") + '</span>' : "";
+        var where = [esc(e.venue_name), esc(e.venue_address)].filter(Boolean).join("<br>") +
+            (e.map_url ? '<br><a href="' + esc(e.map_url) + '" target="_blank" rel="noopener">Open in Maps</a>' : "");
+        root.innerHTML =
+            '<div class="ev-layout">' +
+            '<div class="ev-cover">' + (e.cover_image ? '<img src="' + esc(e.cover_image) + '" alt="' + esc(e.title) + '">' : "") + '</div>' +
+            '<div>' +
+            '<p class="ev-eyebrow">The Ritual Co. &middot; ' + (e.access === "invite" ? "Private event" : "Event") + '</p>' +
+            '<h1 class="ev-h1">' + esc(e.title) + '</h1>' +
+            (e.subtitle ? '<p class="ev-lede">' + esc(e.subtitle) + '</p>' : "") +
+            '<div class="ev-facts">' +
+            '<div class="ev-fact"><span class="ev-fact__k">When</span><span class="ev-fact__v">' + esc(dateStr(e.starts_at)) + '<br>' + esc(timeStr(e.starts_at)) + (e.ends_at ? " – " + esc(timeStr(e.ends_at)) : "") + '</span></div>' +
+            (where ? '<div class="ev-fact"><span class="ev-fact__k">Where</span><span class="ev-fact__v">' + where + '</span></div>' : "") +
+            '</div>' +
+            '<div class="ev-price-row"><span class="ev-price">' + (e.price ? rupees(e.price) : (e.access === "invite" ? "Guest list" : "Free")) + '</span>' + spots + '</div>' +
+            '<div id="ev-book">' + bookingBlock(d) + '</div>' +
+            (e.description ? '<p class="ev-section-t">About the session</p><p class="ev-desc">' + esc(e.description) + '</p>' : "") +
+            (e.includes && e.includes.length ? '<p class="ev-section-t">Included</p><ul class="ev-includes">' + e.includes.map(function (i) { return "<li>" + esc(i) + "</li>"; }).join("") + '</ul>' : "") +
+            (e.price ? '<p class="ev-policy">Cancellations: full refund up to 48 hours before the event. After that, you can pass your spot to a friend; just reply to your confirmation email with their name.</p>' : "") +
+            '</div></div>';
+        var form = document.getElementById("ev-form");
+        if (form) form.addEventListener("submit", submit);
+    }
+
+    function done(e, email) {
+        document.getElementById("ev-book").innerHTML = '<div class="ev-done"><h2>You\'re in.</h2>' +
+            '<p>We\'ve sent the details to <strong>' + esc(email) + '</strong>. See you on ' + esc(dateStr(e.starts_at)) + '.</p>' +
+            '<a href="' + calLink(e) + '" target="_blank" rel="noopener">Add to calendar</a></div>';
+        try { gtag("event", e.price ? "purchase" : "sign_up", { event_category: "event", event_label: e.slug }); } catch (x) {}
+    }
+
+    function loadRazorpay() {
+        return new Promise(function (ok, fail) {
+            if (window.Razorpay) return ok();
+            var s = document.createElement("script"); s.src = "https://checkout.razorpay.com/v1/checkout.js";
+            s.onload = ok; s.onerror = fail; document.head.appendChild(s);
+        });
+    }
+
+    function submit(ev) {
+        ev.preventDefault();
+        var f = ev.target, btn = f.querySelector(".ev-btn"), err = document.getElementById("ev-err");
+        var data = { action: "book", slug: EV.slug, invite: invite,
+            name: f.name.value.trim(), email: f.email.value.trim(), phone: f.phone.value.trim(),
+            instagram: f.instagram.value.trim(), qty: Number(f.qty.value) || 1 };
+        if (!data.name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email) || data.phone.replace(/\D/g, "").length < 10) {
+            err.textContent = "Please fill in your name, a valid email and phone number."; return;
+        }
+        err.textContent = ""; btn.disabled = true; var label = btn.textContent; btn.textContent = "One moment…";
+        var reset = function (msg) { btn.disabled = false; btn.textContent = label; if (msg) err.textContent = msg; };
+
+        fetch("/.netlify/functions/event-book", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) })
+            .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+            .then(function (res) {
+                if (!res.ok) return reset(res.j.error || "Something went wrong. Please try again.");
+                if (res.j.status === "confirmed") return done(EV, data.email);
+                return loadRazorpay().then(function () {
+                    var rzp = new Razorpay({
+                        key: res.j.key, amount: res.j.amount, currency: "INR", order_id: res.j.order_id,
+                        name: "The Ritual Co.", description: res.j.title,
+                        prefill: { name: data.name, email: data.email, contact: data.phone },
+                        theme: { color: "#3a3330" },
+                        handler: function (p) {
+                            btn.textContent = "Confirming…";
+                            fetch("/.netlify/functions/event-book", { method: "POST", headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({ action: "verify", razorpay_order_id: p.razorpay_order_id, razorpay_payment_id: p.razorpay_payment_id, razorpay_signature: p.razorpay_signature }) })
+                                .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+                                .then(function (v) { if (v.ok) done(EV, data.email); else reset((v.j.error || "Payment received but not confirmed.") + " Payment ID: " + p.razorpay_payment_id); })
+                                .catch(function () { reset("Payment received. If you don't get an email in 10 minutes, contact us with payment ID " + p.razorpay_payment_id); });
+                        },
+                        modal: { ondismiss: function () { reset(); } }
+                    });
+                    rzp.open();
+                }, function () { reset("Couldn't load the payment window. Please check your connection."); });
+            })
+            .catch(function () { reset("Something went wrong. Please try again."); });
+    }
+
+    if (slug === "index") { location.replace("/events"); return; }
+    if (!slug || slug === "event") return notFound();
+    fetch("/.netlify/functions/events-public?slug=" + encodeURIComponent(slug) + (invite ? "&invite=" + encodeURIComponent(invite) : ""))
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) { if (d && d.event) render(d); else notFound(); })
+        .catch(notFound);
+})();
+</script>
+</body>
+</html>
