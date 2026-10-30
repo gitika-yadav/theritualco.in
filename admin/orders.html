@@ -107,6 +107,17 @@
         .detail-row:last-child{border-bottom:none;}
         .detail-key{color:#a09890;}
         .detail-val{color:#1a1714;font-weight:500;text-align:right;max-width:220px;word-break:break-word;}
+        /* Delhivery modal */
+        .modal-wide{width:600px;max-height:90vh;overflow-y:auto;}
+        .dl-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px 12px;}
+        .dl-grid .modal-field{margin-bottom:0;}
+        .span-6{grid-column:span 6;}.span-3{grid-column:span 3;}.span-2{grid-column:span 2;}
+        .dl-section{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#a09890;margin:18px 0 8px;grid-column:span 6;border-top:0.5px solid #f0ece8;padding-top:14px;}
+        .dl-hint{font-size:11px;color:#b4563a;margin-top:6px;}
+        .dl-done{background:#f3f8ee;border-radius:8px;padding:14px 16px;font-size:13px;color:#2a6b3a;margin-top:14px;display:none;}
+        .dl-done strong{font-family:monospace;font-size:14px;}
+        .dl-done .btn-primary{margin-top:10px;}
+        @media(max-width:640px){.span-3,.span-2{grid-column:span 6;}}
     </style>
 </head>
 <body>
@@ -195,6 +206,42 @@
             <button class="btn-outline" onclick="closeModal()">Cancel</button>
         </div>
         <div class="modal-status" id="ship-status"></div>
+    </div>
+</div>
+
+<!-- Delhivery modal -->
+<div class="modal-overlay" id="dl-modal">
+    <div class="modal modal-wide">
+        <div class="modal-title">Ship via Delhivery</div>
+        <div class="modal-sub" id="dl-sub">Loading…</div>
+        <div id="dl-form" class="dl-grid">
+            <div class="modal-field span-3"><label class="modal-label">Name</label><input id="dl-name"/></div>
+            <div class="modal-field span-3"><label class="modal-label">Phone (10 digits)</label><input id="dl-phone" inputmode="numeric"/></div>
+            <div class="modal-field span-6"><label class="modal-label">Address</label><input id="dl-add"/></div>
+            <div class="modal-field span-2"><label class="modal-label">City</label><input id="dl-city"/></div>
+            <div class="modal-field span-2"><label class="modal-label">State</label><input id="dl-state"/></div>
+            <div class="modal-field span-2"><label class="modal-label">Pincode</label><input id="dl-pin" inputmode="numeric" maxlength="6"/></div>
+
+            <div class="dl-section">Payment</div>
+            <div class="modal-field span-2"><label class="modal-label">Mode</label>
+                <select id="dl-mode" onchange="dlModeChange()"><option value="Prepaid">Prepaid</option><option value="COD">COD</option></select></div>
+            <div class="modal-field span-2"><label class="modal-label">COD to collect (₹)</label><input id="dl-cod" type="number" min="0"/></div>
+            <div class="modal-field span-2"><label class="modal-label">Declared value (₹)</label><input id="dl-value" type="number" min="1"/></div>
+
+            <div class="dl-section">Package</div>
+            <div class="modal-field span-6"><label class="modal-label">Contents</label><input id="dl-desc"/></div>
+            <div class="modal-field span-2"><label class="modal-label">Weight (g)</label><input id="dl-weight" type="number" min="1"/></div>
+            <div class="modal-field span-2"><label class="modal-label">Box L × W × H (cm)</label>
+                <div style="display:flex;gap:4px;"><input id="dl-l" type="number" min="1"/><input id="dl-w" type="number" min="1"/><input id="dl-h" type="number" min="1"/></div></div>
+            <div class="modal-field span-2"><label class="modal-label">Pickup from</label><input id="dl-pickup"/></div>
+        </div>
+        <div class="dl-hint" id="dl-hint"></div>
+        <div class="modal-footer" id="dl-footer">
+            <button class="btn-primary" id="dl-btn" onclick="createDelhivery()">Book with Delhivery &amp; email customer</button>
+            <button class="btn-outline" onclick="closeDelhivery()">Cancel</button>
+        </div>
+        <div class="dl-done" id="dl-done"></div>
+        <div class="modal-status" id="dl-status"></div>
     </div>
 </div>
 
@@ -336,10 +383,12 @@
             const amount = "₹" + ((o.amount_paise || 0) / 100).toLocaleString("en-IN");
             const status = o.status || "paid";
             const badge = `<span class="badge badge-${status}"><span class="dot dot-${status}"></span>${STATUS_LABELS[status] || status}</span>`;
+            const labelBtn = o.courier === "Delhivery" && o.tracking_number
+                ? ` <button class="btn-sm" onclick="printLabel('${o.tracking_number}', this)">Label</button>` : "";
             const shipBtn = TO_SHIP_STATUSES.includes(status)
-                ? `<button class="btn-sm btn-ship" onclick="openShip('${o.id}', event)">Mark shipped</button>`
+                ? `<button class="btn-sm btn-ship" onclick="openDelhivery('${o.id}', event)">Ship via Delhivery</button> <button class="btn-sm" onclick="openShip('${o.id}', event)" title="Other courier / enter tracking yourself">Manual</button>`
                 : status === "shipped"
-                    ? `<button class="btn-sm" onclick="markDelivered('${o.id}')">Mark delivered</button>`
+                    ? `<button class="btn-sm" onclick="markDelivered('${o.id}')">Mark delivered</button>${labelBtn}`
                     : status === "pending"
                         ? `<button class="btn-sm" style="color:#c0392b;border-color:#f5c6c6;" onclick="deleteSingle('${o.id}', event)">Delete</button>`
                         : "";
@@ -412,6 +461,132 @@
         }
     }
 
+    // ── Delhivery ──────────────────────────────────────────────
+    let dlOrderId = null;
+    const DL_FIELDS = { name: "name", phone: "phone", add: "add", city: "city", state: "state", pin: "pin",
+        payment_mode: "mode", cod_amount: "cod", total_amount: "value", products_desc: "desc",
+        weight_g: "weight", l: "l", w: "w", h: "h", pickup_location: "pickup" };
+
+    async function dlApi(payload) {
+        const res = await fetch("/.netlify/functions/delhivery-ship", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "x-admin-token": SESSION_TOKEN },
+            body: JSON.stringify(payload),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) { const e = new Error(data.error || ("HTTP " + res.status)); e.data = data; throw e; }
+        return data;
+    }
+
+    function dlModeChange() {
+        const cod = document.getElementById("dl-mode").value === "COD";
+        document.getElementById("dl-cod").disabled = !cod;
+        if (!cod) document.getElementById("dl-cod").value = 0;
+    }
+
+    function dlSetDone(html) {
+        const d = document.getElementById("dl-done");
+        d.innerHTML = html; d.style.display = "block";
+        document.getElementById("dl-form").style.display = "none";
+        document.getElementById("dl-footer").style.display = "none";
+        document.getElementById("dl-hint").textContent = "";
+    }
+
+    async function openDelhivery(id, e) {
+        e && e.stopPropagation();
+        dlOrderId = id;
+        const order = allOrders.find(o => o.id === id);
+        document.getElementById("dl-sub").textContent = `${order.guest_name || "Customer"} · ${itemsSummary(order.items)} · ₹${((order.amount_paise||0)/100).toLocaleString("en-IN")}`;
+        document.getElementById("dl-form").style.display = "";
+        document.getElementById("dl-footer").style.display = "";
+        document.getElementById("dl-done").style.display = "none";
+        document.getElementById("dl-status").textContent = "";
+        document.getElementById("dl-hint").textContent = "";
+        const btn = document.getElementById("dl-btn"); btn.disabled = true;
+        document.getElementById("dl-modal").style.display = "flex";
+        try {
+            const { shipment, existing_awb } = await dlApi({ action: "preview", order_id: id });
+            if (existing_awb) {
+                dlSetDone(`Already booked with Delhivery · AWB <strong>${existing_awb}</strong><br>
+                  <button class="btn-primary" onclick="printLabel('${existing_awb}', this)">Print label</button>
+                  ${TO_SHIP_STATUSES.includes(order.status) ? `<button class="btn-outline" style="margin-left:6px;" onclick="dlMarkShipped('${existing_awb}')">Mark shipped &amp; email customer</button>` : ""}`);
+                return;
+            }
+            Object.entries(DL_FIELDS).forEach(([k, f]) => { document.getElementById("dl-" + f).value = shipment[k] ?? ""; });
+            dlModeChange();
+            const hints = [];
+            if (order.status === "cod_unpaid") hints.push("COD order — Delhivery will collect ₹" + shipment.cod_amount + " on delivery.");
+            if (order.status === "gifted") hints.push("Gift order — declared value uses product prices (no money collected).");
+            if (!shipment.city || !shipment.state || !shipment.pin) hints.push("Couldn't read city/state/pincode from the address — please fill them in.");
+            hints.push("Weights and box sizes are placeholders until measured — check before booking.");
+            document.getElementById("dl-hint").textContent = hints.join(" ");
+            btn.disabled = false;
+        } catch (err) {
+            document.getElementById("dl-status").textContent = "Error: " + err.message;
+            document.getElementById("dl-status").className = "modal-status error";
+        }
+    }
+
+    function closeDelhivery() {
+        document.getElementById("dl-modal").style.display = "none";
+        dlOrderId = null;
+    }
+
+    async function dlMarkShipped(awb) {
+        const id = dlOrderId;
+        const res = await fetch("/.netlify/functions/update-order", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "x-admin-token": SESSION_TOKEN },
+            body: JSON.stringify({ order_id: id, status: "shipped", tracking_number: awb, courier: "Delhivery" }),
+        });
+        if (!res.ok) throw new Error("Booked (AWB " + awb + ") but couldn't mark shipped: " + await res.text());
+        const o = allOrders.find(x => x.id === id);
+        if (o) { o.status = "shipped"; o.tracking_number = awb; o.courier = "Delhivery"; }
+        updateStats(); renderOrders();
+        dlSetDone(`Booked with Delhivery · AWB <strong>${awb}</strong> · customer emailed<br>
+          <button class="btn-primary" onclick="printLabel('${awb}', this)">Print label</button>
+          <button class="btn-outline" style="margin-left:6px;" onclick="closeDelhivery()">Done</button>`);
+    }
+
+    async function createDelhivery() {
+        if (!dlOrderId) return;
+        const btn = document.getElementById("dl-btn");
+        const st = document.getElementById("dl-status");
+        const shipment = {};
+        Object.entries(DL_FIELDS).forEach(([k, f]) => { shipment[k] = document.getElementById("dl-" + f).value.trim(); });
+        ["cod_amount", "total_amount", "weight_g", "l", "w", "h"].forEach(k => shipment[k] = Number(shipment[k]) || 0);
+        if (!confirm(`Book with Delhivery?\n\n${shipment.name}, ${shipment.city} ${shipment.pin}\n${shipment.payment_mode}${shipment.payment_mode === "COD" ? " · collect ₹" + shipment.cod_amount : ""}\n${shipment.weight_g} g · ${shipment.l}×${shipment.w}×${shipment.h} cm`)) return;
+        btn.disabled = true; btn.textContent = "Booking…"; st.textContent = "";
+        try {
+            const { waybill } = await dlApi({ action: "create", order_id: dlOrderId, shipment });
+            const o = allOrders.find(x => x.id === dlOrderId);
+            if (o) { o.tracking_number = waybill; o.courier = "Delhivery"; }
+            await dlMarkShipped(waybill);
+        } catch (err) {
+            st.textContent = "Error: " + err.message;
+            st.className = "modal-status error";
+            if (err.data && err.data.waybill) await openDelhivery(dlOrderId);
+        } finally {
+            btn.disabled = false; btn.textContent = "Book with Delhivery & email customer";
+        }
+    }
+
+    async function printLabel(awb, el) {
+        event && event.stopPropagation && event.stopPropagation();
+        const old = el ? el.textContent : "";
+        if (el) { el.disabled = true; el.textContent = "Getting label…"; }
+        const win = window.open("", "_blank");
+        try {
+            const { url } = await dlApi({ action: "label", waybill: awb });
+            if (win) win.location = url; else window.location = url;
+        } catch (err) {
+            if (win) win.close();
+            alert(err.message);
+        } finally {
+            if (el) { el.disabled = false; el.textContent = old; }
+        }
+    }
+
     async function markDelivered(id) {
         if (!confirm("Mark this order as delivered?")) return;
         await fetch("/.netlify/functions/update-order", {
@@ -456,10 +631,12 @@
     ${o.tracking_number ? `<div class="detail-section">
       <div class="detail-section-title">Shipping</div>
       <div class="detail-row"><span class="detail-key">Courier</span><span class="detail-val">${o.courier || "—"}</span></div>
-      <div class="detail-row"><span class="detail-key">Tracking</span><span class="detail-val">${o.tracking_number}</span></div>
+      <div class="detail-row"><span class="detail-key">Tracking</span><span class="detail-val">${o.courier === "Delhivery" ? `<a href="https://www.delhivery.com/track-v2/package/${o.tracking_number}" target="_blank" rel="noopener" style="color:#185fa5;">${o.tracking_number}</a>` : o.tracking_number}</span></div>
+      ${o.courier === "Delhivery" ? `<button class="btn-outline" style="width:100%;margin-top:10px;" onclick="printLabel('${o.tracking_number}', this)">Print shipping label</button>` : ""}
       ${o.shipped_at ? `<div class="detail-row"><span class="detail-key">Shipped at</span><span class="detail-val">${new Date(o.shipped_at).toLocaleString("en-IN",{timeZone:"Asia/Kolkata"})} IST</span></div>` : ""}
     </div>` : ""}
-    ${TO_SHIP_STATUSES.includes(o.status) ? `<button class="btn-primary" style="width:100%;margin-top:8px;" onclick="openShip('${o.id}')">Mark as shipped</button>` : ""}
+    ${TO_SHIP_STATUSES.includes(o.status) ? `<button class="btn-primary" style="width:100%;margin-top:8px;" onclick="openDelhivery('${o.id}')">Ship via Delhivery</button>
+    <button class="btn-outline" style="width:100%;margin-top:8px;" onclick="openShip('${o.id}')">Mark as shipped (other courier)</button>` : ""}
     ${o.status === "shipped" ? `<button class="btn-outline" style="width:100%;margin-top:8px;" onclick="markDelivered('${o.id}')">Mark as delivered</button>` : ""}
   `;
         document.getElementById("detail-overlay").style.display = "block";
