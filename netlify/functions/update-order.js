@@ -44,6 +44,7 @@ exports.handler = async (event) => {
     if (tracking_number) updates.tracking_number = tracking_number;
     if (courier) updates.courier = courier;
     if (status === "shipped") updates.shipped_at = new Date().toISOString();
+    if (status === "delivered") updates.delivered_at = new Date().toISOString();
 
     const { error: updateErr } = await supabase
         .from("orders")

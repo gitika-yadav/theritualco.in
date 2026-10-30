@@ -118,6 +118,15 @@
         .dl-done strong{font-family:monospace;font-size:14px;}
         .dl-done .btn-primary{margin-top:10px;}
         @media(max-width:640px){.span-3,.span-2{grid-column:span 6;}}
+        /* Bulk ship */
+        .bulk-cb{width:15px;height:15px;margin-right:8px;vertical-align:middle;cursor:pointer;accent-color:#3a3330;}
+        #bulk-btn{display:none;background:#3a3330;color:#fff;border-color:#3a3330;}
+        .bulk-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px;}
+        .bulk-table td{padding:9px 6px;border-bottom:0.5px solid #f0ece8;vertical-align:top;}
+        .bulk-table .muted{color:#a09890;font-size:11px;}
+        .bulk-ok{color:#27ae60;}.bulk-err{color:#c0392b;}.bulk-warn{color:#b4563a;}
+        .bulk-sum{display:flex;gap:16px;font-size:12px;color:#7a6f68;margin:4px 0 8px;flex-wrap:wrap;}
+        .bulk-sum b{color:#1a1714;font-weight:500;}
     </style>
 </head>
 <body>
@@ -162,6 +171,7 @@
         <button class="filter-btn" onclick="setFilter('shipped', this)">Shipped</button>
         <button class="filter-btn" onclick="setFilter('delivered', this)">Delivered</button>
         <button class="filter-btn" onclick="setFilter('refunded', this)">Refunded</button>
+        <button class="filter-btn" id="bulk-btn" onclick="openBulk()">Ship selected via Delhivery</button>
         <input class="search-input" type="text" id="search" placeholder="Search name, email, order ID..." oninput="renderOrders()"/>
         <button class="filter-btn" id="clear-pending-btn" onclick="clearAllPending()" style="color:#c0392b;border-color:#f5c6c6;margin-left:4px;">Clear all pending</button>
     </div>
@@ -170,7 +180,7 @@
     <div class="table-wrap">
         <table>
             <thead>
-            <tr><th>Order</th><th>Customer</th><th>Product</th><th>Amount</th><th>Status</th><th>Date</th><th>Actions</th></tr>
+            <tr><th><input type="checkbox" class="bulk-cb" id="bulk-all" title="Select all orders to ship" onclick="selectAllToShip(this.checked)"/>Order</th><th>Customer</th><th>Product</th><th>Amount</th><th>Status</th><th>Date</th><th>Actions</th></tr>
             </thead>
             <tbody id="orders-tbody"><tr><td colspan="7" class="empty">Loading orders...</td></tr></tbody>
         </table>
@@ -243,6 +253,22 @@
         </div>
         <div class="dl-done" id="dl-done"></div>
         <div class="modal-status" id="dl-status"></div>
+    </div>
+</div>
+
+<!-- Bulk Delhivery modal -->
+<div class="modal-overlay" id="bulk-modal">
+    <div class="modal modal-wide">
+        <div class="modal-title">Ship via Delhivery</div>
+        <div class="modal-sub" id="bulk-sub">Checking orders…</div>
+        <div class="bulk-sum" id="bulk-sum"></div>
+        <table class="bulk-table"><tbody id="bulk-rows"></tbody></table>
+        <div class="dl-hint">Uses each order's saved address and the standard weights/box sizes. To change anything for one order, use its own “Ship via Delhivery” button instead.</div>
+        <div class="modal-footer" id="bulk-footer">
+            <button class="btn-primary" id="bulk-go" onclick="runBulk()" disabled>Book all</button>
+            <button class="btn-outline" onclick="closeBulk()">Cancel</button>
+        </div>
+        <div class="modal-status" id="bulk-status"></div>
     </div>
 </div>
 
@@ -398,7 +424,7 @@
             const product = itemsSummary(o.items);
             const shortId = (o.razorpay_payment_id || o.id || "").slice(-8);
             return `<tr onclick="openDetail('${o.id}')" style="cursor:pointer;">
-      <td><span class="order-id">#${shortId}</span></td>
+      <td onclick="if(event.target.classList.contains('bulk-cb'))event.stopPropagation()">${canBulk(o) ? `<input type="checkbox" class="bulk-cb" ${BULK.has(o.id) ? "checked" : ""} onchange="toggleBulk('${o.id}', this.checked)"/>` : ""}<span class="order-id">#${shortId}</span></td>
       <td><div class="customer-name">${name}</div><div class="customer-email">${email}</div></td>
       <td>${product}</td>
       <td class="amount">${amount}</td>
@@ -588,6 +614,128 @@
         }
     }
 
+    // ── Bulk Delhivery ─────────────────────────────────────────
+    const BULK = new Set();
+    let BULK_ROWS = [];
+    function canBulk(o) { return TO_SHIP_STATUSES.includes(o.status) && !(o.courier === "Delhivery" && o.tracking_number); }
+    function bulkButton() {
+        const b = document.getElementById("bulk-btn");
+        b.style.display = BULK.size ? "inline-block" : "none";
+        b.textContent = `Ship ${BULK.size} via Delhivery`;
+    }
+    function toggleBulk(id, on) { on ? BULK.add(id) : BULK.delete(id); bulkButton(); }
+    function selectAllToShip(on) {
+        BULK.clear();
+        if (on) allOrders.filter(canBulk).forEach(o => BULK.add(o.id));
+        renderOrders(); bulkButton();
+    }
+
+    async function openBulk() {
+        const ids = [...BULK];
+        if (!ids.length) return;
+        document.getElementById("bulk-modal").style.display = "flex";
+        document.getElementById("bulk-footer").style.display = "";
+        document.getElementById("bulk-status").textContent = "";
+        document.getElementById("bulk-sub").textContent = `Checking ${ids.length} order${ids.length > 1 ? "s" : ""}…`;
+        document.getElementById("bulk-sum").innerHTML = "";
+        document.getElementById("bulk-go").disabled = true;
+        BULK_ROWS = ids.map(id => ({ id, order: allOrders.find(o => o.id === id), state: "checking" }));
+        renderBulk();
+        await Promise.all(BULK_ROWS.map(async r => {
+            try {
+                const { shipment, existing_awb } = await dlApi({ action: "preview", order_id: r.id });
+                r.shipment = shipment;
+                if (existing_awb) { r.state = "skip"; r.msg = "Already booked · " + existing_awb; r.awb = existing_awb; }
+                else {
+                    const miss = [];
+                    if (!/^\d{6}$/.test(shipment.pin || "")) miss.push("pincode");
+                    if (!shipment.city) miss.push("city");
+                    if (!shipment.state) miss.push("state");
+                    if (!/^\d{10}$/.test(shipment.phone || "")) miss.push("phone");
+                    if (miss.length) { r.state = "skip"; r.msg = "Check " + miss.join(", ") + " — ship this one on its own"; }
+                    else r.state = "ready";
+                }
+            } catch (e) { r.state = "skip"; r.msg = e.message; }
+        }));
+        renderBulk();
+        const ready = BULK_ROWS.filter(r => r.state === "ready");
+        const cod = ready.filter(r => r.shipment.payment_mode === "COD");
+        document.getElementById("bulk-sub").textContent = `${ready.length} ready to book${BULK_ROWS.length - ready.length ? ` · ${BULK_ROWS.length - ready.length} need attention` : ""}`;
+        document.getElementById("bulk-sum").innerHTML =
+            `<span><b>${ready.length}</b> shipments</span><span><b>${cod.length}</b> COD · collect <b>₹${cod.reduce((n, r) => n + Number(r.shipment.cod_amount || 0), 0).toLocaleString("en-IN")}</b></span>` +
+            `<span>Total weight <b>${(ready.reduce((n, r) => n + Number(r.shipment.weight_g || 0), 0) / 1000).toFixed(1)} kg</b></span>`;
+        const go = document.getElementById("bulk-go");
+        go.disabled = !ready.length;
+        go.textContent = `Book ${ready.length} & email customers`;
+    }
+
+    function renderBulk() {
+        document.getElementById("bulk-rows").innerHTML = BULK_ROWS.map(r => {
+            const s = r.shipment || {}, o = r.order || {};
+            const state = {
+                checking: '<span class="muted">checking…</span>',
+                ready: '<span class="muted">ready</span>',
+                booking: '<span class="muted">booking…</span>',
+                done: `<span class="bulk-ok">✓ ${r.awb}</span> <button class="btn-sm" onclick="printLabel('${r.awb}', this)">Label</button>`,
+                skip: `<span class="bulk-warn">${r.msg || "skipped"}</span>`,
+                error: `<span class="bulk-err">✗ ${r.msg}</span>`,
+            }[r.state];
+            return `<tr><td><div style="font-weight:500;color:#1a1714;">${o.guest_name || s.name || "—"}</div><div class="muted">${itemsSummary(o.items)}</div></td>
+              <td>${s.city ? s.city + " " + (s.pin || "") : '<span class="muted">—</span>'}<div class="muted">${s.payment_mode ? (s.payment_mode === "COD" ? "COD ₹" + s.cod_amount : "Prepaid") + " · " + s.weight_g + " g" : ""}</div></td>
+              <td style="text-align:right;">${state}</td></tr>`;
+        }).join("");
+    }
+
+    async function runBulk() {
+        const ready = BULK_ROWS.filter(r => r.state === "ready");
+        if (!ready.length || !confirm(`Book ${ready.length} shipments with Delhivery and email each customer?`)) return;
+        document.getElementById("bulk-go").disabled = true;
+        for (const r of ready) {
+            r.state = "booking"; renderBulk();
+            try {
+                const { waybill } = await dlApi({ action: "create", order_id: r.id, shipment: r.shipment });
+                r.awb = waybill;
+                const res = await fetch("/.netlify/functions/update-order", {
+                    method: "POST", headers: { "Content-Type": "application/json", "x-admin-token": SESSION_TOKEN },
+                    body: JSON.stringify({ order_id: r.id, status: "shipped", tracking_number: waybill, courier: "Delhivery" }),
+                });
+                const o = allOrders.find(x => x.id === r.id);
+                if (o) { o.tracking_number = waybill; o.courier = "Delhivery"; if (res.ok) o.status = "shipped"; }
+                r.state = res.ok ? "done" : "error";
+                if (!res.ok) r.msg = `Booked (${waybill}) but not marked shipped — open the order`;
+            } catch (e) { r.state = "error"; r.msg = e.message; }
+            BULK.delete(r.id);
+            renderBulk();
+        }
+        updateStats(); renderOrders(); bulkButton();
+        const done = BULK_ROWS.filter(r => r.state === "done");
+        document.getElementById("bulk-sub").textContent = `${done.length} booked · customers emailed`;
+        document.getElementById("bulk-footer").innerHTML = done.length
+            ? `<button class="btn-primary" onclick="bulkLabels(this)">Get all ${done.length} labels</button><button class="btn-outline" onclick="closeBulk()">Done</button>`
+            : `<button class="btn-outline" onclick="closeBulk()">Close</button>`;
+    }
+
+    async function bulkLabels(btn) {
+        const awbs = BULK_ROWS.filter(r => r.state === "done").map(r => r.awb);
+        btn.disabled = true; btn.textContent = "Getting labels…";
+        const st = document.getElementById("bulk-status");
+        try {
+            const { urls } = await dlApi({ action: "label", waybills: awbs });
+            const links = Object.entries(urls);
+            st.className = "modal-status";
+            st.innerHTML = links.length === 1
+                ? `<a href="${links[0][1]}" target="_blank" rel="noopener" style="color:#185fa5;">Open labels PDF</a>`
+                : "Labels: " + links.map(([awb, url]) => `<a href="${url}" target="_blank" rel="noopener" style="color:#185fa5;margin-right:8px;">${awb}</a>`).join("");
+            if (links.length === 1) window.open(links[0][1], "_blank");
+        } catch (e) { st.textContent = e.message; st.className = "modal-status error"; }
+        btn.disabled = false; btn.textContent = `Get all ${awbs.length} labels`;
+    }
+
+    function closeBulk() {
+        document.getElementById("bulk-modal").style.display = "none";
+        document.getElementById("bulk-footer").innerHTML = `<button class="btn-primary" id="bulk-go" onclick="runBulk()" disabled>Book all</button><button class="btn-outline" onclick="closeBulk()">Cancel</button>`;
+    }
+
     async function markDelivered(id) {
         if (!confirm("Mark this order as delivered?")) return;
         await fetch("/.netlify/functions/update-order", {
@@ -632,6 +780,7 @@
     ${o.tracking_number ? `<div class="detail-section">
       <div class="detail-section-title">Shipping</div>
       <div class="detail-row"><span class="detail-key">Courier</span><span class="detail-val">${o.courier || "—"}</span></div>
+      ${o.delivery_status ? `<div class="detail-row"><span class="detail-key">Latest</span><span class="detail-val">${o.delivery_status}</span></div>` : ""}
       <div class="detail-row"><span class="detail-key">Tracking</span><span class="detail-val">${o.courier === "Delhivery" ? `<a href="https://www.delhivery.com/track-v2/package/${o.tracking_number}" target="_blank" rel="noopener" style="color:#185fa5;">${o.tracking_number}</a>` : o.tracking_number}</span></div>
       ${o.courier === "Delhivery" ? `<button class="btn-outline" style="width:100%;margin-top:10px;" onclick="printLabel('${o.tracking_number}', this)">Print shipping label</button>` : ""}
       ${o.shipped_at ? `<div class="detail-row"><span class="detail-key">Shipped at</span><span class="detail-val">${new Date(o.shipped_at).toLocaleString("en-IN",{timeZone:"Asia/Kolkata"})} IST</span></div>` : ""}
