@@ -67,6 +67,7 @@ exports.handler = async (event) => {
             <p style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#a09890;margin:0 0 8px;font-family:sans-serif;">Tracking details</p>
             <p style="font-size:14px;color:#1a1714;margin:0 0 4px;font-family:sans-serif;"><strong>${courier || "Courier"}</strong></p>
             <p style="font-size:13px;color:#7a6f68;margin:0;font-family:sans-serif;">Tracking ID: <strong>${tracking_number}</strong></p>
+            ${courier === "Delhivery" ? `<p style="margin:12px 0 0;font-family:sans-serif;"><a href="https://www.delhivery.com/track-v2/package/${encodeURIComponent(tracking_number)}" style="display:inline-block;background:#3a3330;color:#fff;text-decoration:none;padding:10px 18px;border-radius:6px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;">Track your parcel</a></p>` : ""}
         </div>` : "";
 
         await sendEmail({
