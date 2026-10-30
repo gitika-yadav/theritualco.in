@@ -653,3 +653,64 @@
         padding-bottom: calc(20px + env(safe-area-inset-bottom));
     }
 }
+
+/* ── Drawer suggestion: "Pairs well" / Make it The Trio ── */
+#cart-drawer.has-upsell #cd-items { max-height: calc(100dvh - 340px); }
+#cart-drawer #cd-upsell { display: none; padding: 0 24px 16px; }
+#cart-drawer .cd-up {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: #f7f3ee;
+    border-radius: 10px;
+}
+#cart-drawer .cd-up-media { flex-shrink: 0; display: block; }
+#cart-drawer .cd-up-img {
+    width: 56px;
+    height: 56px;
+    border-radius: 8px;
+    object-fit: cover;
+    background: #efe9e2;
+    flex-shrink: 0;
+    display: block;
+}
+#cart-drawer .cd-up-info { flex: 1; min-width: 0; }
+#cart-drawer .cd-up-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #9a8c80;
+    margin: 0 0 3px;
+}
+#cart-drawer .cd-up-name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: #3a3330;
+    margin: 0 0 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#cart-drawer .cd-up-meta {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: #7a6f68;
+    margin: 0;
+}
+#cart-drawer .cd-up-btn {
+    flex-shrink: 0;
+    border: 1px solid #3a3330;
+    background: transparent;
+    color: #3a3330;
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+#cart-drawer .cd-up-btn:hover { background: #3a3330; color: #fff; }
