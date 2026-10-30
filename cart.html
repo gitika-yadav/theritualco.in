@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet"/>
     <!-- Meta Pixel Code -->
     <script>
+        if (!/(^|;)\s*trc_staff=1/.test(document.cookie) && !/[?&]staff=on/.test(location.search)) { // staff mode: see /javascript/meta-pixel.js
         !function(f,b,e,v,n,t,s)
         {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
             n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -22,6 +23,7 @@
             'https://connect.facebook.net/en_US/fbevents.js');
         fbq('init', '1372190218138137');
         fbq('track', 'PageView');
+        }
     </script>
     <noscript><img height="1" width="1" style="display:none"
                    src="https://www.facebook.com/tr?id=1372190218138137&ev=PageView&noscript=1"
