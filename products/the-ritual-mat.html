@@ -371,10 +371,18 @@
 </script>
 <script>
     (function () {
+        var swatches = Array.prototype.slice.call(document.querySelectorAll('.swatch:not(.sold-out)'));
         var c = new URLSearchParams(location.search).get('color');
-        if (!c) return;
-        var b = Array.prototype.find.call(document.querySelectorAll('.swatch'), function (x) { return x.dataset.color.toLowerCase() === c.toLowerCase(); });
-        if (b) b.click();
+        var b = c && swatches.find(function (x) { return x.dataset.color.toLowerCase() === c.toLowerCase(); });
+        if (b) { b.click(); return; }
+        // No colour in the URL: preselect Vanilla Cream so "Add to Cart" works on the first tap,
+        // but keep the all-colours photo on screen (don't switch the main image).
+        var d = swatches.find(function (x) { return x.dataset.color === 'Cream'; }) || swatches[0];
+        if (!d) return;
+        d.classList.add('is-selected', 'active', 'selected');
+        d.setAttribute('aria-checked', 'true');
+        var hint = document.getElementById('colour-chosen');
+        if (hint) { hint.style.color = '#8a817a'; hint.textContent = '· ' + d.parentElement.querySelector('.swatch-label').textContent; }
     })();
     document.getElementById('preorder-btn').addEventListener('click', function() {
         if (typeof Cart === 'undefined') {
