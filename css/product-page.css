@@ -754,3 +754,16 @@ body .set-card__add:hover, body .set-card__add.is-added { background: var(--ink)
     body .complete-set__grid::-webkit-scrollbar { display: none; }
     body .set-card { scroll-snap-align: start; }
 }
+
+/* ── "Order today · arrives …" under Add to Cart (javascript/arrives-by.js) ── */
+body .arrives-by {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 12px 0 8px;
+    font-size: 13px;
+    color: #5a4f48;
+    letter-spacing: 0.01em;
+}
+body .arrives-by svg { flex-shrink: 0; color: #8a7f76; }
+body .arrives-by strong { font-weight: 500; color: #1a1714; }

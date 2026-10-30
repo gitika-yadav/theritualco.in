@@ -147,4 +147,11 @@
 
     formEl.addEventListener('submit', submitReview);
     loadReviews();
+
+    // From the review-request email: /products/x?rn=Riya#review-form → prefill name.
+    try {
+        const rn = new URLSearchParams(location.search).get('rn');
+        const nameEl = document.getElementById('review-name');
+        if (rn && nameEl && !nameEl.value) nameEl.value = rn.slice(0, 80);
+    } catch (e) { /* ignore */ }
 })();

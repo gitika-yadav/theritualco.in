@@ -120,13 +120,19 @@ exports.handler = async (event) => {
 
     try {
         if (body.action === "label") {
-            const wbn = String(body.waybill || "").replace(/\D/g, "");
-            if (!wbn) return json(400, { error: "Missing waybill" });
-            const r = await delhivery(`/api/p/packing_slip?wbns=${wbn}&pdf=true`, { method: "GET" });
-            const pkg = r.data && r.data.packages && r.data.packages[0];
-            const link = pkg && (pkg.pdf_download_link || pkg.pdf_link);
-            if (!link) return json(502, { error: "Label not ready yet — try again in a minute", detail: r.data });
-            return json(200, { url: link });
+            // One waybill → { url }, several (bulk) → { urls: { awb: url } }
+            const list = [].concat(body.waybills || body.waybill || [])
+                .map(w => String(w).replace(/\D/g, "")).filter(Boolean).slice(0, 50);
+            if (!list.length) return json(400, { error: "Missing waybill" });
+            const r = await delhivery(`/api/p/packing_slip?wbns=${list.join(",")}&pdf=true`, { method: "GET" });
+            const urls = {};
+            ((r.data && r.data.packages) || []).forEach(pkg => {
+                const link = pkg.pdf_download_link || pkg.pdf_link;
+                if (link) urls[String(pkg.wbn || pkg.waybill || list[0])] = link;
+            });
+            const first = Object.values(urls)[0];
+            if (!first) return json(502, { error: "Label not ready yet — try again in a minute", detail: r.data });
+            return json(200, { url: first, urls });
         }
 
         const { data: order, error } = await supabase.from("orders").select("*").eq("id", body.order_id).single();
