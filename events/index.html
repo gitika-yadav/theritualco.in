@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D366Q7R3XB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-D366Q7R3XB');
+    </script>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="icon" type="image/png" href="/images/favicon.png"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Sans:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/global.css"/>
+    <link rel="stylesheet" href="/css/navbar.css"/>
+    <link rel="stylesheet" href="/css/footer.css"/>
+    <link rel="stylesheet" href="/css/cart.css"/>
+    <link rel="stylesheet" href="/css/events.css"/>
+    <script src="/javascript/meta-pixel.js"></script>
+    <title>Events | The Ritual Co.</title>
+    <meta name="description" content="Pilates, mat and movement sessions hosted by The Ritual Co. Small groups, beautiful kit, good people. Book your spot."/>
+    <link rel="canonical" href="https://theritualco.in/events"/>
+    <meta property="og:title" content="Events | The Ritual Co."/>
+    <meta property="og:description" content="Small-group movement sessions hosted by The Ritual Co. Book your spot."/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://theritualco.in/events"/>
+    <meta property="og:image" content="https://theritualco.in/images/yoga-mat-pink-lifestyle.webp"/>
+</head>
+<body>
+<div class="page-wrapper">
+    <div id="navbar-placeholder"></div>
+    <main class="ev-wrap">
+        <p class="ev-eyebrow">The Ritual Co. &middot; Events</p>
+        <h1 class="ev-h1">Move with us.</h1>
+        <p class="ev-lede">Small-group sessions on our mats, with our kit, among good people.</p>
+        <div id="ev-list"><div class="ev-grid"><div class="ev-skel"></div><div class="ev-skel"></div></div></div>
+    </main>
+    <div id="footer-placeholder"></div>
+</div>
+<script src="/javascript/cart.js"></script>
+<script>
+    fetch("/partials/navbar.html").then(r => r.text()).then(html => {
+        document.getElementById("navbar-placeholder").innerHTML = html;
+        ["/javascript/cart-drawer.js", "/javascript/navbar.js"].forEach(src => {
+            const s = document.createElement("script"); s.src = src; document.body.appendChild(s);
+        });
+    });
+    fetch("/partials/footer.html").then(r => r.text()).then(html => {
+        document.getElementById("footer-placeholder").innerHTML = html;
+    });
+</script>
+<script>
+(function () {
+    var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+    function when(e) {
+        var d = new Date(e.starts_at);
+        return d.toLocaleDateString("en-IN", { timeZone: "Asia/Kolkata", weekday: "short", day: "numeric", month: "short" }) + " · " +
+            d.toLocaleTimeString("en-IN", { timeZone: "Asia/Kolkata", hour: "numeric", minute: "2-digit", hour12: true });
+    }
+    var box = document.getElementById("ev-list");
+    fetch("/.netlify/functions/events-public").then(function (r) { return r.json(); }).then(function (data) {
+        var list = (data && data.events) || [];
+        if (!list.length) {
+            box.innerHTML = '<div class="ev-empty"><p class="ev-card__title" style="margin-bottom:8px;">Nothing on the calendar just yet.</p>' +
+                '<p class="ev-muted">New sessions are announced first on <a href="https://instagram.com/theritualco.in" style="color:#3a3330;">Instagram</a>.</p></div>';
+            return;
+        }
+        box.innerHTML = '<div class="ev-grid">' + list.map(function (e) {
+            var tag = e.spots_left <= 0 ? "Sold out" : (e.spots_left <= 5 ? e.spots_left + " spots left" : (e.price ? "₹" + e.price.toLocaleString("en-IN") : "Free · RSVP"));
+            return '<a class="ev-card" href="/events/' + encodeURIComponent(e.slug) + '">' +
+                '<div class="ev-card__img">' + (e.cover_image ? '<img src="' + esc(e.cover_image) + '" alt="' + esc(e.title) + '" loading="lazy">' : '') +
+                '<span class="ev-card__tag">' + esc(tag) + '</span></div>' +
+                '<p class="ev-card__date">' + esc(when(e)) + '</p>' +
+                '<h2 class="ev-card__title">' + esc(e.title) + '</h2>' +
+                '<p class="ev-card__meta">' + esc(e.venue_name || "") + (e.price ? (e.venue_name ? " · " : "") + "₹" + e.price.toLocaleString("en-IN") : (e.venue_name ? " · " : "") + "Free") + '</p></a>';
+        }).join("") + '</div>';
+    }).catch(function () {
+        box.innerHTML = '<div class="ev-empty"><p class="ev-muted">Couldn\'t load events. Please refresh.</p></div>';
+    });
+})();
+</script>
+</body>
+</html>

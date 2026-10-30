@@ -16,6 +16,7 @@ const EXCLUDE_FILES = [
     "404.html",
     "login.html",
     "signup.html",
+    "event.html",          // events/event.html is the template behind /events/<slug>
 ];
 
 // Priority rules — first match wins
