@@ -69,14 +69,49 @@
 </div>
 
 <script>
+    // Every giftable product (must match netlify/functions/shared/product-map.js).
+    // Colours + stock are refreshed from live inventory on load (see loadStock);
+    // this list is the fallback if that request fails.
     const PRODUCTS = [
-        { id: "capsule-1kg",       name: "Capsule Dumbbells 1kg", colors: ["Black","Cream"] },
-        { id: "capsule-2kg",       name: "Capsule Dumbbells 2kg", colors: ["Black","Cream"] },
-        { id: "yoga-belt",         name: "The Ritual Belt",       colors: ["Cream","Black","Coffee"] },
-        { id: "yoga-block",        name: "The Ritual Block",      colors: ["Black","Pink"] },
-        { id: "yoga-mat-5mm",      name: "The Ritual Mat",        colors: ["Coffee","Pink","Cream","Black"] },
-        { id: "ankle-weights-2lb", name: "The Ritual Cuffs",      colors: ["Cream","Coffee","Black","Pink"] },
+        { id: "yoga-mat-5mm",      name: "The Ritual Mat",         colors: ["Cream","Pink","Black","Coffee"] },
+        { id: "ankle-weights-2lb", name: "The Ritual Cuffs (ankle weights)", colors: ["Cream","Pink","Black","Coffee"] },
+        { id: "grip-socks",        name: "The Ritual Grip Socks",  colors: ["Cream","Pink","Coffee"] },
+        { id: "pilates-ball",      name: "The Ritual Ball",        colors: ["Cream","Pink","Black","Coffee"] },
+        { id: "pilates-ring",      name: "The Ritual Ring",        colors: ["Cream","Pink","Black","Coffee"] },
+        { id: "yoga-belt",         name: "The Ritual Belt",        colors: ["Cream","Black","Coffee"] },
+        { id: "yoga-block",        name: "The Ritual Block",       colors: ["Cream","Pink","Black","Coffee"] },
+        { id: "capsule-1kg",       name: "Capsule Dumbbells 1kg",  colors: ["Cream","Pink","Black","Coffee"] },
+        { id: "capsule-2kg",       name: "Capsule Dumbbells 2kg",  colors: ["Cream","Pink","Black","Coffee"] },
     ];
+    const SHADE = { Cream: "Vanilla Cream", Pink: "Strawberry Milk", Black: "Onyx Black", Coffee: "Oat Latte" };
+    let STOCK = null; // { productId: { Color: units } } from live inventory
+
+    async function loadStock() {
+        try {
+            const res = await fetch("/.netlify/functions/get-availability", { cache: "no-store" });
+            if (!res.ok) throw new Error(res.status);
+            const data = await res.json();
+            STOCK = {};
+            PRODUCTS.forEach(p => {
+                const cols = (data[p.id] && data[p.id].colors) || {};
+                const live = Object.values(cols).map(c => c.color).filter(Boolean);
+                if (live.length) {
+                    const order = ["Cream","Pink","Black","Coffee"];
+                    p.colors = live.sort((a, b) => order.indexOf(a) - order.indexOf(b));
+                }
+                STOCK[p.id] = {};
+                Object.values(cols).forEach(c => { STOCK[p.id][c.color] = Number(c.stock) || 0; });
+            });
+        } catch (e) {
+            console.warn("Live stock unavailable, using fallback product list", e);
+            STOCK = null;
+        }
+    }
+    function totalStock(p) {
+        if (!STOCK || !STOCK[p.id]) return null;
+        return Object.values(STOCK[p.id]).reduce((a, b) => a + b, 0);
+    }
+    const stockReady = loadStock();
 
     let secretKey = "";
 
@@ -88,7 +123,8 @@
         addItemRow();
     });
 
-    function addItemRow() {
+    async function addItemRow() {
+        await stockReady;
         const container = document.getElementById("items-container");
         const row = document.createElement("div");
         row.className = "item-row";
@@ -96,7 +132,11 @@
     <div>
       <label>Product</label>
       <select class="item-product">
-        ${PRODUCTS.map(p => `<option value="${p.id}">${p.name}</option>`).join("")}
+        ${PRODUCTS.map(p => {
+            const t = totalStock(p);
+            const label = t === null ? p.name : (t > 0 ? `${p.name} (${t} in stock)` : `${p.name} — out of stock`);
+            return `<option value="${p.id}">${label}</option>`;
+        }).join("")}
       </select>
     </div>
     <div>
@@ -115,7 +155,16 @@
         const colorSelect = row.querySelector(".item-color");
         function refreshColors() {
             const prod = PRODUCTS.find(p => p.id === productSelect.value);
-            colorSelect.innerHTML = prod.colors.map(c => `<option value="${c}">${c}</option>`).join("");
+            colorSelect.innerHTML = prod.colors.map(c => {
+                const n = STOCK && STOCK[prod.id] ? (STOCK[prod.id][c] || 0) : null;
+                const name = SHADE[c] ? `${SHADE[c]} (${c})` : c;
+                if (n === null) return `<option value="${c}">${name}</option>`;
+                return n > 0
+                    ? `<option value="${c}">${name} — ${n} left</option>`
+                    : `<option value="${c}" disabled>${name} — sold out</option>`;
+            }).join("");
+            const firstOk = Array.from(colorSelect.options).find(o => !o.disabled);
+            if (firstOk) colorSelect.value = firstOk.value;
         }
         productSelect.addEventListener("change", refreshColors);
         refreshColors();
