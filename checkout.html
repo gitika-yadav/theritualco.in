@@ -75,7 +75,30 @@
             </div>
             <input id="state" placeholder="State" required readonly style="background:#f5f2ee;">
             <p id="pincode-msg" style="font-size:12px;min-height:16px;margin:-4px 0 0;"></p>
-            <select id="payment" required>
+            <!-- Payment choice: cards drive the (visually hidden) #payment select the order code reads -->
+            <div class="pay-choice" role="radiogroup" aria-label="Payment method">
+                <p class="pay-choice__label">Payment</p>
+                <button type="button" class="pay-card is-selected" data-pay="online" role="radio" aria-checked="true">
+                    <span class="pay-card__dot" aria-hidden="true"></span>
+                    <span class="pay-card__body">
+                        <span class="pay-card__title">Pay online <span class="pay-card__tag">No extra fee</span></span>
+                        <span class="pay-card__sub">UPI, cards or net banking &middot; secured by Razorpay</span>
+                    </span>
+                    <span class="pay-card__price">Free</span>
+                </button>
+                <button type="button" class="pay-card" data-pay="cod" role="radio" aria-checked="false">
+                    <span class="pay-card__dot" aria-hidden="true"></span>
+                    <span class="pay-card__body">
+                        <span class="pay-card__title">Cash on delivery</span>
+                        <span class="pay-card__sub">Pay when your order arrives</span>
+                    </span>
+                    <span class="pay-card__price">+₹99</span>
+                </button>
+                <p class="pay-choice__nudge" id="pay-nudge" hidden>
+                    Paying online saves you ₹99. <button type="button" id="pay-switch">Switch to online</button>
+                </p>
+            </div>
+            <select id="payment" required class="pay-select-hidden" aria-hidden="true" tabindex="-1">
                 <option value="online">Pay Online (UPI / Card / Net banking)</option>
                 <option value="cod">Cash on Delivery (+₹99)</option>
             </select>
@@ -205,6 +228,32 @@
 
     renderSummary();
     document.getElementById("payment").addEventListener("change", renderSummary);
+
+    // Payment cards → hidden select (keeps all existing order code unchanged)
+    (function () {
+        const sel = document.getElementById("payment");
+        const cards = document.querySelectorAll(".pay-card");
+        const nudge = document.getElementById("pay-nudge");
+        function choose(v) {
+            sel.value = v;
+            cards.forEach(c => {
+                const on = c.dataset.pay === v;
+                c.classList.toggle("is-selected", on);
+                c.setAttribute("aria-checked", on ? "true" : "false");
+            });
+            nudge.hidden = v !== "cod";
+            sel.dispatchEvent(new Event("change"));
+        }
+        cards.forEach(c => c.addEventListener("click", () => {
+            choose(c.dataset.pay);
+            try { if (typeof gtag === "function") gtag("event", "select_payment", { method: c.dataset.pay }); } catch (e) {}
+        }));
+        document.getElementById("pay-switch").addEventListener("click", () => {
+            choose("online");
+            try { if (typeof gtag === "function") gtag("event", "select_payment", { method: "online", via: "nudge" }); } catch (e) {}
+        });
+        choose(sel.value || "online");
+    })();
 
     // ── GA4 begin_checkout (once per visit to the checkout page) ──
     if (Cart.count() > 0 && typeof gtag === 'function') {
