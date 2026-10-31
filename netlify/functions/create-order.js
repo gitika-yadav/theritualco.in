@@ -2,6 +2,7 @@ const Razorpay = require("razorpay");
 const { createClient } = require("@supabase/supabase-js");
 const { PRODUCT_MAP, resolveProductKey } = require("./shared/product-map");
 const { KIT_MAP, PREORDER_SHIPS } = require("./shared/kit-map");
+const { sendPurchase } = require("./shared/meta-capi");
 
 const supabase = createClient(
     process.env.SUPABASE_URL,
@@ -345,6 +346,17 @@ exports.handler = async (event) => {
                     orderId: codReceipt,
                 }),
             }).catch((e) => console.error("COD sheet log failed:", e));
+        }
+
+        // Meta Conversions API — COD orders are "purchased" now (online ones in verify-payment).
+        // Same event_id as the browser Pixel's Purchase (rc_last_order.id) so Meta de-duplicates.
+        if (isCod && !body.staff) {
+            await sendPurchase({
+                eventId: codReceipt, value: totalPaise / 100, items: orderItems,
+                email, phone, name, city, state, zip: pincode,
+                fbp: body.fbp, fbc: body.fbc, sourceUrl: body.source_url,
+                headers: event.headers, externalId: email,
+            });
         }
 
         return {
