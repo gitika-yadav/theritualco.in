@@ -118,6 +118,7 @@
         .dl-done strong{font-family:monospace;font-size:14px;}
         .dl-done .btn-primary{margin-top:10px;}
         @media(max-width:640px){.span-3,.span-2{grid-column:span 6;}}
+        .gift-badge{display:inline-block;margin-left:6px;padding:2px 8px;border-radius:999px;background:#f3e9f7;color:#7a3f96;font-size:11px;vertical-align:1px;}
         /* Bulk ship */
         .bulk-cb{width:15px;height:15px;margin-right:8px;vertical-align:middle;cursor:pointer;accent-color:#3a3330;}
         #bulk-btn{display:none;background:#3a3330;color:#fff;border-color:#3a3330;}
@@ -281,6 +282,7 @@
 
 <script>
     let allOrders = [];
+    const escHtml = v => String(v == null ? "" : v).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
     let currentFilter = "all";
     let shipOrderId = null;
     let SESSION_TOKEN = null;
@@ -426,7 +428,7 @@
             return `<tr onclick="openDetail('${o.id}')" style="cursor:pointer;">
       <td onclick="if(event.target.classList.contains('bulk-cb'))event.stopPropagation()">${canBulk(o) ? `<input type="checkbox" class="bulk-cb" ${BULK.has(o.id) ? "checked" : ""} onchange="toggleBulk('${o.id}', this.checked)"/>` : ""}<span class="order-id">#${shortId}</span></td>
       <td><div class="customer-name">${name}</div><div class="customer-email">${email}</div></td>
-      <td>${product}</td>
+      <td>${product}${o.is_gift ? ' <span class="gift-badge" title="Gift order">Gift</span>' : ""}</td>
       <td class="amount">${amount}</td>
       <td>${badge}</td>
       <td style="color:#a09890;">${date}</td>
@@ -762,6 +764,13 @@
       <div class="detail-row"><span class="detail-key">Phone</span><span class="detail-val">${o.guest_phone || "—"}</span></div>
       <div class="detail-row"><span class="detail-key">Address</span><span class="detail-val">${o.shipping_address || "—"}</span></div>
     </div>
+    ${o.is_gift ? `<div class="detail-section">
+      <div class="detail-section-title">Gift</div>
+      <div class="detail-row"><span class="detail-key">Ship to</span><span class="detail-val">${escHtml(o.gift_recipient)}</span></div>
+      ${o.gift_recipient_phone ? `<div class="detail-row"><span class="detail-key">Their phone</span><span class="detail-val">${escHtml(o.gift_recipient_phone)}</span></div>` : ""}
+      <div class="detail-row"><span class="detail-key">Card message</span><span class="detail-val" style="font-style:italic;">${o.gift_message ? "“" + escHtml(o.gift_message) + "”" : "—"}</span></div>
+      <div class="detail-row"><span class="detail-key">Packing</span><span class="detail-val">No prices or invoice in the parcel</span></div>
+    </div>` : ""}
     <div class="detail-section">
       <div class="detail-section-title">Order (${(o.items || []).length} item${(o.items || []).length === 1 ? "" : "s"})</div>
      ${(o.items || []).map(i => `
