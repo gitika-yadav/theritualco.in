@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Results — The Ritual Co. (Admin)</title>
+    <title>Analytics — The Ritual Co. (Admin)</title>
     <meta name="robots" content="noindex, nofollow"/>
     <style>
         :root{
@@ -66,6 +66,11 @@
         .setup b{color:var(--ink);} .setup code{background:#fff;border-radius:4px;padding:1px 5px;font-size:12px;}
         .err{color:var(--bad);font-size:12.5px;}
         .note{font-size:11.5px;color:var(--muted);margin-top:10px;line-height:1.5;}
+        .days{display:flex;align-items:flex-end;gap:4px;height:120px;padding-top:6px;}
+        .day{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;min-width:0;}
+        .day .b{width:100%;max-width:34px;background:var(--bar);border-radius:4px 4px 0 0;min-height:2px;}
+        .day .b.zero{background:var(--bar-soft);}
+        .day .t{font-size:10px;color:var(--muted);margin-top:6px;white-space:nowrap;}
         .loading{opacity:.45;pointer-events:none;transition:opacity .2s;}
         @media(max-width:1000px){.tiles{grid-template-columns:repeat(3,1fr);}.grid2,.grid4{grid-template-columns:1fr 1fr;}}
         @media(max-width:640px){.main{padding:16px;}.tiles{grid-template-columns:1fr 1fr;}.grid2,.grid4{grid-template-columns:1fr;}.row{grid-template-columns:110px 1fr 54px;}.range{min-width:0;}.topbar{padding:0 16px;}.hide-m{display:none;}}
@@ -75,7 +80,7 @@
 <div id="lock">
     <div class="lock-card">
         <div class="lock-wordmark">The Ritual Co.</div>
-        <div class="lock-title">Results</div>
+        <div class="lock-title">Analytics</div>
         <input class="lock-input" type="password" id="lock-pass" placeholder="Admin password"/>
         <button class="lock-btn" onclick="unlock()">Enter</button>
         <div class="lock-err" id="lock-err">Incorrect password</div>
@@ -84,8 +89,8 @@
 
 <div id="app">
     <div class="topbar">
-        <div class="topbar-left"><div class="brand">The Ritual Co.</div><div class="ttl">Results</div></div>
-        <div><a href="/admin/orders.html">Orders</a><a href="/admin/events.html" class="hide-m">Events</a><button class="logout" onclick="logout()">Sign out</button></div>
+        <div class="topbar-left"><div class="brand">The Ritual Co.</div><div class="ttl">Analytics</div></div>
+        <div><a href="/admin/orders.html">Orders</a><a href="/admin/events.html" class="hide-m">Events</a><a href="/admin/discounts" class="hide-m">Discounts</a><a href="/admin/newsletter" class="hide-m">Newsletter</a><button class="logout" onclick="logout()">Sign out</button></div>
     </div>
     <div class="main" id="main">
         <div class="controls">
@@ -98,6 +103,7 @@
             <button class="nav" id="next" title="Next period">›</button></span>
         </div>
         <div class="tiles" id="tiles"></div>
+        <div class="card" id="days" style="margin-bottom:14px"></div>
         <div class="grid2">
             <div class="card" id="funnel"></div>
             <div class="card" id="ads"></div>
@@ -105,6 +111,11 @@
         <div class="grid2">
             <div class="card" id="products"></div>
             <div class="card" id="features"></div>
+        </div>
+        <div class="grid4">
+            <div class="card" id="colours"></div>
+            <div class="card" id="customers" style="grid-column:span 2"></div>
+            <div class="card" id="codes"></div>
         </div>
         <div class="grid4">
             <div class="card" id="payments"></div>
@@ -150,7 +161,7 @@
     async function load() {
         const main = document.getElementById("main"); main.classList.add("loading");
         try {
-            const res = await fetch("/.netlify/functions/admin-results", { method: "POST", headers: { "Content-Type": "application/json", "x-admin-token": SESSION_TOKEN }, body: JSON.stringify({ days: DAYS, end: END }) });
+            const res = await fetch("/.netlify/functions/admin-analytics", { method: "POST", headers: { "Content-Type": "application/json", "x-admin-token": SESSION_TOKEN }, body: JSON.stringify({ days: DAYS, end: END }) });
             if (res.status === 401) return logout();
             DATA = await res.json();
             if (!res.ok) throw new Error(DATA.error || "HTTP " + res.status);
@@ -188,7 +199,19 @@
         ];
         document.getElementById("tiles").innerHTML = tiles.map(([k, v, dl]) => `<div class="tile"><div class="k">${k}</div><div class="v">${v}</div>${dl}</div>`).join("");
 
+        renderDays(s.by_day);
         renderFunnel(d.ga, s);
+        const now = d.now || {};
+        document.getElementById("colours").innerHTML = `<h2>Colours</h2><p class="sub">Units sold by colour</p>` +
+            (s.colours.length ? s.colours.map(c => kv(esc(c.name), num(c.units))).join("") : `<p class="sub">No orders in this period.</p>`);
+        document.getElementById("customers").innerHTML = `<h2>Top customers</h2><p class="sub">This period, by spend</p>` +
+            (s.top_customers.length ? `<table><thead><tr><th>Customer</th><th class="hide-m">Email</th><th class="r">Orders</th><th class="r">Spent</th></tr></thead><tbody>` +
+            s.top_customers.map(c => `<tr><td>${esc(c.name)}</td><td class="l hide-m">${esc(c.email)}</td><td class="r">${num(c.orders)}</td><td class="r">${inr(c.revenue)}</td></tr>`).join("") + `</tbody></table>`
+            : `<p class="sub">No orders in this period.</p>`);
+        document.getElementById("codes").innerHTML = `<h2>Discount codes</h2><p class="sub">Times used (all time)</p>` +
+            ((now.discount_codes || []).length ? now.discount_codes.map(c => kv(`${esc(c.code)}${c.active ? "" : ' <span style="color:var(--muted)">(off)</span>'}`, num(c.used_count || 0))).join("") : `<p class="sub">No codes yet.</p>`) +
+            kv("Orders waiting to ship", now.to_ship != null ? `<a href="/admin/orders.html" style="color:var(--ink)">${num(now.to_ship)}</a>` : "—") +
+            (now.waitlist != null ? kv("Waitlist signups", num(now.waitlist)) : "");
         renderAds(m);
         renderProducts(s.products);
         renderFeatures(d.ga);
@@ -217,6 +240,17 @@
             ${kv("Awaiting approval", num(s.reviews_new - s.reviews_approved))}
             ${kv("Avg rating", s.reviews_avg == null ? "—" : s.reviews_avg + " ★")}`;
     }
+    function renderDays(days) {
+        const el = document.getElementById("days");
+        const top = Math.max(1, ...days.map(d => d.revenue));
+        const total = days.reduce((n, d) => n + d.revenue, 0);
+        const step = days.length > 14 ? 5 : days.length > 7 ? 2 : 1;
+        el.innerHTML = `<h2>Day by day</h2><p class="sub">Revenue per day · ${inr(total)} total. Hover a bar for orders.</p>
+            <div class="days">${days.map((d, i) => `<div class="day" title="${nice(d.day)}: ${inr(d.revenue)} · ${d.orders} order${d.orders === 1 ? "" : "s"}">
+                <div class="b ${d.revenue ? "" : "zero"}" style="height:${d.revenue ? Math.max(3, d.revenue / top * 100) : 2}%"></div>
+                <span class="t">${i % step === 0 || i === days.length - 1 ? nice(d.day) : "&nbsp;"}</span></div>`).join("")}</div>`;
+    }
+
     const kv = (k, v) => `<div class="kv"><span>${k}</span><b>${v}</b></div>`;
 
     function setupBox(lines) { return `<div class="setup">${lines}</div>`; }

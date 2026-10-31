@@ -1,11 +1,12 @@
-// netlify/functions/admin-results.js
-// Weekly results for admin/results.html — one call, three sources:
+// netlify/functions/admin-analytics.js
+// Results for admin/analytics.html — one call, four sources:
 //   1. Supabase (always): sales, products, payment mix, gifts, recovered carts,
 //      delivery, events, reviews
 //   2. Meta Marketing API (optional): spend, clicks, add to carts, purchases per campaign
 //        env META_ADS_TOKEN (ads_read), META_AD_ACCOUNT_ID (digits, without "act_")
 //   3. Google Analytics 4 Data API (optional): visitor funnel + feature usage
 //        env GA4_PROPERTY_ID; uses GOOGLE_SERVICE_ACCOUNT (add its email as a Viewer in GA4)
+//   4. Google Sheet waitlist count (existing SHEET_ID, as before)
 //
 // POST (x-admin-token) { days: 7 | 14 | 30, end?: "YYYY-MM-DD" }  → this period + previous period
 
@@ -44,7 +45,7 @@ const SALE_STATUSES = ["paid", "cod_unpaid", "shipped", "delivered"];
 
 async function storeStats(sb, r) {
     const [{ data: orders }, { data: sessions }, { data: bookings }, { data: reviews }, { data: shippedInRange }] = await Promise.all([
-        sb.from("orders").select("id, status, payment_method, amount_paise, items, is_gift, discount_code, created_at, channel")
+        sb.from("orders").select("id, status, payment_method, amount_paise, items, is_gift, discount_code, created_at, channel, guest_name, guest_email")
             .gte("created_at", r.fromIso).lt("created_at", r.toIso),
         sb.from("checkout_sessions").select("total, created_at, reminded_at, converted_at")
             .gte("created_at", r.fromIso).lt("created_at", r.toIso),
@@ -59,6 +60,29 @@ async function storeStats(sb, r) {
     const sales = (orders || []).filter(o => SALE_STATUSES.includes(o.status) && o.payment_method !== "creator_gift" && (o.channel || "retail") === "retail");
     const revenue = sales.reduce((n, o) => n + (o.amount_paise || 0) / 100, 0);
     const cod = sales.filter(o => o.payment_method === "cod");
+
+    // Day by day (India dates) — every day in the period, zero-filled
+    const byDay = {};
+    for (let d = r.since; d <= r.until; d = addDays(d, 1)) byDay[d] = { revenue: 0, orders: 0 };
+    sales.forEach(o => {
+        const day = istDateStr(new Date(o.created_at));
+        if (byDay[day]) { byDay[day].revenue += (o.amount_paise || 0) / 100; byDay[day].orders++; }
+    });
+
+    // Colours (kit colour strings like "Cream / Pink / Coffee" split into each colour)
+    const colours = {};
+    sales.forEach(o => (o.items || []).forEach(i => {
+        const qty = Number(i.quantity ?? i.qty ?? 1) || 1;
+        String(i.color || "").split("/").map(c => c.trim()).filter(Boolean).forEach(c => { colours[c] = (colours[c] || 0) + qty; });
+    }));
+
+    // Top customers this period
+    const cust = {};
+    sales.forEach(o => {
+        const key = (o.guest_email || "").toLowerCase() || o.id;
+        const c = cust[key] = cust[key] || { name: o.guest_name || "—", email: o.guest_email || "", orders: 0, revenue: 0 };
+        c.orders++; c.revenue += (o.amount_paise || 0) / 100;
+    });
 
     const products = {};
     sales.forEach(o => (o.items || []).forEach(i => {
@@ -89,6 +113,9 @@ async function storeStats(sb, r) {
         cod_orders: cod.length,
         gifts: sales.filter(o => o.is_gift).length,
         discount_orders: sales.filter(o => o.discount_code).length,
+        by_day: Object.entries(byDay).map(([day, v]) => ({ day, revenue: Math.round(v.revenue), orders: v.orders })),
+        colours: Object.entries(colours).map(([name, units]) => ({ name, units })).sort((a, b) => b.units - a.units),
+        top_customers: Object.values(cust).sort((a, b) => b.revenue - a.revenue).slice(0, 5).map(c => ({ ...c, revenue: Math.round(c.revenue) })),
         products: Object.entries(products).map(([name, v]) => ({ name, units: v.units, revenue: Math.round(v.revenue) }))
             .sort((a, b) => b.revenue - a.revenue),
         checkouts_started: s.length,
@@ -198,6 +225,30 @@ async function gaStats(r) {
     }
 }
 
+// Always-current numbers (not tied to the period): orders waiting to ship, discount code usage, waitlist.
+async function standing(sb) {
+    const [{ data: toShip }, { data: codes }] = await Promise.all([
+        sb.from("orders").select("id").in("status", ["paid", "cod_unpaid"]),
+        sb.from("discount_codes").select("code, used_count, type, value, active"),
+    ]);
+    let waitlist = null;
+    try {
+        if (process.env.GOOGLE_SERVICE_ACCOUNT && process.env.SHEET_ID) {
+            const { google } = require("googleapis");
+            const cred = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT);
+            const auth = new google.auth.JWT(cred.client_email, null, cred.private_key, ["https://www.googleapis.com/auth/spreadsheets"]);
+            const res = await google.sheets({ version: "v4", auth }).spreadsheets.values.get({ spreadsheetId: process.env.SHEET_ID, range: "Waitlist!B:B" });
+            waitlist = (res.data.values || []).filter(r => r[0] && r[0].includes("@")).length;
+        }
+    } catch (e) { /* waitlist is optional */ }
+    return {
+        to_ship: (toShip || []).length,
+        discount_codes: (codes || []).filter(c => (c.used_count || 0) > 0 || c.active)
+            .sort((a, b) => (b.used_count || 0) - (a.used_count || 0)).slice(0, 8),
+        waitlist,
+    };
+}
+
 exports.handler = async (event) => {
     if (event.httpMethod !== "POST") return json(405, { error: "Method not allowed" });
     if (!verifyAdminToken(getTokenFromEvent(event))) return json(401, { error: "Unauthorized" });
@@ -209,19 +260,20 @@ exports.handler = async (event) => {
 
     const sb = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
     try {
-        const [store, storePrev, meta, metaPrev, ga, gaPrev] = await Promise.all([
+        const [store, storePrev, meta, metaPrev, ga, gaPrev, now] = await Promise.all([
             storeStats(sb, cur), storeStats(sb, prev),
             metaStats(cur).catch(e => ({ connected: true, error: e.message })),
             metaStats(prev).catch(() => ({ connected: false })),
             gaStats(cur), gaStats(prev),
+            standing(sb).catch(() => ({})),
         ]);
         return json(200, {
             period: { since: cur.since, until: cur.until, days },
             previous: { since: prev.since, until: prev.until },
-            store, storePrev, meta, metaPrev, ga, gaPrev,
+            store, storePrev, meta, metaPrev, ga, gaPrev, now,
         });
     } catch (err) {
-        console.error("admin-results:", err);
+        console.error("admin-analytics:", err);
         return json(500, { error: err.message });
     }
 };
