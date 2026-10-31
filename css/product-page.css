@@ -767,3 +767,20 @@ body .arrives-by {
 }
 body .arrives-by svg { flex-shrink: 0; color: #8a7f76; }
 body .arrives-by strong { font-weight: 500; color: #1a1714; }
+
+/* ── Stars under the product title (javascript/reviews.js → showTitleRating) ── */
+body .rating-mini {
+    display: flex;
+    width: max-content;
+    align-items: center;
+    gap: 8px;
+    margin: 6px 0 18px;
+    font-size: 12px;
+    letter-spacing: .04em;
+    color: #6b625b;
+    text-decoration: none;
+}
+body .rating-mini__stars { display: inline-flex; gap: 2px; color: #C9B99A; }
+body .rating-mini__stars svg { width: 13px; height: 13px; }
+body .rating-mini__stars svg.off { opacity: .3; }
+body .rating-mini:hover #rating-mini-text { text-decoration: underline; }
