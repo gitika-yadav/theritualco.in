@@ -400,7 +400,7 @@ body.tr-product-page .accordion__body {
     overflow: hidden;
     transition: max-height 0.35s ease;
 }
-.accordion__item.open .accordion__body { max-height: 600px; }
+.accordion__item.open .accordion__body { max-height: 3000px; }
 .accordion__inner { padding-bottom: 28px; }
 body.tr-product-page .accordion__inner p {
     font-size: 13px;

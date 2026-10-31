@@ -15,13 +15,16 @@ const isCapsuleOutOfStock =
     var stickyPrice = document.getElementById('sticky-cart-price');
     var stickyBtn = document.getElementById('sticky-cart-btn');
 
-    if (mainImg && stickyImg) stickyImg.src = mainImg.src;
-    if (titleEl && stickyName) stickyName.textContent = titleEl.textContent.replace(/\s+/g, ' ').trim();
+    // Infographic slides (comparison / benefits) aren't product photos — keep the last real photo.
+    function isInfographic(src) { return /-(comparison|benefits)\./.test(src || ''); }
+    function syncImg() { if (!isInfographic(mainImg.src)) stickyImg.src = mainImg.src; }
+    if (mainImg && stickyImg) syncImg();
+    if (titleEl && stickyName) stickyName.textContent = titleEl.innerHTML.replace(/<br\s*\/?>/gi, ' ').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
     if (priceEl && stickyPrice) stickyPrice.textContent = priceEl.textContent;
 
     // Keep sticky image synced when a colour swatch changes the main photo
     if (mainImg && stickyImg) {
-        new MutationObserver(function () { stickyImg.src = mainImg.src; })
+        new MutationObserver(syncImg)
             .observe(mainImg, { attributes: true, attributeFilter: ['src'] });
     }
 
