@@ -329,6 +329,15 @@
             });
         }
 
+        // Browser ids Meta uses to match server-side purchases; staff mode skips tracking.
+        const readCookie = n => (document.cookie.match(new RegExp("(?:^|; )" + n + "=([^;]*)")) || [])[1] || "";
+        const metaIds = {
+            fbp: readCookie("_fbp"),
+            fbc: readCookie("_fbc") || (new URLSearchParams(location.search).get("fbclid") ? "fb.1." + Date.now() + "." + new URLSearchParams(location.search).get("fbclid") : ""),
+            source_url: location.href,
+            staff: !!window.TRC_STAFF,
+        };
+
         if (method === "cod") {
             btn.textContent = "Placing order…";
             try {
@@ -342,6 +351,7 @@
                         user_id: user ? user.id : null,
                         amount: finalAmount,
                         payment_method: "cod",
+                        ...metaIds,
                         discount_code: appliedDiscount ? appliedDiscount.code : null,
                         discount_amount: appliedDiscount ? appliedDiscount.discount_amount : 0
                     })
@@ -432,6 +442,7 @@
                             internal_order_ids:  order.internal_order_ids,
                             customer_name:       name,
                             customer_email:      email,
+                            ...metaIds,
                         })
                     });
                     const verified = await verify.json();
