@@ -237,6 +237,18 @@ exports.handler = async (event) => {
             amount_paise:      totalPaise,
             shipping_address:  [address, landmark, city, state, pincode].filter(Boolean).join(", "),
         };
+        // Gift: recipient goes on the parcel, message on a card, no prices inside.
+        if (body.gift && typeof body.gift === "object" && String(body.gift.recipient || "").trim()) {
+            const giftPhone = String(body.gift.recipient_phone || "").replace(/\D/g, "").replace(/^91(?=\d{10}$)/, "");
+            if (!/^[6-9]\d{9}$/.test(giftPhone)) {
+                return { statusCode: 400, body: JSON.stringify({ error: "Please enter the gift recipient's 10-digit mobile number." }) };
+            }
+            const clean = (v, n) => String(v || "").replace(/[<>]/g, "").trim().slice(0, n);
+            orderData.is_gift = true;
+            orderData.gift_recipient = clean(body.gift.recipient, 80);
+            orderData.gift_recipient_phone = clean(body.gift.recipient_phone, 15).replace(/[^\d+ ]/g, "") || null;
+            orderData.gift_message = clean(body.gift.message, 200) || null;
+        }
         if (user_id) {
             orderData.user_id = user_id;
         } else {

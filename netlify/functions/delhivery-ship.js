@@ -67,8 +67,8 @@ function defaultsFor(order) {
 
     return {
         order_ref: "TRC-" + String(order.id).slice(0, 8).toUpperCase(),
-        name: order.guest_name || order.customer_name || "",
-        phone: String(order.guest_phone || "").replace(/\D/g, "").slice(-10),
+        name: (order.is_gift && order.gift_recipient) || order.guest_name || order.customer_name || "",
+        phone: String((order.is_gift && order.gift_recipient_phone) || order.guest_phone || "").replace(/\D/g, "").slice(-10),
         add: addr.add,
         city: addr.city,
         state: addr.state,
