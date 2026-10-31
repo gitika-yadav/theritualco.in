@@ -2,96 +2,81 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <title>Analytics — The Ritual Co.</title>
-    <meta name="robots" content="noindex,nofollow"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Results — The Ritual Co. (Admin)</title>
+    <meta name="robots" content="noindex, nofollow"/>
     <style>
+        :root{
+            --bg:#f5f2ee; --card:#fff; --ink:#1a1714; --ink2:#5a4f48; --muted:#a09890; --line:#ece6de; --soft:#faf8f5;
+            --bar:#3a3330; --bar-soft:#d9cfc4;
+            --good:#2f7a3a; --good-bg:#eaf3e2; --bad:#a32d2d; --bad-bg:#fcebeb; --warn:#8a5a12; --warn-bg:#fbf1dd;
+        }
         *{box-sizing:border-box;margin:0;padding:0;}
-        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f2ee;color:#3a3330;min-height:100vh;font-size:14px;}
-
-        #lock{position:fixed;inset:0;background:#f5f2ee;display:flex;align-items:center;justify-content:center;z-index:100;}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink2);min-height:100vh;font-size:14px;}
+        #lock{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:100;}
         .lock-card{background:#fff;border:0.5px solid #e0dbd4;border-radius:12px;padding:40px;width:320px;text-align:center;}
-        .lock-wordmark{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#a09890;margin-bottom:20px;}
-        .lock-title{font-size:20px;font-weight:400;margin-bottom:20px;color:#1a1714;}
-        .lock-input{width:100%;padding:10px 12px;border:0.5px solid #d0cbc4;border-radius:8px;font-size:14px;font-family:inherit;margin-bottom:10px;background:#faf8f5;}
-        .lock-input:focus{outline:none;border-color:#3a3330;}
+        .lock-wordmark{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;}
+        .lock-title{font-size:20px;font-weight:400;margin-bottom:20px;color:var(--ink);}
+        .lock-input{width:100%;padding:10px 12px;border:0.5px solid #d0cbc4;border-radius:8px;font-size:16px;font-family:inherit;margin-bottom:10px;background:var(--soft);}
         .lock-btn{width:100%;padding:11px;background:#3a3330;color:#fff;border:none;border-radius:8px;font-size:14px;font-family:inherit;cursor:pointer;}
-        .lock-err{font-size:12px;color:#c0392b;margin-top:8px;display:none;}
-
+        .lock-err{font-size:12px;color:var(--bad);margin-top:8px;display:none;}
         #app{display:none;}
         .topbar{background:#fff;border-bottom:0.5px solid #e0dbd4;padding:0 28px;height:52px;display:flex;align-items:center;justify-content:space-between;}
         .topbar-left{display:flex;align-items:center;gap:20px;}
-        .topbar-brand{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#a09890;}
-        .topbar-title{font-size:14px;font-weight:500;color:#1a1714;}
-        .nav-link{font-size:12px;color:#a09890;text-decoration:none;padding:4px 10px;border-radius:6px;}
-        .nav-link:hover{background:#f5f2ee;color:#3a3330;}
-        .logout-btn{font-size:12px;color:#a09890;background:none;border:none;cursor:pointer;}
-        .refresh-btn{font-size:12px;padding:6px 14px;background:#3a3330;color:#fff;border:none;border-radius:6px;cursor:pointer;font-family:inherit;}
-
-        .content{padding:24px 28px;}
-
-        /* KPI row */
-        .kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:28px;}
-        .kpi{background:#fff;border:0.5px solid #e0dbd4;border-radius:10px;padding:16px 18px;}
-        .kpi-val{font-size:22px;font-weight:500;color:#1a1714;margin-bottom:2px;line-height:1;}
-        .kpi-lbl{font-size:11px;color:#a09890;margin-top:4px;}
-        .kpi-sub{font-size:11px;color:#c0b8b0;margin-top:2px;}
-        .kpi.highlight{background:#3a3330;}
-        .kpi.highlight .kpi-val{color:#fff;}
-        .kpi.highlight .kpi-lbl{color:#a09890;}
-
-        /* Charts */
-        .charts-row{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px;}
-        .chart-card{background:#fff;border:0.5px solid #e0dbd4;border-radius:10px;padding:20px;}
-        .chart-title{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#a09890;margin-bottom:16px;}
-        .chart-wrap{position:relative;height:200px;}
-
-        .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
-        .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px;}
-
-        /* Tables */
-        table{width:100%;border-collapse:collapse;}
-        th{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#a09890;text-align:left;padding:8px 12px;border-bottom:0.5px solid #e0dbd4;font-weight:500;}
-        td{padding:10px 12px;border-bottom:0.5px solid #f0ebe5;font-size:13px;}
+        .brand{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+        .ttl{font-size:14px;font-weight:500;color:var(--ink);}
+        .topbar a,.logout{font-size:12px;color:var(--muted);text-decoration:none;background:none;border:none;cursor:pointer;margin-left:14px;}
+        .main{max-width:1180px;margin:0 auto;padding:24px 28px 60px;}
+        .controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
+        .controls h1{font-size:20px;font-weight:500;color:var(--ink);margin-right:auto;}
+        .seg{display:inline-flex;background:#fff;border:0.5px solid #ddd5cb;border-radius:999px;padding:3px;}
+        .seg button{border:none;background:none;padding:6px 14px;border-radius:999px;font:inherit;font-size:12px;color:var(--ink2);cursor:pointer;}
+        .seg button.on{background:#3a3330;color:#fff;}
+        .nav{border:0.5px solid #ddd5cb;background:#fff;border-radius:999px;width:32px;height:32px;cursor:pointer;color:var(--ink2);font-size:14px;}
+        .nav:disabled{opacity:.35;cursor:default;}
+        .period{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;}
+        .range{font-size:12px;color:var(--muted);min-width:190px;text-align:center;}
+        .tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:14px;}
+        .tile{background:var(--card);border:0.5px solid #e6e0d8;border-radius:12px;padding:14px 16px;}
+        .tile .k{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);}
+        .tile .v{font-size:24px;font-weight:500;color:var(--ink);margin:6px 0 4px;font-variant-numeric:tabular-nums;}
+        .tile .d{font-size:12px;color:var(--muted);}
+        .tile .d.up,.up{color:var(--good);} .tile .d.down,.down{color:var(--bad);}
+        .grid2{display:grid;grid-template-columns:1.3fr 1fr;gap:14px;margin-bottom:14px;}
+        .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px;}
+        .card{background:var(--card);border:0.5px solid #e6e0d8;border-radius:12px;padding:18px 20px;}
+        .card h2{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:2px;}
+        .card .sub{font-size:12px;color:var(--muted);margin-bottom:14px;}
+        .row{display:grid;grid-template-columns:150px 1fr 64px;gap:12px;align-items:center;padding:7px 0;font-size:13px;}
+        .row .lbl{color:var(--ink2);}
+        .row .num{text-align:right;color:var(--ink);font-variant-numeric:tabular-nums;}
+        .track{height:10px;background:var(--soft);border-radius:4px;position:relative;}
+        .fill{height:100%;background:var(--bar);border-radius:0 4px 4px 0;min-width:2px;}
+        .row .step{grid-column:2 / 4;font-size:11px;color:var(--muted);margin-top:-4px;}
+        table{width:100%;border-collapse:collapse;font-size:13px;}
+        th{text-align:left;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500;padding:0 8px 8px;border-bottom:0.5px solid var(--line);}
+        td{padding:9px 8px;border-bottom:0.5px solid #f3eee8;color:var(--ink);font-variant-numeric:tabular-nums;}
+        td.l{color:var(--ink2);} th.r,td.r{text-align:right;}
         tr:last-child td{border-bottom:none;}
-        tr:hover td{background:#faf8f5;}
-
-        /* Bar chart custom */
-        .bar-list{display:flex;flex-direction:column;gap:10px;}
-        .bar-item{display:flex;align-items:center;gap:10px;}
-        .bar-label{font-size:12px;color:#7a6f68;width:80px;flex-shrink:0;}
-        .bar-track{flex:1;background:#f0ebe5;border-radius:4px;height:8px;overflow:hidden;}
-        .bar-fill{height:100%;border-radius:4px;background:#3a3330;transition:width .4s ease;}
-        .bar-val{font-size:12px;color:#a09890;width:40px;text-align:right;flex-shrink:0;}
-
-        /* Funnel */
-        .funnel{display:flex;flex-direction:column;gap:8px;}
-        .funnel-step{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-radius:8px;font-size:13px;}
-        .funnel-step:nth-child(1){background:#f5f2ee;}
-        .funnel-step:nth-child(2){background:#ede8e2;}
-        .funnel-step:nth-child(3){background:#e3dcd4;}
-        .funnel-step:nth-child(4){background:#d9d0c6;}
-        .funnel-label{color:#3a3330;}
-        .funnel-val{font-weight:500;color:#1a1714;}
-        .funnel-pct{font-size:11px;color:#a09890;margin-left:8px;}
-
-        /* Discount table */
-        .badge{display:inline-flex;padding:2px 8px;border-radius:20px;font-size:11px;}
-        .badge-active{background:#eaf3de;color:#3b6d11;}
-        .badge-inactive{background:#f0ebe5;color:#a09890;}
-
-        .empty-state{text-align:center;padding:40px;color:#a09890;font-size:13px;}
-        .loading-overlay{display:flex;align-items:center;justify-content:center;padding:60px;color:#a09890;}
+        .pill{display:inline-flex;align-items:center;gap:5px;padding:2px 9px;border-radius:999px;font-size:11px;white-space:nowrap;}
+        .pill-good{background:var(--good-bg);color:var(--good);} .pill-bad{background:var(--bad-bg);color:var(--bad);} .pill-warn{background:var(--warn-bg);color:var(--warn);}
+        .kv{display:flex;justify-content:space-between;padding:6px 0;font-size:13px;border-bottom:0.5px solid #f3eee8;}
+        .kv:last-child{border-bottom:none;} .kv b{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums;}
+        .setup{background:var(--soft);border:1px dashed #d9cfc4;border-radius:10px;padding:14px 16px;font-size:12.5px;line-height:1.6;color:var(--ink2);}
+        .setup b{color:var(--ink);} .setup code{background:#fff;border-radius:4px;padding:1px 5px;font-size:12px;}
+        .err{color:var(--bad);font-size:12.5px;}
+        .note{font-size:11.5px;color:var(--muted);margin-top:10px;line-height:1.5;}
+        .loading{opacity:.45;pointer-events:none;transition:opacity .2s;}
+        @media(max-width:1000px){.tiles{grid-template-columns:repeat(3,1fr);}.grid2,.grid4{grid-template-columns:1fr 1fr;}}
+        @media(max-width:640px){.main{padding:16px;}.tiles{grid-template-columns:1fr 1fr;}.grid2,.grid4{grid-template-columns:1fr;}.row{grid-template-columns:110px 1fr 54px;}.range{min-width:0;}.topbar{padding:0 16px;}.hide-m{display:none;}}
     </style>
 </head>
 <body>
-
 <div id="lock">
     <div class="lock-card">
         <div class="lock-wordmark">The Ritual Co.</div>
-        <div class="lock-title">Analytics</div>
-        <input class="lock-input" type="password" id="lock-pass" placeholder="Admin password" onkeydown="if(event.key==='Enter')unlock()"/>
+        <div class="lock-title">Results</div>
+        <input class="lock-input" type="password" id="lock-pass" placeholder="Admin password"/>
         <button class="lock-btn" onclick="unlock()">Enter</button>
         <div class="lock-err" id="lock-err">Incorrect password</div>
     </div>
@@ -99,268 +84,229 @@
 
 <div id="app">
     <div class="topbar">
-        <div class="topbar-left">
-            <div class="topbar-brand">The Ritual Co.</div>
-            <div class="topbar-title">Analytics</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:12px;">
-            <a href="/admin/orders" class="nav-link">Orders</a>
-            <a href="/admin/newsletter" class="nav-link">Newsletter</a>
-            <a href="/admin/discounts" class="nav-link">Discounts</a>
-            <button class="refresh-btn" onclick="loadData()">Refresh</button>
-            <button class="logout-btn" onclick="logout()">Sign out</button>
-        </div>
+        <div class="topbar-left"><div class="brand">The Ritual Co.</div><div class="ttl">Results</div></div>
+        <div><a href="/admin/orders.html">Orders</a><a href="/admin/events.html" class="hide-m">Events</a><button class="logout" onclick="logout()">Sign out</button></div>
     </div>
-
-    <div class="content" id="content">
-        <div class="loading-overlay">Loading analytics…</div>
+    <div class="main" id="main">
+        <div class="controls">
+            <h1>How the week went</h1>
+            <div class="seg" id="seg">
+                <button data-days="7" class="on">7 days</button><button data-days="14">14 days</button><button data-days="30">30 days</button>
+            </div>
+            <span class="period"><button class="nav" id="prev" title="Previous period">‹</button>
+            <span class="range" id="range">—</span>
+            <button class="nav" id="next" title="Next period">›</button></span>
+        </div>
+        <div class="tiles" id="tiles"></div>
+        <div class="grid2">
+            <div class="card" id="funnel"></div>
+            <div class="card" id="ads"></div>
+        </div>
+        <div class="grid2">
+            <div class="card" id="products"></div>
+            <div class="card" id="features"></div>
+        </div>
+        <div class="grid4">
+            <div class="card" id="payments"></div>
+            <div class="card" id="recovery"></div>
+            <div class="card" id="delivery"></div>
+            <div class="card" id="community"></div>
+        </div>
+        <p class="note">Orders count paid, COD, shipped and delivered retail orders (not creator gifts or wholesale). Meta's purchases are what Meta attributes to its ads; site orders are all orders from every source. Turn on staff mode on your own devices so test orders don't skew this.</p>
     </div>
 </div>
 
 <script>
-    let SESSION_TOKEN = null;
-    let revenueChart = null;
+    let SESSION_TOKEN = null, DAYS = 7, END = null, DATA = null;
+    const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    const inr = n => n == null ? "—" : "₹" + Math.round(n).toLocaleString("en-IN");
+    const num = n => n == null ? "—" : Number(n).toLocaleString("en-IN");
+    const pct = (a, b) => { if (!b) return "—"; const v = a / b * 100; return (v > 0 && v < 1 ? v.toFixed(1) : Math.round(v)) + "%"; };
+    const istToday = () => new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" });
+    const shift = (ymd, n) => { const d = new Date(ymd + "T12:00:00+05:30"); d.setDate(d.getDate() + n); return d.toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" }); };
+    const nice = ymd => new Date(ymd + "T12:00:00+05:30").toLocaleDateString("en-IN", { day: "numeric", month: "short" });
 
+    // ── Auth (same session as the other admin pages) ──
     async function unlock() {
-        const pass = document.getElementById("lock-pass").value;
-        if (!pass) return;
-        try {
-            const res = await fetch("/.netlify/functions/admin-auth", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ password: pass }),
-            });
-            if (!res.ok) { document.getElementById("lock-err").style.display = "block"; document.getElementById("lock-pass").value = ""; return; }
-            const { token } = await res.json();
-            SESSION_TOKEN = token;
-            sessionStorage.setItem("rc_admin_token", token);
-            document.getElementById("lock").style.display = "none";
-            document.getElementById("app").style.display = "block";
-            loadData();
-        } catch { document.getElementById("lock-err").style.display = "block"; }
+        const pass = document.getElementById("lock-pass").value; if (!pass) return;
+        const res = await fetch("/.netlify/functions/admin-auth", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password: pass }) });
+        if (!res.ok) { document.getElementById("lock-err").style.display = "block"; return; }
+        SESSION_TOKEN = (await res.json()).token; sessionStorage.setItem("rc_admin_token", SESSION_TOKEN); start();
     }
-
-    function logout() { sessionStorage.removeItem("rc_admin_token"); SESSION_TOKEN = null; location.reload(); }
-
-    const saved = sessionStorage.getItem("rc_admin_token");
-    if (saved) {
-        const [expires] = saved.split(".");
-        if (Date.now() < parseInt(expires)) {
-            SESSION_TOKEN = saved;
-            document.getElementById("lock").style.display = "none";
-            document.getElementById("app").style.display = "block";
-            loadData();
-        } else sessionStorage.removeItem("rc_admin_token");
-    }
+    function logout() { sessionStorage.removeItem("rc_admin_token"); location.reload(); }
+    function start() { document.getElementById("lock").style.display = "none"; document.getElementById("app").style.display = "block"; END = istToday(); load(); }
     document.getElementById("lock-pass").addEventListener("keydown", e => { if (e.key === "Enter") unlock(); });
+    (function () { const s = sessionStorage.getItem("rc_admin_token"); if (s && Date.now() < parseInt(s.split(".")[0])) { SESSION_TOKEN = s; start(); } })();
 
-    async function loadData() {
-        document.getElementById("content").innerHTML = `<div class="loading-overlay">Loading analytics…</div>`;
-        if (revenueChart) { revenueChart.destroy(); revenueChart = null; }
+    // ── Controls ──
+    document.getElementById("seg").addEventListener("click", e => {
+        const b = e.target.closest("button"); if (!b) return;
+        document.querySelectorAll("#seg button").forEach(x => x.classList.toggle("on", x === b));
+        DAYS = Number(b.dataset.days); END = istToday(); load();
+    });
+    document.getElementById("prev").onclick = () => { END = shift(END, -DAYS); load(); };
+    document.getElementById("next").onclick = () => { const n = shift(END, DAYS); END = n > istToday() ? istToday() : n; load(); };
 
+    async function load() {
+        const main = document.getElementById("main"); main.classList.add("loading");
         try {
-            const res = await fetch("/.netlify/functions/admin-analytics", {
-                headers: { "x-admin-token": SESSION_TOKEN }
-            });
-            const data = await res.json();
-            render(data);
+            const res = await fetch("/.netlify/functions/admin-results", { method: "POST", headers: { "Content-Type": "application/json", "x-admin-token": SESSION_TOKEN }, body: JSON.stringify({ days: DAYS, end: END }) });
+            if (res.status === 401) return logout();
+            DATA = await res.json();
+            if (!res.ok) throw new Error(DATA.error || "HTTP " + res.status);
+            render(DATA);
         } catch (e) {
-            document.getElementById("content").innerHTML = `<div class="empty-state">Failed to load — ${e.message}</div>`;
-        }
+            document.getElementById("tiles").innerHTML = `<div class="card err" style="grid-column:1/-1">Couldn't load results: ${esc(e.message)}</div>`;
+        } finally { main.classList.remove("loading"); }
     }
 
-    function fmt(n) { return "₹" + Math.round(n).toLocaleString("en-IN"); }
+    // change vs previous period; lowerIsBetter flips the colour
+    function delta(cur, prev, lowerIsBetter) {
+        if (cur == null || prev == null) return '<span class="d">—</span>';
+        if (!prev) return cur ? '<span class="d">new vs 0 before</span>' : '<span class="d">same as before</span>';
+        const ch = Math.round((cur - prev) / prev * 100);
+        if (ch === 0) return '<span class="d">same as before</span>';
+        const good = lowerIsBetter ? ch < 0 : ch > 0;
+        return `<span class="d ${good ? "up" : "down"}">${ch > 0 ? "▲" : "▼"} ${Math.abs(ch)}% <span style="color:var(--muted)">vs prev</span></span>`;
+    }
 
-    function render(data) {
-        const { summary, revenue_by_day, orders_by_day, by_colour, by_weight, by_status, top_customers, discounts } = data;
+    function render(d) {
+        const s = d.store, p = d.storePrev, m = d.meta, mp = d.metaPrev || {};
+        document.getElementById("range").textContent = `${nice(d.period.since)} – ${nice(d.period.until)}`;
+        document.getElementById("next").disabled = d.period.until >= istToday();
 
-        // Revenue chart data
-        const days = Object.keys(revenue_by_day).sort();
-        const revenues = days.map(d => revenue_by_day[d]);
-        const orderCounts = days.map(d => orders_by_day[d] || 0);
-        const fmtDay = d => { const dt = new Date(d); return dt.toLocaleDateString("en-IN", { day:"numeric", month:"short" }); };
+        const spend = m.connected && !m.error ? m.spend : null, spendPrev = mp.connected && !mp.error ? mp.spend : null;
+        const cpo = spend != null && s.orders ? spend / s.orders : null, cpoPrev = spendPrev != null && p.orders ? spendPrev / p.orders : null;
+        const roas = spend ? s.revenue / spend : null, roasPrev = spendPrev ? p.revenue / spendPrev : null;
+        const tiles = [
+            ["Revenue", inr(s.revenue), delta(s.revenue, p.revenue)],
+            ["Orders", num(s.orders), delta(s.orders, p.orders)],
+            ["Avg order", inr(s.aov), delta(s.aov, p.aov)],
+            ["Ad spend (Meta)", spend == null ? "—" : inr(spend), spend == null ? '<span class="d">connect Meta below</span>' : delta(spend, spendPrev, true)],
+            ["Ad cost per order", cpo == null ? "—" : inr(cpo), cpo == null ? '<span class="d">needs Meta + orders</span>' : delta(cpo, cpoPrev, true)],
+            ["Revenue per ₹1 of ads", roas == null ? "—" : "₹" + roas.toFixed(1), roas == null ? '<span class="d">needs Meta</span>' : delta(roas, roasPrev)],
+        ];
+        document.getElementById("tiles").innerHTML = tiles.map(([k, v, dl]) => `<div class="tile"><div class="k">${k}</div><div class="v">${v}</div>${dl}</div>`).join("");
 
-        // Colour bars
-        const maxColour = Math.max(...Object.values(by_colour), 1);
-        const colourBars = Object.entries(by_colour).sort((a,b) => b[1]-a[1]).map(([c, n]) => `
-    <div class="bar-item">
-      <div class="bar-label">${c}</div>
-      <div class="bar-track"><div class="bar-fill" style="width:${(n/maxColour)*100}%"></div></div>
-      <div class="bar-val">${n}</div>
-    </div>`).join("") || `<div class="empty-state">No data yet</div>`;
+        renderFunnel(d.ga, s);
+        renderAds(m);
+        renderProducts(s.products);
+        renderFeatures(d.ga);
 
-        // Weight bars
-        const maxWeight = Math.max(...Object.values(by_weight), 1);
-        const weightBars = Object.entries(by_weight).sort((a,b) => b[1]-a[1]).map(([w, n]) => `
-    <div class="bar-item">
-      <div class="bar-label">${w}</div>
-      <div class="bar-track"><div class="bar-fill" style="width:${(n/maxWeight)*100}%"></div></div>
-      <div class="bar-val">${n}</div>
-    </div>`).join("") || `<div class="empty-state">No data yet</div>`;
+        document.getElementById("payments").innerHTML = `<h2>Payment mix</h2><p class="sub">Of ${num(s.orders)} orders</p>
+            ${kv("Paid online", `${num(s.prepaid_orders)} · ${pct(s.prepaid_orders, s.orders)}`)}
+            ${kv("Cash on delivery", `${num(s.cod_orders)} · ${pct(s.cod_orders, s.orders)}`)}
+            ${kv("Gift orders", num(s.gifts))}
+            ${kv("Used a discount code", num(s.discount_orders))}
+            ${kv("COD share before", p.orders ? p.cod_share + "%" : "—")}`;
+        document.getElementById("recovery").innerHTML = `<h2>Checkout & recovery</h2><p class="sub">People who typed their email at checkout</p>
+            ${kv("Checkouts started", num(s.checkouts_started))}
+            ${kv("Completed", `${num(s.checkouts_converted)} · ${pct(s.checkouts_converted, s.checkouts_started)}`)}
+            ${kv("Reminder emails sent", num(s.reminders_sent))}
+            ${kv("Recovered by email", num(s.carts_recovered))}
+            ${kv("Recovered value", inr(s.recovered_value))}`;
+        document.getElementById("delivery").innerHTML = `<h2>Delivery</h2><p class="sub">Orders shipped in this period</p>
+            ${kv("Shipped", num(s.shipped))}
+            ${kv("Delivered", num(s.delivered))}
+            ${kv("Avg days to deliver", s.avg_delivery_days == null ? "—" : s.avg_delivery_days)}
+            ${kv("Returning to us (RTO)", s.returning ? `<span class="pill pill-bad">⚠ ${s.returning}</span>` : "0")}`;
+        document.getElementById("community").innerHTML = `<h2>Events & reviews</h2><p class="sub">Booked or written in this period</p>
+            ${kv("Event bookings", `${num(s.event_bookings)} · ${num(s.event_tickets)} spots`)}
+            ${kv("Ticket revenue", inr(s.event_revenue))}
+            ${kv("New reviews", num(s.reviews_new))}
+            ${kv("Awaiting approval", num(s.reviews_new - s.reviews_approved))}
+            ${kv("Avg rating", s.reviews_avg == null ? "—" : s.reviews_avg + " ★")}`;
+    }
+    const kv = (k, v) => `<div class="kv"><span>${k}</span><b>${v}</b></div>`;
 
-        // Status bars
-        const STATUS_COLORS = { paid:"#27ae60", shipped:"#2980b9", delivered:"#1abc9c", pending:"#e67e22", refunded:"#e74c3c" };
-        const maxStatus = Math.max(...Object.values(by_status), 1);
-        const statusBars = Object.entries(by_status).sort((a,b) => b[1]-a[1]).map(([s, n]) => `
-    <div class="bar-item">
-      <div class="bar-label">${s}</div>
-      <div class="bar-track"><div class="bar-fill" style="width:${(n/maxStatus)*100}%;background:${STATUS_COLORS[s]||'#3a3330'}"></div></div>
-      <div class="bar-val">${n}</div>
-    </div>`).join("") || `<div class="empty-state">No data yet</div>`;
+    function setupBox(lines) { return `<div class="setup">${lines}</div>`; }
 
-        // Top customers
-        const customerRows = top_customers.length ? top_customers.map(c => `
-    <tr>
-      <td>${c.name}</td>
-      <td style="color:#a09890;font-size:12px;">${c.email}</td>
-      <td>${c.orders}</td>
-      <td style="font-weight:500;">${fmt(c.revenue)}</td>
-    </tr>`).join("") : `<tr><td colspan="4" class="empty-state">No orders yet</td></tr>`;
-
-        // Discount rows
-        const discountRows = discounts.length ? discounts.map(d => `
-    <tr>
-      <td><span style="font-family:monospace;font-weight:600;background:#f0ebe5;padding:2px 6px;border-radius:4px;">${d.code}</span></td>
-      <td>${d.type === "percentage" ? `${d.value}%` : d.type === "fixed" ? fmt(d.value) : "Free ship"}</td>
-      <td>${d.used_count || 0}</td>
-      <td>${d.used_count ? fmt((d.discount_amount || d.value) * d.used_count) : "—"}</td>
-    </tr>`).join("") : `<tr><td colspan="4" class="empty-state">No discount codes yet</td></tr>`;
-
-        document.getElementById("content").innerHTML = `
-    <!-- KPIs -->
-    <div class="kpi-grid">
-      <div class="kpi highlight">
-        <div class="kpi-val">${fmt(summary.total_revenue)}</div>
-        <div class="kpi-lbl">Total revenue</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-val">${summary.paid_orders}</div>
-        <div class="kpi-lbl">Orders placed</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-val">${fmt(summary.avg_order_value)}</div>
-        <div class="kpi-lbl">Avg order value</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-val">${summary.waitlist_count}</div>
-        <div class="kpi-lbl">Waitlist signups</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-val">${summary.conversion_rate}%</div>
-        <div class="kpi-lbl">Waitlist → order</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-val">${summary.pending_shipment}</div>
-        <div class="kpi-lbl">To ship</div>
-      </div>
-    </div>
-
-    <!-- Revenue chart + Funnel -->
-    <div class="charts-row">
-      <div class="chart-card">
-        <div class="chart-title">Revenue & orders over time</div>
-        <div class="chart-wrap"><canvas id="revenue-chart"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title">Conversion funnel</div>
-        <div class="funnel">
-          <div class="funnel-step">
-            <span class="funnel-label">Waitlist signups</span>
-            <span class="funnel-val">${summary.waitlist_count}</span>
-          </div>
-          <div class="funnel-step">
-            <span class="funnel-label">Total orders</span>
-            <span class="funnel-val">${summary.total_orders}<span class="funnel-pct">${summary.waitlist_count ? ((summary.total_orders/summary.waitlist_count)*100).toFixed(0) : 0}%</span></span>
-          </div>
-          <div class="funnel-step">
-            <span class="funnel-label">Paid orders</span>
-            <span class="funnel-val">${summary.paid_orders}<span class="funnel-pct">${summary.total_orders ? ((summary.paid_orders/summary.total_orders)*100).toFixed(0) : 0}%</span></span>
-          </div>
-          <div class="funnel-step">
-            <span class="funnel-label">Shipped</span>
-            <span class="funnel-val">${(by_status.shipped||0)+(by_status.delivered||0)}<span class="funnel-pct">${summary.paid_orders ? (((by_status.shipped||0)+(by_status.delivered||0))/summary.paid_orders*100).toFixed(0) : 0}%</span></span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Colour, Weight, Status -->
-    <div class="grid3">
-      <div class="chart-card">
-        <div class="chart-title">Orders by colour</div>
-        <div class="bar-list">${colourBars}</div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title">Orders by weight</div>
-        <div class="bar-list">${weightBars}</div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title">Orders by status</div>
-        <div class="bar-list">${statusBars}</div>
-      </div>
-    </div>
-
-    <!-- Top customers + Discounts -->
-    <div class="grid2">
-      <div class="chart-card">
-        <div class="chart-title">Top customers</div>
-        <table>
-          <thead><tr><th>Name</th><th>Email</th><th>Orders</th><th>Revenue</th></tr></thead>
-          <tbody>${customerRows}</tbody>
-        </table>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title">Discount code performance</div>
-        <table>
-          <thead><tr><th>Code</th><th>Value</th><th>Uses</th><th>Savings given</th></tr></thead>
-          <tbody>${discountRows}</tbody>
-        </table>
-      </div>
-    </div>
-  `;
-
-        // Draw revenue chart
-        const ctx = document.getElementById("revenue-chart");
-        if (ctx && days.length) {
-            revenueChart = new Chart(ctx, {
-                type: "bar",
-                data: {
-                    labels: days.map(fmtDay),
-                    datasets: [
-                        {
-                            label: "Revenue (₹)",
-                            data: revenues,
-                            backgroundColor: "#3a3330",
-                            borderRadius: 4,
-                            yAxisID: "y",
-                        },
-                        {
-                            label: "Orders",
-                            data: orderCounts,
-                            type: "line",
-                            borderColor: "#c0b8b0",
-                            backgroundColor: "transparent",
-                            pointBackgroundColor: "#c0b8b0",
-                            pointRadius: 3,
-                            tension: 0.3,
-                            yAxisID: "y1",
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        x: { grid: { display: false }, ticks: { font: { size: 10 }, color: "#a09890" } },
-                        y: { position: "left", grid: { color: "#f0ebe5" }, ticks: { font: { size: 10 }, color: "#a09890", callback: v => "₹" + v.toLocaleString("en-IN") } },
-                        y1: { position: "right", grid: { display: false }, ticks: { font: { size: 10 }, color: "#c0b8b0" } }
-                    }
-                }
-            });
-        } else if (ctx) {
-            ctx.parentElement.innerHTML = `<div class="empty-state">No orders yet — chart will appear once orders come in</div>`;
+    function renderFunnel(ga, s) {
+        const el = document.getElementById("funnel");
+        let html = `<h2>From visit to order</h2><p class="sub">Unique visitors at each step (Google Analytics); orders from your database</p>`;
+        if (!ga.connected) {
+            el.innerHTML = html + setupBox(`<b>Connect Google Analytics</b> (one-time):<br>
+                1. GA4 → Admin → <b>Property access management</b> → add the email in your <code>GOOGLE_SERVICE_ACCOUNT</code> (its <code>client_email</code>) as a <b>Viewer</b>.<br>
+                2. GA4 → Admin → Property details → copy the <b>Property ID</b> (numbers only).<br>
+                3. Netlify → add <code>GA4_PROPERTY_ID</code> = that number, redeploy.`);
+            return;
         }
+        if (ga.error) { el.innerHTML = html + `<p class="err">Google Analytics error: ${esc(ga.error)}</p>`; return; }
+        const f = Object.fromEntries(ga.funnel.map(x => [x.name, x.users]));
+        const steps = [
+            ["Visitors", ga.users],
+            ["Viewed a product", f.view_item],
+            ["Added to cart", f.add_to_cart],
+            ["Started checkout", f.begin_checkout],
+            ["Ordered", s.orders],
+        ];
+        const top = Math.max(1, steps[0][1]);
+        html += steps.map(([lbl, v], i) => {
+            const prev = i ? steps[i - 1][1] : null;
+            return `<div class="row" title="${lbl}: ${num(v)}${i ? " — " + pct(v, prev) + " of previous step" : ""}">
+                <span class="lbl">${lbl}</span>
+                <span class="track"><span class="fill" style="width:${Math.max(0.5, v / top * 100)}%;display:block"></span></span>
+                <span class="num">${num(v)}</span>
+                ${i ? `<span class="step">${pct(v, prev)} of previous step · ${pct(v, top)} of visitors</span>` : ""}
+            </div>`;
+        }).join("");
+        html += `<p class="note">Conversion rate: <b style="color:var(--ink)">${ga.users ? (s.orders / ga.users * 100).toFixed(2) + "%" : "—"}</b> of visitors ordered. Biggest drop is where to focus.</p>`;
+        if (ga.channels && ga.channels.length) {
+            html += `<p class="sub" style="margin:14px 0 6px">Where visits came from</p>` + ga.channels.map(c => `<div class="kv"><span>${esc(c.name)}</span><b>${num(c.sessions)}</b></div>`).join("");
+        }
+        el.innerHTML = html;
+    }
+
+    function renderAds(m) {
+        const el = document.getElementById("ads");
+        let html = `<h2>Meta ads by campaign</h2><p class="sub">Cost per purchase against your cap (socks ₹500 · ankle weights ₹600 · mat ₹1,000)</p>`;
+        if (!m.connected) {
+            el.innerHTML = html + setupBox(`<b>Connect Meta ads</b> (read-only):<br>
+                1. Meta Business Settings → <b>System users</b> → add one (Employee) → assign your ad account with <b>View performance</b>.<br>
+                2. <b>Generate token</b> → pick your app → tick <code>ads_read</code> → copy.<br>
+                3. Netlify → add <code>META_ADS_TOKEN</code> = token and <code>META_AD_ACCOUNT_ID</code> = your ad account number (Ads Manager URL <code>act=…</code>), redeploy.`);
+            return;
+        }
+        if (m.error) { el.innerHTML = html + `<p class="err">Meta error: ${esc(m.error)}</p>`; return; }
+        if (!m.campaigns.length) { el.innerHTML = html + `<p class="sub">No ad spend in this period.</p>`; return; }
+        html += `<table><thead><tr><th>Campaign</th><th class="r">Spend</th><th class="r hide-m">Clicks</th><th class="r hide-m">Add to cart</th><th class="r">Sales</th><th class="r">Per sale</th></tr></thead><tbody>` +
+            m.campaigns.map(c => {
+                let status = "";
+                if (c.cost_per_purchase != null && c.cap) status = c.cost_per_purchase <= c.cap
+                    ? `<span class="pill pill-good">✓ ${inr(c.cost_per_purchase)}</span>` : `<span class="pill pill-bad">▲ ${inr(c.cost_per_purchase)}</span>`;
+                else if (c.cost_per_purchase != null) status = inr(c.cost_per_purchase);
+                else if (c.cap && c.spend >= c.cap) status = `<span class="pill pill-warn">No sale · ${inr(c.spend)}</span>`;
+                else status = `<span style="color:var(--muted)">—</span>`;
+                return `<tr><td class="l">${esc(c.name)}</td><td class="r">${inr(c.spend)}</td><td class="r hide-m">${num(c.clicks)}</td><td class="r hide-m">${num(c.add_to_carts)}</td><td class="r">${num(c.purchases)}</td><td class="r" title="${c.cap ? "Cap " + inr(c.cap) : "No cap set"}">${status}</td></tr>`;
+            }).join("") + `</tbody></table>
+            <p class="note">✓ under your cap · ▲ over your cap · "No sale" once spend passes the cap without a purchase. Total: ${inr(m.spend)} spend, ${num(m.purchases)} Meta-attributed sales.</p>`;
+        el.innerHTML = html;
+    }
+
+    function renderProducts(list) {
+        const el = document.getElementById("products");
+        let html = `<h2>What sold</h2><p class="sub">Revenue by product (kits counted as kits)</p>`;
+        if (!list.length) { el.innerHTML = html + `<p class="sub">No orders in this period.</p>`; return; }
+        const top = Math.max(1, list[0].revenue);
+        html += list.map(p => `<div class="row" title="${esc(p.name)}: ${num(p.units)} sold · ${inr(p.revenue)}">
+            <span class="lbl">${esc(p.name)} <span style="color:var(--muted)">× ${num(p.units)}</span></span>
+            <span class="track"><span class="fill" style="width:${Math.max(0.5, p.revenue / top * 100)}%;display:block"></span></span>
+            <span class="num">${inr(p.revenue)}</span></div>`).join("");
+        el.innerHTML = html;
+    }
+
+    function renderFeatures(ga) {
+        const el = document.getElementById("features");
+        let html = `<h2>New features in use</h2><p class="sub">Clicks tracked in Google Analytics</p>`;
+        if (!ga.connected) { el.innerHTML = html + `<p class="sub">Shows once Google Analytics is connected (see “From visit to order”).</p>`; return; }
+        if (ga.error) { el.innerHTML = html + `<p class="err">${esc(ga.error)}</p>`; return; }
+        const f = Object.fromEntries(ga.features.map(x => [x.name, x.count]));
+        html += kv("Cart drawer: Pairs well / Trio upgrade", num(f.select_promotion)) +
+            kv("Payment method picked", num(f.select_payment)) +
+            kv("Ticked “This is a gift”", num(f.gift_selected)) +
+            kv("Returned via cart reminder email", num(f.cart_restored)) +
+            kv("Event RSVPs (free)", num(f.sign_up));
+        el.innerHTML = html;
     }
 </script>
 </body>
