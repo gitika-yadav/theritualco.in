@@ -87,6 +87,31 @@
         const avg = reviews.reduce((s, r) => s + r.rating, 0) / reviews.length;
         if (avgEl) avgEl.textContent = avg.toFixed(1);
         if (totalEl) totalEl.textContent = String(reviews.length);
+        showTitleRating(avg, reviews.length);
+    }
+
+    /* ── Stars + "4.7 · 3 reviews" under the product title (links to #reviews).
+       Uses the page's own #rating-mini if it has one (socks), otherwise adds it.
+       Hidden until a product has at least one approved review.               */
+    function showTitleRating(avg, n) {
+        if (!n) return;
+        let mini = document.getElementById('rating-mini');
+        if (!mini) {
+            const title = document.querySelector('.product__title');
+            if (!title) return;
+            mini = document.createElement('a');
+            mini.id = 'rating-mini';
+            mini.className = 'rating-mini';
+            mini.href = '#reviews';
+            mini.setAttribute('aria-label', 'See reviews');
+            title.insertAdjacentElement('afterend', mini);
+        }
+        const full = Math.round(avg);
+        mini.innerHTML =
+            '<span class="rating-mini__stars" aria-hidden="true">' +
+            [1, 2, 3, 4, 5].map(i => STAR_SVG.replace('<svg ', '<svg class="' + (i <= full ? 'on' : 'off') + '" ')).join('') +
+            '</span><span id="rating-mini-text">' + avg.toFixed(1) + ' · ' + n + (n === 1 ? ' review' : ' reviews') + '</span>';
+        mini.style.display = '';
     }
 
     /* ── Submit via your submit-review function ──

@@ -486,19 +486,6 @@
         if (btn && !solo) selectPack(btn);
     })();
 
-    // Mirror the review count/average next to the title once reviews load.
-    (function () {
-        var avg = document.getElementById('reviews-avg'), total = document.getElementById('reviews-total');
-        var mini = document.getElementById('rating-mini'), text = document.getElementById('rating-mini-text');
-        if (!avg || !total || !mini) return;
-        function sync() {
-            var n = parseInt(total.textContent, 10) || 0;
-            if (n > 0) { text.textContent = avg.textContent + ' · ' + n + (n === 1 ? ' review' : ' reviews'); mini.style.display = ''; }
-        }
-        new MutationObserver(sync).observe(total, { childList: true, characterData: true, subtree: true });
-        sync();
-    })();
-
     function setActiveThumb(btn) {
         document.querySelectorAll('.product__thumbs .thumb').forEach(function(t) { t.classList.remove('active'); });
         btn.classList.add('active');
