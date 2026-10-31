@@ -393,7 +393,8 @@
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     cart: cart.items,
-                    name, email, phone, address,
+                    name, email, phone,
+                    address, landmark, pincode, city, state,
                     user_id: user ? user.id : null,
                     amount: finalAmount,
                     discount_code: appliedDiscount ? appliedDiscount.code : null,
@@ -416,7 +417,7 @@
                 currency:    order.currency,
                 order_id:    order.order_id,
                 name:        "The Ritual Co.",
-                description: "Capsule Dumbbell Pre-order",
+                description: "Your Ritual Co. order",
                 prefill:     { name, email, contact: phone },
                 theme:       { color: "#49201F" },
                 handler: async (response) => {
