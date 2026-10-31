@@ -295,3 +295,20 @@ select{
     }
 
 }
+/* ── Payment choice cards (prepaid nudge) ─────────────── */
+.pay-select-hidden{position:absolute !important;width:1px !important;height:1px !important;padding:0 !important;margin:-1px !important;overflow:hidden !important;clip:rect(0 0 0 0) !important;border:0 !important;}
+.pay-choice{display:grid;gap:10px;margin-top:8px;}
+.pay-choice__label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#a09890;margin:0 0 2px;}
+.pay-card{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:16px 18px;background:#fff;border:1.5px solid transparent;border-radius:16px;font:inherit;color:#171717;cursor:pointer;transition:border-color .15s, box-shadow .15s;}
+.pay-card:hover{border-color:#e3d9cd;}
+.pay-card.is-selected{border-color:#3a3330;box-shadow:0 2px 10px rgba(58,51,48,.06);}
+.pay-card__dot{width:18px;height:18px;border-radius:50%;border:1.5px solid #c9beb2;flex-shrink:0;position:relative;}
+.pay-card.is-selected .pay-card__dot{border-color:#3a3330;}
+.pay-card.is-selected .pay-card__dot::after{content:"";position:absolute;inset:3px;border-radius:50%;background:#3a3330;}
+.pay-card__body{flex:1;display:flex;flex-direction:column;gap:3px;min-width:0;}
+.pay-card__title{font-size:15px;font-weight:500;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.pay-card__tag{font-size:10px;letter-spacing:.08em;text-transform:uppercase;background:#eaf3e2;color:#3b6d11;border-radius:999px;padding:3px 8px;font-weight:500;}
+.pay-card__sub{font-size:12.5px;color:#8a7f76;}
+.pay-card__price{font-size:14px;color:#3a3330;white-space:nowrap;}
+.pay-choice__nudge{font-size:13px;color:#7a6f68;margin:2px 4px 0;}
+.pay-choice__nudge button{background:none;border:none;padding:0;font:inherit;color:#3a3330;text-decoration:underline;text-underline-offset:2px;cursor:pointer;}
