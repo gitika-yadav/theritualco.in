@@ -769,7 +769,7 @@
       <div class="detail-row"><span class="detail-key">Ship to</span><span class="detail-val">${escHtml(o.gift_recipient)}</span></div>
       ${o.gift_recipient_phone ? `<div class="detail-row"><span class="detail-key">Their phone</span><span class="detail-val">${escHtml(o.gift_recipient_phone)}</span></div>` : ""}
       <div class="detail-row"><span class="detail-key">Card message</span><span class="detail-val" style="font-style:italic;">${o.gift_message ? "“" + escHtml(o.gift_message) + "”" : "—"}</span></div>
-      <div class="detail-row"><span class="detail-key">Packing</span><span class="detail-val">No prices or invoice in the parcel</span></div>
+      <div class="detail-row"><span class="detail-key">Packing</span><span class="detail-val">Gift wrap + wish card with their message</span></div>
     </div>` : ""}
     <div class="detail-section">
       <div class="detail-section-title">Order (${(o.items || []).length} item${(o.items || []).length === 1 ? "" : "s"})</div>
