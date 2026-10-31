@@ -88,7 +88,7 @@
                 <div class="gift-fields" id="gift-fields" hidden>
                     <p class="gift-hint">Enter the <strong>recipient's address</strong> above. Your name, email and phone stay as the buyer's.</p>
                     <input id="gift-recipient" placeholder="Recipient's name" maxlength="80" autocomplete="off">
-                    <input id="gift-recipient-phone" placeholder="Recipient's phone (optional)" inputmode="tel" maxlength="15" autocomplete="off">
+                    <input id="gift-recipient-phone" placeholder="Recipient's phone" inputmode="tel" maxlength="15" autocomplete="off">
                     <textarea id="gift-message" maxlength="200" rows="3" placeholder="Gift message (optional) — e.g. Happy birthday, Riya! Love, Ananya"></textarea>
                     <span class="gift-count"><span id="gift-count">0</span>/200</span>
                 </div>
@@ -342,8 +342,9 @@
             document.getElementById("gift-recipient").focus();
             return;
         }
-        if (gift && gift.recipient_phone && gift.recipient_phone.replace(/\D/g, "").length < 10) {
-            alert("Please enter a valid phone number for the recipient, or leave it empty.");
+        if (gift && !/^[6-9]\d{9}$/.test(gift.recipient_phone.replace(/\D/g, "").replace(/^91(?=\d{10}$)/, ""))) {
+            alert("Please enter the recipient's 10-digit mobile number so the courier can reach them.");
+            document.getElementById("gift-recipient-phone").focus();
             return;
         }
 
