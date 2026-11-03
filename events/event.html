@@ -96,8 +96,9 @@
     function render(d) {
         var e = d.event; EV = e;
         document.title = e.title + " | The Ritual Co. Events";
-        var spots = e.status === "published" && !d.past
-            ? '<span class="ev-spots' + (d.spots_left <= 5 ? " is-low" : "") + '">' + (d.spots_left <= 0 ? "Sold out" : d.spots_left + " of " + e.capacity + " spots left") + '</span>' : "";
+        // Only show scarcity when it's real: sold out, or 5 or fewer spots left.
+        var spots = e.status === "published" && !d.past && d.spots_left <= 5
+            ? '<span class="ev-spots is-low">' + (d.spots_left <= 0 ? "Sold out" : "Only " + d.spots_left + (d.spots_left === 1 ? " spot" : " spots") + " left") + '</span>' : "";
         var where = [esc(e.venue_name), esc(e.venue_address)].filter(Boolean).join("<br>") +
             (e.map_url ? '<br><a href="' + esc(e.map_url) + '" target="_blank" rel="noopener">Open in Maps</a>' : "");
         root.innerHTML =
