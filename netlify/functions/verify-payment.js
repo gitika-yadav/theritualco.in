@@ -1,4 +1,5 @@
 const Razorpay = require("razorpay");
+const { prepaidOwnerEmail } = require("./shared/owner-email");
 const crypto = require("crypto");
 const { createClient } = require("@supabase/supabase-js");
 
@@ -108,6 +109,19 @@ exports.handler = async (event) => {
                 order,
                 payment_id: razorpay_payment_id,
             });
+        }
+
+        // ── Owner notification (same as the COD "New order" email) ──
+        if (process.env.RESEND_API_KEY) {
+            try {
+                const fresh = { ...order, status: "paid" };
+                const mail = prepaidOwnerEmail(fresh, razorpay_payment_id);
+                await fetch("https://api.resend.com/emails", {
+                    method: "POST",
+                    headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, "Content-Type": "application/json" },
+                    body: JSON.stringify({ from: "The Ritual Co. <orders@theritualco.in>", ...mail }),
+                }).then(r => { if (!r.ok) console.error("[PAID_EMAIL_OWNER_ERROR]", r.status); });
+            } catch (e) { console.error("[PAID_EMAIL_OWNER_ERROR]", e.message); }
         }
 
         // ── Also log to Google Sheet (one row per line item, keep existing) ──
