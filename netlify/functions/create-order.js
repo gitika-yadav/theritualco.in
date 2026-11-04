@@ -1,4 +1,5 @@
 const Razorpay = require("razorpay");
+const { giftRows } = require("./shared/owner-email");
 const { createClient } = require("@supabase/supabase-js");
 const { PRODUCT_MAP, resolveProductKey } = require("./shared/product-map");
 const { KIT_MAP, PREORDER_SHIPS } = require("./shared/kit-map");
@@ -326,7 +327,7 @@ exports.handler = async (event) => {
                             // Owner notification
                             sendEmail({
                                 to: "theritualcoofficial@gmail.com",
-                                subject: `🛒 New COD order — ${name} — ₹${amount}`,
+                                subject: `${orderData.is_gift ? "🎁" : "🛒"} New COD order — ${name} — ₹${amount}`,
                                 html: `
                 <h2 style="font-family:sans-serif">New COD Order</h2>
                 <table style="font-family:sans-serif;font-size:14px;border-collapse:collapse">
@@ -335,6 +336,7 @@ exports.handler = async (event) => {
                   <tr><td style="padding:6px 20px 6px 0;color:#888">Phone</td><td>${phone}</td></tr>
                   <tr><td style="padding:6px 20px 6px 0;color:#888">Address</td><td>${address}</td></tr>
                   <tr><td style="padding:6px 20px 6px 0;color:#888">Items</td><td>${orderItems.map(i => `${i.product_name} ${i.weight} ${i.color} ×${i.quantity}`).join("<br>")}</td></tr>
+                  ${giftRows(orderData)}
                   <tr><td style="padding:6px 20px 6px 0;color:#888">Payment</td><td><strong>COD</strong></td></tr>
                   <tr><td style="padding:6px 20px 6px 0;color:#888">Amount due</td><td><strong>₹${amount}</strong></td></tr>
                   <tr><td style="padding:6px 20px 6px 0;color:#888">Receipt</td><td style="font-size:12px;color:#555">${codReceipt}</td></tr>
