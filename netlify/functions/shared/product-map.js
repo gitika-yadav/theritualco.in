@@ -10,11 +10,11 @@ const PRODUCT_MAP = {
     "capsule-1kg":       { id: "capsule-1kg",       name: "Capsule Dumbbells", weight: "1 KG", preorder: true },
     "capsule-2kg":       { id: "capsule-2kg",       name: "Capsule Dumbbells", weight: "2 KG", preorder: true },
     "yoga-belt":         { id: "yoga-belt",         name: "The Ritual Belt",  weight: "96in" },
-    "yoga-block":        { id: "yoga-block",        name: "The Ritual Block", weight: "9x6x3in" },
+    "yoga-block":        { id: "yoga-block",        name: "The Ritual Block", weight: "9x6x3in", preorder: true },
     "yoga-mat-5mm":      { id: "yoga-mat-5mm",      name: "The Ritual Mat",   weight: "5mm" },
     "ankle-weights-2lb": { id: "ankle-weights-2lb", name: "The Ritual Cuffs", weight: "2lb" },
     "pilates-ball":      { id: "pilates-ball",      name: "The Ritual Ball", weight: "25cm" },
-    "pilates-ring":      { id: "pilates-ring",      name: "The Ritual Ring", weight: "Standard" },
+    "pilates-ring":      { id: "pilates-ring",      name: "The Ritual Ring", weight: "Standard", preorder: true },
     "grip-socks":        { id: "grip-socks",        name: "The Ritual Grip Socks", weight: "Standard"}
 };
 

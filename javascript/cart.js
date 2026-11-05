@@ -70,7 +70,7 @@ function norm(key) {
         // TOTAL stock available for an item (ignores cart). Infinity = unknown/no row.
         // Pre-order items can be added while out of stock (mirror of
         // `preorder: true` in netlify/functions/shared/product-map.js).
-        const PREORDER_IDS = ["capsule-1kg", "capsule-2kg"];
+        const PREORDER_IDS = ["capsule-1kg", "capsule-2kg", "yoga-block", "pilates-ring"];
 
         function getAvailable(id, weight, color) {
             const avail = getCachedAvailability();

@@ -17,7 +17,14 @@
     // weight "1kg"/"2kg" resolves capsule variants; "" means single-id.
     // Products that stay orderable as a pre-order when out of stock
     // (mirror of `preorder: true` in netlify/functions/shared/product-map.js).
-    var PREORDER = { "capsule-dumbbell": "Pre-order · Ships in December" };
+    var PREORDER_LABEL = "Pre-order · Ships in December";
+    var PREORDER = {
+        "capsule-dumbbell": PREORDER_LABEL,
+        "yoga-block": PREORDER_LABEL, "the-ritual-block": PREORDER_LABEL,
+        "pilates-ring": PREORDER_LABEL, "the-ritual-ring": PREORDER_LABEL
+    };
+    // Inventory ids that stay orderable when out of stock (listing cards).
+    var PREORDER_IDS = ["capsule-1kg", "capsule-2kg", "yoga-block", "pilates-ring"];
 
     var SLUG_MAP = {
         "capsule-dumbbell": { ids: ["capsule-1kg", "capsule-2kg"], weightAware: true },
@@ -30,7 +37,9 @@
         "ankle-weights":    { ids: ["ankle-weights-2lb"], weightAware: false },
         "the-ritual-cuffs": { ids: ["ankle-weights-2lb"], weightAware: false },
         "pilates-ball":     { ids: ["pilates-ball"], weightAware: false },
-        "the-ritual-ball":  { ids: ["pilates-ball"], weightAware: false }
+        "the-ritual-ball":  { ids: ["pilates-ball"], weightAware: false },
+        "pilates-ring":     { ids: ["pilates-ring"], weightAware: false },
+        "the-ritual-ring":  { ids: ["pilates-ring"], weightAware: false }
     };
 
     var CACHE_KEY = "ritual_availability_cache";
@@ -170,6 +179,14 @@
                     badge.classList.add("badge-live");
                 }
                 if (cta) cta.textContent = "View Product";
+            } else if (ids.every(function (pid) { return PREORDER_IDS.indexOf(pid) !== -1; })) {
+                card.setAttribute("data-status", "live");
+                if (badge) {
+                    badge.textContent = "Pre-order";
+                    badge.classList.remove("badge-live");
+                    badge.classList.add("badge-soon");
+                }
+                if (cta) cta.textContent = "Pre-order";
             } else {
                 card.setAttribute("data-status", "soon");
                 if (badge) {
