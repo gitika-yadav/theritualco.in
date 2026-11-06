@@ -68,6 +68,13 @@
             '<p class="ev-muted">It may have been moved. <a href="/events" style="color:#3a3330;">See all events</a>.</p>';
     }
 
+    function hasPair(e) { return !!(e.price && e.pair_price && e.pair_price < e.price * 2); }
+    function total(e, q) {
+        q = Math.max(1, q || 1);
+        return hasPair(e) ? Math.floor(q / 2) * e.pair_price + (q % 2) * e.price : e.price * q;
+    }
+    function btnLabel(e, q) { return (q > 1 ? "Book " + q + " spots · " : "Book your spot · ") + rupees(total(e, q)); }
+
     function bookingBlock(d) {
         var e = d.event;
         if (e.status === "cancelled") return '<div class="ev-closed"><strong>This event has been cancelled.</strong>Everyone booked has been contacted. <a href="/events" style="color:#3a3330;">See other events</a>.</div>';
@@ -76,7 +83,7 @@
         if (d.spots_left <= 0) return '<div class="ev-closed"><strong>Fully booked.</strong>Spots sometimes open up. DM us on <a href="https://instagram.com/theritualco.in" style="color:#3a3330;">Instagram</a> to join the waitlist.</div>';
         var max = Math.min(e.max_per_booking || 4, d.spots_left);
         var opts = "";
-        for (var i = 1; i <= max; i++) opts += '<option value="' + i + '">' + i + (i === 1 ? " spot" : " spots") + (e.price ? " · " + rupees(e.price * i) : "") + '</option>';
+        for (var i = 1; i <= max; i++) opts += '<option value="' + i + '"' + (i === 2 && hasPair(e) ? " selected" : "") + '>' + i + (i === 1 ? " spot" : " spots") + (e.price ? " · " + rupees(total(e, i)) : "") + (i === 2 && hasPair(e) ? " (pair deal)" : "") + '</option>';
         var note = e.price
             ? "Secure payment via Razorpay. Full refund up to 48 hours before the event."
             : (e.access === "invite" ? "You're on the guest list once you confirm." : "Free to attend. Please only RSVP if you can make it.");
@@ -88,7 +95,7 @@
             '<input name="instagram" placeholder="Instagram handle (optional)">' +
             '<select name="qty"' + (max === 1 ? ' style="display:none"' : '') + '>' + opts + '</select>' +
             '</div>' +
-            '<button class="ev-btn" type="submit">' + (e.price ? "Book your spot · " + rupees(e.price) : (e.access === "invite" ? "Confirm my spot" : "RSVP")) + '</button>' +
+            '<button class="ev-btn" type="submit">' + (e.price ? btnLabel(e, hasPair(e) && max >= 2 ? 2 : 1) : (e.access === "invite" ? "Confirm my spot" : "RSVP")) + '</button>' +
             '<p class="ev-form__err" id="ev-err"></p>' +
             '<p class="ev-form__note">' + note + '</p></form>';
     }
@@ -113,6 +120,7 @@
             (where ? '<div class="ev-fact"><span class="ev-fact__k">Where</span><span class="ev-fact__v">' + where + '</span></div>' : "") +
             '</div>' +
             '<div class="ev-price-row"><span class="ev-price">' + (e.price ? rupees(e.price) : (e.access === "invite" ? "Guest list" : "Free")) + '</span>' + spots + '</div>' +
+            (hasPair(e) ? '<p class="ev-pair">Bring a friend: <strong>2 spots for ' + rupees(e.pair_price) + '</strong> &middot; save ' + rupees(e.price * 2 - e.pair_price) + '</p>' : "") +
             '<div id="ev-book">' + bookingBlock(d) + '</div>' +
             (e.description ? '<p class="ev-section-t">About the session</p><p class="ev-desc">' + esc(e.description) + '</p>' : "") +
             (e.includes && e.includes.length ? '<p class="ev-section-t">Included</p><ul class="ev-includes">' + e.includes.map(function (i) { return "<li>" + esc(i) + "</li>"; }).join("") + '</ul>' : "") +
@@ -120,6 +128,10 @@
             '</div></div>';
         var form = document.getElementById("ev-form");
         if (form) form.addEventListener("submit", submit);
+        var qsel = form && form.querySelector("select[name=qty]");
+        if (qsel && EV.price) qsel.addEventListener("change", function () {
+            form.querySelector(".ev-btn").textContent = btnLabel(EV, Number(qsel.value) || 1);
+        });
     }
 
     function done(e, email) {
