@@ -137,6 +137,8 @@
                 <select id="e-access" onchange="accessChange()"><option value="public">Public (listed)</option><option value="invite">Invite only (hidden)</option></select></div>
             <div class="f f2"><label>Price per spot (₹) <small>0 = free RSVP</small></label><input id="e-price" type="number" min="0" value="0"/></div>
             <div class="f f2"><label>Price for 2 spots (₹) <small>optional pair deal, e.g. 5000</small></label><input id="e-pair" type="number" min="0" placeholder="—"/></div>
+            <div class="f f2"><label>Early bird price (₹) <small>optional</small></label><input id="e-early" type="number" min="0" placeholder="—"/></div>
+            <div class="f f2"><label>Early bird for first … spots</label><input id="e-early-spots" type="number" min="0" placeholder="e.g. 10"/></div>
             <div class="f f2"><label>Total spots</label><input id="e-capacity" type="number" min="1" value="20"/></div>
             <div class="f f2"><label>Max spots per booking</label><input id="e-max" type="number" min="1" max="10" value="4"/></div>
             <div class="f f2" id="e-code-wrap" style="display:none;"><label>Invite code <small>(auto if empty)</small></label><input id="e-code" placeholder="e.g. ritual-vip"/></div>
@@ -242,7 +244,7 @@
 
     // ── Editor ──
     const F = { title: "e-title", subtitle: "e-subtitle", venue_name: "e-venue", venue_address: "e-address", map_url: "e-map",
-        access: "e-access", price: "e-price", pair_price: "e-pair", capacity: "e-capacity", max_per_booking: "e-max", invite_code: "e-code",
+        access: "e-access", price: "e-price", pair_price: "e-pair", early_price: "e-early", early_spots: "e-early-spots", capacity: "e-capacity", max_per_booking: "e-max", invite_code: "e-code",
         cover_image: "e-cover", description: "e-desc", includes: "e-includes", status: "e-status", slug: "e-slug" };
     function openEditor(id) {
         EDIT_ID = id || null;

@@ -68,7 +68,8 @@ async function book(body) {
         return json(409, { error: "You're already booked for this event. Check your email for the confirmation, or reply to it if you need more spots." });
     }
 
-    const left = ev.capacity - await ticketsTaken(supabase, ev.id);
+    const taken = await ticketsTaken(supabase, ev.id);
+    const left = ev.capacity - taken;
     if (left < qty) {
         return json(409, { error: left > 0 ? `Only ${left} spot${left === 1 ? "" : "s"} left.` : "Sorry, this event is full." });
     }
@@ -88,7 +89,7 @@ async function book(body) {
     }
 
     // Paid
-    const amount = ticketTotal(ev, qty) * 100;
+    const amount = ticketTotal(ev, qty, taken) * 100;
     const razorpay = new Razorpay({ key_id: process.env.RAZORPAY_KEY_ID, key_secret: process.env.RAZORPAY_KEY_SECRET });
     const rz = await razorpay.orders.create({
         amount, currency: "INR",
