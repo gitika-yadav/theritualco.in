@@ -110,10 +110,22 @@ async function save(e) {
 }
 
 async function bookings(eventId) {
-    const { data, error } = await supabase.from("event_bookings").select("*")
-        .eq("event_id", eventId).neq("status", "pending").order("created_at", { ascending: true });
+    const { data: all, error } = await supabase.from("event_bookings").select("*")
+        .eq("event_id", eventId).order("created_at", { ascending: true });
     if (error) throw error;
-    return json(200, { bookings: data || [] });
+    const rows = all || [];
+    const done = new Set(rows.filter(b => b.status !== "pending").map(b => (b.email || "").toLowerCase()));
+    // Started booking (gave details) but never paid — latest attempt per email,
+    // skipping anyone who later booked. Older than 20 min so live checkouts aren't shown.
+    const cutoff = Date.now() - 20 * 60 * 1000, seen = new Set(), unpaid = [];
+    rows.filter(b => b.status === "pending" && new Date(b.created_at).getTime() < cutoff).reverse().forEach(b => {
+        const k = (b.email || "").toLowerCase();
+        if (done.has(k) || seen.has(k)) return;
+        seen.add(k); unpaid.push(b);
+    });
+    const { data: leads } = await supabase.from("event_leads").select("*")
+        .eq("event_id", eventId).order("created_at", { ascending: false });
+    return json(200, { bookings: rows.filter(b => b.status !== "pending"), unpaid, leads: leads || [] });
 }
 
 async function addGuest(b) {

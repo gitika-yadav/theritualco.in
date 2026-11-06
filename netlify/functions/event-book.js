@@ -5,6 +5,8 @@
 //        paid event → Razorpay order; spots held for 15 min until paid
 //   POST { action:"verify", razorpay_order_id, razorpay_payment_id, razorpay_signature }
 //        → confirms a paid booking + email
+//   POST { action:"remind", slug, name, phone }
+//        → opt-in: saves a WhatsApp reminder request (event_leads)
 // No discount codes on tickets.
 
 const Razorpay = require("razorpay");
@@ -30,6 +32,7 @@ exports.handler = async (event) => {
     try {
         if (body.action === "verify") return await verify(body);
         if (body.action === "book") return await book(body);
+        if (body.action === "remind") return await remind(body);
         return json(400, { error: "Unknown action" });
     } catch (err) {
         console.error("event-book:", err);
@@ -131,4 +134,17 @@ async function verify(body) {
     const { data: ev } = await supabase.from("events").select("*").eq("id", b.event_id).single();
     await confirmAndEmail(updated, ev);
     return json(200, { status: "confirmed", booking_id: b.id });
+}
+
+async function remind(body) {
+    const { data: ev } = await supabase.from("events").select("id, starts_at")
+        .eq("slug", str(body.slug, 120).toLowerCase()).eq("status", "published").maybeSingle();
+    if (!ev) return json(404, { error: "This event isn't open." });
+    const name = str(body.name, 80);
+    const digits = str(body.phone, 20).replace(/\D/g, "").replace(/^(91|0)(?=\d{10}$)/, "");
+    if (!/^[6-9]\d{9}$/.test(digits)) return json(400, { error: "Please enter a 10-digit mobile number." });
+    const { error } = await supabase.from("event_leads")
+        .upsert({ event_id: ev.id, name: name || null, phone: digits }, { onConflict: "event_id,phone", ignoreDuplicates: true });
+    if (error) throw error;
+    return json(200, { ok: true });
 }
