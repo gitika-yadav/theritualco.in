@@ -68,10 +68,13 @@
             '<p class="ev-muted">It may have been moved. <a href="/events" style="color:#3a3330;">See all events</a>.</p>';
     }
 
+    var EARLY_LEFT = 0;
     function hasPair(e) { return !!(e.price && e.pair_price && e.pair_price < e.price * 2); }
+    function regular(e, q) { return hasPair(e) ? Math.floor(q / 2) * e.pair_price + (q % 2) * e.price : e.price * q; }
     function total(e, q) {
         q = Math.max(1, q || 1);
-        return hasPair(e) ? Math.floor(q / 2) * e.pair_price + (q % 2) * e.price : e.price * q;
+        var n = Math.min(q, EARLY_LEFT);
+        return Math.min(n * e.early_price + (q > n ? regular(e, q - n) : 0), regular(e, q));
     }
     function btnLabel(e, q) { return (q > 1 ? "Book " + q + " spots · " : "Book your spot · ") + rupees(total(e, q)); }
 
@@ -83,7 +86,7 @@
         if (d.spots_left <= 0) return '<div class="ev-closed"><strong>Fully booked.</strong>Spots sometimes open up. DM us on <a href="https://instagram.com/theritualco.in" style="color:#3a3330;">Instagram</a> to join the waitlist.</div>';
         var max = Math.min(e.max_per_booking || 4, d.spots_left);
         var opts = "";
-        for (var i = 1; i <= max; i++) opts += '<option value="' + i + '"' + (i === 2 && hasPair(e) ? " selected" : "") + '>' + i + (i === 1 ? " spot" : " spots") + (e.price ? " · " + rupees(total(e, i)) : "") + (i === 2 && hasPair(e) ? " (pair deal)" : "") + '</option>';
+        for (var i = 1; i <= max; i++) opts += '<option value="' + i + '"' + (i === 2 && hasPair(e) ? " selected" : "") + '>' + i + (i === 1 ? " spot" : " spots") + (e.price ? " · " + rupees(total(e, i)) : "") + (i === 2 && hasPair(e) && EARLY_LEFT < 2 ? " (pair deal)" : "") + '</option>';
         var note = e.price
             ? "Secure payment via Razorpay. Full refund up to 48 hours before the event."
             : (e.access === "invite" ? "You're on the guest list once you confirm." : "Free to attend. Please only RSVP if you can make it.");
@@ -102,6 +105,7 @@
 
     function render(d) {
         var e = d.event; EV = e;
+        EARLY_LEFT = (e.early_price && e.early_price < e.price && d.early_left > 0) ? d.early_left : 0;
         document.title = e.title + " | The Ritual Co. Events";
         // Only show scarcity when it's real: sold out, or 5 or fewer spots left.
         var spots = e.status === "published" && !d.past && d.spots_left <= 5
@@ -119,8 +123,9 @@
             '<div class="ev-fact"><span class="ev-fact__k">When</span><span class="ev-fact__v">' + esc(dateStr(e.starts_at)) + '<br>' + esc(timeStr(e.starts_at)) + (e.ends_at ? " – " + esc(timeStr(e.ends_at)) : "") + '</span></div>' +
             (where ? '<div class="ev-fact"><span class="ev-fact__k">Where</span><span class="ev-fact__v">' + where + '</span></div>' : "") +
             '</div>' +
-            '<div class="ev-price-row"><span class="ev-price">' + (e.price ? rupees(e.price) : (e.access === "invite" ? "Guest list" : "Free")) + '</span>' + spots + '</div>' +
-            (hasPair(e) ? '<p class="ev-pair">Bring a friend: <strong>2 spots for ' + rupees(e.pair_price) + '</strong> &middot; save ' + rupees(e.price * 2 - e.pair_price) + '</p>' : "") +
+            '<div class="ev-price-row"><span class="ev-price">' + (EARLY_LEFT ? rupees(e.early_price) + ' <s class="ev-was">' + rupees(e.price) + '</s>' : e.price ? rupees(e.price) : (e.access === "invite" ? "Guest list" : "Free")) + '</span>' + spots + '</div>' +
+            (EARLY_LEFT ? '<p class="ev-pair"><strong>Early bird</strong> &middot; ' + rupees(e.early_price) + ' for the first ' + e.early_spots + ' spots &middot; only ' + EARLY_LEFT + ' left at this price</p>' : "") +
+            (hasPair(e) && EARLY_LEFT < 2 ? '<p class="ev-pair">Bring a friend: <strong>2 spots for ' + rupees(e.pair_price) + '</strong> &middot; save ' + rupees(e.price * 2 - e.pair_price) + '</p>' : "") +
             '<div id="ev-book">' + bookingBlock(d) + '</div>' +
             (e.description ? '<p class="ev-section-t">About the session</p><p class="ev-desc">' + esc(e.description) + '</p>' : "") +
             (e.includes && e.includes.length ? '<p class="ev-section-t">Included</p><ul class="ev-includes">' + e.includes.map(function (i) { return "<li>" + esc(i) + "</li>"; }).join("") + '</ul>' : "") +

@@ -29,6 +29,7 @@
 .ev-fact__v a { color: #3a3330; text-underline-offset: 3px; }
 .ev-price-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 0 0 18px; }
 .ev-pair { margin: -8px 0 18px; font-size: 14px; color: #6b5f56; }
+.ev-was { font-size: 20px; color: #a09890; text-decoration: line-through; margin-left: 6px; }
 .ev-pair strong { color: #1a1714; font-weight: 500; }
 .ev-price { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 34px; color: #1a1714; }
 .ev-spots { font-size: 13px; color: #7a6f68; }

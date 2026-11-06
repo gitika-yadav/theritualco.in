@@ -5,7 +5,7 @@
 //                              only bookable with the matching invite code
 
 const { createClient } = require("@supabase/supabase-js");
-const { ticketsTaken, publicFields, json } = require("./shared/events");
+const { ticketsTaken, publicFields, json, earlyBirdLeft } = require("./shared/events");
 
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
 
@@ -19,7 +19,8 @@ exports.handler = async (event) => {
                 .eq("slug", String(q.slug).toLowerCase()).in("status", ["published", "cancelled"]).maybeSingle();
             if (!e) return json(404, { error: "Event not found" });
 
-            const left = Math.max(0, e.capacity - await ticketsTaken(supabase, e.id));
+            const taken = await ticketsTaken(supabase, e.id);
+            const left = Math.max(0, e.capacity - taken);
             const past = new Date(e.starts_at).getTime() < Date.now();
             const invited = e.access !== "invite" ||
                 (!!q.invite && !!e.invite_code && String(q.invite).trim().toLowerCase() === e.invite_code.toLowerCase());
@@ -27,6 +28,7 @@ exports.handler = async (event) => {
             return json(200, {
                 event: publicFields(e),
                 spots_left: left,
+                early_left: earlyBirdLeft(e, taken),
                 past,
                 invited,
                 bookable: e.status === "published" && !past && left > 0 && invited,

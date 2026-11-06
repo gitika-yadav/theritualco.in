@@ -32,12 +32,26 @@ async function ticketsTaken(supabase, eventId) {
 
 // Ticket total in rupees. With a pair deal, every 2 spots cost pair_price
 // (e.g. 1 = 2,800 · 2 = 5,000 · 3 = 7,800 · 4 = 10,000).
-function ticketTotal(e, qty) {
+// Early bird: the first early_spots tickets cost early_price each; `taken`
+// is how many are already booked. Remaining spots use the normal/pair price.
+function ticketTotal(e, qty, taken) {
     qty = Math.max(1, Number(qty) || 1);
+    const earlyLeft = earlyBirdLeft(e, taken);
+    if (earlyLeft > 0) {
+        const n = Math.min(qty, earlyLeft);
+        const noEarly = { ...e, early_price: null };
+        // Never charge more than the regular/pair price would be.
+        return Math.min(n * e.early_price + (qty > n ? ticketTotal(noEarly, qty - n) : 0), ticketTotal(noEarly, qty));
+    }
     const price = Number(e.price) || 0, pair = Number(e.pair_price) || 0;
     if (!price) return 0;
     if (!pair || pair >= price * 2) return price * qty;
     return Math.floor(qty / 2) * pair + (qty % 2) * price;
+}
+
+function earlyBirdLeft(e, taken) {
+    if (!e.early_price || !e.early_spots || !(e.early_price < e.price)) return 0;
+    return Math.max(0, e.early_spots - (Number(taken) || 0));
 }
 
 // What the public site is allowed to see.
@@ -46,7 +60,8 @@ function publicFields(e) {
         slug: e.slug, title: e.title, subtitle: e.subtitle,
         starts_at: e.starts_at, ends_at: e.ends_at,
         venue_name: e.venue_name, venue_address: e.venue_address, map_url: e.map_url,
-        price: e.price, pair_price: e.pair_price || null, capacity: e.capacity, max_per_booking: e.max_per_booking,
+        price: e.price, pair_price: e.pair_price || null,
+        early_price: e.early_price || null, early_spots: e.early_spots || null, capacity: e.capacity, max_per_booking: e.max_per_booking,
         cover_image: e.cover_image, description: e.description,
         includes: (e.includes || "").split("\n").map(s => s.trim()).filter(Boolean),
         access: e.access, status: e.status,
@@ -146,4 +161,4 @@ const json = (statusCode, body, extraHeaders) => ({
 module.exports = {
     SITE, HOLD_MINUTES, REFUND_HOURS, esc, fmtDate, fmtTime, fmtWhen,
     ticketsTaken, publicFields, calendarLink,
-    confirmationEmail, reminderEmail, cancellationEmail, sendEmail, json, ticketTotal };
+    confirmationEmail, reminderEmail, cancellationEmail, sendEmail, json, ticketTotal, earlyBirdLeft };
