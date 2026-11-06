@@ -103,6 +103,72 @@
             '<p class="ev-form__note">' + note + '</p></form>';
     }
 
+    // ── Photos: swipeable gallery (cover first) + titled photo sections ──
+    // Gallery order: photos marked "lead" first, then the cover, then the rest.
+    function photos(e) {
+        var all = (e.gallery || []).filter(function (g) { return g && g.src; });
+        var lead = all.filter(function (g) { return g.lead; });
+        var list = lead.concat(e.cover_image ? [{ src: e.cover_image, alt: e.title }] : [], all.filter(function (g) { return !g.lead; }));
+        var seen = {};
+        return list.filter(function (g) { return seen[g.src] ? false : (seen[g.src] = true); });
+    }
+    function mediaBlock(e) {
+        var list = photos(e);
+        if (!list.length) return '<div class="ev-media"></div>';
+        return '<div class="ev-media"><div class="ev-slides" id="ev-slides">' +
+            list.map(function (g, i) {
+                return '<figure class="ev-slide"><img src="' + esc(g.src) + '" alt="' + esc(g.alt || g.title || e.title) + '"' + (i ? ' loading="lazy"' : '') + '>' +
+                    (g.title ? '<figcaption>' + esc(g.title) + '</figcaption>' : '') + '</figure>';
+            }).join("") + '</div>' +
+            (list.length > 1 ? '<div class="ev-thumbs" id="ev-thumbs">' + list.map(function (g, i) {
+                return '<button type="button" aria-label="Photo ' + (i + 1) + '"' + (i ? '' : ' class="on"') + '><img src="' + esc(g.src) + '" alt="" loading="lazy"></button>';
+            }).join("") + '</div>' : '') + '</div>';
+    }
+    function wireMedia() {
+        var track = document.getElementById("ev-slides"), thumbs = document.getElementById("ev-thumbs");
+        if (!track || !thumbs) return;
+        var btns = thumbs.querySelectorAll("button");
+        btns.forEach(function (b, i) { b.addEventListener("click", function () { track.scrollTo({ left: track.clientWidth * i, behavior: "smooth" }); }); });
+        track.addEventListener("scroll", function () {
+            var i = Math.round(track.scrollLeft / Math.max(1, track.clientWidth));
+            btns.forEach(function (b, j) { b.classList.toggle("on", i === j); });
+        }, { passive: true });
+    }
+    function sectionsBlock(e) {
+        var groups = [], by = {};
+        (e.gallery || []).forEach(function (g) {
+            if (!g || !g.src || !g.section || !g.title) return;
+            if (!by[g.section]) { by[g.section] = []; groups.push(g.section); }
+            by[g.section].push(g);
+        });
+        return groups.map(function (name) {
+            var items = by[name];
+            return '<p class="ev-section-t">' + esc(name) + '</p><div class="ev-tiles' + (items.length === 1 ? ' is-one' : '') + '">' +
+                items.map(function (g) {
+                    return '<div class="ev-tile"><img src="' + esc(g.src) + '" alt="' + esc(g.alt || g.title) + '" loading="lazy">' +
+                        '<div class="ev-tile__t"><strong>' + esc(g.title) + '</strong>' + (g.text ? '<span>' + esc(g.text) + '</span>' : '') + '</div></div>';
+                }).join("") + '</div>';
+        }).join("");
+    }
+    // ── Phone: sticky "Book" bar until the form is on screen ──
+    function stickyBar(e, d) {
+        if (!d.bookable || !e.price) return "";
+        var from = EARLY_LEFT ? e.early_price : e.price;
+        return '<div class="ev-sticky" id="ev-sticky"><div><strong>' + rupees(from) + '</strong>' +
+            (EARLY_LEFT ? ' <s>' + rupees(e.price) + '</s><span>Early bird &middot; ' + EARLY_LEFT + ' left</span>' : '<span>per spot</span>') +
+            '</div><a href="#ev-book">Book now</a></div>';
+    }
+    function wireSticky() {
+        var bar = document.getElementById("ev-sticky"), book = document.getElementById("ev-book");
+        if (!bar || !book) return;
+        bar.querySelector("a").addEventListener("click", function (ev) {
+            ev.preventDefault(); book.scrollIntoView({ behavior: "smooth", block: "start" });
+            setTimeout(function () { var n = book.querySelector("input[name=name]"); if (n) n.focus({ preventScroll: true }); }, 500);
+        });
+        if (!("IntersectionObserver" in window)) return;
+        new IntersectionObserver(function (en) { bar.classList.toggle("is-hidden", en[0].isIntersecting); }, { rootMargin: "0px 0px -20% 0px" }).observe(book);
+    }
+
     function render(d) {
         var e = d.event; EV = e;
         EARLY_LEFT = (e.early_price && e.early_price < e.price && d.early_left > 0) ? d.early_left : 0;
@@ -114,7 +180,7 @@
             (e.map_url ? '<br><a href="' + esc(e.map_url) + '" target="_blank" rel="noopener">Open in Maps</a>' : "");
         root.innerHTML =
             '<div class="ev-layout">' +
-            '<div class="ev-cover">' + (e.cover_image ? '<img src="' + esc(e.cover_image) + '" alt="' + esc(e.title) + '">' : "") + '</div>' +
+            mediaBlock(e) +
             '<div>' +
             '<p class="ev-eyebrow">The Ritual Co. &middot; ' + (e.access === "invite" ? "Private event" : "Event") + '</p>' +
             '<h1 class="ev-h1">' + esc(e.title) + '</h1>' +
@@ -128,9 +194,11 @@
             (hasPair(e) && EARLY_LEFT < 2 ? '<p class="ev-pair">Bring a friend: <strong>2 spots for ' + rupees(e.pair_price) + '</strong> &middot; save ' + rupees(e.price * 2 - e.pair_price) + '</p>' : "") +
             '<div id="ev-book">' + bookingBlock(d) + '</div>' +
             (e.description ? '<p class="ev-section-t">About the session</p><p class="ev-desc">' + esc(e.description) + '</p>' : "") +
+            sectionsBlock(e) +
             (e.includes && e.includes.length ? '<p class="ev-section-t">Included</p><ul class="ev-includes">' + e.includes.map(function (i) { return "<li>" + esc(i) + "</li>"; }).join("") + '</ul>' : "") +
             (e.price ? '<p class="ev-policy">Cancellations: full refund up to 48 hours before the event. After that, you can pass your spot to a friend; just reply to your confirmation email with their name.</p>' : "") +
-            '</div></div>';
+            '</div></div>' + stickyBar(e, d);
+        wireMedia(); wireSticky();
         var form = document.getElementById("ev-form");
         if (form) form.addEventListener("submit", submit);
         var qsel = form && form.querySelector("select[name=qty]");
