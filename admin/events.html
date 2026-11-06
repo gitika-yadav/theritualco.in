@@ -298,7 +298,7 @@
         await loadGuests();
     }
     async function loadGuests() {
-        try { BOOKINGS = (await api({ action: "bookings", event_id: GUEST_EVENT.id })).bookings; renderGuests(); }
+        try { const r = await api({ action: "bookings", event_id: GUEST_EVENT.id }); BOOKINGS = r.bookings; UNPAID = r.unpaid || []; LEADS = r.leads || []; renderGuests(); }
         catch (e) { document.getElementById("g-body").innerHTML = `<p class="status err">${esc(e.message)}</p>`; }
     }
     function renderGuests() {
@@ -327,7 +327,37 @@
             <span class="hint">${BOOKINGS.length} booking${BOOKINGS.length === 1 ? "" : "s"}</span>
             ${BOOKINGS.length ? `<button class="btn" onclick="downloadCsv()">Download CSV</button>` : ""}
           </div>
-          ${BOOKINGS.length ? `<table class="guest"><tbody>${BOOKINGS.map(guestRow).join("")}</tbody></table>` : '<p class="empty">No bookings yet.</p>'}`;
+          ${BOOKINGS.length ? `<table class="guest"><tbody>${BOOKINGS.map(guestRow).join("")}</tbody></table>` : '<p class="empty">No bookings yet.</p>'}
+          ${followUps(e)}`;
+    }
+    // ── Follow-ups: started booking but didn't pay, and reminder sign-ups ──
+    let UNPAID = [], LEADS = [];
+    function waLink(phone, text) {
+        const d = String(phone || "").replace(/\D/g, "").replace(/^(91|0)(?=\d{10}$)/, "");
+        return d.length === 10 ? "https://wa.me/91" + d + "?text=" + encodeURIComponent(text) : "";
+    }
+    function first(n) { return String(n || "").trim().split(/\s+/)[0] || "there"; }
+    function followUps(e) {
+        const when = new Date(e.starts_at).toLocaleDateString("en-IN", { timeZone: "Asia/Kolkata", weekday: "short", day: "numeric", month: "short" });
+        const link = linkFor(e);
+        const row = (name, sub, phone, msg, tag) => {
+            const wa = waLink(phone, msg);
+            return `<tr><td><div class="t-title">${esc(name || "—")}</div><div class="muted">${sub}</div></td>
+              <td><span class="pill pill-draft">${tag}</span></td>
+              <td style="text-align:right;">${wa ? `<a class="btn btn-dark" href="${wa}" target="_blank" rel="noopener">WhatsApp</a>` : '<span class="muted">no phone</span>'}</td></tr>`;
+        };
+        const ago = d => { const h = Math.round((Date.now() - new Date(d)) / 36e5); return h < 1 ? "just now" : h < 24 ? h + "h ago" : Math.round(h / 24) + "d ago"; };
+        const unpaid = UNPAID.map(b => row(b.name,
+            esc(b.email) + (b.phone ? " · " + esc(b.phone) : "") + " · " + (b.qty > 1 ? b.qty + " spots · " : "") + ago(b.created_at),
+            b.phone,
+            `Hi ${first(b.name)}, this is Gitika from The Ritual Co. 🤍 I saw you started booking ${e.title} (${when}) but the payment didn't go through. Happy to help if anything went wrong! Here's the link to finish: ${link}`,
+            "didn't pay")).join("");
+        const leads = LEADS.map(l => row(l.name, esc(l.phone) + " · asked " + ago(l.created_at), l.phone,
+            `Hi ${first(l.name)}! It's The Ritual Co. 🤍 You asked us to remind you about ${e.title} on ${when}. Spots are filling up, book here: ${link}`,
+            "reminder")).join("");
+        return `<p class="sec" style="margin-top:28px;">Follow up</p>
+          <p class="hint" style="margin:0 0 10px;">People who started booking but didn't pay, and people who asked for a reminder. WhatsApp opens with a message ready to send.</p>
+          ${unpaid || leads ? `<table class="guest"><tbody>${unpaid}${leads}</tbody></table>` : '<p class="hint">Nobody to follow up yet.</p>'}`;
     }
     function guestRow(b) {
         const confirmed = b.status === "confirmed";

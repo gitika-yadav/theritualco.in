@@ -169,6 +169,28 @@
         new IntersectionObserver(function (en) { bar.classList.toggle("is-hidden", en[0].isIntersecting); }, { rootMargin: "0px 0px -20% 0px" }).observe(book);
     }
 
+    function wireRemind() {
+        var f = document.getElementById("ev-remind");
+        if (!f) return;
+        f.addEventListener("submit", function (ev) {
+            ev.preventDefault();
+            var note = document.getElementById("ev-remind-note"), btn = f.querySelector("button");
+            var phone = f.rphone.value.replace(/\D/g, "").replace(/^(91|0)(?=\d{10}$)/, "");
+            if (!/^[6-9]\d{9}$/.test(phone)) { note.textContent = "Please enter a 10-digit mobile number."; note.style.color = "#b4563a"; return; }
+            btn.disabled = true;
+            fetch("/.netlify/functions/event-book", { method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ action: "remind", slug: EV.slug, name: f.rname.value.trim(), phone: phone }) })
+                .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+                .then(function (res) {
+                    if (!res.ok) throw new Error(res.j.error || "Couldn't save that. Please try again.");
+                    f.innerHTML = '<p class="ev-remind__t"><strong>Done 🤍</strong> We\'ll send you a WhatsApp reminder before ' + (EARLY_LEFT ? "the early bird ends." : "spots run out.") + '</p>';
+                    try { gtag("event", "generate_lead", { event_category: "event", event_label: EV.slug }); } catch (x) {}
+                    try { if (window.trackMeta) window.trackMeta("Lead", { content_name: EV.title, content_category: "event" }); } catch (x) {}
+                })
+                .catch(function (e) { btn.disabled = false; note.textContent = e.message; note.style.color = "#b4563a"; });
+        });
+    }
+
     function render(d) {
         var e = d.event; EV = e;
         // Meta: ViewContent once, so event-page visitors can be measured and retargeted.
@@ -198,12 +220,15 @@
             (EARLY_LEFT ? '<p class="ev-pair"><strong>Early bird</strong> &middot; ' + rupees(e.early_price) + ' for the first ' + e.early_spots + ' spots &middot; only ' + EARLY_LEFT + ' left at this price</p>' : "") +
             (hasPair(e) && EARLY_LEFT < 2 ? '<p class="ev-pair">Bring a friend: <strong>2 spots for ' + rupees(e.pair_price) + '</strong> &middot; save ' + rupees(e.price * 2 - e.pair_price) + '</p>' : "") +
             '<div id="ev-book">' + bookingBlock(d) + '</div>' +
+            (d.bookable ? '<form class="ev-remind" id="ev-remind" novalidate><p class="ev-remind__t"><strong>Not ready to book?</strong> ' + (EARLY_LEFT ? 'Get a WhatsApp reminder before the early bird ends.' : 'Get a WhatsApp reminder before spots run out.') + '</p>' +
+                '<div class="ev-remind__row"><input name="rname" placeholder="First name" autocomplete="given-name"><input name="rphone" type="tel" inputmode="numeric" placeholder="WhatsApp number" autocomplete="tel"><button type="submit">Remind me</button></div>' +
+                '<p class="ev-remind__note" id="ev-remind-note">We\'ll only message you about this event.</p></form>' : "") +
             (e.description ? '<p class="ev-section-t">About the session</p><p class="ev-desc">' + esc(e.description) + '</p>' : "") +
             sectionsBlock(e) +
             (e.includes && e.includes.length ? '<p class="ev-section-t">Included</p><ul class="ev-includes">' + e.includes.map(function (i) { return "<li>" + esc(i) + "</li>"; }).join("") + '</ul>' : "") +
             (e.price ? '<p class="ev-policy">Cancellations: full refund up to 48 hours before the event. After that, you can pass your spot to a friend; just reply to your confirmation email with their name.</p>' : "") +
             '</div></div>' + stickyBar(e, d);
-        wireMedia(); wireSticky();
+        wireMedia(); wireSticky(); wireRemind();
         var form = document.getElementById("ev-form");
         if (form) form.addEventListener("submit", submit);
         var qsel = form && form.querySelector("select[name=qty]");

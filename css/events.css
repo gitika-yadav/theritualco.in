@@ -43,6 +43,17 @@
 .ev-tile__t strong { display: block; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 21px; color: #1a1714; line-height: 1.15; }
 .ev-tile__t span { display: block; font-size: 13px; color: #6b5f56; line-height: 1.5; margin-top: 4px; }
 
+/* Reminder opt-in */
+.ev-remind { border: 1px dashed #d8cfc4; border-radius: 14px; padding: 16px 18px; margin: -16px 0 32px; }
+.ev-remind__t { font-size: 14px; color: #5a4f48; margin: 0 0 10px; line-height: 1.5; }
+.ev-remind__t strong { color: #1a1714; font-weight: 500; }
+.ev-remind__t:last-child { margin: 0; }
+.ev-remind__row { display: grid; grid-template-columns: 1fr 1.3fr auto; gap: 8px; }
+.ev-remind input { padding: 11px 12px; border: 1px solid #e3dbd2; border-radius: 8px; background: #fff; font: inherit; font-size: 16px; color: #3a3330; min-width: 0; }
+.ev-remind button { padding: 11px 16px; border: 1px solid #1a1714; border-radius: 8px; background: #fff; color: #1a1714; font: inherit; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; white-space: nowrap; }
+.ev-remind button:disabled { opacity: .5; }
+.ev-remind__note { font-size: 12px; color: #8a7f76; margin: 8px 0 0; }
+
 /* Sticky book bar (phones) */
 .ev-sticky { display: none; }
 
@@ -108,4 +119,6 @@
     body:has(.ev-sticky:not(.is-hidden)) .whatsapp-float { bottom: 96px !important; transition: bottom .25s; }
     .ev-form__grid { grid-template-columns: 1fr; }
     .ev-form .span-2 { grid-column: span 1; }
+    .ev-remind__row { grid-template-columns: 1fr 1fr; }
+    .ev-remind button { grid-column: span 2; }
 }
