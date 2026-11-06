@@ -61,6 +61,7 @@ function publicFields(e) {
         starts_at: e.starts_at, ends_at: e.ends_at,
         venue_name: e.venue_name, venue_address: e.venue_address, map_url: e.map_url,
         price: e.price, pair_price: e.pair_price || null,
+        gallery: Array.isArray(e.gallery) ? e.gallery : [],
         early_price: e.early_price || null, early_spots: e.early_spots || null, capacity: e.capacity, max_per_booking: e.max_per_booking,
         cover_image: e.cover_image, description: e.description,
         includes: (e.includes || "").split("\n").map(s => s.trim()).filter(Boolean),
