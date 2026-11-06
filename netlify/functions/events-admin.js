@@ -79,6 +79,7 @@ async function save(e) {
         venue_address: str(e.venue_address, 300) || null,
         map_url: /^https?:\/\//.test(e.map_url || "") ? str(e.map_url, 500) : null,
         price: Math.max(0, Math.round(Number(e.price) || 0)),
+        pair_price: Number(e.pair_price) > 0 ? Math.round(Number(e.pair_price)) : null,
         capacity: Math.max(1, Math.round(Number(e.capacity) || 20)),
         max_per_booking: Math.min(10, Math.max(1, Math.round(Number(e.max_per_booking) || 4))),
         cover_image: str(e.cover_image, 500) || null,

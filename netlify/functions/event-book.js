@@ -10,7 +10,7 @@
 const Razorpay = require("razorpay");
 const crypto = require("crypto");
 const { createClient } = require("@supabase/supabase-js");
-const { ticketsTaken, confirmationEmail, sendEmail, json } = require("./shared/events");
+const { ticketsTaken, confirmationEmail, sendEmail, json, ticketTotal } = require("./shared/events");
 
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
 
@@ -88,7 +88,7 @@ async function book(body) {
     }
 
     // Paid
-    const amount = ev.price * qty * 100;
+    const amount = ticketTotal(ev, qty) * 100;
     const razorpay = new Razorpay({ key_id: process.env.RAZORPAY_KEY_ID, key_secret: process.env.RAZORPAY_KEY_SECRET });
     const rz = await razorpay.orders.create({
         amount, currency: "INR",

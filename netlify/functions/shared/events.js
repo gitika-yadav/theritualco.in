@@ -30,13 +30,23 @@ async function ticketsTaken(supabase, eventId) {
         n + (b.status === "confirmed" || b.created_at >= holdSince ? b.qty : 0), 0);
 }
 
+// Ticket total in rupees. With a pair deal, every 2 spots cost pair_price
+// (e.g. 1 = 2,800 · 2 = 5,000 · 3 = 7,800 · 4 = 10,000).
+function ticketTotal(e, qty) {
+    qty = Math.max(1, Number(qty) || 1);
+    const price = Number(e.price) || 0, pair = Number(e.pair_price) || 0;
+    if (!price) return 0;
+    if (!pair || pair >= price * 2) return price * qty;
+    return Math.floor(qty / 2) * pair + (qty % 2) * price;
+}
+
 // What the public site is allowed to see.
 function publicFields(e) {
     return {
         slug: e.slug, title: e.title, subtitle: e.subtitle,
         starts_at: e.starts_at, ends_at: e.ends_at,
         venue_name: e.venue_name, venue_address: e.venue_address, map_url: e.map_url,
-        price: e.price, capacity: e.capacity, max_per_booking: e.max_per_booking,
+        price: e.price, pair_price: e.pair_price || null, capacity: e.capacity, max_per_booking: e.max_per_booking,
         cover_image: e.cover_image, description: e.description,
         includes: (e.includes || "").split("\n").map(s => s.trim()).filter(Boolean),
         access: e.access, status: e.status,
@@ -136,5 +146,4 @@ const json = (statusCode, body, extraHeaders) => ({
 module.exports = {
     SITE, HOLD_MINUTES, REFUND_HOURS, esc, fmtDate, fmtTime, fmtWhen,
     ticketsTaken, publicFields, calendarLink,
-    confirmationEmail, reminderEmail, cancellationEmail, sendEmail, json,
-};
+    confirmationEmail, reminderEmail, cancellationEmail, sendEmail, json, ticketTotal };
