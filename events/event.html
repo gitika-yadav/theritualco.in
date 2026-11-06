@@ -104,11 +104,13 @@
     }
 
     // ── Photos: swipeable gallery (cover first) + titled photo sections ──
+    // Gallery order: photos marked "lead" first, then the cover, then the rest.
     function photos(e) {
-        var list = [];
-        if (e.cover_image) list.push({ src: e.cover_image, alt: e.title });
-        (e.gallery || []).forEach(function (g) { if (g && g.src) list.push(g); });
-        return list;
+        var all = (e.gallery || []).filter(function (g) { return g && g.src; });
+        var lead = all.filter(function (g) { return g.lead; });
+        var list = lead.concat(e.cover_image ? [{ src: e.cover_image, alt: e.title }] : [], all.filter(function (g) { return !g.lead; }));
+        var seen = {};
+        return list.filter(function (g) { return seen[g.src] ? false : (seen[g.src] = true); });
     }
     function mediaBlock(e) {
         var list = photos(e);
@@ -116,7 +118,7 @@
         return '<div class="ev-media"><div class="ev-slides" id="ev-slides">' +
             list.map(function (g, i) {
                 return '<figure class="ev-slide"><img src="' + esc(g.src) + '" alt="' + esc(g.alt || g.title || e.title) + '"' + (i ? ' loading="lazy"' : '') + '>' +
-                    (g.title && i ? '<figcaption>' + esc(g.title) + '</figcaption>' : '') + '</figure>';
+                    (g.title ? '<figcaption>' + esc(g.title) + '</figcaption>' : '') + '</figure>';
             }).join("") + '</div>' +
             (list.length > 1 ? '<div class="ev-thumbs" id="ev-thumbs">' + list.map(function (g, i) {
                 return '<button type="button" aria-label="Photo ' + (i + 1) + '"' + (i ? '' : ' class="on"') + '><img src="' + esc(g.src) + '" alt="" loading="lazy"></button>';
