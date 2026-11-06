@@ -171,6 +171,11 @@
 
     function render(d) {
         var e = d.event; EV = e;
+        // Meta: ViewContent once, so event-page visitors can be measured and retargeted.
+        if (!window.__evViewed) {
+            window.__evViewed = true;
+            try { if (window.trackMeta) window.trackMeta("ViewContent", { content_name: e.title, content_category: "event", content_ids: ["event-" + e.slug], value: e.early_price || e.price || 0, currency: "INR" }); } catch (x) {}
+        }
         EARLY_LEFT = (e.early_price && e.early_price < e.price && d.early_left > 0) ? d.early_left : 0;
         document.title = e.title + " | The Ritual Co. Events";
         // Only show scarcity when it's real: sold out, or 5 or fewer spots left.
@@ -207,7 +212,14 @@
         });
     }
 
-    function done(e, email) {
+    function done(e, email, qty, ref, paid) {
+        // Meta: a booking is a CompleteRegistration (kept separate from shop Purchases).
+        try {
+            if (window.trackMeta) window.trackMeta("CompleteRegistration", {
+                content_name: e.title, content_category: "event", content_ids: ["event-" + e.slug],
+                value: paid || 0, currency: "INR", num_items: qty || 1
+            }, ref ? "evt_" + ref : undefined);
+        } catch (x) {}
         document.getElementById("ev-book").innerHTML = '<div class="ev-done"><h2>You\'re in.</h2>' +
             '<p>We\'ve sent the details to <strong>' + esc(email) + '</strong>. See you on ' + esc(dateStr(e.starts_at)) + '.</p>' +
             '<a href="' + calLink(e) + '" target="_blank" rel="noopener">Add to calendar</a></div>';
@@ -238,7 +250,7 @@
             .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
             .then(function (res) {
                 if (!res.ok) return reset(res.j.error || "Something went wrong. Please try again.");
-                if (res.j.status === "confirmed") return done(EV, data.email);
+                if (res.j.status === "confirmed") return done(EV, data.email, data.qty, res.j.booking_id, 0);
                 return loadRazorpay().then(function () {
                     var rzp = new Razorpay({
                         key: res.j.key, amount: res.j.amount, currency: "INR", order_id: res.j.order_id,
@@ -250,7 +262,7 @@
                             fetch("/.netlify/functions/event-book", { method: "POST", headers: { "Content-Type": "application/json" },
                                 body: JSON.stringify({ action: "verify", razorpay_order_id: p.razorpay_order_id, razorpay_payment_id: p.razorpay_payment_id, razorpay_signature: p.razorpay_signature }) })
                                 .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
-                                .then(function (v) { if (v.ok) done(EV, data.email); else reset((v.j.error || "Payment received but not confirmed.") + " Payment ID: " + p.razorpay_payment_id); })
+                                .then(function (v) { if (v.ok) done(EV, data.email, data.qty, p.razorpay_payment_id, res.j.amount / 100); else reset((v.j.error || "Payment received but not confirmed.") + " Payment ID: " + p.razorpay_payment_id); })
                                 .catch(function () { reset("Payment received. If you don't get an email in 10 minutes, contact us with payment ID " + p.razorpay_payment_id); });
                         },
                         modal: { ondismiss: function () { reset(); } }
