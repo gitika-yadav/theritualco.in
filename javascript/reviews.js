@@ -173,10 +173,39 @@
     formEl.addEventListener('submit', submitReview);
     loadReviews();
 
-    // From the review-request email: /products/x?rn=Riya#review-form → prefill name.
-    try {
-        const rn = new URLSearchParams(location.search).get('rn');
-        const nameEl = document.getElementById('review-name');
-        if (rn && nameEl && !nameEl.value) nameEl.value = rn.slice(0, 80);
-    } catch (e) { /* ignore */ }
+    // Keep the form tucked behind a "Write a review" button so real reviews
+    // lead the section. Opens by itself when someone arrives from the
+    // review-request email (/products/x?rn=Riya#review-form).
+    const wrapEl = formEl.closest('.review-form-wrap');
+    let rn = null;
+    try { rn = new URLSearchParams(location.search).get('rn'); } catch (e) { /* ignore */ }
+    const cameForReview = !!rn || location.hash === '#review-form';
+
+    if (wrapEl) {
+        const toggle = document.createElement('button');
+        toggle.type = 'button';
+        toggle.className = 'review-toggle';
+        toggle.textContent = 'Write a review';
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-controls', 'review-form');
+        wrapEl.insertBefore(toggle, wrapEl.firstChild);
+
+        const open = (focus) => {
+            wrapEl.classList.remove('is-collapsed');
+            toggle.setAttribute('aria-expanded', 'true');
+            if (focus) {
+                const nameEl = document.getElementById('review-name');
+                const target = nameEl && nameEl.value ? document.getElementById('review-text') : nameEl;
+                if (target) target.focus({ preventScroll: true });
+                formEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        };
+        toggle.addEventListener('click', () => open(true));
+        if (cameForReview) open(false);
+        else wrapEl.classList.add('is-collapsed');
+    }
+
+    // From the review-request email: prefill the name.
+    const nameEl = document.getElementById('review-name');
+    if (rn && nameEl && !nameEl.value) nameEl.value = rn.slice(0, 80);
 })();
