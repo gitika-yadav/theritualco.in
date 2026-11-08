@@ -126,7 +126,7 @@ async function storeStats(sb, r) {
         shipped: shp.length,
         delivered: shp.filter(o => o.delivered_at).length,
         avg_delivery_days: deliveredDays.length ? +(deliveredDays.reduce((a, b) => a + b, 0) / deliveredDays.length).toFixed(1) : null,
-        returning: shp.filter(o => /rto|return/i.test(o.delivery_status || "")).length,
+        returning: shp.filter(o => o.status === "rto" || o.status === "returned" || /rto|return/i.test(o.delivery_status || "")).length,
         event_bookings: bk.length,
         event_tickets: bk.reduce((n, b) => n + b.qty, 0),
         event_revenue: Math.round(bk.reduce((n, b) => n + b.amount_paise, 0) / 100),

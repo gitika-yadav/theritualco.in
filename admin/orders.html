@@ -57,6 +57,8 @@
         .badge-refunded{background:#fcebeb;color:#a32d2d;}
         .badge-cod_unpaid{background:#faeeda;color:#854f0b;}
         .badge-gifted{background:#f2e9fb;color:#6b3fa0;}
+        .badge-rto{background:#fcebeb;color:#a32d2d;}
+        .badge-returned{background:#f1efec;color:#6b625b;}
         .dot{width:6px;height:6px;border-radius:50%;display:inline-block;}
         .dot-paid{background:#639922;}
         .dot-shipped{background:#378add;}
@@ -65,6 +67,8 @@
         .dot-refunded{background:#e24b4a;}
         .dot-cod_unpaid{background:#ef9f27;}
         .dot-gifted{background:#9b6fd0;}
+        .dot-rto{background:#e24b4a;}
+        .dot-returned{background:#a09890;}
         .btn-sm{padding:5px 12px;border:0.5px solid #d0cbc4;border-radius:6px;font-size:12px;font-family:inherit;cursor:pointer;background:#fff;color:#3a3330;}
         .btn-sm:hover{background:#f5f2ee;}
         .btn-ship{background:#3a3330;color:#fff;border-color:#3a3330;}
@@ -172,6 +176,7 @@
         <button class="filter-btn" onclick="setFilter('to_ship', this)">To ship</button>
         <button class="filter-btn" onclick="setFilter('shipped', this)">Shipped</button>
         <button class="filter-btn" onclick="setFilter('delivered', this)">Delivered</button>
+        <button class="filter-btn" onclick="setFilter('returns', this)">RTO / returns</button>
         <button class="filter-btn" onclick="setFilter('refunded', this)">Refunded</button>
         <button class="filter-btn" id="bulk-btn" onclick="openBulk()">Ship selected via Delhivery</button>
         <input class="search-input" type="text" id="search" placeholder="Search name, email, order ID..." oninput="renderOrders()"/>
@@ -292,7 +297,7 @@
     // collection; gifted = ₹0 creator/collaboration order. Both need the same
     // "mark shipped" flow as a regular paid order.
     const TO_SHIP_STATUSES = ["paid", "cod_unpaid", "gifted"];
-    const STATUS_LABELS = { paid: "paid", cod_unpaid: "COD", gifted: "gift", shipped: "shipped", delivered: "delivered", pending: "pending", refunded: "refunded" };
+    const STATUS_LABELS = { paid: "paid", cod_unpaid: "COD", gifted: "gift", shipped: "shipped", delivered: "delivered", pending: "pending", refunded: "refunded", rto: "RTO · coming back", returned: "returned" };
 
     // Orders now hold multiple line items in a JSONB array. This condenses them
     // into a short readable string for the table row, e.g.
@@ -394,6 +399,7 @@
         let orders = allOrders;
         if (currentFilter !== "all") {
             if (currentFilter === "to_ship") orders = orders.filter(o => TO_SHIP_STATUSES.includes(o.status));
+            else if (currentFilter === "returns") orders = orders.filter(o => o.status === "rto" || o.status === "returned");
             else orders = orders.filter(o => o.status === currentFilter);
         }
         if (q) {
@@ -418,7 +424,9 @@
             const shipBtn = TO_SHIP_STATUSES.includes(status)
                 ? `<button class="btn-sm btn-ship" onclick="openDelhivery('${o.id}', event)">Ship via Delhivery</button> <button class="btn-sm" onclick="openShip('${o.id}', event)" title="Other courier / enter tracking yourself">Manual</button>`
                 : status === "shipped"
-                    ? `<button class="btn-sm" onclick="markDelivered('${o.id}')">Mark delivered</button>${labelBtn}`
+                    ? `<button class="btn-sm" onclick="markDelivered('${o.id}')">Mark delivered</button> <button class="btn-sm" onclick="setStatus('${o.id}', 'rto')">RTO</button>${labelBtn}`
+                    : status === "rto"
+                    ? `<button class="btn-sm" onclick="setStatus('${o.id}', 'returned')">Received back</button>`
                     : status === "pending"
                         ? `<button class="btn-sm" style="color:#c0392b;border-color:#f5c6c6;" onclick="deleteSingle('${o.id}', event)">Delete</button>`
                         : "";
@@ -739,17 +747,46 @@
         document.getElementById("bulk-footer").innerHTML = `<button class="btn-primary" id="bulk-go" onclick="runBulk()" disabled>Book all</button><button class="btn-outline" onclick="closeBulk()">Cancel</button>`;
     }
 
-    async function markDelivered(id) {
-        if (!confirm("Mark this order as delivered?")) return;
-        await fetch("/.netlify/functions/update-order", {
+    function markDelivered(id) { return setStatus(id, "delivered"); }
+
+    // Status fixes: deliver, RTO, received back (restocks), and undo back to shipped.
+    const STATUS_CONFIRM = {
+        delivered: "Mark this order as delivered?",
+        rto: "Mark this order as RTO (coming back to us)? It stops counting as a sale.",
+        returned: "Parcel is back with you? This puts the items back in stock (once).",
+        shipped: "Undo and move this order back to shipped? The customer is not emailed.",
+    };
+    async function setStatus(id, status) {
+        if (!confirm(STATUS_CONFIRM[status] || `Change status to ${status}?`)) return;
+        const res = await fetch("/.netlify/functions/update-order", {
             method: "POST",
             headers: { "Content-Type": "application/json", "x-admin-token": SESSION_TOKEN },
-            body: JSON.stringify({ order_id: id, status: "delivered" }),
+            body: JSON.stringify({ order_id: id, status }),
         });
+        const out = await res.json().catch(() => ({}));
+        if (!res.ok) { alert(out.error || "Couldn't update this order. Try again."); return; }
         const o = allOrders.find(x => x.id === id);
-        if (o) o.status = "delivered";
+        if (o) {
+            o.status = status;
+            const now = new Date().toISOString();
+            if (status === "delivered") o.delivered_at = now;
+            if (status === "rto") { o.rto_at = now; o.delivered_at = null; }
+            if (status === "returned") { o.returned_at = now; if (!o.restocked_at) o.restocked_at = now; }
+            if (status === "shipped") { o.delivered_at = null; o.rto_at = null; }
+        }
+        if (status === "returned" && out.restocked && out.restocked.length) alert("Back in stock: " + out.restocked.join(", "));
         updateStats();
         renderOrders();
+        if (document.getElementById("detail-panel").classList.contains("open")) openDetail(id);
+    }
+
+    function statusFixButtons(o) {
+        const b = (st, label, primary) => `<button class="${primary ? "btn-primary" : "btn-outline"}" style="width:100%;margin-top:8px;" onclick="setStatus('${o.id}', '${st}')">${label}</button>`;
+        if (o.status === "shipped") return b("delivered", "Mark as delivered") + b("rto", "Mark as RTO (coming back)");
+        if (o.status === "delivered") return b("shipped", "Undo delivered (back to shipped)") + b("rto", "Mark as RTO (coming back)");
+        if (o.status === "rto") return b("returned", "Received back (restock items)", true) + b("shipped", "Undo RTO (back to shipped)");
+        if (o.status === "returned") return `<p style="font-size:12px;color:#a09890;margin-top:10px;">Returned${o.returned_at ? " on " + new Date(o.returned_at).toLocaleDateString("en-IN", { day: "numeric", month: "short" }) : ""}. ${o.restocked_at ? "Items were put back in stock." : ""}</p>`;
+        return "";
     }
 
     function openDetail(id) {
@@ -797,7 +834,7 @@
     </div>` : ""}
     ${TO_SHIP_STATUSES.includes(o.status) ? `<button class="btn-primary" style="width:100%;margin-top:8px;" onclick="openDelhivery('${o.id}')">Ship via Delhivery</button>
     <button class="btn-outline" style="width:100%;margin-top:8px;" onclick="openShip('${o.id}')">Mark as shipped (other courier)</button>` : ""}
-    ${o.status === "shipped" ? `<button class="btn-outline" style="width:100%;margin-top:8px;" onclick="markDelivered('${o.id}')">Mark as delivered</button>` : ""}
+    ${statusFixButtons(o)}
   `;
         document.getElementById("detail-overlay").style.display = "block";
         document.getElementById("detail-panel").classList.add("open");
