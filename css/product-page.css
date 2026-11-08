@@ -806,3 +806,42 @@ body .rating-mini__stars { display: inline-flex; gap: 2px; color: #C9B99A; }
 body .rating-mini__stars svg { width: 13px; height: 13px; }
 body .rating-mini__stars svg.off { opacity: .3; }
 body .rating-mini:hover #rating-mini-text { text-decoration: underline; }
+
+/* ── PHONES: full-size photo, with name, price and Add to Cart in the
+   bottom bar on the first screen, then name → rating → price → options →
+   Add to Cart right under the photo (CSS order only, markup unchanged).
+   Anything a script adds later falls to the end unless listed here.     */
+@media (max-width: 768px) {
+    body.tr-product-page .product { gap: 18px; padding-top: 76px; }
+    body.tr-product-page .product__thumbs { margin-top: 8px; gap: 6px; }
+    body.tr-product-page .product__thumbs .thumb { width: 44px; height: 44px; }
+
+    body.tr-product-page .product__info > * { order: 20; }
+    body.tr-product-page .product__info > .eyebrow { display: none; }
+    body.tr-product-page .product__info > .product__title {
+        order: 1; font-size: 32px; line-height: 1.05; margin-bottom: 6px;
+    }
+    /* One line on phones ("The Ritual Mat"); the markup keeps a space before <br> */
+    body.tr-product-page .product__title br { display: none; }
+    body.tr-product-page .product__info > .rating-mini { order: 2; margin: 2px 0 10px; }
+    body.tr-product-page .product__info > .price-block { order: 3; margin-bottom: 14px; }
+    body.tr-product-page .product__info > .price-block .price { font-size: 34px; }
+    body.tr-product-page .product__info > .option-heading,
+    body.tr-product-page .product__info > .swatches,
+    body.tr-product-page .product__info > .weight-picker,
+    body.tr-product-page .product__info > .opt { order: 4; }
+    body.tr-product-page .product__info > .opt { margin-bottom: 16px; }
+    body.tr-product-page .product__info > #preorder-btn { order: 5; }
+    body.tr-product-page .product__info > .out-of-stock-badge,
+    body.tr-product-page .product__info > .arrives-by { order: 6; }
+    body.tr-product-page .product__info > .trust { order: 7; }
+    body.tr-product-page .product__info > .product__tagline { order: 8; margin: 28px 0 20px; }
+    body.tr-product-page .product__info > .features { order: 9; }
+    body.tr-product-page .product__info > .accordion { order: 10; }
+
+    /* The ticker no longer sits on top of the first screen */
+    body.tr-product-page .ticker { position: static; }
+
+    /* WhatsApp button sits above the Add to Cart bar instead of covering it */
+    body.tr-product-page:has(.sticky-cart-bar.is-visible) .whatsapp-float { bottom: 88px !important; }
+}
