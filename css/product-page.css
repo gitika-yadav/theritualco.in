@@ -813,6 +813,8 @@ body .rating-mini:hover #rating-mini-text { text-decoration: underline; }
 @media (max-width: 768px) {
     body.tr-product-page .product { gap: 18px; padding-top: 76px; }
     body.tr-product-page .product__visual { max-height: 36vh; }
+    /* Shorter box → show the whole photo instead of cropping it (socks collage) */
+    body.tr-product-page .product__visual img { object-fit: contain; background: var(--muted); }
     body.tr-product-page .product__thumbs { margin-top: 8px; gap: 6px; }
     body.tr-product-page .product__thumbs .thumb { width: 44px; height: 44px; }
 
