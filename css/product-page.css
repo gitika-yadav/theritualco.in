@@ -807,14 +807,12 @@ body .rating-mini__stars svg { width: 13px; height: 13px; }
 body .rating-mini__stars svg.off { opacity: .3; }
 body .rating-mini:hover #rating-mini-text { text-decoration: underline; }
 
-/* ── PHONES: name, rating, price and Add to Cart on the first screen ──
-   Shorter photo + reordered info panel (CSS order only, markup unchanged).
+/* ── PHONES: full-size photo, with name, price and Add to Cart in the
+   bottom bar on the first screen, then name → rating → price → options →
+   Add to Cart right under the photo (CSS order only, markup unchanged).
    Anything a script adds later falls to the end unless listed here.     */
 @media (max-width: 768px) {
     body.tr-product-page .product { gap: 18px; padding-top: 76px; }
-    body.tr-product-page .product__visual { max-height: 36vh; }
-    /* Shorter box → show the whole photo instead of cropping it (socks collage) */
-    body.tr-product-page .product__visual img { object-fit: contain; background: var(--muted); }
     body.tr-product-page .product__thumbs { margin-top: 8px; gap: 6px; }
     body.tr-product-page .product__thumbs .thumb { width: 44px; height: 44px; }
 
