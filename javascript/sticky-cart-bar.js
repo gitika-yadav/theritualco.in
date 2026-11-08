@@ -20,7 +20,27 @@ const isCapsuleOutOfStock =
     function syncImg() { if (!isInfographic(mainImg.src)) stickyImg.src = mainImg.src; }
     if (mainImg && stickyImg) syncImg();
     if (titleEl && stickyName) stickyName.textContent = titleEl.innerHTML.replace(/<br\s*\/?>/gi, ' ').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
-    if (priceEl && stickyPrice) stickyPrice.textContent = priceEl.textContent;
+    // Price shown = the visible one in the price block (socks swaps Solo/Trio
+    // rows), kept in sync when it changes. Button text mirrors the main button
+    // (e.g. "Pre-order · Ships in December").
+    var priceBlock = document.querySelector('.price-block');
+    function visiblePrice() {
+        var all = priceBlock ? priceBlock.querySelectorAll('.price') : [];
+        for (var i = 0; i < all.length; i++) if (all[i].offsetParent !== null) return all[i];
+        return priceEl;
+    }
+    function syncText() {
+        var p = visiblePrice();
+        if (p && stickyPrice) stickyPrice.textContent = p.textContent;
+        if (stickyBtn) {
+            stickyBtn.textContent = mainBtn.textContent.trim();
+            stickyBtn.disabled = !!mainBtn.disabled;
+        }
+    }
+    syncText();
+    var textObs = new MutationObserver(syncText);
+    if (priceBlock) textObs.observe(priceBlock, { attributes: true, childList: true, subtree: true, characterData: true });
+    textObs.observe(mainBtn, { attributes: true, childList: true, subtree: true, characterData: true });
 
     // Keep sticky image synced when a colour swatch changes the main photo
     if (mainImg && stickyImg) {
@@ -28,16 +48,13 @@ const isCapsuleOutOfStock =
             .observe(mainImg, { attributes: true, attributeFilter: ['src'] });
     }
 
-    // Show only once the real button has scrolled above the viewport
+    // Show whenever the real button is off screen: above it (not reached yet,
+    // so price + Add to Cart are on the very first screen) or below it
+    // (scrolled past). Hidden while the real button itself is visible.
+    // The bar's CSS keeps it to phones and tablets.
     var observer = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-                bar.classList.remove('is-visible');
-            } else if (entry.boundingClientRect.top < 0) {
-                bar.classList.add('is-visible');
-            } else {
-                bar.classList.remove('is-visible');
-            }
+            bar.classList.toggle('is-visible', !entry.isIntersecting);
         });
     }, { threshold: 0 });
     observer.observe(mainBtn);
