@@ -36,6 +36,7 @@
         .status-delivered{background:#f0f7ee;color:#2a6b3a}
         .status-cancelled{background:#fdf0ee;color:#8b3a2a}
         .status-refunded{background:#fdf0ee;color:#8b3a2a}
+        .status-rto,.status-returned{background:#fdf0ee;color:#8b3a2a}
         /* Items list — replaces the old flat product/weight/colour grid */
         .order-items{display:flex;flex-direction:column;gap:10px}
         .order-item-row{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;padding:6px 0;border-bottom:1px solid #f2ede8}
@@ -164,7 +165,7 @@
       <div class="order-card">
         <div class="order-card-header">
           <span class="order-id">#${shortId}</span>
-          <span class="order-status status-${o.status}">${o.status}</span>
+          <span class="order-status status-${o.status}">${({ rto: "returning", cod_unpaid: "cash on delivery" })[o.status] || o.status}</span>
         </div>
         <div class="order-items">
           ${itemRows || `<div class="order-item-row"><span class="order-item-meta">No item details available</span></div>`}

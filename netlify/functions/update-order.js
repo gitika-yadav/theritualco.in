@@ -39,12 +39,51 @@ exports.handler = async (event) => {
         .single();
     if (fetchErr || !order) return { statusCode: 404, body: "Order not found" };
 
-    // Update order
+    // Allowed moves. Anything else is refused so a typo can't put an order in a
+    // strange state.
+    //   to-ship → shipped                 (normal dispatch; emails the customer)
+    //   shipped → delivered | rto | returned
+    //   delivered → shipped (undo) | rto
+    //   rto → returned (parcel back with us: restocks once) | shipped (undo)
+    const TO_SHIP = ["paid", "cod_unpaid", "gifted"];
+    const MOVES = {
+        shipped:   [...TO_SHIP, "delivered", "rto"],
+        delivered: ["shipped", "rto"],
+        rto:       ["shipped", "delivered"],
+        returned:  ["rto", "shipped"],
+    };
+    const prev = order.status;
+    if (prev !== status && !(MOVES[status] || []).includes(prev)) {
+        return { statusCode: 400, body: JSON.stringify({ error: `Can't move an order from "${prev}" to "${status}".` }) };
+    }
+    const isUndo = status === "shipped" && !TO_SHIP.includes(prev);
+
+    const now = new Date().toISOString();
     const updates = { status };
     if (tracking_number) updates.tracking_number = tracking_number;
     if (courier) updates.courier = courier;
-    if (status === "shipped") updates.shipped_at = new Date().toISOString();
-    if (status === "delivered") updates.delivered_at = new Date().toISOString();
+    if (status === "shipped" && !isUndo) updates.shipped_at = now;
+    if (status === "shipped" && isUndo) { updates.delivered_at = null; updates.rto_at = null; }
+    if (status === "delivered") updates.delivered_at = now;
+    if (status === "rto") { updates.rto_at = now; updates.delivered_at = null; }
+    if (status === "returned") { updates.returned_at = now; if (!order.rto_at) updates.rto_at = now; }
+
+    // Parcel is back with us → put the units back on the shelf (only once).
+    let restocked = [];
+    if (status === "returned" && !order.restocked_at) {
+        for (const i of order.items || []) {
+            if (i.is_preorder) continue; // never took stock
+            const parts = i.is_kit && Array.isArray(i.kit_components) && i.kit_components.length
+                ? i.kit_components.map(c => ({ id: c.product_id, color: c.color, qty: (c.quantity || 1) * (i.quantity || 1) }))
+                : [{ id: i.product_id, color: i.color, qty: i.quantity ?? i.qty ?? 1 }];
+            for (const part of parts) {
+                const { error } = await supabase.rpc("restock_item", { p_product_id: part.id, p_color: part.color, p_qty: part.qty });
+                if (error) console.error("[RESTOCK_ERROR]", part, error.message);
+                else restocked.push(`${part.id} ${part.color || ""} ×${part.qty}`.trim());
+            }
+        }
+        updates.restocked_at = now;
+    }
 
     const { error: updateErr } = await supabase
         .from("orders")
@@ -52,8 +91,8 @@ exports.handler = async (event) => {
         .eq("id", order_id);
     if (updateErr) return { statusCode: 500, body: JSON.stringify({ error: updateErr.message }) };
 
-    // Send shipping email if marking as shipped
-    if (status === "shipped" && (order.guest_email || order.customer_email)) {
+    // Send shipping email only on a real dispatch (never on an undo)
+    if (status === "shipped" && !isUndo && (order.guest_email || order.customer_email)) {
         const email = order.guest_email || order.customer_email;
         const name = (order.guest_name || order.customer_name || "there").split(" ")[0];
         const amount = (order.amount_paise / 100).toLocaleString("en-IN");
@@ -95,5 +134,5 @@ exports.handler = async (event) => {
         }).catch(e => console.error("[SHIPPING_EMAIL_ERROR]", e.message));
     }
 
-    return { statusCode: 200, body: JSON.stringify({ success: true }) };
+    return { statusCode: 200, body: JSON.stringify({ success: true, restocked }) };
 };

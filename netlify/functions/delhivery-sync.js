@@ -1,6 +1,7 @@
 // netlify/functions/delhivery-sync.js
 // 1. Pulls the latest Delhivery status for every shipped Delhivery order and
-//    marks it delivered automatically (no more "Mark delivered" by hand).
+//    marks it delivered automatically (no more "Mark delivered" by hand), or
+//    flags it RTO when Delhivery says it's coming back to us.
 // 2. Four days after delivery, emails the customer once asking how they're
 //    finding it, with a link straight to the review form on each product page.
 //
@@ -118,8 +119,8 @@ exports.handler = async (event) => {
         // ── 1. Delivery status ──
         if (process.env.DELHIVERY_TOKEN) {
             const { data: shipped, error } = await supabase.from("orders")
-                .select("id, tracking_number, delivery_status")
-                .eq("status", "shipped").eq("courier", "Delhivery").not("tracking_number", "is", null)
+                .select("id, status, tracking_number, delivery_status")
+                .in("status", ["shipped", "rto"]).eq("courier", "Delhivery").not("tracking_number", "is", null)
                 .limit(200);
             if (error) throw error;
             const awbs = (shipped || []).map(o => String(o.tracking_number).trim()).filter(Boolean);
@@ -132,11 +133,14 @@ exports.handler = async (event) => {
                 const kind = classify(st);
                 const label = st.Status + (st.StatusLocation ? " · " + st.StatusLocation : "");
                 const upd = { delivery_status: label, delivery_checked_at: new Date().toISOString() };
-                if (kind === "delivered") {
+                if (kind === "delivered" && o.status === "shipped") {
                     upd.status = "delivered";
                     upd.delivered_at = st.StatusDateTime ? new Date(st.StatusDateTime).toISOString() : new Date().toISOString();
                     report.delivered.push(o.tracking_number);
                 } else if (kind === "returning" || kind === "returned") {
+                    // Coming back to us. Flag it as RTO; "Received back" (which
+                    // restocks) stays a manual click once the parcel is checked.
+                    if (o.status === "shipped") { upd.status = "rto"; upd.rto_at = new Date().toISOString(); }
                     report.returning.push({ awb: o.tracking_number, status: label });
                 }
                 if (!dry) await supabase.from("orders").update(upd).eq("id", o.id);
