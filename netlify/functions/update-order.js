@@ -45,11 +45,12 @@ exports.handler = async (event) => {
     //   shipped → delivered | rto | returned
     //   delivered → shipped (undo) | rto
     //   rto → returned (parcel back with us: restocks once) | shipped (undo)
+    //   returned → rto | shipped (undo: takes the restocked units back out)
     const TO_SHIP = ["paid", "cod_unpaid", "gifted"];
     const MOVES = {
-        shipped:   [...TO_SHIP, "delivered", "rto"],
+        shipped:   [...TO_SHIP, "delivered", "rto", "returned"],
         delivered: ["shipped", "rto"],
-        rto:       ["shipped", "delivered"],
+        rto:       ["shipped", "delivered", "returned"],
         returned:  ["rto", "shipped"],
     };
     const prev = order.status;
@@ -65,24 +66,36 @@ exports.handler = async (event) => {
     if (status === "shipped" && !isUndo) updates.shipped_at = now;
     if (status === "shipped" && isUndo) { updates.delivered_at = null; updates.rto_at = null; }
     if (status === "delivered") updates.delivered_at = now;
-    if (status === "rto") { updates.rto_at = now; updates.delivered_at = null; }
+    if (status === "rto" && prev !== "returned") { updates.rto_at = now; updates.delivered_at = null; }
+    if (prev === "returned" && status !== "returned") { updates.returned_at = null; }
     if (status === "returned") { updates.returned_at = now; if (!order.rto_at) updates.rto_at = now; }
+
+    // Units this order took from stock (kits expand to their parts; pre-orders never took stock).
+    const stockParts = () => (order.items || []).filter(i => !i.is_preorder).flatMap(i =>
+        i.is_kit && Array.isArray(i.kit_components) && i.kit_components.length
+            ? i.kit_components.map(c => ({ id: c.product_id, color: c.color, qty: (c.quantity || 1) * (i.quantity || 1) }))
+            : [{ id: i.product_id, color: i.color, qty: i.quantity ?? i.qty ?? 1 }]);
 
     // Parcel is back with us → put the units back on the shelf (only once).
     let restocked = [];
     if (status === "returned" && !order.restocked_at) {
-        for (const i of order.items || []) {
-            if (i.is_preorder) continue; // never took stock
-            const parts = i.is_kit && Array.isArray(i.kit_components) && i.kit_components.length
-                ? i.kit_components.map(c => ({ id: c.product_id, color: c.color, qty: (c.quantity || 1) * (i.quantity || 1) }))
-                : [{ id: i.product_id, color: i.color, qty: i.quantity ?? i.qty ?? 1 }];
-            for (const part of parts) {
-                const { error } = await supabase.rpc("restock_item", { p_product_id: part.id, p_color: part.color, p_qty: part.qty });
-                if (error) console.error("[RESTOCK_ERROR]", part, error.message);
-                else restocked.push(`${part.id} ${part.color || ""} ×${part.qty}`.trim());
-            }
+        for (const part of stockParts()) {
+            const { error } = await supabase.rpc("restock_item", { p_product_id: part.id, p_color: part.color, p_qty: part.qty });
+            if (error) console.error("[RESTOCK_ERROR]", part, error.message);
+            else restocked.push(`${part.id} ${part.color || ""} ×${part.qty}`.trim());
         }
         updates.restocked_at = now;
+    }
+
+    // "Received back" clicked by mistake → take those units back out of stock.
+    let unrestocked = [];
+    if (prev === "returned" && status !== "returned" && order.restocked_at) {
+        for (const part of stockParts()) {
+            const { error } = await supabase.rpc("unrestock_item", { p_product_id: part.id, p_color: part.color, p_qty: part.qty });
+            if (error) console.error("[UNRESTOCK_ERROR]", part, error.message);
+            else unrestocked.push(`${part.id} ${part.color || ""} ×${part.qty}`.trim());
+        }
+        updates.restocked_at = null;
     }
 
     const { error: updateErr } = await supabase
@@ -134,5 +147,5 @@ exports.handler = async (event) => {
         }).catch(e => console.error("[SHIPPING_EMAIL_ERROR]", e.message));
     }
 
-    return { statusCode: 200, body: JSON.stringify({ success: true, restocked }) };
+    return { statusCode: 200, body: JSON.stringify({ success: true, restocked, unrestocked }) };
 };

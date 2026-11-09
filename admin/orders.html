@@ -428,7 +428,9 @@
                     : status === "delivered"
                     ? `<button class="btn-sm" onclick="event.stopPropagation();setStatus('${o.id}', 'shipped')" title="Marked delivered by mistake? Move it back to shipped">Undo delivered</button>${labelBtn}`
                     : status === "rto"
-                    ? `<button class="btn-sm" onclick="setStatus('${o.id}', 'returned')">Received back</button>`
+                    ? `<button class="btn-sm" onclick="setStatus('${o.id}', 'returned')">Received back</button> <button class="btn-sm" onclick="event.stopPropagation();setStatus('${o.id}', 'shipped')" title="Marked RTO by mistake? Move it back to shipped">Undo RTO</button>`
+                    : status === "returned"
+                    ? `<button class="btn-sm" onclick="event.stopPropagation();undoReturned('${o.id}')" title="Clicked Received back by mistake? Takes the items back out of stock">Undo received back</button>`
                     : status === "pending"
                         ? `<button class="btn-sm" style="color:#c0392b;border-color:#f5c6c6;" onclick="deleteSingle('${o.id}', event)">Delete</button>`
                         : "";
@@ -763,8 +765,12 @@
         returned: "Parcel is back with you? This puts the items back in stock (once).",
         shipped: "Undo and move this order back to shipped? The customer is not emailed.",
     };
-    async function setStatus(id, status) {
-        if (!confirm(STATUS_CONFIRM[status] || `Change status to ${status}?`)) return;
+    function undoReturned(id) {
+        if (!confirm("Undo \"Received back\"? The order goes back to shipped and its items are taken back out of stock. If it really is on its way back, click RTO after.")) return;
+        return setStatus(id, "shipped", true);
+    }
+    async function setStatus(id, status, skipConfirm) {
+        if (!skipConfirm && !confirm(STATUS_CONFIRM[status] || `Change status to ${status}?`)) return;
         const res = await fetch("/.netlify/functions/update-order", {
             method: "POST",
             headers: { "Content-Type": "application/json", "x-admin-token": SESSION_TOKEN },
@@ -777,11 +783,13 @@
             o.status = status;
             const now = new Date().toISOString();
             if (status === "delivered") o.delivered_at = now;
-            if (status === "rto") { o.rto_at = now; o.delivered_at = null; }
+            if (o.returned_at && status !== "returned") { o.returned_at = null; o.restocked_at = null; }
+            if (status === "rto" && !o.rto_at) { o.rto_at = now; o.delivered_at = null; }
             if (status === "returned") { o.returned_at = now; if (!o.restocked_at) o.restocked_at = now; }
             if (status === "shipped") { o.delivered_at = null; o.rto_at = null; }
         }
         if (status === "returned" && out.restocked && out.restocked.length) alert("Back in stock: " + out.restocked.join(", "));
+        if (out.unrestocked && out.unrestocked.length) alert("Taken back out of stock: " + out.unrestocked.join(", "));
         updateStats();
         renderOrders();
         if (document.getElementById("detail-panel").classList.contains("open")) openDetail(id);
@@ -792,7 +800,7 @@
         if (o.status === "shipped") return b("delivered", "Mark as delivered") + b("rto", "Mark as RTO (coming back)");
         if (o.status === "delivered") return b("shipped", "Undo delivered (back to shipped)") + b("rto", "Mark as RTO (coming back)");
         if (o.status === "rto") return b("returned", "Received back (restock items)", true) + b("shipped", "Undo RTO (back to shipped)");
-        if (o.status === "returned") return `<p style="font-size:12px;color:#a09890;margin-top:10px;">Returned${o.returned_at ? " on " + new Date(o.returned_at).toLocaleDateString("en-IN", { day: "numeric", month: "short" }) : ""}. ${o.restocked_at ? "Items were put back in stock." : ""}</p>`;
+        if (o.status === "returned") return `<button class="btn-outline" style="width:100%;margin-top:8px;" onclick="undoReturned('${o.id}')">Undo received back</button><p style="font-size:12px;color:#a09890;margin-top:10px;">Returned${o.returned_at ? " on " + new Date(o.returned_at).toLocaleDateString("en-IN", { day: "numeric", month: "short" }) : ""}. ${o.restocked_at ? "Items were put back in stock." : ""}</p>`;
         return "";
     }
 
