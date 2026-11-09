@@ -86,7 +86,7 @@
         if (d.spots_left <= 0) return '<div class="ev-closed"><strong>Fully booked.</strong>Spots sometimes open up. DM us on <a href="https://instagram.com/theritualco.in" style="color:#3a3330;">Instagram</a> to join the waitlist.</div>';
         var max = Math.min(e.max_per_booking || 4, d.spots_left);
         var opts = "";
-        for (var i = 1; i <= max; i++) opts += '<option value="' + i + '"' + (i === 2 && hasPair(e) ? " selected" : "") + '>' + i + (i === 1 ? " spot" : " spots") + (e.price ? " · " + rupees(total(e, i)) : "") + (i === 2 && hasPair(e) && EARLY_LEFT < 2 ? " (pair deal)" : "") + '</option>';
+        for (var i = 1; i <= max; i++) opts += '<option value="' + i + '"' + (i === 1 ? " selected" : "") + '>' + i + (i === 1 ? " spot" : " spots") + (e.price ? " · " + rupees(total(e, i)) : "") + (i === 2 && hasPair(e) && EARLY_LEFT < 2 ? " (pair deal)" : "") + '</option>';
         var note = e.price
             ? "Secure payment via Razorpay. Full refund up to 48 hours before the event."
             : (e.access === "invite" ? "You're on the guest list once you confirm." : "Free to attend. Please only RSVP if you can make it.");
@@ -98,7 +98,7 @@
             '<input name="instagram" placeholder="Instagram handle (optional)">' +
             '<select name="qty"' + (max === 1 ? ' style="display:none"' : '') + '>' + opts + '</select>' +
             '</div>' +
-            '<button class="ev-btn" type="submit">' + (e.price ? btnLabel(e, hasPair(e) && max >= 2 ? 2 : 1) : (e.access === "invite" ? "Confirm my spot" : "RSVP")) + '</button>' +
+            '<button class="ev-btn" type="submit">' + (e.price ? btnLabel(e, 1) : (e.access === "invite" ? "Confirm my spot" : "RSVP")) + '</button>' +
             '<p class="ev-form__err" id="ev-err"></p>' +
             '<p class="ev-form__note">' + note + '</p></form>';
     }
@@ -217,7 +217,7 @@
             (where ? '<div class="ev-fact"><span class="ev-fact__k">Where</span><span class="ev-fact__v">' + where + '</span></div>' : "") +
             '</div>' +
             '<div class="ev-price-row"><span class="ev-price">' + (EARLY_LEFT ? rupees(e.early_price) + ' <s class="ev-was">' + rupees(e.price) + '</s>' : e.price ? rupees(e.price) : (e.access === "invite" ? "Guest list" : "Free")) + '</span>' + spots + '</div>' +
-            (EARLY_LEFT ? '<p class="ev-pair"><strong>Early bird</strong> &middot; ' + rupees(e.early_price) + ' for the first ' + e.early_spots + ' spots &middot; last few spots left at this price</p>' : "") +
+            (EARLY_LEFT ? '<p class="ev-pair"><strong>Early bird</strong> &middot; ' + rupees(e.early_price) + ' for the first ' + e.early_spots + ' spots &middot; ' + EARLY_LEFT + ' left at this price</p>' : "") +
             (hasPair(e) && EARLY_LEFT < 2 ? '<p class="ev-pair">Bring a friend: <strong>2 spots for ' + rupees(e.pair_price) + '</strong> &middot; save ' + rupees(e.price * 2 - e.pair_price) + '</p>' : "") +
             '<div id="ev-book">' + bookingBlock(d) + '</div>' +
             (d.bookable ? '<form class="ev-remind" id="ev-remind" novalidate><p class="ev-remind__t"><strong>Not ready to book?</strong> ' + (EARLY_LEFT ? 'Get a WhatsApp reminder before the early bird ends.' : 'Get a WhatsApp reminder before spots run out.') + '</p>' +
