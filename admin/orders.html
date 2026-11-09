@@ -425,6 +425,8 @@
                 ? `<button class="btn-sm btn-ship" onclick="openDelhivery('${o.id}', event)">Ship via Delhivery</button> <button class="btn-sm" onclick="openShip('${o.id}', event)" title="Other courier / enter tracking yourself">Manual</button>`
                 : status === "shipped"
                     ? `<button class="btn-sm" onclick="markDelivered('${o.id}')">Mark delivered</button> <button class="btn-sm" onclick="setStatus('${o.id}', 'rto')">RTO</button>${labelBtn}`
+                    : status === "delivered"
+                    ? `<button class="btn-sm" onclick="event.stopPropagation();setStatus('${o.id}', 'shipped')" title="Marked delivered by mistake? Move it back to shipped">Undo delivered</button>${labelBtn}`
                     : status === "rto"
                     ? `<button class="btn-sm" onclick="setStatus('${o.id}', 'returned')">Received back</button>`
                     : status === "pending"
@@ -747,7 +749,12 @@
         document.getElementById("bulk-footer").innerHTML = `<button class="btn-primary" id="bulk-go" onclick="runBulk()" disabled>Book all</button><button class="btn-outline" onclick="closeBulk()">Cancel</button>`;
     }
 
-    function markDelivered(id) { return setStatus(id, "delivered"); }
+    function markDelivered(id) {
+        const o = allOrders.find(x => x.id === id);
+        if (o && o.courier === "Delhivery" && o.tracking_number &&
+            !confirm("Delhivery orders are marked delivered automatically once Delhivery confirms it.\n\nOnly continue if you are sure the customer has received it.")) return;
+        return setStatus(id, "delivered");
+    }
 
     // Status fixes: deliver, RTO, received back (restocks), and undo back to shipped.
     const STATUS_CONFIRM = {
