@@ -423,12 +423,10 @@
                 ? ` <button class="btn-sm" onclick="printLabel('${o.tracking_number}', this)">Label</button>` : "";
             const shipBtn = TO_SHIP_STATUSES.includes(status)
                 ? `<button class="btn-sm btn-ship" onclick="openDelhivery('${o.id}', event)">Ship via Delhivery</button> <button class="btn-sm" onclick="openShip('${o.id}', event)" title="Other courier / enter tracking yourself">Manual</button>`
-                : status === "shipped"
-                    ? `<button class="btn-sm" onclick="markDelivered('${o.id}')">Mark delivered</button> <button class="btn-sm" onclick="setStatus('${o.id}', 'rto')">RTO</button>${labelBtn}`
-                    : status === "delivered"
-                    ? `<button class="btn-sm" onclick="event.stopPropagation();setStatus('${o.id}', 'shipped')" title="Marked delivered by mistake? Move it back to shipped">Undo delivered</button>${labelBtn}`
+                : (status === "shipped" || status === "delivered")
+                    ? labelBtn.trim()
                     : status === "rto"
-                    ? `<button class="btn-sm" onclick="setStatus('${o.id}', 'returned')">Received back</button>`
+                    ? `<button class="btn-sm" onclick="event.stopPropagation();setStatus('${o.id}', 'returned')">Received back</button>`
                     : status === "pending"
                         ? `<button class="btn-sm" style="color:#c0392b;border-color:#f5c6c6;" onclick="deleteSingle('${o.id}', event)">Delete</button>`
                         : "";
@@ -763,8 +761,12 @@
         returned: "Parcel is back with you? This puts the items back in stock (once).",
         shipped: "Undo and move this order back to shipped? The customer is not emailed.",
     };
-    async function setStatus(id, status) {
-        if (!confirm(STATUS_CONFIRM[status] || `Change status to ${status}?`)) return;
+    function undoReturned(id) {
+        if (!confirm("Undo \"Received back\"? The order goes back to shipped and its items are taken back out of stock. If it really is on its way back, click RTO after.")) return;
+        return setStatus(id, "shipped", true);
+    }
+    async function setStatus(id, status, skipConfirm) {
+        if (!skipConfirm && !confirm(STATUS_CONFIRM[status] || `Change status to ${status}?`)) return;
         const res = await fetch("/.netlify/functions/update-order", {
             method: "POST",
             headers: { "Content-Type": "application/json", "x-admin-token": SESSION_TOKEN },
@@ -777,22 +779,28 @@
             o.status = status;
             const now = new Date().toISOString();
             if (status === "delivered") o.delivered_at = now;
-            if (status === "rto") { o.rto_at = now; o.delivered_at = null; }
+            if (o.returned_at && status !== "returned") { o.returned_at = null; o.restocked_at = null; }
+            if (status === "rto" && !o.rto_at) { o.rto_at = now; o.delivered_at = null; }
             if (status === "returned") { o.returned_at = now; if (!o.restocked_at) o.restocked_at = now; }
             if (status === "shipped") { o.delivered_at = null; o.rto_at = null; }
         }
         if (status === "returned" && out.restocked && out.restocked.length) alert("Back in stock: " + out.restocked.join(", "));
+        if (out.unrestocked && out.unrestocked.length) alert("Taken back out of stock: " + out.unrestocked.join(", "));
         updateStats();
         renderOrders();
         if (document.getElementById("detail-panel").classList.contains("open")) openDetail(id);
     }
 
+    // Delhivery updates delivered / RTO on its own every 3 hours, so manual
+    // status changes are tucked into a collapsed "Fix status" section.
     function statusFixButtons(o) {
-        const b = (st, label, primary) => `<button class="${primary ? "btn-primary" : "btn-outline"}" style="width:100%;margin-top:8px;" onclick="setStatus('${o.id}', '${st}')">${label}</button>`;
-        if (o.status === "shipped") return b("delivered", "Mark as delivered") + b("rto", "Mark as RTO (coming back)");
-        if (o.status === "delivered") return b("shipped", "Undo delivered (back to shipped)") + b("rto", "Mark as RTO (coming back)");
-        if (o.status === "rto") return b("returned", "Received back (restock items)", true) + b("shipped", "Undo RTO (back to shipped)");
-        if (o.status === "returned") return `<p style="font-size:12px;color:#a09890;margin-top:10px;">Returned${o.returned_at ? " on " + new Date(o.returned_at).toLocaleDateString("en-IN", { day: "numeric", month: "short" }) : ""}. ${o.restocked_at ? "Items were put back in stock." : ""}</p>`;
+        const b = (fn, label, primary) => `<button class="${primary ? "btn-primary" : "btn-outline"}" style="width:100%;margin-top:8px;" onclick="${fn}">${label}</button>`;
+        const set = (st, label, primary) => b(`setStatus('${o.id}', '${st}')`, label, primary);
+        const hidden = (html) => html ? `<details class="status-fix" style="margin-top:14px;"><summary style="cursor:pointer;font-size:12px;color:#a09890;">Fix status (only if something went wrong)</summary>${html}</details>` : "";
+        if (o.status === "shipped") return hidden(b(`markDelivered('${o.id}')`, "Mark as delivered") + set("rto", "Mark as RTO (coming back)"));
+        if (o.status === "delivered") return hidden(set("shipped", "Undo delivered (back to shipped)") + set("rto", "Mark as RTO (coming back)"));
+        if (o.status === "rto") return set("returned", "Received back (restock items)", true) + hidden(set("shipped", "Undo RTO (back to shipped)"));
+        if (o.status === "returned") return `<p style="font-size:12px;color:#a09890;margin-top:10px;">Returned${o.returned_at ? " on " + new Date(o.returned_at).toLocaleDateString("en-IN", { day: "numeric", month: "short" }) : ""}. ${o.restocked_at ? "Items were put back in stock." : ""}</p>` + hidden(b(`undoReturned('${o.id}')`, "Undo received back"));
         return "";
     }
 
