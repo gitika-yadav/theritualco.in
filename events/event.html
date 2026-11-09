@@ -217,7 +217,7 @@
             (where ? '<div class="ev-fact"><span class="ev-fact__k">Where</span><span class="ev-fact__v">' + where + '</span></div>' : "") +
             '</div>' +
             '<div class="ev-price-row"><span class="ev-price">' + (EARLY_LEFT ? rupees(e.early_price) + ' <s class="ev-was">' + rupees(e.price) + '</s>' : e.price ? rupees(e.price) : (e.access === "invite" ? "Guest list" : "Free")) + '</span>' + spots + '</div>' +
-            (EARLY_LEFT ? '<p class="ev-pair"><strong>Early bird</strong> &middot; ' + rupees(e.early_price) + ' for the first ' + e.early_spots + ' spots &middot; ' + EARLY_LEFT + ' left at this price</p>' : "") +
+            (EARLY_LEFT ? '<p class="ev-pair"><strong>Early bird</strong> &middot; ' + rupees(e.early_price) + ' for the first ' + e.early_spots + ' spots &middot; last few spots left at this price</p>' : "") +
             (hasPair(e) && EARLY_LEFT < 2 ? '<p class="ev-pair">Bring a friend: <strong>2 spots for ' + rupees(e.pair_price) + '</strong> &middot; save ' + rupees(e.price * 2 - e.pair_price) + '</p>' : "") +
             '<div id="ev-book">' + bookingBlock(d) + '</div>' +
             (d.bookable ? '<form class="ev-remind" id="ev-remind" novalidate><p class="ev-remind__t"><strong>Not ready to book?</strong> ' + (EARLY_LEFT ? 'Get a WhatsApp reminder before the early bird ends.' : 'Get a WhatsApp reminder before spots run out.') + '</p>' +
