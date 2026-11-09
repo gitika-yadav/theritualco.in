@@ -85,6 +85,7 @@ body.tr-product-page .product {
 
 /* ── IMAGE PANEL ── */
 body.tr-product-page .product__visual {
+    position: relative; /* anchors the Bestseller badge */
     /*position: sticky;*/
     /*top: 84px;*/
     width: 100%;
