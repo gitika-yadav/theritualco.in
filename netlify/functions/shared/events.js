@@ -66,6 +66,7 @@ function publicFields(e) {
         cover_image: e.cover_image, description: e.description,
         includes: (e.includes || "").split("\n").map(s => s.trim()).filter(Boolean),
         access: e.access, status: e.status,
+        ticket_url: e.ticket_url || null, host_name: e.host_name || null,
     };
 }
 

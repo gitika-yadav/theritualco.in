@@ -67,7 +67,7 @@
             return;
         }
         box.innerHTML = '<div class="ev-grid">' + list.map(function (e) {
-            var tag = e.spots_left <= 0 ? "Sold out" : (e.spots_left <= 5 ? e.spots_left + " spots left" : (e.price ? "₹" + e.price.toLocaleString("en-IN") : "Free · RSVP"));
+            var tag = (e.ticket_url || e.host_name) ? (e.host_name ? "With " + e.host_name : "Partner event") : e.spots_left <= 0 ? "Sold out" : (e.spots_left <= 5 ? e.spots_left + " spots left" : (e.price ? "₹" + e.price.toLocaleString("en-IN") : "Free · RSVP"));
             return '<a class="ev-card" href="/events/' + encodeURIComponent(e.slug) + '">' +
                 '<div class="ev-card__img">' + (e.cover_image ? '<img src="' + esc(e.cover_image) + '" alt="' + esc(e.title) + '" loading="lazy">' : '') +
                 '<span class="ev-card__tag">' + esc(tag) + '</span></div>' +

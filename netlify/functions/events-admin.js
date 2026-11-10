@@ -87,6 +87,8 @@ async function save(e) {
         cover_image: str(e.cover_image, 500) || null,
         description: str(e.description, 5000) || null,
         includes: str(e.includes, 2000) || null,
+        ticket_url: /^https?:\/\//.test(e.ticket_url || "") ? str(e.ticket_url, 500) : null,
+        host_name: str(e.host_name, 120) || null,
         access,
         status: ["draft", "published", "cancelled"].includes(e.status) ? e.status : "draft",
         updated_at: new Date().toISOString(),

@@ -44,6 +44,7 @@ async function book(body) {
     const { data: ev } = await supabase.from("events").select("*")
         .eq("slug", str(body.slug, 120).toLowerCase()).eq("status", "published").maybeSingle();
     if (!ev) return json(404, { error: "This event isn't open for booking." });
+    if (ev.ticket_url || ev.host_name) return json(400, { error: "Registrations for this event are handled by the organiser." });
     if (new Date(ev.starts_at).getTime() < Date.now()) return json(400, { error: "This event has already started." });
 
     if (ev.access === "invite") {
