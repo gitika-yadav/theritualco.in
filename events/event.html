@@ -82,6 +82,8 @@
         var e = d.event;
         if (e.status === "cancelled") return '<div class="ev-closed"><strong>This event has been cancelled.</strong>Everyone booked has been contacted. <a href="/events" style="color:#3a3330;">See other events</a>.</div>';
         if (d.past) return '<div class="ev-closed"><strong>This event has happened.</strong>Thank you to everyone who came. <a href="/events" style="color:#3a3330;">See what\'s next</a>.</div>';
+        if (e.ticket_url) return '<a class="ev-btn ev-btn--out" id="ev-out" href="' + esc(e.ticket_url) + '" target="_blank" rel="noopener">Get tickets &#8599;</a>' +
+            '<p class="ev-form__note">Tickets are sold by ' + (e.host_name ? esc(e.host_name) : "the organiser") + '. The Ritual Co. is partnering on this event.</p>';
         if (!d.invited) return '<div class="ev-closed"><strong>By invitation only.</strong>This is a private session. If you\'ve been invited, please open the link from your invitation.</div>';
         if (d.spots_left <= 0) return '<div class="ev-closed"><strong>Fully booked.</strong>Spots sometimes open up. DM us on <a href="https://instagram.com/theritualco.in" style="color:#3a3330;">Instagram</a> to join the waitlist.</div>';
         var max = Math.min(e.max_per_booking || 4, d.spots_left);
@@ -201,7 +203,7 @@
         EARLY_LEFT = (e.early_price && e.early_price < e.price && d.early_left > 0) ? d.early_left : 0;
         document.title = e.title + " | The Ritual Co. Events";
         // Only show scarcity when it's real: sold out, or 5 or fewer spots left.
-        var spots = e.status === "published" && !d.past && d.spots_left <= 5
+        var spots = !e.ticket_url && e.status === "published" && !d.past && d.spots_left <= 5
             ? '<span class="ev-spots is-low">' + (d.spots_left <= 0 ? "Sold out" : "Only " + d.spots_left + (d.spots_left === 1 ? " spot" : " spots") + " left") + '</span>' : "";
         var where = [esc(e.venue_name), esc(e.venue_address)].filter(Boolean).join("<br>") +
             (e.map_url ? '<br><a href="' + esc(e.map_url) + '" target="_blank" rel="noopener">Open in Maps</a>' : "");
@@ -209,14 +211,14 @@
             '<div class="ev-layout">' +
             mediaBlock(e) +
             '<div>' +
-            '<p class="ev-eyebrow">The Ritual Co. &middot; ' + (e.access === "invite" ? "Private event" : "Event") + '</p>' +
+            '<p class="ev-eyebrow">The Ritual Co. &middot; ' + (e.access === "invite" ? "Private event" : e.ticket_url ? "Partner event" + (e.host_name ? " with " + esc(e.host_name) : "") : "Event") + '</p>' +
             '<h1 class="ev-h1">' + esc(e.title) + '</h1>' +
             (e.subtitle ? '<p class="ev-lede">' + esc(e.subtitle) + '</p>' : "") +
             '<div class="ev-facts">' +
             '<div class="ev-fact"><span class="ev-fact__k">When</span><span class="ev-fact__v">' + esc(dateStr(e.starts_at)) + '<br>' + esc(timeStr(e.starts_at)) + (e.ends_at ? " – " + esc(timeStr(e.ends_at)) : "") + '</span></div>' +
             (where ? '<div class="ev-fact"><span class="ev-fact__k">Where</span><span class="ev-fact__v">' + where + '</span></div>' : "") +
             '</div>' +
-            '<div class="ev-price-row"><span class="ev-price">' + (EARLY_LEFT ? rupees(e.early_price) + ' <s class="ev-was">' + rupees(e.price) + '</s>' : e.price ? rupees(e.price) : (e.access === "invite" ? "Guest list" : "Free")) + '</span>' + spots + '</div>' +
+            '<div class="ev-price-row"><span class="ev-price">' + (EARLY_LEFT ? rupees(e.early_price) + ' <s class="ev-was">' + rupees(e.price) + '</s>' : e.price ? rupees(e.price) : (e.ticket_url ? "" : e.access === "invite" ? "Guest list" : "Free")) + '</span>' + spots + '</div>' +
             (EARLY_LEFT ? '<p class="ev-pair"><strong>Early bird</strong> &middot; ' + rupees(e.early_price) + ' for the first ' + e.early_spots + ' spots &middot; last few spots left at this price</p>' : "") +
             (hasPair(e) && EARLY_LEFT < 2 ? '<p class="ev-pair">Bring a friend: <strong>2 spots for ' + rupees(e.pair_price) + '</strong> &middot; save ' + rupees(e.price * 2 - e.pair_price) + '</p>' : "") +
             '<div id="ev-book">' + bookingBlock(d) + '</div>' +
@@ -226,9 +228,14 @@
             (e.description ? '<p class="ev-section-t">About the session</p><p class="ev-desc">' + esc(e.description) + '</p>' : "") +
             sectionsBlock(e) +
             (e.includes && e.includes.length ? '<p class="ev-section-t">Included</p><ul class="ev-includes">' + e.includes.map(function (i) { return "<li>" + esc(i) + "</li>"; }).join("") + '</ul>' : "") +
-            (e.price ? '<p class="ev-policy">Cancellations: full refund up to 48 hours before the event. After that, you can pass your spot to a friend; just reply to your confirmation email with their name.</p>' : "") +
+            (e.price && !e.ticket_url ? '<p class="ev-policy">Cancellations: full refund up to 48 hours before the event. After that, you can pass your spot to a friend; just reply to your confirmation email with their name.</p>' : "") +
             '</div></div>' + stickyBar(e, d);
         wireMedia(); wireSticky(); wireRemind();
+        var out = document.getElementById("ev-out");
+        if (out) out.addEventListener("click", function () {
+            try { gtag("event", "partner_ticket_click", { event_category: "event", event_label: EV.slug }); } catch (x) {}
+            try { if (window.trackMeta) window.trackMeta("Lead", { content_name: EV.title, content_category: "partner_event" }); } catch (x) {}
+        });
         var form = document.getElementById("ev-form");
         if (form) form.addEventListener("submit", submit);
         var qsel = form && form.querySelector("select[name=qty]");

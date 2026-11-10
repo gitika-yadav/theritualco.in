@@ -31,7 +31,7 @@ exports.handler = async (event) => {
                 early_left: earlyBirdLeft(e, taken),
                 past,
                 invited,
-                bookable: e.status === "published" && !past && left > 0 && invited,
+                bookable: !e.ticket_url && e.status === "published" && !past && left > 0 && invited,
             });
         }
 
@@ -43,7 +43,7 @@ exports.handler = async (event) => {
 
         const events = [];
         for (const e of list || []) {
-            events.push({ ...publicFields(e), spots_left: Math.max(0, e.capacity - await ticketsTaken(supabase, e.id)) });
+            events.push({ ...publicFields(e), spots_left: e.ticket_url ? null : Math.max(0, e.capacity - await ticketsTaken(supabase, e.id)) });
         }
         return json(200, { events }, { "Cache-Control": "public, max-age=30" });
     } catch (err) {

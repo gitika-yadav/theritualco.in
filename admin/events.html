@@ -142,6 +142,8 @@
             <div class="f f2"><label>Total spots</label><input id="e-capacity" type="number" min="1" value="20"/></div>
             <div class="f f2"><label>Max spots per booking</label><input id="e-max" type="number" min="1" max="10" value="4"/></div>
             <div class="f f2" id="e-code-wrap" style="display:none;"><label>Invite code <small>(auto if empty)</small></label><input id="e-code" placeholder="e.g. ritual-vip"/></div>
+            <div class="f f2"><label>Partner ticket link <small>(only if someone else sells tickets)</small></label><input id="e-ticket-url" placeholder="https://…"/></div>
+            <div class="f f2"><label>Organiser name <small>(shown with the link)</small></label><input id="e-host" placeholder="e.g. The agency's name"/></div>
             <div class="f6 f hint" id="e-access-hint">Shown on /events and anyone can book.</div>
 
             <div class="sec">Page</div>
@@ -244,7 +246,7 @@
 
     // ── Editor ──
     const F = { title: "e-title", subtitle: "e-subtitle", venue_name: "e-venue", venue_address: "e-address", map_url: "e-map",
-        access: "e-access", price: "e-price", pair_price: "e-pair", early_price: "e-early", early_spots: "e-early-spots", capacity: "e-capacity", max_per_booking: "e-max", invite_code: "e-code",
+        access: "e-access", price: "e-price", pair_price: "e-pair", early_price: "e-early", early_spots: "e-early-spots", capacity: "e-capacity", max_per_booking: "e-max", invite_code: "e-code", ticket_url: "e-ticket-url", host_name: "e-host",
         cover_image: "e-cover", description: "e-desc", includes: "e-includes", status: "e-status", slug: "e-slug" };
     function openEditor(id) {
         EDIT_ID = id || null;
