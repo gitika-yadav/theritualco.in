@@ -2,6 +2,7 @@ const Razorpay = require("razorpay");
 const { prepaidOwnerEmail } = require("./shared/owner-email");
 const crypto = require("crypto");
 const { createClient } = require("@supabase/supabase-js");
+const { sendPurchase } = require("./shared/meta-capi");
 
 const supabase = createClient(
     process.env.SUPABASE_URL,
@@ -21,6 +22,7 @@ exports.handler = async (event) => {
             internal_order_id,
             customer_name,
             customer_email,
+            fbp, fbc, source_url, staff,
         } = JSON.parse(event.body);
 
         // ── Verify Razorpay signature ─────────────────────
@@ -96,6 +98,17 @@ exports.handler = async (event) => {
                     console.error("OVERSOLD: paid order exceeded stock", item.product_id, item.color, "order", order.id);
                 }
             }
+        }
+
+        // ── Meta Conversions API (same event_id as the browser Pixel: payment id) ──
+        if (!staff) {
+            await sendPurchase({
+                eventId: razorpay_payment_id, value: (order.amount_paise || 0) / 100, items,
+                email: customer_email || order.guest_email, phone: order.guest_phone,
+                name: customer_name || order.guest_name, address: order.shipping_address,
+                fbp, fbc, sourceUrl: source_url, headers: event.headers,
+                externalId: customer_email || order.guest_email,
+            });
         }
 
         // ── Send confirmation email via Resend ────────────
