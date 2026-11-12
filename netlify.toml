@@ -26,6 +26,17 @@
  status = 200
 
 [[redirects]]
+ from = "/google-feed.xml"
+ to   = "/.netlify/functions/google-feed"
+ status = 200
+
+[[redirects]]
+ from = "/products-feed.xml"
+ to   = "/.netlify/functions/google-feed"
+ status = 200
+ force = true
+
+[[redirects]]
  from = "/account"
  to   = "/account/orders"
  status = 301
