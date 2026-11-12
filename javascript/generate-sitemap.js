@@ -17,6 +17,15 @@ const EXCLUDE_FILES = [
     "login.html",
     "signup.html",
     "event.html",          // events/event.html is the template behind /events/<slug>
+    "index-v2.html",       // noindex homepage draft
+];
+
+// Duplicate posts 301'd to their primary copies in _redirects — keep them out of the sitemap
+const EXCLUDE_PATHS = [
+    "blog/womens-wellness/dumbbell-for-beginners",
+    "blog/womens-wellness/dumbbell-exercises-for-arms",
+    "blog/womens-wellness/home-gym-equipment-for-women",
+    "blog/womens-wellness/weightloss-with-dumbbells",
 ];
 
 // Priority rules — first match wins
@@ -52,6 +61,17 @@ function walk(dir) {
 
 const today = new Date().toISOString().slice(0, 10);
 
+// Real last-modified date from git, so Google can trust <lastmod>. Falls back to today.
+const { execFileSync } = require("child_process");
+function lastModified(filePath) {
+    try {
+        const d = execFileSync("git", ["log", "-1", "--format=%cs", "--", filePath], { cwd: ROOT, encoding: "utf8" }).trim();
+        return d || today;
+    } catch (e) {
+        return today;
+    }
+}
+
 const urls = walk(ROOT)
     .map((filePath) => {
         const rel = path.relative(ROOT, filePath).replace(/\\/g, "/");
@@ -59,14 +79,15 @@ const urls = walk(ROOT)
         let urlPath = rel === "index.html" ? "" : rel.replace(/\.html$/, "");
         // a folder's own index (e.g. blog/index.html) -> the folder path
         urlPath = urlPath.replace(/\/index$/, "");
-        return { urlPath, priority: priorityFor(urlPath) };
+        return { urlPath, priority: priorityFor(urlPath), lastmod: lastModified(filePath) };
     })
+    .filter(({ urlPath }) => !EXCLUDE_PATHS.includes(urlPath))
     // de-duplicate identical URLs (safety)
     .filter((v, i, arr) => arr.findIndex(x => x.urlPath === v.urlPath) === i)
     // stable sort: homepage first, then by priority desc, then alpha
     .sort((a, b) => (b.priority - a.priority) || a.urlPath.localeCompare(b.urlPath))
-    .map(({ urlPath, priority }) =>
-        `  <url>\n    <loc>${BASE_URL}/${urlPath}</loc>\n    <lastmod>${today}</lastmod>\n    <priority>${priority}</priority>\n  </url>`
+    .map(({ urlPath, priority, lastmod }) =>
+        `  <url>\n    <loc>${BASE_URL}/${urlPath}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <priority>${priority}</priority>\n  </url>`
     );
 
 const sitemap =
