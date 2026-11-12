@@ -161,7 +161,7 @@ MOBILE
   .footer-column {
     align-items: flex-start;
     min-width: 0;
-    flex: 1;
+    flex: 1 1 calc(50% - 12px); /* 2×2 grid now that there are four columns */
   }
 
   .footer-column h4 {
