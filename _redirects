@@ -5,3 +5,8 @@
 /blog/dumbbells/womens-dumbbell.html /blog/dumbbells/best-dumbbells-for-women-india 301
 /blog/womens-wellness/best-dumbbell-for-women.html /blog/dumbbells/best-dumbbells-for-women-india 301
 /blog/womens-wellness/womens-dumbbell.html /blog/dumbbells/best-dumbbells-for-women-india 301
+# Duplicate posts under /womens-wellness/ — consolidate into the primary copies (forced: the files still exist)
+/blog/womens-wellness/dumbbell-for-beginners /blog/dumbbells/dumbbell-for-beginners 301!
+/blog/womens-wellness/dumbbell-exercises-for-arms /blog/dumbbells/dumbbell-exercises-for-arms 301!
+/blog/womens-wellness/home-gym-equipment-for-women /blog/homegym/home-gym-equipment-for-women 301!
+/blog/womens-wellness/weightloss-with-dumbbells /blog/dumbbells/weightloss-with-dumbbells 301!
