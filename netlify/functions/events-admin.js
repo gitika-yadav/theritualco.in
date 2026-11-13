@@ -12,7 +12,7 @@ const crypto = require("crypto");
 const Razorpay = require("razorpay");
 const { createClient } = require("@supabase/supabase-js");
 const { verifyAdminToken, getTokenFromEvent } = require("./shared/verify-admin-token");
-const { REFUND_HOURS, confirmationEmail, cancellationEmail, sendEmail, json } = require("./shared/events");
+const { REFUND_HOURS, confirmationEmail, cancellationEmail, sendEmail, json, reconcilePending } = require("./shared/events");
 
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
 
@@ -112,6 +112,8 @@ async function save(e) {
 }
 
 async function bookings(eventId) {
+    // Opening the guest list also picks up any payment Razorpay captured but the page never confirmed.
+    await reconcilePending(supabase, eventId).catch(e => console.error("[EVENT_RECONCILE]", e.message));
     const { data: all, error } = await supabase.from("event_bookings").select("*")
         .eq("event_id", eventId).order("created_at", { ascending: true });
     if (error) throw error;
