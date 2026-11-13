@@ -13,6 +13,7 @@ const Razorpay = require("razorpay");
 const { createClient } = require("@supabase/supabase-js");
 const { verifyAdminToken, getTokenFromEvent } = require("./shared/verify-admin-token");
 const { REFUND_HOURS, confirmationEmail, cancellationEmail, sendEmail, json } = require("./shared/events");
+const { reconcilePending } = require("./shared/event-reconcile");
 
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
 
@@ -112,6 +113,9 @@ async function save(e) {
 }
 
 async function bookings(eventId) {
+    // Self-heal: confirm anyone who paid but is still "pending" before showing the guest list.
+    try { await reconcilePending(supabase, { eventId }); }
+    catch (e) { console.error("[EVENT_RECONCILE]", e.message); }
     const { data: all, error } = await supabase.from("event_bookings").select("*")
         .eq("event_id", eventId).order("created_at", { ascending: true });
     if (error) throw error;

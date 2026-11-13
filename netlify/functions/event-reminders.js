@@ -5,6 +5,7 @@
 
 const { createClient } = require("@supabase/supabase-js");
 const { reminderEmail, sendEmail, json } = require("./shared/events");
+const { reconcilePending } = require("./shared/event-reconcile");
 
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
 
@@ -25,7 +26,12 @@ exports.handler = async (event) => {
             .lte("starts_at", new Date(now + TO_HOURS * 3600e3).toISOString());
         if (error) throw error;
 
-        const report = { events: [], sent: 0 };
+        // Confirm bookings that were paid but never verified (guest didn't return from their UPI app).
+        let reconciled = null;
+        try { reconciled = await reconcilePending(supabase, { dry }); }
+        catch (e) { console.error("[EVENT_RECONCILE]", e.message); }
+
+        const report = { reconciled, events: [], sent: 0 };
         for (const ev of events || []) {
             const { data: list } = await supabase.from("event_bookings").select("*")
                 .eq("event_id", ev.id).eq("status", "confirmed").is("reminded_at", null);
