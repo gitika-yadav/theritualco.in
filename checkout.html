@@ -462,10 +462,7 @@
                     btn.disabled = false; btn.textContent = "Continue To Payment";
                     return;
                 }
-                gtag("event", "purchase", {
-                    transaction_id: order.order_id || ("COD-" + Date.now()),
-                    value: finalAmount, currency: "INR"
-                });
+                // GA4 "purchase" is sent once, with the items, from thank-you.html (reads rc_last_order below).
                 if (appliedDiscount) {
                     await fetch("/.netlify/functions/apply-discount", {
                         method: "POST",
@@ -551,11 +548,7 @@
                         btn.disabled = false; btn.textContent = "Continue To Payment";
                         return;
                     }
-                    gtag("event", "purchase", {
-                        transaction_id: response.razorpay_payment_id,
-                        value: order.amount / 100,
-                        currency: "INR"
-                    });
+                    // GA4 "purchase" is sent once, with the items, from thank-you.html (reads rc_last_order below).
                     if (appliedDiscount) {
                         await fetch("/.netlify/functions/apply-discount", {
                             method: "POST",
