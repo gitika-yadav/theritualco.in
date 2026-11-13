@@ -129,8 +129,9 @@ async function verify(body) {
     // Paid → always confirm (even if the 15-min hold lapsed; we'd rather squeeze one in than refuse a payment).
     const { data: updated, error } = await supabase.from("event_bookings")
         .update({ status: "confirmed", razorpay_payment_id, updated_at: new Date().toISOString() })
-        .eq("id", b.id).select("*").single();
+        .eq("id", b.id).eq("status", "pending").select("*").maybeSingle();
     if (error) throw error;
+    if (!updated) return json(200, { status: "confirmed", booking_id: b.id }); // webhook confirmed it first
 
     const { data: ev } = await supabase.from("events").select("*").eq("id", b.event_id).single();
     await confirmAndEmail(updated, ev);
