@@ -160,7 +160,43 @@ const json = (statusCode, body, extraHeaders) => ({
     body: JSON.stringify(body),
 });
 
+// Safety net for paid-but-still-pending bookings. The booking is normally confirmed
+// by the customer's browser after Razorpay closes; with UPI the customer often never
+// returns to the page, so the payment is captured but the booking stays "pending".
+// This asks Razorpay directly and confirms any booking whose order has a captured payment.
+async function reconcilePending(supabase, eventId) {
+    const key = process.env.RAZORPAY_KEY_ID, secret = process.env.RAZORPAY_KEY_SECRET;
+    if (!key || !secret) return { checked: 0, confirmed: [] };
+    const since = new Date(Date.now() - 4 * 24 * 3600e3).toISOString();
+    let q = supabase.from("event_bookings").select("*").eq("status", "pending")
+        .not("razorpay_order_id", "is", null).gte("created_at", since)
+        .order("created_at", { ascending: false }).limit(25);
+    if (eventId) q = q.eq("event_id", eventId);
+    const { data: pending } = await q;
+    const auth = "Basic " + Buffer.from(key + ":" + secret).toString("base64");
+    const confirmed = [];
+    for (const b of pending || []) {
+        try {
+            const res = await fetch("https://api.razorpay.com/v1/orders/" + encodeURIComponent(b.razorpay_order_id) + "/payments", { headers: { Authorization: auth } });
+            if (!res.ok) continue;
+            const paid = ((await res.json()).items || []).find(p => p.status === "captured");
+            if (!paid) continue;
+            // Only flip rows that are still pending, so two runs can't double-confirm or double-email.
+            const { data: rows } = await supabase.from("event_bookings")
+                .update({ status: "confirmed", razorpay_payment_id: paid.id, updated_at: new Date().toISOString() })
+                .eq("id", b.id).eq("status", "pending").select("*");
+            if (!rows || !rows.length) continue;
+            confirmed.push(rows[0].id);
+            const { data: ev } = await supabase.from("events").select("*").eq("id", b.event_id).single();
+            if (ev) await sendEmail(rows[0].email, `You're in: ${ev.title} ✦ The Ritual Co.`, confirmationEmail(ev, rows[0]))
+                .catch(e => console.error("[EVENT_EMAIL]", e.message));
+        } catch (e) { console.error("[EVENT_RECONCILE]", b.id, e.message); }
+    }
+    return { checked: (pending || []).length, confirmed };
+}
+
 module.exports = {
+    reconcilePending,
     SITE, HOLD_MINUTES, REFUND_HOURS, esc, fmtDate, fmtTime, fmtWhen,
     ticketsTaken, publicFields, calendarLink,
     confirmationEmail, reminderEmail, cancellationEmail, sendEmail, json, ticketTotal, earlyBirdLeft };

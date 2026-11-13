@@ -4,7 +4,7 @@
 //   GET /.netlify/functions/event-reminders?secret=<CART_REMINDER_SECRET>   (&dry=1 to preview)
 
 const { createClient } = require("@supabase/supabase-js");
-const { reminderEmail, sendEmail, json } = require("./shared/events");
+const { reminderEmail, sendEmail, json, reconcilePending } = require("./shared/events");
 
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
 
@@ -18,6 +18,9 @@ exports.handler = async (event) => {
     const dry = q.dry === "1";
 
     try {
+        // Hourly safety net: confirm bookings whose payment was captured but never confirmed by the page.
+        const reconciled = dry ? { checked: 0, confirmed: [] }
+            : await reconcilePending(supabase).catch(e => { console.error("[EVENT_RECONCILE]", e.message); return { checked: 0, confirmed: [] }; });
         const now = Date.now();
         const { data: events, error } = await supabase.from("events").select("*")
             .eq("status", "published")
@@ -25,7 +28,7 @@ exports.handler = async (event) => {
             .lte("starts_at", new Date(now + TO_HOURS * 3600e3).toISOString());
         if (error) throw error;
 
-        const report = { events: [], sent: 0 };
+        const report = { events: [], sent: 0, reconciled: reconciled.confirmed.length };
         for (const ev of events || []) {
             const { data: list } = await supabase.from("event_bookings").select("*")
                 .eq("event_id", ev.id).eq("status", "confirmed").is("reminded_at", null);
