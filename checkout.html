@@ -56,7 +56,7 @@
         <h1>Checkout</h1>
         <p class="checkout-copy">
             Free shipping across India.<br>
-            Dispatched within 24 hours.
+            <span id="dispatch-copy">Dispatched within 24 hours.</span>
         </p>
 
         <!-- Auth greeting shown if logged in -->
@@ -157,7 +157,7 @@
         </div>
 
         <button class="pay" id="payBtn">Continue To Payment</button>
-        <p class="ship">Free shipping &middot; Dispatched within 24 hours.</p>
+        <p class="ship">Free shipping &middot; <span id="dispatch-copy-2">Dispatched within 24 hours.</span></p>
 
         <!-- Trust signals -->
         <div class="trust-section">
@@ -235,10 +235,23 @@
 
         summary.innerHTML = cart.items.map(item => `
     <div class="checkout-cart-item">
-      <span>${item.name} · ${item.weight} · ${item.color} × ${item.qty}</span>
+      <span>${[item.name, item.weight, item.color].filter(Boolean).join(" · ")} × ${item.qty}</span>
       <span>₹${(item.price * item.qty).toLocaleString("en-IN")}</span>
     </div>
   `).join("");
+
+        // Pre-order items (dumbbells, block, ring and every kit) ship in December — don't promise 24h dispatch.
+        const PREORDER_CART_IDS = ["capsule-dumbbell", "yoga-block", "pilates-ring",
+            "pilates-starter-kit", "pilates-sculpt-kit", "pilates-complete-kit", "yoga-essentials-kit", "yoga-studio-kit"];
+        const hasPreorder = cart.items.some(i => PREORDER_CART_IDS.includes(i.id));
+        const allPreorder = hasPreorder && cart.items.every(i => PREORDER_CART_IDS.includes(i.id));
+        const dispatchText = !hasPreorder ? "Dispatched within 24 hours."
+            : allPreorder ? "Pre-order: ships in December."
+            : "Includes pre-order items, which ship in December.";
+        ["dispatch-copy", "dispatch-copy-2"].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = dispatchText;
+        });
 
         const codLine = document.getElementById("cod-line");
         if (codLine) codLine.style.display = getCodFee() ? "flex" : "none";
