@@ -410,6 +410,20 @@ body.tr-product-page .accordion__inner p {
     margin-bottom: 12px;
 }
 .accordion__inner p:last-child { margin-bottom: 0; }
+body.tr-product-page .accordion__inner .kit-faq__q {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 1.3;
+    color: var(--primary, #1C1A17);
+    margin: 18px 0 6px;
+}
+body.tr-product-page .accordion__inner .kit-faq__q:first-child { margin-top: 0; }
+body.tr-product-page .accordion__inner p a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+}
 
 /* ── SPECS TABLE ── */
 .specs-table { width: 100%; border-collapse: collapse; }

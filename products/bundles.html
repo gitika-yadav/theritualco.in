@@ -44,13 +44,13 @@
                     "@type": "ListItem",
                     "position": 2,
                     "name": "Products",
-                    "item": "https://theritualco.in/products/products.html"
+                    "item": "https://theritualco.in/products/products"
                 },
                 {
                     "@type": "ListItem",
                     "position": 3,
                     "name": "Pilates & Yoga Kits",
-                    "item": "https://theritualco.in/products/bundles.html"
+                    "item": "https://theritualco.in/products/bundles"
                 }
             ]
         }
@@ -327,269 +327,250 @@
             }
         }
         /* =========================================================
-           THE RITUAL CO — GUIDE + FAQ ONLY
-           Scoped to the kits page
+           THE RITUAL GUIDE · COMPARE · FAQ  (kits page)
+           Editorial layout: sticky title column + numbered notes,
+           a quiet comparison table, and a centred FAQ.
            ========================================================= */
-
-        /* ---------------------------------------------------------
-           GUIDE
-           --------------------------------------------------------- */
-
-        #kit-canvas section.guide,
-        #kit-canvas .guide,
-        #kit-canvas .kit-guide {
+        #kit-canvas .rg {
             max-width: 1160px;
             margin: 0 auto;
-            padding: 90px 32px;
+            padding: 104px 32px;
+            border-top: 1px solid var(--line);
         }
-
-        /* Guide heading */
-        #kit-canvas section.guide h2,
-        #kit-canvas .guide h2,
-        #kit-canvas .kit-guide h2 {
-            margin: 0 0 48px;
-            font-family: "Cormorant Garamond", Georgia, serif;
-            font-size: clamp(36px, 4vw, 52px);
-            line-height: 1;
+        #kit-canvas .rg .eyebrow {
+            font-size: 12px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--coffee-deep);
+            margin: 0 0 18px;
+        }
+        #kit-canvas .rg-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
             font-weight: 400;
-            letter-spacing: -0.02em;
+            font-size: clamp(34px, 4vw, 50px);
+            line-height: 1.05;
+            letter-spacing: -0.015em;
+            margin: 0 0 20px;
+        }
+        #kit-canvas .rg-title em { font-style: italic; color: var(--coffee-deep); }
+        #kit-canvas .rg-lede {
+            font-size: 15px;
+            line-height: 1.7;
+            color: rgba(28,26,23,0.6);
+            max-width: 34ch;
+            margin: 0;
         }
 
-        /* Guide content */
-        #kit-canvas .guide-grid,
-        #kit-canvas .guide-content,
-        #kit-canvas .kit-guide-content {
+        /* Guide: sticky intro left, numbered notes right */
+        #kit-canvas .rg-guide {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            border-top: 1px solid var(--line, rgba(28,26,23,.14));
+            grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+            gap: 72px;
+            align-items: start;
         }
-
-        /* Individual guide items */
-        #kit-canvas .guide-item,
-        #kit-canvas .guide-block,
-        #kit-canvas .kit-guide-block {
-            padding: 38px 48px 38px 0;
-            border-bottom: 1px solid var(--line, rgba(28,26,23,.14));
+        #kit-canvas .rg-guide__intro { position: sticky; top: 110px; }
+        #kit-canvas .rg-notes { list-style: none; margin: 0; padding: 0; counter-reset: rg; }
+        #kit-canvas .rg-note {
+            counter-increment: rg;
+            display: grid;
+            grid-template-columns: 56px minmax(0, 1fr);
+            gap: 8px;
+            padding: 34px 0;
+            border-top: 1px solid var(--line);
         }
-
-        /* Right column */
-        #kit-canvas .guide-item:nth-child(even),
-        #kit-canvas .guide-block:nth-child(even),
-        #kit-canvas .kit-guide-block:nth-child(even) {
-            padding-left: 48px;
-            padding-right: 0;
-            border-left: 1px solid var(--line, rgba(28,26,23,.14));
+        #kit-canvas .rg-note:last-child { border-bottom: 1px solid var(--line); }
+        #kit-canvas .rg-note::before {
+            content: counter(rg, decimal-leading-zero);
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-size: 20px;
+            line-height: 1.35;
+            color: var(--coffee);
         }
-
-        /* Guide title */
-        #kit-canvas .guide-item h3,
-        #kit-canvas .guide-block h3,
-        #kit-canvas .kit-guide-block h3 {
-            margin: 0 0 14px;
-            font-family: "Cormorant Garamond", Georgia, serif;
-            font-size: 27px;
-            line-height: 1.15;
-            font-weight: 400;
-            letter-spacing: -0.01em;
-        }
-
-        /* Guide paragraphs */
-        #kit-canvas .guide-item p,
-        #kit-canvas .guide-block p,
-        #kit-canvas .kit-guide-block p {
-            max-width: 58ch;
-            margin: 0 0 14px;
-            font-family: "DM Sans", Arial, sans-serif;
-            font-size: 14px;
-            line-height: 1.75;
-            color: rgba(28,26,23,.62);
-        }
-
-        #kit-canvas .guide-item p:last-child,
-        #kit-canvas .guide-block p:last-child,
-        #kit-canvas .kit-guide-block p:last-child {
-            margin-bottom: 0;
-        }
-
-        /* Guide links */
-        #kit-canvas .guide-item a,
-        #kit-canvas .guide-block a,
-        #kit-canvas .kit-guide-block a {
-            color: inherit;
-            text-decoration: none;
-            border-bottom: 1px solid rgba(28,26,23,.3);
-        }
-
-
-        /* ---------------------------------------------------------
-           FAQ
-           --------------------------------------------------------- */
-
-        #kit-canvas section.faq,
-        #kit-canvas .faq,
-        #kit-canvas .kit-faq {
-            max-width: 1160px;
-            margin: 0 auto;
-            padding: 90px 32px 110px;
-            border-top: 1px solid var(--line, rgba(28,26,23,.14));
-        }
-
-        /* FAQ heading */
-        #kit-canvas section.faq h2,
-        #kit-canvas .faq h2,
-        #kit-canvas .kit-faq h2 {
-            margin: 0 0 42px;
-            font-family: "Cormorant Garamond", Georgia, serif;
-            font-size: clamp(36px, 4vw, 52px);
-            line-height: 1;
-            font-weight: 400;
-            letter-spacing: -0.02em;
-        }
-
-        /* FAQ list */
-        #kit-canvas .faq-list,
-        #kit-canvas .kit-faq-list {
-            max-width: 900px;
-            border-top: 1px solid var(--line, rgba(28,26,23,.14));
-        }
-
-        /* FAQ item */
-        #kit-canvas .faq-list details,
-        #kit-canvas .kit-faq-list details {
-            margin: 0;
-            border-bottom: 1px solid var(--line, rgba(28,26,23,.14));
-        }
-
-        /* FAQ question */
-        #kit-canvas .faq-list summary,
-        #kit-canvas .kit-faq-list summary {
-            position: relative;
-            display: block;
-            padding: 25px 55px 25px 0;
-
-            cursor: pointer;
-
-            font-family: "Cormorant Garamond", Georgia, serif;
-            font-size: 25px;
+        #kit-canvas .rg-note h3 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 500;
+            font-size: 26px;
             line-height: 1.2;
-            font-weight: 400;
-            color: var(--ink, #1c1a17);
-
-            list-style: none;
+            margin: 0 0 12px;
         }
-
-        /* Remove browser arrow */
-        #kit-canvas .faq-list summary::-webkit-details-marker,
-        #kit-canvas .kit-faq-list summary::-webkit-details-marker {
-            display: none;
+        #kit-canvas .rg-note p {
+            font-size: 14.5px;
+            line-height: 1.8;
+            color: rgba(28,26,23,0.66);
+            margin: 0 0 12px;
+            max-width: 60ch;
         }
-
-        #kit-canvas .faq-list summary::marker,
-        #kit-canvas .kit-faq-list summary::marker {
-            display: none;
+        #kit-canvas .rg-note p:last-child { margin-bottom: 0; }
+        #kit-canvas .rg a.rg-link {
+            color: var(--ink);
+            text-decoration: none;
+            background-image: linear-gradient(var(--coffee), var(--coffee));
+            background-size: 100% 1px;
+            background-position: 0 100%;
+            background-repeat: no-repeat;
+            padding-bottom: 1px;
+            transition: color .2s ease, background-size .25s ease;
         }
+        #kit-canvas .rg a.rg-link:hover { color: var(--coffee-deep); background-size: 0 1px; background-position: 100% 100%; }
 
-        /* Plus icon */
-        #kit-canvas .faq-list summary::after,
-        #kit-canvas .kit-faq-list summary::after {
-            content: "+";
-            position: absolute;
-            right: 4px;
-            top: 50%;
-            transform: translateY(-50%);
-
-            font-family: "DM Sans", Arial, sans-serif;
-            font-size: 21px;
-            font-weight: 300;
-            line-height: 1;
-            color: rgba(28,26,23,.5);
+        /* Compare table */
+        #kit-canvas .rg-compare { background: linear-gradient(180deg, var(--cream) 0%, #F6EFE4 100%); max-width: none; }
+        #kit-canvas .rg-compare__inner { max-width: 1096px; margin: 0 auto; }
+        #kit-canvas .rg-compare__head { text-align: center; margin: 0 auto 52px; }
+        #kit-canvas .rg-compare__head .rg-lede { margin: 0 auto; max-width: 46ch; }
+        #kit-canvas .rg-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px -40px rgba(28,26,23,0.25);
         }
-
-        /* Minus when open */
-        #kit-canvas .faq-list details[open] summary::after,
-        #kit-canvas .kit-faq-list details[open] summary::after {
-            content: "−";
-        }
-
-        /* FAQ answer */
-        #kit-canvas .faq-list details p,
-        #kit-canvas .kit-faq-list details p {
-            max-width: 720px;
-            margin: 0;
-            padding: 0 70px 28px 0;
-
-            font-family: "DM Sans", Arial, sans-serif;
+        #kit-canvas .rg-table th,
+        #kit-canvas .rg-table td {
+            text-align: left;
+            padding: 22px 24px;
+            border-bottom: 1px solid var(--line);
+            vertical-align: top;
             font-size: 14px;
-            line-height: 1.75;
-            color: rgba(28,26,23,.62);
+            line-height: 1.55;
+        }
+        #kit-canvas .rg-table thead th {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(28,26,23,0.5);
+            background: #FCFAF6;
+            padding-top: 18px;
+            padding-bottom: 18px;
+        }
+        #kit-canvas .rg-table tbody tr:last-child td { border-bottom: 0; }
+        #kit-canvas .rg-table tbody tr { transition: background .2s ease; }
+        #kit-canvas .rg-table tbody tr:hover { background: #FDFBF8; }
+        #kit-canvas .rg-table .rg-kit a {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 21px;
+            font-weight: 500;
+            color: var(--ink);
+            text-decoration: none;
+        }
+        #kit-canvas .rg-table .rg-kit a:hover { color: var(--coffee-deep); }
+        #kit-canvas .rg-table .rg-kit small {
+            display: block;
+            margin-top: 4px;
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--coffee);
+        }
+        #kit-canvas .rg-table td { color: rgba(28,26,23,0.7); }
+        #kit-canvas .rg-table .rg-kit { width: 21%; }
+        #kit-canvas .rg-pill {
+            display: inline-block;
+            font-size: 11.5px;
+            padding: 4px 11px;
+            border-radius: 20px;
+            background: var(--pink-soft);
+            color: var(--coffee-deep);
+            white-space: nowrap;
+        }
+        #kit-canvas .rg-pill--no { background: #F1EEE9; color: rgba(28,26,23,0.55); }
+        #kit-canvas .rg-price {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 24px;
+            color: var(--ink);
+            white-space: nowrap;
+        }
+        #kit-canvas .rg-price small {
+            display: block;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11.5px;
+            color: #8a5a44;
+            letter-spacing: 0.02em;
+        }
+        #kit-canvas .rg-compare__foot {
+            text-align: center;
+            margin: 26px 0 0;
+            font-size: 13px;
+            color: rgba(28,26,23,0.5);
         }
 
+        /* FAQ */
+        #kit-canvas .rg-faq__inner { max-width: 820px; margin: 0 auto; }
+        #kit-canvas .rg-faq__head { text-align: center; margin-bottom: 48px; }
+        #kit-canvas .rg-faq-list { border-top: 1px solid var(--line); }
+        #kit-canvas .rg-faq-list details { border-bottom: 1px solid var(--line); }
+        #kit-canvas .rg-faq-list summary {
+            list-style: none;
+            cursor: pointer;
+            position: relative;
+            padding: 26px 56px 26px 0;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 23px;
+            line-height: 1.3;
+            color: var(--ink);
+            transition: color .2s ease;
+        }
+        #kit-canvas .rg-faq-list summary::-webkit-details-marker { display: none; }
+        #kit-canvas .rg-faq-list summary:hover { color: var(--coffee-deep); }
+        #kit-canvas .rg-faq-list summary::before,
+        #kit-canvas .rg-faq-list summary::after {
+            content: "";
+            position: absolute;
+            right: 6px;
+            top: 50%;
+            width: 14px;
+            height: 1px;
+            background: var(--ink);
+            transition: transform .3s ease, opacity .3s ease;
+        }
+        #kit-canvas .rg-faq-list summary::after { transform: rotate(90deg); }
+        #kit-canvas .rg-faq-list details[open] summary::after { transform: rotate(0deg); opacity: 0; }
+        #kit-canvas .rg-faq-list details p {
+            margin: -6px 0 0;
+            padding: 0 56px 28px 0;
+            font-size: 14.5px;
+            line-height: 1.8;
+            color: rgba(28,26,23,0.66);
+        }
+        #kit-canvas .rg-faq-list details[open] p { animation: rgFade .35s ease; }
+        @keyframes rgFade { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
 
-        /* ---------------------------------------------------------
-           MOBILE
-           --------------------------------------------------------- */
+        @media (max-width: 900px) {
+            #kit-canvas .rg { padding: 72px 22px; }
+            #kit-canvas .rg-guide { grid-template-columns: 1fr; gap: 36px; }
+            #kit-canvas .rg-guide__intro { position: static; }
+            #kit-canvas .rg-note { grid-template-columns: 40px minmax(0, 1fr); padding: 28px 0; }
+            #kit-canvas .rg-note h3 { font-size: 23px; }
 
-        @media (max-width: 700px) {
-
-            #kit-canvas section.guide,
-            #kit-canvas .guide,
-            #kit-canvas .kit-guide {
-                padding: 65px 22px;
+            /* Table becomes stacked cards */
+            #kit-canvas .rg-table, #kit-canvas .rg-table tbody, #kit-canvas .rg-table tr, #kit-canvas .rg-table td { display: block; width: 100%; }
+            #kit-canvas .rg-table { background: transparent; border: 0; box-shadow: none; }
+            #kit-canvas .rg-table thead { display: none; }
+            #kit-canvas .rg-table tbody tr {
+                background: #fff;
+                border: 1px solid var(--line);
+                border-radius: 6px;
+                padding: 8px 20px;
+                margin-bottom: 14px;
             }
-
-            #kit-canvas section.faq,
-            #kit-canvas .faq,
-            #kit-canvas .kit-faq {
-                padding: 65px 22px 80px;
-            }
-
-            #kit-canvas .guide-grid,
-            #kit-canvas .guide-content,
-            #kit-canvas .kit-guide-content {
+            #kit-canvas .rg-table td { padding: 12px 0; border-bottom: 1px solid var(--line); }
+            #kit-canvas .rg-table td:last-child { border-bottom: 0; }
+            #kit-canvas .rg-table td[data-label]::before {
+                content: attr(data-label);
                 display: block;
+                font-size: 10.5px;
+                letter-spacing: 0.14em;
+                text-transform: uppercase;
+                color: rgba(28,26,23,0.45);
+                margin-bottom: 4px;
             }
-
-            #kit-canvas .guide-item,
-            #kit-canvas .guide-block,
-            #kit-canvas .kit-guide-block,
-            #kit-canvas .guide-item:nth-child(even),
-            #kit-canvas .guide-block:nth-child(even),
-            #kit-canvas .kit-guide-block:nth-child(even) {
-                padding: 28px 0;
-                border-left: 0;
-                border-bottom: 1px solid var(--line, rgba(28,26,23,.14));
-            }
-
-            #kit-canvas .guide-item:first-child,
-            #kit-canvas .guide-block:first-child,
-            #kit-canvas .kit-guide-block:first-child {
-                padding-top: 0;
-            }
-
-            #kit-canvas .guide-item h3,
-            #kit-canvas .guide-block h3,
-            #kit-canvas .kit-guide-block h3 {
-                font-size: 24px;
-            }
-
-            #kit-canvas .guide-item p,
-            #kit-canvas .guide-block p,
-            #kit-canvas .kit-guide-block p {
-                font-size: 13.5px;
-                line-height: 1.7;
-            }
-
-            #kit-canvas .faq-list summary,
-            #kit-canvas .kit-faq-list summary {
-                padding: 21px 42px 21px 0;
-                font-size: 21px;
-            }
-
-            #kit-canvas .faq-list details p,
-            #kit-canvas .kit-faq-list details p {
-                padding: 0 30px 24px 0;
-                font-size: 13.5px;
-            }
+            #kit-canvas .rg-faq-list summary { font-size: 20px; padding: 22px 44px 22px 0; }
+            #kit-canvas .rg-faq-list details p { padding-right: 0; }
         }
     </style>
     <script src="/javascript/meta-pixel.js"></script>
@@ -601,7 +582,7 @@
 <div id="kit-canvas">
 
     <nav class="kit-crumbs" aria-label="Breadcrumb">
-        <a href="/">Home</a> / <a href="/products/products.html">Products</a> / Kits
+        <a href="/">Home</a> / <a href="/products/products">Products</a> / Kits
     </nav>
 
     <header class="kit-hero">
@@ -770,230 +751,229 @@
         </div>
     </section>
 
+    <!-- ============================= GUIDE ============================= -->
+    <section class="rg rg-guide" id="pilates-yoga-kit-guide" aria-labelledby="rg-guide-title">
+        <div class="rg-guide__intro">
+            <p class="eyebrow">The Ritual Guide</p>
+            <h2 class="rg-title" id="rg-guide-title">Choosing your <em>Pilates</em> or <em>yoga</em> kit</h2>
+            <p class="rg-lede">Start with how you practise, what you already own, and how much resistance or support you want. Here's how to choose.</p>
+        </div>
+
+        <ol class="rg-notes">
+            <li class="rg-note">
+                <div>
+                    <h3>What's in a Pilates kit?</h3>
+                    <p>A home Pilates kit gives you everything a mat class uses. A <a class="rg-link" href="/products/the-ritual-mat">mat</a> grounds you. A <a class="rg-link" href="/products/the-ritual-ring">Pilates ring</a> and a <a class="rg-link" href="/products/the-ritual-ball">Pilates ball</a> add resistance for inner thighs, arms and core. Light <a class="rg-link" href="/products/capsule-dumbbell">1kg dumbbells</a> or <a class="rg-link" href="/products/the-ritual-cuffs">ankle weights</a> turn slow, controlled movement into strength work.</p>
+                    <p>Every Ritual Co. Pilates kit is built from those pieces, so each one gives you a complete workout with no reformer.</p>
+                </div>
+            </li>
+            <li class="rg-note">
+                <div>
+                    <h3>Which Pilates kit is best for beginners?</h3>
+                    <p>The <a class="rg-link" href="/products/pilates-starter-kit">Pilates Starter Kit</a>: mat, ring, ball and 1kg dumbbells. It covers the fundamentals (core, control and light resistance) without anything you won't use yet. When you want more, add ankle weights or move up to the <a class="rg-link" href="/products/pilates-complete-kit">Pilates Complete Kit</a>, which adds the cuffs and a block.</p>
+                </div>
+            </li>
+            <li class="rg-note">
+                <div>
+                    <h3>Already have a mat?</h3>
+                    <p>Skip paying for another one. The <a class="rg-link" href="/products/pilates-sculpt-kit">Pilates Sculpt Kit</a> brings the ring, ball, 1kg dumbbells and ankle weights to the mat you own. For yoga, the <a class="rg-link" href="/products/yoga-studio-kit">Yoga Studio Kit</a> is a belt and two blocks, the pair of props most studio classes use.</p>
+                </div>
+            </li>
+            <li class="rg-note">
+                <div>
+                    <h3>What's in a yoga kit?</h3>
+                    <p>A mat that grips, a block for support and a belt for reach. The <a class="rg-link" href="/products/yoga-essentials-kit">Yoga Essentials Kit</a> pairs our 5mm natural rubber mat with an EVA foam block and a cotton yoga belt, so you can hold poses with good alignment while your flexibility catches up. See all <a class="rg-link" href="/yoga">yoga equipment</a>.</p>
+                </div>
+            </li>
+            <li class="rg-note">
+                <div>
+                    <h3>Why buy a kit instead of separate pieces?</h3>
+                    <p>Two reasons. A kit costs less, saving you up to ₹2,195 on the Pilates Complete Kit. And every piece arrives in the same colour, so your practice corner looks considered rather than collected.</p>
+                </div>
+            </li>
+            <li class="rg-note">
+                <div>
+                    <h3>Pilates or yoga?</h3>
+                    <p>Pilates builds deep core strength and control through small, precise movements. Yoga builds flexibility, balance and breath. Many people do both, and the mat, block and belt work for each. Read <a class="rg-link" href="/blog/pilates/pilates-vs-yoga">Pilates vs yoga</a> for the full difference.</p>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <!-- ============================= COMPARE ============================= -->
+    <section class="rg rg-compare" id="compare-kits" aria-labelledby="rg-compare-title">
+        <div class="rg-compare__inner">
+            <div class="rg-compare__head">
+                <p class="eyebrow">Side by side</p>
+                <h2 class="rg-title" id="rg-compare-title">Which kit is <em>right for you?</em></h2>
+                <p class="rg-lede">Five kits in four colours, each less than buying the pieces separately.</p>
+            </div>
+
+            <table class="rg-table">
+                <thead>
+                    <tr><th scope="col">Kit</th><th scope="col">What's inside</th><th scope="col">Mat</th><th scope="col">Best for</th><th scope="col">Price</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="rg-kit"><a href="/products/pilates-starter-kit">Pilates Starter</a><small>The Foundation</small></td>
+                        <td data-label="What's inside">Mat · Ring · Ball · 1kg Dumbbells</td>
+                        <td data-label="Mat"><span class="rg-pill">Included</span></td>
+                        <td data-label="Best for">Beginners starting Pilates at home</td>
+                        <td data-label="Price"><span class="rg-price">₹8,799<small>Save ₹1,197</small></span></td>
+                    </tr>
+                    <tr>
+                        <td class="rg-kit"><a href="/products/pilates-sculpt-kit">Pilates Sculpt</a><small>The Practice</small></td>
+                        <td data-label="What's inside">Ring · Ball · 1kg Dumbbells · Ankle Weights</td>
+                        <td data-label="Mat"><span class="rg-pill rg-pill--no">Bring your own</span></td>
+                        <td data-label="Best for">Adding resistance to the mat you own</td>
+                        <td data-label="Price"><span class="rg-price">₹7,499<small>Save ₹997</small></span></td>
+                    </tr>
+                    <tr>
+                        <td class="rg-kit"><a href="/products/pilates-complete-kit">Pilates Complete</a><small>The Ritual</small></td>
+                        <td data-label="What's inside">Mat · Ring · Ball · 1kg Dumbbells · Ankle Weights · Block</td>
+                        <td data-label="Mat"><span class="rg-pill">Included</span></td>
+                        <td data-label="Best for">A full home studio that grows with you</td>
+                        <td data-label="Price"><span class="rg-price">₹12,199<small>Save ₹2,195</small></span></td>
+                    </tr>
+                    <tr>
+                        <td class="rg-kit"><a href="/products/yoga-essentials-kit">Yoga Essentials</a><small>The Foundation</small></td>
+                        <td data-label="What's inside">Mat · Belt · Block</td>
+                        <td data-label="Mat"><span class="rg-pill">Included</span></td>
+                        <td data-label="Best for">A complete beginner yoga setup</td>
+                        <td data-label="Price"><span class="rg-price">₹5,799<small>Save ₹598</small></span></td>
+                    </tr>
+                    <tr>
+                        <td class="rg-kit"><a href="/products/yoga-studio-kit">Yoga Studio</a><small>The Practice</small></td>
+                        <td data-label="What's inside">Belt · 2 Blocks</td>
+                        <td data-label="Mat"><span class="rg-pill rg-pill--no">Bring your own</span></td>
+                        <td data-label="Best for">Props for the mat you already love</td>
+                        <td data-label="Price"><span class="rg-price">₹2,099<small>Save ₹198</small></span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="rg-compare__foot">Free shipping across India · Cash on delivery available · Oat Latte, Strawberry Milk, Vanilla Cream &amp; Onyx Black</p>
+        </div>
+    </section>
+
+    <!-- ============================= FAQ ============================= -->
+    <section class="rg rg-faq" id="kit-faq" aria-labelledby="rg-faq-title">
+        <div class="rg-faq__inner">
+            <div class="rg-faq__head">
+                <p class="eyebrow">Questions, answered</p>
+                <h2 class="rg-title" id="rg-faq-title">Pilates &amp; yoga kit <em>FAQs</em></h2>
+            </div>
+            <div class="rg-faq-list">
+            <details open>
+                <summary>Which is the best Pilates kit for beginners?</summary>
+                <p>The <a class="rg-link" href="/products/pilates-starter-kit">Pilates Starter Kit</a> (₹8,799) is made for beginners starting Pilates at home. It includes The Ritual Mat, Ring, Ball and a pair of 1kg Capsule Dumbbells: everything you need for a full mat Pilates session, with no reformer.</p>
+            </details>
+            <details>
+                <summary>What should a Pilates kit include?</summary>
+                <p>A mat to work on, a Pilates ring and a Pilates ball for resistance and control, and light weights (1–2kg dumbbells or ankle weights) to add strength work. A block is useful for support as your practice deepens. You don't need a reformer to do Pilates at home.</p>
+            </details>
+            <details>
+                <summary>Which yoga kit is best for beginners?</summary>
+                <p>The <a class="rg-link" href="/products/yoga-essentials-kit">Yoga Essentials Kit</a> (₹5,799): a natural rubber yoga mat, a cotton yoga belt and an EVA foam yoga block. The block and belt help with alignment and reach while your flexibility builds.</p>
+            </details>
+            <details>
+                <summary>Can I buy a Pilates or yoga kit without a mat?</summary>
+                <p>Yes. The <a class="rg-link" href="/products/pilates-sculpt-kit">Pilates Sculpt Kit</a> (ring, ball, 1kg dumbbells and ankle weights) and the <a class="rg-link" href="/products/yoga-studio-kit">Yoga Studio Kit</a> (a belt and two blocks) are both made for the mat you already own.</p>
+            </details>
+            <details>
+                <summary>How much do I save by buying a kit?</summary>
+                <p>Every kit costs less than buying its pieces separately: ₹198 on the Yoga Studio Kit, ₹598 on Yoga Essentials, ₹997 on Pilates Sculpt, ₹1,197 on Pilates Starter and ₹2,195 on Pilates Complete.</p>
+            </details>
+            <details>
+                <summary>Do the pieces in a kit match?</summary>
+                <p>Yes. Each kit comes in one colour: Oat Latte, Strawberry Milk, Vanilla Cream or Onyx Black. Strawberry Milk yoga kits come with a Vanilla Cream belt.</p>
+            </details>
+            <details>
+                <summary>Do you ship kits across India?</summary>
+                <p>Yes. Shipping is free on every order across India, and cash on delivery is available. Kits that include a piece on pre-order show the expected ship date on the kit page.</p>
+            </details>
+            <details>
+                <summary>Do I need a reformer to do Pilates at home?</summary>
+                <p>No. Mat Pilates with a ring, ball and light weights gives a full-body workout at home without the cost or space of a reformer. Our <a class="rg-link" href="/blog/pilates/pilates-for-beginners">Pilates for beginners guide</a> shows how to start.</p>
+            </details>
+            </div>
+        </div>
+    </section>
+
 </div>
 
-<!--<section class="kit-group kit-group&#45;&#45;guide" id="pilates-yoga-kit-guide">-->
-<!--    <div class="kit-group__head">-->
-<!--        <div>-->
-<!--            <p class="eyebrow">The Ritual Guide</p>-->
-<!--            <h2>Choosing a Pilates or Yoga Kit</h2>-->
-<!--        </div>-->
 
-<!--        <p>-->
-<!--            Not sure which kit is right for you? Start with how you practise,-->
-<!--            what equipment you already own, and how much resistance or support-->
-<!--            you want.-->
-<!--        </p>-->
-<!--    </div>-->
-
-<!--    <div class="kit-guide-content">-->
-
-<!--        <div class="kit-guide-block">-->
-<!--            <h3>What is included in a Pilates kit?</h3>-->
-
-<!--            <p>-->
-<!--                A Pilates equipment kit can combine several pieces used for-->
-<!--                strength, control, mobility and stability. Depending on the-->
-<!--                kit, this may include a Pilates mat, Pilates ring, Pilates ball,-->
-<!--                dumbbells, ankle cuffs and other supporting equipment.-->
-<!--            </p>-->
-
-<!--            <p>-->
-<!--                If you are starting Pilates at home, a beginner-friendly kit-->
-<!--                gives you multiple ways to train without having to purchase-->
-<!--                every piece separately.-->
-<!--            </p>-->
-<!--        </div>-->
-
-<!--        <div class="kit-guide-block">-->
-<!--            <h3>Which Pilates kit is best for beginners?</h3>-->
-
-<!--            <p>-->
-<!--                The <a href="/products/pilates-starter-kit">-->
-<!--                Pilates Starter Kit</a> is designed as an entry point for-->
-<!--                home Pilates. It combines a mat, ring, ball and 1kg dumbbells,-->
-<!--                giving beginners the basic equipment needed to add resistance-->
-<!--                and variety to their practice.-->
-<!--            </p>-->
-<!--        </div>-->
-
-<!--        <div class="kit-guide-block">-->
-<!--            <h3>What is included in a yoga kit?</h3>-->
-
-<!--            <p>-->
-<!--                A yoga equipment kit commonly includes a yoga mat and props-->
-<!--                such as a yoga belt and yoga blocks. These props can help with-->
-<!--                alignment, support, flexibility and accessibility during-->
-<!--                different poses.-->
-<!--            </p>-->
-
-<!--            <p>-->
-<!--                For a complete home setup, the-->
-<!--                <a href="/products/yoga-essentials-kit">Yoga Essentials Kit</a>-->
-<!--                combines a mat, belt and block. If you already own a mat, the-->
-<!--                <a href="/products/yoga-studio-kit">Yoga Studio Kit</a> provides-->
-<!--                the essential props without another mat.-->
-<!--            </p>-->
-<!--        </div>-->
-
-<!--        <div class="kit-guide-block">-->
-<!--            <h3>Why buy a fitness equipment kit?</h3>-->
-
-<!--            <p>-->
-<!--                Buying a curated kit can make it easier to build a consistent-->
-<!--                home workout setup. Instead of choosing individual pieces,-->
-<!--                you can start with equipment designed to complement the same-->
-<!--                style of practice.-->
-<!--            </p>-->
-
-<!--            <p>-->
-<!--                The Ritual Co. kits are designed around intentional movement,-->
-<!--                combining functional fitness equipment with a considered-->
-<!--                aesthetic for the home.-->
-<!--            </p>-->
-<!--        </div>-->
-
-<!--    </div>-->
-<!--</section>-->
-
-<!--<section class="kit-group kit-group&#45;&#45;faq" id="kit-faq">-->
-<!--    <div class="kit-group__head">-->
-<!--        <div>-->
-<!--            <p class="eyebrow">Questions, answered</p>-->
-<!--            <h2>Pilates & Yoga Kit FAQs</h2>-->
-<!--        </div>-->
-<!--    </div>-->
-
-<!--    <div class="kit-faq-list">-->
-
-<!--        <details>-->
-<!--            <summary>Which is the best Pilates kit for beginners?</summary>-->
-<!--            <p>-->
-<!--                The Pilates Starter Kit is designed for beginners starting a-->
-<!--                home Pilates practice. It includes a mat, ring, ball and 1kg-->
-<!--                dumbbells.-->
-<!--            </p>-->
-<!--        </details>-->
-
-<!--        <details>-->
-<!--            <summary>What should a Pilates equipment kit include?</summary>-->
-<!--            <p>-->
-<!--                A Pilates kit can include a mat, Pilates ring, Pilates ball,-->
-<!--                light dumbbells and resistance accessories. The ideal-->
-<!--                combination depends on your experience and training goals.-->
-<!--            </p>-->
-<!--        </details>-->
-
-<!--        <details>-->
-<!--            <summary>Which yoga kit is best for beginners?</summary>-->
-<!--            <p>-->
-<!--                A complete beginner yoga kit should generally include a yoga-->
-<!--                mat and useful props such as a yoga belt and yoga block. The-->
-<!--                Yoga Essentials Kit combines these three pieces for home-->
-<!--                practice.-->
-<!--            </p>-->
-<!--        </details>-->
-
-<!--        <details>-->
-<!--            <summary>Can I buy a yoga kit without a mat?</summary>-->
-<!--            <p>-->
-<!--                Yes. The Yoga Studio Kit is designed for people who already-->
-<!--                own a yoga mat and want a belt and two blocks for their-->
-<!--                practice.-->
-<!--            </p>-->
-<!--        </details>-->
-
-<!--        <details>-->
-<!--            <summary>Can I use Pilates kits for home workouts?</summary>-->
-<!--            <p>-->
-<!--                Yes. The Pilates kits are designed for home practice and-->
-<!--                combine equipment that can be used for strength, control,-->
-<!--                stability and resistance exercises.-->
-<!--            </p>-->
-<!--        </details>-->
-
-<!--        <details>-->
-<!--            <summary>Are Pilates kits available in India?</summary>-->
-<!--            <p>-->
-<!--                Yes. The Ritual Co. offers curated Pilates equipment kits-->
-<!--                designed for customers building a home Pilates setup in India.-->
-<!--            </p>-->
-<!--        </details>-->
-
-<!--        <details>-->
-<!--            <summary>Are yoga kits available in India?</summary>-->
-<!--            <p>-->
-<!--                Yes. The Ritual Co. offers curated yoga equipment kits-->
-<!--                including complete setups and smaller prop-focused kits.-->
-<!--            </p>-->
-<!--        </details>-->
-
-<!--    </div>-->
-<!--</section>-->
 
 <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "Which is the best Pilates kit for beginners?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "The Pilates Starter Kit is designed for beginners starting a home Pilates practice. It includes a mat, ring, ball and 1kg dumbbells."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "What should a Pilates equipment kit include?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "A Pilates kit can include a mat, Pilates ring, Pilates ball, light dumbbells and resistance accessories. The ideal combination depends on your experience and training goals."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Which yoga kit is best for beginners?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "A complete beginner yoga kit should generally include a yoga mat and useful props such as a yoga belt and yoga block. The Yoga Essentials Kit combines these three pieces for home practice."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Can I buy a yoga kit without a mat?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Yes. The Yoga Studio Kit is designed for people who already own a yoga mat and want a belt and two blocks for their practice."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Can I use Pilates kits for home workouts?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Yes. The Pilates kits are designed for home practice and combine equipment that can be used for strength, control, stability and resistance exercises."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Are Pilates kits available in India?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Yes. The Ritual Co. offers curated Pilates equipment kits designed for customers building a home Pilates setup in India."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Are yoga kits available in India?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Yes. The Ritual Co. offers curated yoga equipment kits including complete setups and smaller prop-focused kits."
-                }
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "Which is the best Pilates kit for beginners?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The Pilates Starter Kit (₹8,799) is made for beginners starting Pilates at home. It includes The Ritual Mat, Ring, Ball and a pair of 1kg Capsule Dumbbells: everything you need for a full mat Pilates session, with no reformer."
             }
-        ]
-    }
+        },
+        {
+            "@type": "Question",
+            "name": "What should a Pilates kit include?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A mat to work on, a Pilates ring and a Pilates ball for resistance and control, and light weights (1–2kg dumbbells or ankle weights) to add strength work. A block is useful for support as your practice deepens. You don't need a reformer to do Pilates at home."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Which yoga kit is best for beginners?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The Yoga Essentials Kit (₹5,799): a natural rubber yoga mat, a cotton yoga belt and an EVA foam yoga block. The block and belt help with alignment and reach while your flexibility builds."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Can I buy a Pilates or yoga kit without a mat?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. The Pilates Sculpt Kit (ring, ball, 1kg dumbbells and ankle weights) and the Yoga Studio Kit (a belt and two blocks) are both made for the mat you already own."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "How much do I save by buying a kit?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Every kit costs less than buying its pieces separately: ₹198 on the Yoga Studio Kit, ₹598 on Yoga Essentials, ₹997 on Pilates Sculpt, ₹1,197 on Pilates Starter and ₹2,195 on Pilates Complete."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Do the pieces in a kit match?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Each kit comes in one colour: Oat Latte, Strawberry Milk, Vanilla Cream or Onyx Black. Strawberry Milk yoga kits come with a Vanilla Cream belt."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Do you ship kits across India?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Shipping is free on every order across India, and cash on delivery is available. Kits that include a piece on pre-order show the expected ship date on the kit page."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Do I need a reformer to do Pilates at home?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. Mat Pilates with a ring, ball and light weights gives a full-body workout at home without the cost or space of a reformer. Our Pilates for beginners guide shows how to start."
+            }
+        }
+    ]
+}
 </script>
 
 <div id="footer-placeholder"></div>

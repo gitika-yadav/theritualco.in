@@ -1,6 +1,6 @@
 [build]
  publish = "."
- command = "node javascript/generate-sitemap.js"
+ command = "node javascript/generate-sitemap.js && node javascript/inject-review-schema.js"
  functions = "netlify/functions"
  ignore_secrets = ["SUPABASE_ANON_KEY"]
 
