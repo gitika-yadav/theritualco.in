@@ -123,3 +123,10 @@
     .ev-remind__row { grid-template-columns: 1fr 1fr; }
     .ev-remind button { grid-column: span 2; }
 }
+
+/* Upcoming / past sections on /events */
+.ev-h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: clamp(26px, 3vw, 34px); color: #1a1714; margin: 56px 0 0; padding-top: 28px; border-top: 1px solid #e8e2dc; }
+.ev-h2:first-child { margin-top: 12px; padding-top: 0; border-top: 0; }
+.ev-grid--past { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 24px; margin-top: 28px; }
+.ev-card--past .ev-card__img img { filter: saturate(.85); }
+.ev-card--past .ev-card__title { font-size: 22px; }
