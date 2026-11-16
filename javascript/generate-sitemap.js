@@ -26,6 +26,7 @@ const EXCLUDE_PATHS = [
     "blog/womens-wellness/dumbbell-exercises-for-arms",
     "blog/womens-wellness/home-gym-equipment-for-women",
     "blog/womens-wellness/weightloss-with-dumbbells",
+    "blog/dumbbells/silicone-dumbbells-vs-pvc-dumbbells",
 ];
 
 // Priority rules — first match wins
