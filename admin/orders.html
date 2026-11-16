@@ -118,6 +118,15 @@
         .span-6{grid-column:span 6;}.span-3{grid-column:span 3;}.span-2{grid-column:span 2;}
         .dl-section{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#a09890;margin:18px 0 8px;grid-column:span 6;border-top:0.5px solid #f0ece8;padding-top:14px;}
         .dl-hint{font-size:11px;color:#b4563a;margin-top:6px;}
+        .dl-items{grid-column:span 6;width:100%;border-collapse:collapse;font-size:12px;}
+        .dl-items td{padding:6px 4px;border-bottom:0.5px solid #f0ece8;vertical-align:middle;}
+        .dl-items select{padding:4px 6px;font-size:12px;}
+        .dl-box{grid-column:span 6;display:grid;grid-template-columns:70px 1fr 1fr 1fr 1fr 1.3fr 24px;gap:6px;align-items:center;font-size:12px;}
+        .dl-box input{padding:6px 7px;font-size:12px;width:100%;box-sizing:border-box;}
+        .dl-box .lbl{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#a09890;}
+        .dl-box .val{color:#3a3330;}
+        .dl-box .rm{background:none;border:none;color:#a09890;font-size:16px;cursor:pointer;}
+        .dl-addbox{grid-column:span 6;background:none;border:1px dashed #c8c0b6;border-radius:6px;padding:7px;font-size:12px;color:#3a3330;cursor:pointer;}
         .dl-done{background:#f3f8ee;border-radius:8px;padding:14px 16px;font-size:13px;color:#2a6b3a;margin-top:14px;display:none;}
         .dl-done strong{font-family:monospace;font-size:14px;}
         .dl-done .btn-primary{margin-top:10px;}
@@ -246,12 +255,14 @@
             <div class="modal-field span-2"><label class="modal-label">COD to collect (₹)</label><input id="dl-cod" type="number" min="0"/></div>
             <div class="modal-field span-2"><label class="modal-label">Declared value (₹)</label><input id="dl-value" type="number" min="1"/></div>
 
-            <div class="dl-section">Package</div>
-            <div class="modal-field span-6"><label class="modal-label">Contents</label><input id="dl-desc"/></div>
-            <div class="modal-field span-2"><label class="modal-label">Weight (g)</label><input id="dl-weight" type="number" min="1"/></div>
-            <div class="modal-field span-2"><label class="modal-label">Box L × W × H (cm)</label>
-                <div style="display:flex;gap:4px;"><input id="dl-l" type="number" min="1"/><input id="dl-w" type="number" min="1"/><input id="dl-h" type="number" min="1"/></div></div>
-            <div class="modal-field span-2"><label class="modal-label">Pickup from</label><input id="dl-pickup"/></div>
+            <div class="dl-section">Contents</div>
+            <div class="modal-field span-6"><label class="modal-label">Description on the label (each item's real price)</label><input id="dl-desc"/></div>
+            <table class="dl-items" id="dl-items"></table>
+
+            <div class="dl-section">Boxes</div>
+            <div id="dl-boxes" style="grid-column:span 6;display:grid;gap:8px;"></div>
+            <button type="button" class="dl-addbox" id="dl-addbox" onclick="dlAddBox()">+ Add another box (ships together, up to 5)</button>
+            <div class="modal-field span-6"><label class="modal-label">Pickup from</label><input id="dl-pickup"/></div>
         </div>
         <div class="dl-hint" id="dl-hint"></div>
         <div class="modal-footer" id="dl-footer">
@@ -420,7 +431,7 @@
             const status = o.status || "paid";
             const badge = `<span class="badge badge-${status}"><span class="dot dot-${status}"></span>${STATUS_LABELS[status] || status}</span>`;
             const labelBtn = o.courier === "Delhivery" && o.tracking_number
-                ? ` <button class="btn-sm" onclick="printLabel('${o.tracking_number}', this)">Label</button>` : "";
+                ? ` <button class="btn-sm" onclick="printLabel('${(o.shipment_boxes && o.shipment_boxes.length > 1 ? o.shipment_boxes : [o.tracking_number]).join(",")}', this)">Label${o.shipment_boxes && o.shipment_boxes.length > 1 ? "s ×" + o.shipment_boxes.length : ""}</button>` : "";
             const shipBtn = TO_SHIP_STATUSES.includes(status)
                 ? `<button class="btn-sm btn-ship" onclick="openDelhivery('${o.id}', event)">Ship via Delhivery</button> <button class="btn-sm" onclick="openShip('${o.id}', event)" title="Other courier / enter tracking yourself">Manual</button>`
                 : (status === "shipped" || status === "delivered")
@@ -503,7 +514,64 @@
     let dlOrderId = null;
     const DL_FIELDS = { name: "name", phone: "phone", add: "add", city: "city", state: "state", pin: "pin",
         payment_mode: "mode", cod_amount: "cod", total_amount: "value", products_desc: "desc",
-        weight_g: "weight", l: "l", w: "w", h: "h", pickup_location: "pickup" };
+        pickup_location: "pickup" };
+    // Lines (one per order item) and boxes for the open order.
+    let DL_LINES = [], DL_BOXES = [];
+    const dlEsc = (v) => String(v ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+    // Recompute a box's suggested weight/size from the items in it.
+    function dlSuggest(box) {
+        const ls = DL_LINES.filter(x => box.lines.includes(x.idx));
+        if (!ls.length) return { weight_g: 0, l: 0, w: 0, h: 0 };
+        return { weight_g: ls.reduce((n, x) => n + x.weight_g, 0), l: Math.max(...ls.map(x => x.l)),
+                 w: Math.max(...ls.map(x => x.w)), h: Math.min(ls.reduce((n, x) => n + x.h, 0), 60) };
+    }
+    function dlRenderItems() {
+        const multi = DL_BOXES.length > 1;
+        document.getElementById("dl-items").innerHTML = DL_LINES.map(x => {
+            const box = DL_BOXES.findIndex(b => b.lines.includes(x.idx));
+            return `<tr><td>${dlEsc(x.name)}${x.qty > 1 ? " ×" + x.qty : ""}</td><td style="text-align:right;">₹${(x.unit * x.qty).toLocaleString("en-IN")}</td>
+              <td style="text-align:right;width:90px;">${multi ? `<select onchange="dlMoveLine(${x.idx}, this.value)">${DL_BOXES.map((_, i) => `<option value="${i}" ${i === box ? "selected" : ""}>Box ${i + 1}</option>`).join("")}</select>` : ""}</td></tr>`;
+        }).join("");
+    }
+    function dlRenderBoxes() {
+        const el = document.getElementById("dl-boxes");
+        el.innerHTML = DL_BOXES.map((b, i) => {
+            const value = DL_LINES.filter(x => b.lines.includes(x.idx)).reduce((n, x) => n + x.unit * x.qty, 0);
+            return `<div class="dl-box">
+              <div><div class="lbl">Box ${i + 1}</div><div class="val">₹${value.toLocaleString("en-IN")}</div></div>
+              <div><div class="lbl">Weight g</div><input type="number" min="1" value="${b.weight_g}" oninput="DL_BOXES[${i}].weight_g=+this.value"></div>
+              <div><div class="lbl">L cm</div><input type="number" min="1" value="${b.l}" oninput="DL_BOXES[${i}].l=+this.value"></div>
+              <div><div class="lbl">W cm</div><input type="number" min="1" value="${b.w}" oninput="DL_BOXES[${i}].w=+this.value"></div>
+              <div><div class="lbl">H cm</div><input type="number" min="1" value="${b.h}" oninput="DL_BOXES[${i}].h=+this.value"></div>
+              <div class="val" style="font-size:11px;color:#8a7f76;">${b.lines.length ? b.lines.length + " item" + (b.lines.length > 1 ? "s" : "") : "<span style='color:#b4563a'>empty</span>"}</div>
+              <div>${DL_BOXES.length > 1 ? `<button type="button" class="rm" title="Remove box" onclick="dlRemoveBox(${i})">×</button>` : ""}</div>
+            </div>`;
+        }).join("");
+        document.getElementById("dl-addbox").style.display = DL_BOXES.length >= 5 || DL_LINES.length < 2 ? "none" : "";
+        dlRenderItems();
+    }
+    function dlAddBox() {
+        if (DL_BOXES.length >= 5) return;
+        // move the last item of the fullest box into the new box as a start
+        const from = DL_BOXES.reduce((best, b, i) => b.lines.length > DL_BOXES[best].lines.length ? i : best, 0);
+        const moved = DL_BOXES[from].lines.length > 1 ? [DL_BOXES[from].lines.pop()] : [];
+        DL_BOXES[from] = { ...DL_BOXES[from], ...dlSuggest(DL_BOXES[from]) };
+        const nb = { lines: moved }; Object.assign(nb, dlSuggest(nb));
+        DL_BOXES.push(nb); dlRenderBoxes();
+    }
+    function dlRemoveBox(i) {
+        const lines = DL_BOXES[i].lines; DL_BOXES.splice(i, 1);
+        DL_BOXES[0].lines.push(...lines); Object.assign(DL_BOXES[0], dlSuggest(DL_BOXES[0]));
+        dlRenderBoxes();
+    }
+    function dlMoveLine(idx, to) {
+        to = +to;
+        DL_BOXES.forEach((b, i) => { if (b.lines.includes(idx) && i !== to) { b.lines = b.lines.filter(x => x !== idx); Object.assign(b, dlSuggest(b)); } });
+        if (!DL_BOXES[to].lines.includes(idx)) DL_BOXES[to].lines.push(idx);
+        Object.assign(DL_BOXES[to], dlSuggest(DL_BOXES[to]));
+        dlRenderBoxes();
+    }
 
     async function dlApi(payload) {
         const res = await fetch("/.netlify/functions/delhivery-ship", {
@@ -543,20 +611,25 @@
         const btn = document.getElementById("dl-btn"); btn.disabled = true;
         document.getElementById("dl-modal").style.display = "flex";
         try {
-            const { shipment, existing_awb } = await dlApi({ action: "preview", order_id: id });
+            const { shipment, existing_awb, existing_boxes } = await dlApi({ action: "preview", order_id: id });
             if (existing_awb) {
-                dlSetDone(`Already booked with Delhivery · AWB <strong>${existing_awb}</strong><br>
-                  <button class="btn-primary" onclick="printLabel('${existing_awb}', this)">Print label</button>
+                const labelArg = (existing_boxes && existing_boxes.length > 1 ? existing_boxes : [existing_awb]).join(",");
+                dlSetDone(`Already booked with Delhivery · AWB <strong>${existing_awb}</strong>${existing_boxes && existing_boxes.length > 1 ? ` · ${existing_boxes.length} boxes` : ""}<br>
+                  <button class="btn-primary" onclick="printLabel('${labelArg}', this)">Print label${existing_boxes && existing_boxes.length > 1 ? "s" : ""}</button>
                   ${TO_SHIP_STATUSES.includes(order.status) ? `<button class="btn-outline" style="margin-left:6px;" onclick="dlMarkShipped('${existing_awb}')">Mark shipped &amp; email customer</button>` : ""}`);
                 return;
             }
             Object.entries(DL_FIELDS).forEach(([k, f]) => { document.getElementById("dl-" + f).value = shipment[k] ?? ""; });
+            DL_LINES = shipment.lines || [];
+            DL_BOXES = (shipment.boxes && shipment.boxes.length ? shipment.boxes : [{ weight_g: shipment.weight_g, l: shipment.l, w: shipment.w, h: shipment.h, lines: DL_LINES.map(x => x.idx) }])
+                .map(b => ({ ...b, lines: [...(b.lines || [])] }));
+            dlRenderBoxes();
             dlModeChange();
             const hints = [];
             if (order.status === "cod_unpaid") hints.push("COD order — Delhivery will collect ₹" + shipment.cod_amount + " on delivery.");
             if (order.status === "gifted") hints.push("Gift order — declared value uses product prices (no money collected).");
             if (!shipment.city || !shipment.state || !shipment.pin) hints.push("Couldn't read city/state/pincode from the address — please fill them in.");
-            hints.push("Weights and box sizes are placeholders until measured — check before booking.");
+            if (DL_LINES.length > 1) hints.push("Packing in more than one box? Add a box and choose which item goes where — each box gets its own weight, size and label.");
             document.getElementById("dl-hint").textContent = hints.join(" ");
             btn.disabled = false;
         } catch (err) {
@@ -581,8 +654,9 @@
         const o = allOrders.find(x => x.id === id);
         if (o) { o.status = "shipped"; o.tracking_number = awb; o.courier = "Delhivery"; }
         updateStats(); renderOrders();
-        dlSetDone(`Booked with Delhivery · AWB <strong>${awb}</strong> · customer emailed<br>
-          <button class="btn-primary" onclick="printLabel('${awb}', this)">Print label</button>
+        const boxes = o && o.shipment_boxes && o.shipment_boxes.length > 1 ? o.shipment_boxes : null;
+        dlSetDone(`Booked with Delhivery · AWB <strong>${awb}</strong>${boxes ? ` · ${boxes.length} boxes` : ""} · customer emailed<br>
+          <button class="btn-primary" onclick="printLabel('${(boxes || [awb]).join(",")}', this)">Print label${boxes ? "s (one per box)" : ""}</button>
           <button class="btn-outline" style="margin-left:6px;" onclick="closeDelhivery()">Done</button>`);
     }
 
@@ -592,13 +666,18 @@
         const st = document.getElementById("dl-status");
         const shipment = {};
         Object.entries(DL_FIELDS).forEach(([k, f]) => { shipment[k] = document.getElementById("dl-" + f).value.trim(); });
-        ["cod_amount", "total_amount", "weight_g", "l", "w", "h"].forEach(k => shipment[k] = Number(shipment[k]) || 0);
-        if (!confirm(`Book with Delhivery?\n\n${shipment.name}, ${shipment.city} ${shipment.pin}\n${shipment.payment_mode}${shipment.payment_mode === "COD" ? " · collect ₹" + shipment.cod_amount : ""}\n${shipment.weight_g} g · ${shipment.l}×${shipment.w}×${shipment.h} cm`)) return;
+        ["cod_amount", "total_amount"].forEach(k => shipment[k] = Number(shipment[k]) || 0);
+        if (DL_BOXES.some(b => !b.lines.length)) { st.textContent = "A box has no items in it — remove it or move an item into it."; st.className = "modal-status error"; return; }
+        if (DL_BOXES.some(b => !(b.weight_g > 0 && b.l > 0 && b.w > 0 && b.h > 0))) { st.textContent = "Every box needs a weight and L × W × H."; st.className = "modal-status error"; return; }
+        shipment.boxes = DL_BOXES.map(b => ({ weight_g: b.weight_g, l: b.l, w: b.w, h: b.h, lines: b.lines }));
+        Object.assign(shipment, { weight_g: DL_BOXES.reduce((n, b) => n + b.weight_g, 0), l: DL_BOXES[0].l, w: DL_BOXES[0].w, h: DL_BOXES[0].h });
+        const boxText = DL_BOXES.map((b, i) => `Box ${i + 1}: ${b.weight_g} g · ${b.l}×${b.w}×${b.h} cm`).join("\n");
+        if (!confirm(`Book with Delhivery?\n\n${shipment.name}, ${shipment.city} ${shipment.pin}\n${shipment.payment_mode}${shipment.payment_mode === "COD" ? " · collect ₹" + shipment.cod_amount : ""}\n${DL_BOXES.length > 1 ? DL_BOXES.length + " boxes, delivered together\n" : ""}${boxText}`)) return;
         btn.disabled = true; btn.textContent = "Booking…"; st.textContent = "";
         try {
-            const { waybill } = await dlApi({ action: "create", order_id: dlOrderId, shipment });
+            const { waybill, box_waybills } = await dlApi({ action: "create", order_id: dlOrderId, shipment });
             const o = allOrders.find(x => x.id === dlOrderId);
-            if (o) { o.tracking_number = waybill; o.courier = "Delhivery"; }
+            if (o) { o.tracking_number = waybill; o.courier = "Delhivery"; o.shipment_boxes = box_waybills && box_waybills.length > 1 ? box_waybills : null; }
             await dlMarkShipped(waybill);
         } catch (err) {
             st.textContent = "Error: " + err.message;
@@ -615,8 +694,14 @@
         if (el) { el.disabled = true; el.textContent = "Getting label…"; }
         const win = window.open("", "_blank");
         try {
-            const { url } = await dlApi({ action: "label", waybill: awb });
-            if (win) win.location = url; else window.location = url;
+            const list = String(awb).split(",").filter(Boolean);
+            const { url, urls } = await dlApi({ action: "label", waybills: list });
+            const all = list.map(w => (urls || {})[w]).filter(Boolean);
+            if (all.length > 1) {
+                // one PDF per box: list them in the window we opened
+                if (win) win.document.write(`<p style="font-family:sans-serif">Labels, one per box:</p>` + all.map((u, i) => `<p style="font-family:sans-serif"><a href="${u}" target="_blank">Box ${i + 1} label</a></p>`).join(""));
+                else window.location = all[0];
+            } else if (win) win.location = url; else window.location = url;
         } catch (err) {
             if (win) win.close();
             alert(err.message);
@@ -844,7 +929,7 @@
       <div class="detail-row"><span class="detail-key">Courier</span><span class="detail-val">${o.courier || "—"}</span></div>
       ${o.delivery_status ? `<div class="detail-row"><span class="detail-key">Latest</span><span class="detail-val">${o.delivery_status}</span></div>` : ""}
       <div class="detail-row"><span class="detail-key">Tracking</span><span class="detail-val">${o.courier === "Delhivery" ? `<a href="https://www.delhivery.com/track-v2/package/${o.tracking_number}" target="_blank" rel="noopener" style="color:#185fa5;">${o.tracking_number}</a>` : o.tracking_number}</span></div>
-      ${o.courier === "Delhivery" ? `<button class="btn-outline" style="width:100%;margin-top:10px;" onclick="printLabel('${o.tracking_number}', this)">Print shipping label</button>` : ""}
+      ${o.courier === "Delhivery" ? `<button class="btn-outline" style="width:100%;margin-top:10px;" onclick="printLabel('${(o.shipment_boxes && o.shipment_boxes.length > 1 ? o.shipment_boxes : [o.tracking_number]).join(",")}', this)">Print shipping label${o.shipment_boxes && o.shipment_boxes.length > 1 ? "s (" + o.shipment_boxes.length + " boxes)" : ""}</button>` : ""}
       ${o.shipped_at ? `<div class="detail-row"><span class="detail-key">Shipped at</span><span class="detail-val">${new Date(o.shipped_at).toLocaleString("en-IN",{timeZone:"Asia/Kolkata"})} IST</span></div>` : ""}
     </div>` : ""}
     ${TO_SHIP_STATUSES.includes(o.status) ? `<button class="btn-primary" style="width:100%;margin-top:8px;" onclick="openDelhivery('${o.id}')">Ship via Delhivery</button>
