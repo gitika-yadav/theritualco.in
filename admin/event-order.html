@@ -40,7 +40,12 @@
         .modal-actions button{flex:1;padding:10px;border-radius:6px;font-size:12px;font-weight:600;border:none;}
         #confirm-return-btn{background:#1a1a18;color:#fff;}
         #cancel-return-btn{background:#f0ede4;color:#3a3330;}
-    </style>
+        .item-row{display:grid;grid-template-columns:2fr 1.3fr 0.8fr auto;gap:8px;align-items:center;margin-bottom:8px;}
+    .item-row select,.item-row input{margin:0;}
+    .item-row .rm{background:none;border:none;color:#a09890;font-size:18px;cursor:pointer;padding:0 6px;}
+    .item-row .rm:hover{color:#a04040;}
+    @media(max-width:560px){.item-row{grid-template-columns:1fr 1fr;}}
+</style>
 </head>
 <body>
 
@@ -58,20 +63,9 @@
     <div class="form-card">
         <label>Event name</label>
         <input id="event_name" placeholder="e.g. Diwali Market, Nov 2026"/>
-        <div class="row3">
-            <div>
-                <label>Product</label>
-                <select id="product_id"></select>
-            </div>
-            <div>
-                <label>Colour</label>
-                <select id="color"></select>
-            </div>
-            <div>
-                <label>Quantity</label>
-                <input id="qty_leased" type="number" min="1" value="1"/>
-            </div>
-        </div>
+        <label>Products</label>
+        <div id="items"></div>
+        <button type="button" id="add-row-btn" style="background:none;border:1px dashed #b8b0a6;color:#3a3330;padding:9px 12px;border-radius:6px;width:100%;margin:4px 0 14px;cursor:pointer;">+ Add another product</button>
         <div class="row2">
             <div>
                 <label>Date out</label>
@@ -151,20 +145,43 @@
     });
 
     function initProductSelect() {
-        const productSel = document.getElementById("product_id");
-        productSel.innerHTML = PRODUCTS.map(p => `<option value="${p.id}">${p.name}</option>`).join("");
-        refreshColors();
-        productSel.addEventListener("change", refreshColors);
+        document.getElementById("items").innerHTML = "";
+        addRow();
+        document.getElementById("add-row-btn").addEventListener("click", () => addRow());
         document.getElementById("date_out").valueAsDate = new Date();
     }
-
-    function refreshColors() {
-        const productSel = document.getElementById("product_id");
-        const colorSel = document.getElementById("color");
-        const prod = PRODUCTS.find(p => p.id === productSel.value);
-        colorSel.innerHTML = prod.colors.map(c => `<option value="${c}">${c}</option>`).join("");
+    function addRow() {
+        const row = document.createElement("div");
+        row.className = "item-row";
+        row.innerHTML = `
+            <select class="product_id" aria-label="Product">${PRODUCTS.map(p => `<option value="${p.id}">${p.name}</option>`).join("")}</select>
+            <select class="color" aria-label="Colour"></select>
+            <input class="qty" type="number" min="1" value="1" aria-label="Quantity"/>
+            <button type="button" class="rm" title="Remove">×</button>`;
+        const productSel = row.querySelector(".product_id");
+        const colorSel = row.querySelector(".color");
+        const fillColors = () => {
+            const prod = PRODUCTS.find(p => p.id === productSel.value);
+            colorSel.innerHTML = prod.colors.map(c => `<option value="${c}">${c}</option>`).join("");
+        };
+        productSel.addEventListener("change", fillColors);
+        fillColors();
+        row.querySelector(".rm").addEventListener("click", () => {
+            if (document.querySelectorAll("#items .item-row").length > 1) row.remove();
+        });
+        document.getElementById("items").appendChild(row);
     }
-
+    function readRows() {
+        return [...document.querySelectorAll("#items .item-row")].map(r => {
+            const product_id = r.querySelector(".product_id").value;
+            return {
+                product_id,
+                product_name: PRODUCTS.find(p => p.id === product_id).name,
+                color: r.querySelector(".color").value,
+                qty_leased: parseInt(r.querySelector(".qty").value, 10),
+            };
+        });
+    }
     async function callApi(payload, method = "POST", qs = "") {
         const res = await fetch("/.netlify/functions/event-inventory" + qs, {
             method,
@@ -224,41 +241,39 @@
 
     document.getElementById("add-btn").addEventListener("click", async () => {
         const event_name = document.getElementById("event_name").value.trim();
-        const product_id = document.getElementById("product_id").value;
-        const product = PRODUCTS.find(p => p.id === product_id);
-        const color = document.getElementById("color").value;
-        const qty_leased = document.getElementById("qty_leased").value;
         const date_out = document.getElementById("date_out").value;
         const notes = document.getElementById("notes").value.trim();
+        const rows = readRows();
         const statusMsg = document.getElementById("status-msg");
-
-        if (!event_name || !qty_leased) {
-            statusMsg.textContent = "Event name and quantity are required.";
-            statusMsg.style.color = "#a04040";
-            return;
-        }
-
+        const fail = (m) => { statusMsg.textContent = m; statusMsg.style.color = "#a04040"; };
+        if (!event_name) return fail("Event name is required.");
+        if (rows.some(r => !(r.qty_leased > 0))) return fail("Every product needs a quantity of 1 or more.");
         const btn = document.getElementById("add-btn");
         btn.disabled = true;
         btn.textContent = "Saving…";
-
+        let saved = 0;
         try {
-            await callApi({ action: "add", event_name, product_id, product_name: product.name, color, qty_leased, date_out, notes });
-            statusMsg.textContent = "✅ Logged.";
+            for (const r of rows) {
+                await callApi({ action: "add", event_name, ...r, date_out, notes });
+                saved++;
+            }
+            statusMsg.textContent = `✅ Logged ${saved} product${saved === 1 ? "" : "s"} for ${event_name}.`;
             statusMsg.style.color = "#2a6b3a";
             document.getElementById("event_name").value = "";
-            document.getElementById("qty_leased").value = "1";
             document.getElementById("notes").value = "";
-            loadEvents();
+            document.getElementById("items").innerHTML = "";
+            addRow();
         } catch (err) {
-            statusMsg.textContent = "❌ " + err.message;
-            statusMsg.style.color = "#a04040";
+            // Drop the rows that were saved so a retry doesn't log them twice.
+            [...document.querySelectorAll("#items .item-row")].slice(0, saved).forEach(r => r.remove());
+            if (!document.querySelector("#items .item-row")) addRow();
+            fail(`❌ ${err.message}` + (saved ? ` (${saved} saved — the rest are still in the form)` : ""));
         } finally {
             btn.disabled = false;
             btn.textContent = "Log stock going out";
+            loadEvents();
         }
     });
-
     let returnTargetId = null;
     function openReturnModal(id, qtyLeased, qtyAlreadyReturned) {
         returnTargetId = id;
