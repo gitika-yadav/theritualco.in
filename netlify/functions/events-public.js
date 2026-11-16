@@ -1,6 +1,7 @@
 // netlify/functions/events-public.js
 // Public read-only events API for /events and /events/<slug>.
-//   GET                      → upcoming public events (invite-only ones hidden)
+//   GET                      → { events: upcoming public events, past: recent past public events }
+//                              (invite-only ones hidden)
 //   GET ?slug=xxx[&invite=]  → one event + spots left; invite-only events are
 //                              only bookable with the matching invite code
 
@@ -45,7 +46,14 @@ exports.handler = async (event) => {
         for (const e of list || []) {
             events.push({ ...publicFields(e), spots_left: (e.ticket_url || e.host_name) ? null : Math.max(0, e.capacity - await ticketsTaken(supabase, e.id)) });
         }
-        return json(200, { events }, { "Cache-Control": "public, max-age=30" });
+
+        const { data: pastList, error: pastErr } = await supabase.from("events").select("*")
+            .eq("status", "published").eq("access", "public")
+            .lt("starts_at", since).order("starts_at", { ascending: false }).limit(12);
+        if (pastErr) throw pastErr;
+        const past = (pastList || []).map(publicFields);
+
+        return json(200, { events, past }, { "Cache-Control": "public, max-age=30" });
     } catch (err) {
         console.error("events-public:", err);
         return json(500, { error: "Could not load events" });

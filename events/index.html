@@ -61,12 +61,22 @@
     var box = document.getElementById("ev-list");
     fetch("/.netlify/functions/events-public").then(function (r) { return r.json(); }).then(function (data) {
         var list = (data && data.events) || [];
+        var past = (data && data.past) || [];
+        var pastHtml = past.length ? '<h2 class="ev-h2">Past events</h2><div class="ev-grid ev-grid--past">' + past.map(function (e) {
+            var d = new Date(e.starts_at).toLocaleDateString("en-IN", { timeZone: "Asia/Kolkata", day: "numeric", month: "short", year: "numeric" });
+            return '<a class="ev-card ev-card--past" href="/events/' + encodeURIComponent(e.slug) + '">' +
+                '<div class="ev-card__img">' + (e.cover_image ? '<img src="' + esc(e.cover_image) + '" alt="' + esc(e.title) + '" loading="lazy">' : '') +
+                '<span class="ev-card__tag">Past event</span></div>' +
+                '<p class="ev-card__date">' + esc(d) + '</p>' +
+                '<h3 class="ev-card__title">' + esc(e.title) + '</h3>' +
+                '<p class="ev-card__meta">' + esc([e.venue_name, e.host_name ? "with " + e.host_name : ""].filter(Boolean).join(" · ")) + '</p></a>';
+        }).join("") + '</div>' : "";
         if (!list.length) {
             box.innerHTML = '<div class="ev-empty"><p class="ev-card__title" style="margin-bottom:8px;">Nothing on the calendar just yet.</p>' +
-                '<p class="ev-muted">New sessions are announced first on <a href="https://instagram.com/theritualco.in" style="color:#3a3330;">Instagram</a>.</p></div>';
+                '<p class="ev-muted">New sessions are announced first on <a href="https://instagram.com/theritualco.in" style="color:#3a3330;">Instagram</a>.</p></div>' + pastHtml;
             return;
         }
-        box.innerHTML = '<div class="ev-grid">' + list.map(function (e) {
+        box.innerHTML = (past.length ? '<h2 class="ev-h2">Upcoming</h2>' : '') + '<div class="ev-grid">' + list.map(function (e) {
             var tag = (e.ticket_url || e.host_name) ? (e.host_name ? "With " + e.host_name : "Partner event") : e.spots_left <= 0 ? "Sold out" : (e.spots_left <= 5 ? e.spots_left + " spots left" : (e.price ? "₹" + e.price.toLocaleString("en-IN") : "Free · RSVP"));
             return '<a class="ev-card" href="/events/' + encodeURIComponent(e.slug) + '">' +
                 '<div class="ev-card__img">' + (e.cover_image ? '<img src="' + esc(e.cover_image) + '" alt="' + esc(e.title) + '" loading="lazy">' : '') +
@@ -74,7 +84,7 @@
                 '<p class="ev-card__date">' + esc(when(e)) + '</p>' +
                 '<h2 class="ev-card__title">' + esc(e.title) + '</h2>' +
                 '<p class="ev-card__meta">' + esc(e.venue_name || "") + (e.price ? (e.venue_name ? " · " : "") + "₹" + e.price.toLocaleString("en-IN") : (e.venue_name ? " · " : "") + "Free") + '</p></a>';
-        }).join("") + '</div>';
+        }).join("") + '</div>' + pastHtml;
     }).catch(function () {
         box.innerHTML = '<div class="ev-empty"><p class="ev-muted">Couldn\'t load events. Please refresh.</p></div>';
     });
