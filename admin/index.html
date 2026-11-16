@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Admin — The Ritual Co.</title>
+    <meta name="robots" content="noindex, nofollow"/>
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0;}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f2ee;color:#3a3330;min-height:100vh;font-size:14px;}
+        main{max-width:960px;margin:0 auto;padding:40px 24px 64px;}
+        .eyebrow{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#a09890;margin-bottom:8px;}
+        h1{font-size:26px;font-weight:400;color:#1a1714;margin-bottom:32px;}
+        h2{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#a09890;font-weight:500;margin:28px 0 12px;}
+        .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;}
+        .card{display:block;background:#fff;border:0.5px solid #e0dbd4;border-radius:12px;padding:18px;text-decoration:none;color:inherit;transition:border-color .15s,transform .15s;}
+        .card:hover{border-color:#3a3330;transform:translateY(-1px);}
+        .card b{display:block;font-size:15px;font-weight:500;color:#1a1714;margin-bottom:4px;}
+        .card span{font-size:12px;color:#8a8079;}
+    </style>
+</head>
+<body>
+<main>
+    <div class="eyebrow">The Ritual Co.</div>
+    <h1>Admin</h1>
+    <div id="menu"></div>
+</main>
+<script src="/javascript/admin-nav.js"></script>
+<script>
+    (function () {
+        var menu = document.getElementById("menu");
+        var groups = {};
+        (window.RC_ADMIN_PAGES || []).forEach(function (p) {
+            if (!groups[p.group]) {
+                var h = document.createElement("h2");
+                h.textContent = p.group;
+                var g = document.createElement("div");
+                g.className = "grid";
+                menu.appendChild(h);
+                menu.appendChild(g);
+                groups[p.group] = g;
+            }
+            var a = document.createElement("a");
+            a.className = "card";
+            a.href = p.href;
+            var b = document.createElement("b"); b.textContent = p.label;
+            var s = document.createElement("span"); s.textContent = p.desc;
+            a.appendChild(b); a.appendChild(s);
+            groups[p.group].appendChild(a);
+        });
+    })();
+</script>
+</body>
+</html>
