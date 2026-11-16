@@ -34,7 +34,20 @@
         #gate input{margin-bottom:10px;}
         #status-msg{font-size:13px;margin-top:8px;}
         .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;z-index:200;}
-        .modal{background:#fff;border-radius:10px;padding:22px;width:320px;}
+        .modal{background:#fff;border-radius:10px;padding:22px;width:min(560px,94vw);max-height:90vh;overflow:auto;}
+        .modal .sub{font-size:12px;color:#6b6257;margin:-8px 0 12px;}
+        .ret-grid{display:grid;grid-template-columns:2fr 52px 70px 70px 70px;gap:6px 8px;align-items:center;font-size:13px;}
+        .ret-grid .h{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#6b6257;}
+        .ret-grid input{padding:7px 8px;text-align:center;}
+        .ret-grid .bad{border-color:#d9534f;background:#fdf1f0;}
+        .ret-err{color:#a04040;font-size:12px;margin-top:8px;min-height:16px;}
+        tr.ev-head td{background:#faf8f4;border-top:1px solid #e5e0d8;padding:12px 10px;}
+        tr.ev-head b{font-size:14px;}
+        tr.ev-head .meta{color:#8a8079;font-size:12px;margin-left:8px;}
+        .return-all-btn{float:right;background:#1a1a18;color:#fff;border:none;border-radius:5px;padding:6px 12px;font-size:11px;font-weight:600;}
+        .flag{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:20px;font-size:10px;font-weight:600;background:#fbeaea;color:#a04040;}
+        .note{color:#8a8079;font-size:12px;}
+        @media(max-width:560px){.ret-grid{grid-template-columns:1fr 40px 56px 56px 56px;font-size:12px;}}
         .modal h3{font-size:15px;margin-bottom:14px;}
         .modal-actions{display:flex;gap:8px;margin-top:16px;}
         .modal-actions button{flex:1;padding:10px;border-radius:6px;font-size:12px;font-weight:600;border:none;}
@@ -82,24 +95,27 @@
 
     <h2>Currently out</h2>
     <table id="active-table">
-        <thead><tr><th>Event</th><th>Product</th><th>Leased</th><th>Returned</th><th>Still out</th><th>Status</th><th></th></tr></thead>
-        <tbody id="active-body"><tr><td colspan="7">Loading…</td></tr></tbody>
+        <thead><tr><th>Product</th><th>Sent</th><th>Back OK</th><th>Damaged</th><th>Missing</th><th>Still out</th><th>Status</th><th></th></tr></thead>
+        <tbody id="active-body"><tr><td colspan="8">Loading…</td></tr></tbody>
     </table>
 
-    <h2>History (fully returned)</h2>
+    <h2>History (all pieces accounted for)</h2>
     <table id="history-table">
-        <thead><tr><th>Event</th><th>Product</th><th>Leased</th><th>Returned</th><th>Date returned</th></tr></thead>
-        <tbody id="history-body"><tr><td colspan="5">Loading…</td></tr></tbody>
+        <thead><tr><th>Product</th><th>Sent</th><th>Back OK</th><th>Damaged</th><th>Missing</th><th>Date returned</th></tr></thead>
+        <tbody id="history-body"><tr><td colspan="6">Loading…</td></tr></tbody>
     </table>
 </div>
 
 <div class="modal-overlay" id="return-modal">
     <div class="modal">
-        <h3>Log return</h3>
-        <label>Quantity returned</label>
-        <input id="return-qty" type="number" min="0"/>
+        <h3 id="return-title">Log return</h3>
+        <p class="sub">Count what came back. Anything not back in good condition goes under Damaged or Missing.</p>
+        <div class="ret-grid" id="return-rows"></div>
         <label>Date returned</label>
         <input id="return-date" type="date"/>
+        <label>Note (optional)</label>
+        <input id="return-note" placeholder="e.g. 1 pink cuff strap torn, 2 lost at venue — venue to pay"/>
+        <div class="ret-err" id="return-err"></div>
         <div class="modal-actions">
             <button id="cancel-return-btn">Cancel</button>
             <button id="confirm-return-btn">Confirm</button>
@@ -192,51 +208,78 @@
         return res.json();
     }
 
+    let ALL = [];
+    const accounted = (e) => (e.qty_returned || 0) + (e.qty_damaged || 0) + (e.qty_missing || 0);
+    const esc = (v) => String(v ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+    const groupKey = (e) => e.event_name + "|" + (e.date_out || "");
+
     async function loadEvents() {
         try {
             const { events } = await callApi(null, "GET", "?action=list");
+            ALL = events;
             renderActive(events.filter(e => e.status !== "returned"));
             renderHistory(events.filter(e => e.status === "returned"));
         } catch (err) {
-            document.getElementById("active-body").innerHTML = `<tr><td colspan="7">Failed to load: ${err.message}</td></tr>`;
+            document.getElementById("active-body").innerHTML = `<tr><td colspan="8">Failed to load: ${esc(err.message)}</td></tr>`;
         }
     }
 
-    function renderActive(events) {
+    function groups(rows) {
+        const m = new Map();
+        rows.forEach(e => { const k = groupKey(e); if (!m.has(k)) m.set(k, []); m.get(k).push(e); });
+        return [...m.entries()];
+    }
+    // A note shared by every product of an event is shown once, on the event row.
+    const sharedNote = (items) => items.length > 1 && items[0].return_note && items.every(e => e.return_note === items[0].return_note) ? items[0].return_note : null;
+    const rowNote = (e, shared) => e.return_note && e.return_note !== shared ? `<div class="note">${esc(e.return_note)}</div>` : "";
+    const fmtDate = (d) => d ? new Date(d + "T00:00:00").toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }) : "";
+
+    function renderActive(rows) {
         const body = document.getElementById("active-body");
-        if (events.length === 0) {
-            body.innerHTML = `<tr><td colspan="7">Nothing currently out.</td></tr>`;
-            return;
-        }
-        body.innerHTML = events.map(e => {
-            const stillOut = e.qty_leased - e.qty_returned;
+        if (!rows.length) { body.innerHTML = `<tr><td colspan="8">Nothing currently out.</td></tr>`; return; }
+        body.innerHTML = groups(rows).map(([key, items]) => {
+            const out = items.reduce((s, e) => s + e.qty_leased - accounted(e), 0);
+            const k = encodeURIComponent(key);
+            const shared = sharedNote(items);
             return `
+      <tr class="ev-head"><td colspan="8">
+        <b>${esc(items[0].event_name)}</b><span class="meta">${fmtDate(items[0].date_out)} · ${items.length} product${items.length === 1 ? "" : "s"} · ${out} still out</span>
+        <button class="return-all-btn" onclick="openReturnForGroup('${k}')">Return all</button>${shared ? `<div class="note">${esc(shared)}</div>` : ""}
+      </td></tr>` + items.map(e => {
+                const stillOut = e.qty_leased - accounted(e);
+                return `
       <tr>
-        <td>${e.event_name}</td>
-        <td>${e.product_name} · ${e.color}</td>
+        <td>${esc(e.product_name)} · ${esc(e.color)}${rowNote(e, shared)}</td>
         <td>${e.qty_leased}</td>
         <td>${e.qty_returned}</td>
-        <td class="still-out ${stillOut === 0 ? 'zero' : 'nonzero'}">${stillOut}</td>
-        <td><span class="badge badge-${e.status}">${e.status}</span></td>
-        <td><button class="return-btn" onclick="openReturnModal(${e.id}, ${e.qty_leased}, ${e.qty_returned})">Log return</button></td>
+        <td>${e.qty_damaged || 0}</td>
+        <td>${e.qty_missing || 0}</td>
+        <td class="still-out ${stillOut === 0 ? "zero" : "nonzero"}">${stillOut}</td>
+        <td><span class="badge badge-${esc(e.status)}">${esc(e.status)}</span></td>
+        <td><button class="return-btn" onclick="openReturnForIds([${e.id}])">Log return</button></td>
       </tr>`;
+            }).join("");
         }).join("");
     }
 
-    function renderHistory(events) {
+    function renderHistory(rows) {
         const body = document.getElementById("history-body");
-        if (events.length === 0) {
-            body.innerHTML = `<tr><td colspan="5">No fully-returned events yet.</td></tr>`;
-            return;
-        }
-        body.innerHTML = events.map(e => `
-    <tr>
-      <td>${e.event_name}</td>
-      <td>${e.product_name} · ${e.color}</td>
-      <td>${e.qty_leased}</td>
-      <td>${e.qty_returned}</td>
-      <td>${e.date_returned || "—"}</td>
-    </tr>`).join("");
+        if (!rows.length) { body.innerHTML = `<tr><td colspan="6">Nothing returned yet.</td></tr>`; return; }
+        body.innerHTML = groups(rows).map(([, items]) => {
+            const lost = items.reduce((s, e) => s + (e.qty_damaged || 0) + (e.qty_missing || 0), 0);
+            const shared = sharedNote(items);
+            return `
+      <tr class="ev-head"><td colspan="6"><b>${esc(items[0].event_name)}</b><span class="meta">${fmtDate(items[0].date_out)}</span>${lost ? `<span class="flag">${lost} damaged/missing</span>` : ""}${shared ? `<div class="note">${esc(shared)}</div>` : ""}</td></tr>` +
+            items.map(e => `
+      <tr>
+        <td>${esc(e.product_name)} · ${esc(e.color)}${rowNote(e, shared)}</td>
+        <td>${e.qty_leased}</td>
+        <td>${e.qty_returned}</td>
+        <td>${e.qty_damaged || 0}</td>
+        <td>${e.qty_missing || 0}</td>
+        <td>${fmtDate(e.date_returned) || "—"}</td>
+      </tr>`).join("");
+        }).join("");
     }
 
     document.getElementById("add-btn").addEventListener("click", async () => {
@@ -274,25 +317,77 @@
             loadEvents();
         }
     });
-    let returnTargetId = null;
-    function openReturnModal(id, qtyLeased, qtyAlreadyReturned) {
-        returnTargetId = id;
-        document.getElementById("return-qty").value = qtyLeased;
+    let RETURN_IDS = [];
+    function openReturnForGroup(k) {
+        const key = decodeURIComponent(k);
+        openReturnForIds(ALL.filter(e => e.status !== "returned" && groupKey(e) === key).map(e => e.id));
+    }
+    function openReturnForIds(ids) {
+        RETURN_IDS = ids;
+        const items = ALL.filter(e => ids.includes(e.id));
+        if (!items.length) return;
+        document.getElementById("return-title").textContent =
+            items.length > 1 ? `Return all — ${items[0].event_name}` : `Log return — ${items[0].product_name} · ${items[0].color}`;
+        const rows = document.getElementById("return-rows");
+        rows.innerHTML = `<div class="h">Product</div><div class="h">Sent</div><div class="h">Back OK</div><div class="h">Damaged</div><div class="h">Missing</div>` +
+            items.map(e => {
+                // Default: everything still out came back fine; keep any damaged/missing already logged.
+                const back = e.qty_leased - (e.qty_damaged || 0) - (e.qty_missing || 0);
+                return `
+            <div>${esc(e.product_name)} · ${esc(e.color)}</div>
+            <div>${e.qty_leased}</div>
+            <input type="number" min="0" data-id="${e.id}" data-f="qty_returned" value="${back}"/>
+            <input type="number" min="0" data-id="${e.id}" data-f="qty_damaged" value="${e.qty_damaged || 0}"/>
+            <input type="number" min="0" data-id="${e.id}" data-f="qty_missing" value="${e.qty_missing || 0}"/>`;
+            }).join("");
+        rows.querySelectorAll("input").forEach(i => i.addEventListener("input", validateReturn));
         document.getElementById("return-date").valueAsDate = new Date();
+        document.getElementById("return-note").value = items.length === 1 ? (items[0].return_note || "") : "";
+        validateReturn();
         document.getElementById("return-modal").style.display = "flex";
+    }
+    function readReturn() {
+        return RETURN_IDS.map(id => {
+            const get = (f) => parseInt(document.querySelector(`#return-rows input[data-id="${id}"][data-f="${f}"]`).value, 10) || 0;
+            return { id, qty_returned: get("qty_returned"), qty_damaged: get("qty_damaged"), qty_missing: get("qty_missing") };
+        });
+    }
+    function validateReturn() {
+        let msg = "";
+        readReturn().forEach(r => {
+            const e = ALL.find(x => x.id === r.id);
+            const total = r.qty_returned + r.qty_damaged + r.qty_missing;
+            const over = total > e.qty_leased || [r.qty_returned, r.qty_damaged, r.qty_missing].some(v => v < 0);
+            document.querySelectorAll(`#return-rows input[data-id="${r.id}"]`).forEach(i => i.classList.toggle("bad", over));
+            if (over && !msg) msg = `${e.product_name} · ${e.color}: ${total} counted but only ${e.qty_leased} went out.`;
+            else if (!msg && total < e.qty_leased) msg = `${e.product_name} · ${e.color}: ${e.qty_leased - total} not counted yet — it will stay under "Currently out".`;
+        });
+        const el = document.getElementById("return-err");
+        el.textContent = msg;
+        el.style.color = msg.includes("only") ? "#a04040" : "#8b5a2b";
+        document.getElementById("confirm-return-btn").disabled = msg.includes("only");
+        return !msg.includes("only");
     }
     document.getElementById("cancel-return-btn").addEventListener("click", () => {
         document.getElementById("return-modal").style.display = "none";
     });
     document.getElementById("confirm-return-btn").addEventListener("click", async () => {
-        const qty_returned = document.getElementById("return-qty").value;
-        const date_returned = document.getElementById("return-date").value;
+        if (!validateReturn()) return;
+        const btn = document.getElementById("confirm-return-btn");
+        btn.disabled = true; btn.textContent = "Saving…";
         try {
-            await callApi({ action: "return", id: returnTargetId, qty_returned, date_returned });
+            await callApi({
+                action: "return_batch",
+                items: readReturn(),
+                date_returned: document.getElementById("return-date").value,
+                return_note: document.getElementById("return-note").value,
+            });
             document.getElementById("return-modal").style.display = "none";
-            loadEvents();
         } catch (err) {
-            alert("Error: " + err.message);
+            document.getElementById("return-err").textContent = "Error: " + err.message;
+        } finally {
+            btn.disabled = false; btn.textContent = "Confirm";
+            loadEvents();
         }
     });
 </script>
