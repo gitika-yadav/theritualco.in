@@ -5,6 +5,9 @@
 //   POST { action:"return", id, qty_returned, qty_damaged, qty_missing, date_returned, return_note }
 //   POST { action:"return_batch", items:[{id, qty_returned, qty_damaged, qty_missing}], date_returned, return_note }
 //        -> log returns for several products (e.g. a whole event) in one go
+//   POST { action:"pool_move", product_id, product_name, color, qty, note }
+//        -> add (+qty) or take out (-qty) opened stock from the event pool
+// "add" draws from the event pool and is refused if the pool doesn't have enough.
 // All actions require the same admin session token used by orders.html/compliance.html.
 
 const { createClient } = require("@supabase/supabase-js");
@@ -33,6 +36,7 @@ exports.handler = async (event) => {
             if (body.action === "add") return await addItem(body);
             if (body.action === "return") return await markReturn(body);
             if (body.action === "return_batch") return await markReturnBatch(body);
+            if (body.action === "pool_move") return await poolMove(body);
         }
 
         return { statusCode: 400, body: JSON.stringify({ error: "Unknown or missing action" }) };
@@ -43,18 +47,57 @@ exports.handler = async (event) => {
 };
 
 async function listEvents() {
+    const [ev, pool] = await Promise.all([
+        supabase.from("event_inventory").select("*").order("date_out", { ascending: false }),
+        supabase.from("event_pool_moves").select("*").order("created_at", { ascending: false }),
+    ]);
+    if (ev.error) return { statusCode: 500, body: JSON.stringify({ error: ev.error.message }) };
+    if (pool.error) return { statusCode: 500, body: JSON.stringify({ error: pool.error.message }) };
+    return { statusCode: 200, body: JSON.stringify({ events: ev.data, pool_moves: pool.data }) };
+}
+
+// Pieces of one product+colour sitting in the pool right now (not at an event, not lost).
+async function poolAvailable(product_id, color) {
+    const [moves, ev] = await Promise.all([
+        supabase.from("event_pool_moves").select("qty").eq("product_id", product_id).eq("color", color),
+        supabase.from("event_inventory").select("qty_leased, qty_returned").eq("product_id", product_id).eq("color", color),
+    ]);
+    if (moves.error) throw new Error(moves.error.message);
+    if (ev.error) throw new Error(ev.error.message);
+    const added = moves.data.reduce((s, m) => s + m.qty, 0);
+    const net = ev.data.reduce((s, e) => s + e.qty_leased - e.qty_returned, 0);
+    return added - net;
+}
+
+async function poolMove(body) {
+    const { product_id, product_name, color, note } = body;
+    const qty = parseInt(body.qty, 10);
+    if (!product_id || !color || !qty) {
+        return { statusCode: 400, body: JSON.stringify({ error: "product, colour and a non-zero quantity are required" }) };
+    }
+    if (qty < 0) {
+        const available = await poolAvailable(product_id, color);
+        if (available + qty < 0) {
+            return { statusCode: 400, body: JSON.stringify({ error: `Only ${Math.max(available, 0)} ${product_name || product_id} · ${color} in the pool right now` }) };
+        }
+    }
     const { data, error } = await supabase
-        .from("event_inventory")
-        .select("*")
-        .order("date_out", { ascending: false });
+        .from("event_pool_moves")
+        .insert({ product_id, product_name: product_name || product_id, color, qty, note: (note || "").trim() || null })
+        .select()
+        .single();
     if (error) return { statusCode: 500, body: JSON.stringify({ error: error.message }) };
-    return { statusCode: 200, body: JSON.stringify({ events: data }) };
+    return { statusCode: 200, body: JSON.stringify({ move: data }) };
 }
 
 async function addItem(body) {
     const { event_name, product_id, product_name, color, qty_leased, date_out, notes } = body;
     if (!event_name || !product_id || !color || !qty_leased) {
         return { statusCode: 400, body: JSON.stringify({ error: "Missing required fields" }) };
+    }
+    const available = await poolAvailable(product_id, color);
+    if (parseInt(qty_leased, 10) > available) {
+        return { statusCode: 400, body: JSON.stringify({ error: `${product_name || product_id} · ${color}: only ${Math.max(available, 0)} in the event pool — add more to the pool first` }) };
     }
 
     const { data, error } = await supabase
