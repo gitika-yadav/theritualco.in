@@ -53,6 +53,21 @@
         .modal-actions button{flex:1;padding:10px;border-radius:6px;font-size:12px;font-weight:600;border:none;}
         #confirm-return-btn{background:#1a1a18;color:#fff;}
         #cancel-return-btn{background:#f0ede4;color:#3a3330;}
+        .pool-form{display:grid;grid-template-columns:2fr 1.2fr 1.3fr 0.8fr;gap:8px;}
+        .pool-form + .row-note{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:8px;}
+        #pool-btn{background:#1a1a18;color:#fff;border:none;border-radius:6px;padding:0 18px;font-size:12px;font-weight:600;}
+        #pool-btn:disabled{opacity:.5;}
+        #pool-msg{font-size:13px;margin-top:8px;min-height:16px;}
+        .num{text-align:right;font-variant-numeric:tabular-nums;}
+        .avail{font-weight:600;}
+        .avail.neg{color:#a04040;}
+        tr.tot td{font-weight:600;background:#faf8f4;}
+        details.log{margin:-14px 0 24px;font-size:12px;color:#6b6257;}
+        details.log summary{cursor:pointer;padding:4px 0;}
+        details.log table{margin-top:8px;}
+        .pool-hint{font-size:11px;color:#8a8079;margin-top:2px;}
+        .pool-hint.bad{color:#a04040;font-weight:600;}
+        @media(max-width:560px){.pool-form{grid-template-columns:1fr 1fr;}}
         .item-row{display:grid;grid-template-columns:2fr 1.3fr 0.8fr auto;gap:8px;align-items:center;margin-bottom:8px;}
     .item-row select,.item-row input{margin:0;}
     .item-row .rm{background:none;border:none;color:#a09890;font-size:18px;cursor:pointer;padding:0 6px;}
@@ -71,6 +86,35 @@
 <div id="app" style="display:none;">
     <h1>Event Inventory</h1>
     <p class="sub">Track stock leased out for pop-ups/events and log what comes back.</p>
+
+    <h2>Event pool</h2>
+    <p class="sub" style="margin:-8px 0 12px;">Opened stock set aside for events (separate from website stock). Sending to an event takes from the pool; returns go back in; damaged and missing pieces leave it.</p>
+    <table id="pool-table">
+        <thead><tr><th>Product</th><th class="num">In pool now</th><th class="num">At events</th><th class="num">Damaged / missing</th><th class="num">Total opened</th></tr></thead>
+        <tbody id="pool-body"><tr><td colspan="5">Loading…</td></tr></tbody>
+    </table>
+    <div class="form-card">
+        <div class="pool-form">
+            <div><label>Product</label><select id="pool-product"></select></div>
+            <div><label>Colour</label><select id="pool-color"></select></div>
+            <div><label>Action</label>
+                <select id="pool-mode">
+                    <option value="add">Add to pool</option>
+                    <option value="remove">Take out of pool</option>
+                    <option value="set">Set pool count to</option>
+                </select>
+            </div>
+            <div><label>Qty</label><input id="pool-qty" type="number" min="0" value="1"/></div>
+        </div>
+        <div class="row-note">
+            <input id="pool-note" placeholder="Note (optional) — e.g. opened 10 pink mats from carton 4"/>
+            <button id="pool-btn">Update pool</button>
+        </div>
+        <p id="pool-msg"></p>
+    </div>
+    <details class="log"><summary>Pool history</summary>
+        <table><thead><tr><th>Date</th><th>Product</th><th class="num">Change</th><th>Note</th></tr></thead><tbody id="pool-log"></tbody></table>
+    </details>
 
     <h2>Send items to an event</h2>
     <div class="form-card">
@@ -165,6 +209,64 @@
         addRow();
         document.getElementById("add-row-btn").addEventListener("click", () => addRow());
         document.getElementById("date_out").valueAsDate = new Date();
+        initPoolForm();
+    }
+    function fillProductColor(productSel, colorSel) {
+        productSel.innerHTML = PRODUCTS.map(p => `<option value="${p.id}">${p.name}</option>`).join("");
+        const fill = () => {
+            const prod = PRODUCTS.find(p => p.id === productSel.value);
+            colorSel.innerHTML = prod.colors.map(c => `<option value="${c}">${c}</option>`).join("");
+        };
+        productSel.addEventListener("change", fill);
+        fill();
+    }
+    function initPoolForm() {
+        const ps = document.getElementById("pool-product"), cs = document.getElementById("pool-color");
+        fillProductColor(ps, cs);
+        [ps, cs, document.getElementById("pool-mode"), document.getElementById("pool-qty")].forEach(el => {
+            el.addEventListener("change", poolPreview);
+            el.addEventListener("input", poolPreview);
+        });
+        document.getElementById("pool-btn").addEventListener("click", submitPool);
+    }
+    function poolPreview() {
+        const product_id = document.getElementById("pool-product").value;
+        const color = document.getElementById("pool-color").value;
+        const mode = document.getElementById("pool-mode").value;
+        const qty = parseInt(document.getElementById("pool-qty").value, 10) || 0;
+        const now = poolStats(product_id, color).available;
+        const after = mode === "add" ? now + qty : mode === "remove" ? now - qty : qty;
+        const msg = document.getElementById("pool-msg");
+        msg.style.color = after < 0 ? "#a04040" : "#6b6257";
+        msg.textContent = `In pool now: ${Math.max(now, 0)} → after: ${after}` + (after < 0 ? " (can't go below 0)" : "");
+    }
+    async function submitPool() {
+        const product_id = document.getElementById("pool-product").value;
+        const product = PRODUCTS.find(p => p.id === product_id);
+        const color = document.getElementById("pool-color").value;
+        const mode = document.getElementById("pool-mode").value;
+        const qty = parseInt(document.getElementById("pool-qty").value, 10) || 0;
+        const now = poolStats(product_id, color).available;
+        const delta = mode === "add" ? qty : mode === "remove" ? -qty : qty - now;
+        const msg = document.getElementById("pool-msg");
+        if (!delta) { msg.style.color = "#6b6257"; msg.textContent = "Nothing to change."; return; }
+        if (now + delta < 0) { msg.style.color = "#a04040"; msg.textContent = `Only ${Math.max(now, 0)} in the pool.`; return; }
+        let note = document.getElementById("pool-note").value.trim();
+        if (mode === "set") note = `Count set to ${qty}` + (now >= 0 ? ` (was ${now})` : "") + (note ? ` — ${note}` : "");
+        const btn = document.getElementById("pool-btn");
+        btn.disabled = true;
+        try {
+            await callApi({ action: "pool_move", product_id, product_name: product.name, color, qty: delta, note });
+            document.getElementById("pool-note").value = "";
+            await loadEvents();
+            msg.style.color = "#2a6b3a";
+            msg.textContent = `✅ ${product.name} · ${color}: ${delta > 0 ? "+" : ""}${delta}. In pool now: ${now + delta}.`;
+        } catch (err) {
+            msg.style.color = "#a04040";
+            msg.textContent = "❌ " + err.message;
+        } finally {
+            btn.disabled = false;
+        }
     }
     function addRow() {
         const row = document.createElement("div");
@@ -172,7 +274,7 @@
         row.innerHTML = `
             <select class="product_id" aria-label="Product">${PRODUCTS.map(p => `<option value="${p.id}">${p.name}</option>`).join("")}</select>
             <select class="color" aria-label="Colour"></select>
-            <input class="qty" type="number" min="1" value="1" aria-label="Quantity"/>
+            <div><input class="qty" type="number" min="1" value="1" aria-label="Quantity"/><div class="pool-hint"></div></div>
             <button type="button" class="rm" title="Remove">×</button>`;
         const productSel = row.querySelector(".product_id");
         const colorSel = row.querySelector(".color");
@@ -183,9 +285,34 @@
         productSel.addEventListener("change", fillColors);
         fillColors();
         row.querySelector(".rm").addEventListener("click", () => {
-            if (document.querySelectorAll("#items .item-row").length > 1) row.remove();
+            if (document.querySelectorAll("#items .item-row").length > 1) { row.remove(); updateSendHints(); }
+        });
+        [productSel, colorSel, row.querySelector(".qty")].forEach(el => {
+            el.addEventListener("change", updateSendHints);
+            el.addEventListener("input", updateSendHints);
         });
         document.getElementById("items").appendChild(row);
+        updateSendHints();
+    }
+    // Shows "N in pool" under each quantity; returns false if any product is over what the pool has.
+    function updateSendHints() {
+        const want = {};
+        const rows = [...document.querySelectorAll("#items .item-row")];
+        rows.forEach(r => {
+            const k = r.querySelector(".product_id").value + "|" + r.querySelector(".color").value;
+            want[k] = (want[k] || 0) + (parseInt(r.querySelector(".qty").value, 10) || 0);
+        });
+        let ok = true;
+        rows.forEach(r => {
+            const pid = r.querySelector(".product_id").value, col = r.querySelector(".color").value;
+            const avail = poolStats(pid, col).available;
+            const over = want[pid + "|" + col] > avail;
+            if (over) ok = false;
+            const h = r.querySelector(".pool-hint");
+            h.textContent = `${Math.max(avail, 0)} in pool`;
+            h.classList.toggle("bad", over);
+        });
+        return ok;
     }
     function readRows() {
         return [...document.querySelectorAll("#items .item-row")].map(r => {
@@ -209,14 +336,58 @@
     }
 
     let ALL = [];
+    let POOL = [];
+    function poolStats(product_id, color) {
+        const added = POOL.filter(m => m.product_id === product_id && m.color === color).reduce((s, m) => s + m.qty, 0);
+        const ev = ALL.filter(e => e.product_id === product_id && e.color === color);
+        const atEvents = ev.reduce((s, e) => s + e.qty_leased - (e.qty_returned || 0) - (e.qty_damaged || 0) - (e.qty_missing || 0), 0);
+        const lost = ev.reduce((s, e) => s + (e.qty_damaged || 0) + (e.qty_missing || 0), 0);
+        const net = ev.reduce((s, e) => s + e.qty_leased - (e.qty_returned || 0), 0);
+        return { added, atEvents, lost, available: added - net };
+    }
+    function renderPool() {
+        const keys = new Map();
+        [...POOL, ...ALL].forEach(x => keys.set(x.product_id + "|" + x.color, x));
+        const order = (x) => PRODUCTS.findIndex(p => p.id === x.product_id);
+        const rows = [...keys.values()].sort((a, b) => order(a) - order(b) || a.color.localeCompare(b.color)).map(x => {
+            const st = poolStats(x.product_id, x.color);
+            const name = (PRODUCTS.find(p => p.id === x.product_id) || {}).name || x.product_name;
+            return { name, color: x.color, ...st };
+        });
+        const body = document.getElementById("pool-body");
+        if (!rows.length) { body.innerHTML = `<tr><td colspan="5">Pool is empty — add opened stock below.</td></tr>`; }
+        else {
+            const t = rows.reduce((a, r) => ({ available: a.available + r.available, atEvents: a.atEvents + r.atEvents, lost: a.lost + r.lost, added: a.added + r.added }), { available: 0, atEvents: 0, lost: 0, added: 0 });
+            body.innerHTML = rows.map(r => `
+      <tr>
+        <td>${esc(r.name)} · ${esc(r.color)}${r.available < 0 ? `<div class="pool-hint bad">${-r.available} sent before the pool existed — add them to the pool</div>` : ""}</td>
+        <td class="num avail ${r.available < 0 ? "neg" : ""}">${r.available}</td>
+        <td class="num">${r.atEvents}</td>
+        <td class="num">${r.lost}</td>
+        <td class="num">${r.added}</td>
+      </tr>`).join("") + `
+      <tr class="tot"><td>Total</td><td class="num">${t.available}</td><td class="num">${t.atEvents}</td><td class="num">${t.lost}</td><td class="num">${t.added}</td></tr>`;
+        }
+        document.getElementById("pool-log").innerHTML = POOL.length ? POOL.map(m => `
+      <tr>
+        <td>${new Date(m.created_at).toLocaleDateString("en-IN", { day: "numeric", month: "short" })}</td>
+        <td>${esc(m.product_name)} · ${esc(m.color)}</td>
+        <td class="num" style="color:${m.qty > 0 ? "#2a6b3a" : "#a04040"}">${m.qty > 0 ? "+" : ""}${m.qty}</td>
+        <td>${esc(m.note || "")}</td>
+      </tr>`).join("") : `<tr><td colspan="4">No pool changes yet.</td></tr>`;
+    }
     const accounted = (e) => (e.qty_returned || 0) + (e.qty_damaged || 0) + (e.qty_missing || 0);
     const esc = (v) => String(v ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
     const groupKey = (e) => e.event_name + "|" + (e.date_out || "");
 
     async function loadEvents() {
         try {
-            const { events } = await callApi(null, "GET", "?action=list");
+            const { events, pool_moves } = await callApi(null, "GET", "?action=list");
             ALL = events;
+            POOL = pool_moves || [];
+            renderPool();
+            updateSendHints();
+            poolPreview();
             renderActive(events.filter(e => e.status !== "returned"));
             renderHistory(events.filter(e => e.status === "returned"));
         } catch (err) {
@@ -291,6 +462,7 @@
         const fail = (m) => { statusMsg.textContent = m; statusMsg.style.color = "#a04040"; };
         if (!event_name) return fail("Event name is required.");
         if (rows.some(r => !(r.qty_leased > 0))) return fail("Every product needs a quantity of 1 or more.");
+        if (!updateSendHints()) return fail("Some products need more than the pool has — add them to the pool first.");
         const btn = document.getElementById("add-btn");
         btn.disabled = true;
         btn.textContent = "Saving…";
