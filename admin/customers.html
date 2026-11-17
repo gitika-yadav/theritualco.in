@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Customers — The Ritual Co. (Admin)</title>
+    <meta name="robots" content="noindex, nofollow"/>
+    <style>
+        :root{
+            --bg:#f5f2ee; --card:#fff; --ink:#1a1714; --ink2:#5a4f48; --muted:#a09890; --line:#ece6de; --soft:#faf8f5;
+            --bar:#3a3330; --bar-soft:#d9cfc4;
+            --good:#2f7a3a; --good-bg:#eaf3e2; --bad:#a32d2d; --bad-bg:#fcebeb; --warn:#8a5a12; --warn-bg:#fbf1dd;
+        }
+        *{box-sizing:border-box;margin:0;padding:0;}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink2);min-height:100vh;font-size:14px;}
+        #lock{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:100;}
+        .lock-card{background:#fff;border:0.5px solid #e0dbd4;border-radius:12px;padding:40px;width:320px;text-align:center;}
+        .lock-wordmark{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;}
+        .lock-title{font-size:20px;font-weight:400;margin-bottom:20px;color:var(--ink);}
+        .lock-input{width:100%;padding:10px 12px;border:0.5px solid #d0cbc4;border-radius:8px;font-size:16px;font-family:inherit;margin-bottom:10px;background:var(--soft);}
+        .lock-btn{width:100%;padding:11px;background:#3a3330;color:#fff;border:none;border-radius:8px;font-size:14px;font-family:inherit;cursor:pointer;}
+        .lock-err{font-size:12px;color:var(--bad);margin-top:8px;display:none;}
+        #app{display:none;}
+        .topbar{background:#fff;border-bottom:0.5px solid #e0dbd4;padding:0 28px;height:52px;display:flex;align-items:center;justify-content:space-between;}
+        .topbar-left{display:flex;align-items:center;gap:20px;}
+        .brand{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+        .ttl{font-size:14px;font-weight:500;color:var(--ink);}
+        .topbar a,.logout{font-size:12px;color:var(--muted);text-decoration:none;background:none;border:none;cursor:pointer;margin-left:14px;}
+        .main{max-width:1180px;margin:0 auto;padding:24px 28px 60px;}
+        .controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
+        .controls h1{font-size:20px;font-weight:500;color:var(--ink);margin-right:auto;}
+        .seg{display:inline-flex;background:#fff;border:0.5px solid #ddd5cb;border-radius:999px;padding:3px;}
+        .seg button{border:none;background:none;padding:6px 14px;border-radius:999px;font:inherit;font-size:12px;color:var(--ink2);cursor:pointer;}
+        .seg button.on{background:#3a3330;color:#fff;}
+        .nav{border:0.5px solid #ddd5cb;background:#fff;border-radius:999px;width:32px;height:32px;cursor:pointer;color:var(--ink2);font-size:14px;}
+        .nav:disabled{opacity:.35;cursor:default;}
+        .period{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;}
+        .range{font-size:12px;color:var(--muted);min-width:190px;text-align:center;}
+        .tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:14px;}
+        .tile{background:var(--card);border:0.5px solid #e6e0d8;border-radius:12px;padding:14px 16px;}
+        .tile .k{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);}
+        .tile .v{font-size:24px;font-weight:500;color:var(--ink);margin:6px 0 4px;font-variant-numeric:tabular-nums;}
+        .tile .d{font-size:12px;color:var(--muted);}
+        .tile .d.up,.up{color:var(--good);} .tile .d.down,.down{color:var(--bad);}
+        .grid2{display:grid;grid-template-columns:1.3fr 1fr;gap:14px;margin-bottom:14px;}
+        .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px;}
+        .card{background:var(--card);border:0.5px solid #e6e0d8;border-radius:12px;padding:18px 20px;}
+        .card h2{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:2px;}
+        .card .sub{font-size:12px;color:var(--muted);margin-bottom:14px;}
+        .row{display:grid;grid-template-columns:150px 1fr 64px;gap:12px;align-items:center;padding:7px 0;font-size:13px;}
+        .row .lbl{color:var(--ink2);}
+        .row .num{text-align:right;color:var(--ink);font-variant-numeric:tabular-nums;}
+        .track{height:10px;background:var(--soft);border-radius:4px;position:relative;}
+        .fill{height:100%;background:var(--bar);border-radius:0 4px 4px 0;min-width:2px;}
+        .row .step{grid-column:2 / 4;font-size:11px;color:var(--muted);margin-top:-4px;}
+        table{width:100%;border-collapse:collapse;font-size:13px;}
+        th{text-align:left;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500;padding:0 8px 8px;border-bottom:0.5px solid var(--line);}
+        td{padding:9px 8px;border-bottom:0.5px solid #f3eee8;color:var(--ink);font-variant-numeric:tabular-nums;}
+        td.l{color:var(--ink2);} th.r,td.r{text-align:right;}
+        tr:last-child td{border-bottom:none;}
+        .pill{display:inline-flex;align-items:center;gap:5px;padding:2px 9px;border-radius:999px;font-size:11px;white-space:nowrap;}
+        .pill-good{background:var(--good-bg);color:var(--good);} .pill-bad{background:var(--bad-bg);color:var(--bad);} .pill-warn{background:var(--warn-bg);color:var(--warn);}
+        .kv{display:flex;justify-content:space-between;padding:6px 0;font-size:13px;border-bottom:0.5px solid #f3eee8;}
+        .kv:last-child{border-bottom:none;} .kv b{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums;}
+        .setup{background:var(--soft);border:1px dashed #d9cfc4;border-radius:10px;padding:14px 16px;font-size:12.5px;line-height:1.6;color:var(--ink2);}
+        .setup b{color:var(--ink);} .setup code{background:#fff;border-radius:4px;padding:1px 5px;font-size:12px;}
+        .err{color:var(--bad);font-size:12.5px;}
+        .note{font-size:11.5px;color:var(--muted);margin-top:10px;line-height:1.5;}
+        .days{display:flex;align-items:flex-end;gap:4px;height:120px;padding-top:6px;}
+        .day{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;min-width:0;}
+        .day .b{width:100%;max-width:34px;background:var(--bar);border-radius:4px 4px 0 0;min-height:2px;}
+        .day .b.zero{background:var(--bar-soft);}
+        .day .t{font-size:10px;color:var(--muted);margin-top:6px;white-space:nowrap;}
+        .loading{opacity:.45;pointer-events:none;transition:opacity .2s;}
+        @media(max-width:1000px){.tiles{grid-template-columns:repeat(3,1fr);}.grid2,.grid4{grid-template-columns:1fr 1fr;}}
+        @media(max-width:640px){.main{padding:16px;}.tiles{grid-template-columns:1fr 1fr;}.grid2,.grid4{grid-template-columns:1fr;}.row{grid-template-columns:110px 1fr 54px;}.range{min-width:0;}.topbar{padding:0 16px;}.hide-m{display:none;}}
+            .filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+        .filters button{border:0.5px solid #ddd5cb;background:#fff;border-radius:999px;padding:5px 12px;font:inherit;font-size:12px;color:var(--ink2);cursor:pointer;}
+        .filters button.on{background:#3a3330;color:#fff;border-color:#3a3330;}
+        .hist{font-size:11.5px;color:var(--muted);margin-top:3px;line-height:1.5;}
+        a.wa{color:var(--good);text-decoration:none;font-size:12px;}
+        .big{font-size:13px;line-height:1.6;color:var(--ink2);}
+        .big b{color:var(--ink);}
+    </style>
+</head>
+<body>
+<div id="lock">
+    <div class="lock-card">
+        <div class="lock-wordmark">The Ritual Co.</div>
+        <div class="lock-title">Customers</div>
+        <input class="lock-input" type="password" id="lock-pass" placeholder="Admin password"/>
+        <button class="lock-btn" onclick="unlock()">Enter</button>
+        <div class="lock-err" id="lock-err">Incorrect password</div>
+    </div>
+</div>
+
+<div id="app">
+    <div class="main" id="main">
+        <div class="controls"><h1>Do customers come back?</h1><span class="range" id="since"></span></div>
+        <div class="tiles" id="tiles"></div>
+        <div class="card" id="read" style="margin-bottom:14px"></div>
+        <div class="grid2">
+            <div class="card" id="cohorts"></div>
+            <div class="card" id="first"></div>
+        </div>
+        <div class="card" id="cross" style="margin-bottom:14px"></div>
+        <div class="card" id="list"></div>
+        <p class="note">A customer is one person across website orders and event bookings, matched by phone or email. Purchases are retail orders that are paid, COD, shipped or delivered (not RTO, returned, creator gifts, event stock or wholesale) plus confirmed event bookings. Spend is what they paid, incl. GST.</p>
+    </div>
+</div>
+
+<script>
+    let SESSION_TOKEN = null, DATA = null, FILTER = "all";
+    const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    const inr = n => n == null ? "—" : "₹" + Math.round(n).toLocaleString("en-IN");
+    const pct = (a, b) => { if (!b) return "—"; const v = a / b * 100; return (v > 0 && v < 1 ? v.toFixed(1) : Math.round(v)) + "%"; };
+    const d = iso => new Date(iso).toLocaleDateString("en-IN", { day: "numeric", month: "short", timeZone: "Asia/Kolkata" });
+    const mon = ym => new Date(ym + "-15T12:00:00+05:30").toLocaleDateString("en-IN", { month: "short", year: "numeric" });
+
+    async function unlock() {
+        const pass = document.getElementById("lock-pass").value; if (!pass) return;
+        const res = await fetch("/.netlify/functions/admin-auth", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password: pass }) });
+        if (!res.ok) { document.getElementById("lock-err").style.display = "block"; return; }
+        SESSION_TOKEN = (await res.json()).token; sessionStorage.setItem("rc_admin_token", SESSION_TOKEN); start();
+    }
+    function start() { document.getElementById("lock").style.display = "none"; document.getElementById("app").style.display = "block"; load(); }
+    document.getElementById("lock-pass").addEventListener("keydown", e => { if (e.key === "Enter") unlock(); });
+    (function () { const s = sessionStorage.getItem("rc_admin_token"); if (s && Date.now() < parseInt(s.split(".")[0])) { SESSION_TOKEN = s; start(); } })();
+
+    async function load() {
+        document.getElementById("main").classList.add("loading");
+        try {
+            const res = await fetch("/.netlify/functions/admin-customers", { method: "POST", headers: { "Content-Type": "application/json", "x-admin-token": SESSION_TOKEN }, body: "{}" });
+            if (res.status === 401) { sessionStorage.removeItem("rc_admin_token"); location.reload(); return; }
+            DATA = await res.json();
+            if (!res.ok) throw new Error(DATA.error || res.status);
+            render();
+        } catch (e) {
+            document.getElementById("tiles").innerHTML = `<p class="err">Couldn't load: ${esc(e.message)}</p>`;
+        } finally { document.getElementById("main").classList.remove("loading"); }
+    }
+
+    function tile(k, v, sub) { return `<div class="tile"><div class="k">${k}</div><div class="v">${v}</div><div class="d">${sub || ""}</div></div>`; }
+
+    function render() {
+        const s = DATA.summary;
+        document.getElementById("since").textContent = s.firstPurchase ? "Since " + d(s.firstPurchase) : "";
+        document.getElementById("tiles").innerHTML =
+            tile("Customers", s.customers, `${s.buyers} bought products`) +
+            tile("Came back", pct(s.cameBack, s.customers), `${s.cameBack} bought or booked again`) +
+            tile("Repeat buyers", pct(s.repeatBuyers, s.buyers), `${s.repeatBuyers} placed 2+ orders`) +
+            tile("Lifetime value", inr(s.ltv), "avg spend per customer") +
+            tile("Product LTV", inr(s.productLtv), `${s.ordersPerBuyer.toFixed(2)} orders per buyer`) +
+            tile("From returning", pct(s.repeatRevenue, s.totalRevenue), inr(s.repeatRevenue) + " of " + inr(s.totalRevenue));
+
+        const early = s.customers - s.matured30;
+        document.getElementById("read").innerHTML = `<h2>What this says</h2><div class="sub">Read it with the age of the business in mind</div><div class="big">` +
+            `<b>${s.cameBack}</b> of <b>${s.customers}</b> customers have come back so far (${pct(s.cameBack, s.customers)}). ` +
+            (s.medianDaysToSecond != null ? `The typical gap to the second purchase is <b>${Math.round(s.medianDaysToSecond)} days</b>. ` : "") +
+            `Of the <b>${s.matured30}</b> customers who first bought 30+ days ago, <b>${s.cameBack30}</b> came back within 30 days (${pct(s.cameBack30, s.matured30)}). ` +
+            (early ? `<b>${early}</b> customers bought in the last 30 days, so it's too early to judge them.` : "") +
+            `</div>`;
+
+        document.getElementById("cohorts").innerHTML = `<h2>By month of first purchase</h2><div class="sub">Each row is the customers who first bought that month</div>
+            <table><tr><th>Month</th><th class="r">Customers</th><th class="r">Came back</th><th class="r">Spend / customer</th></tr>` +
+            DATA.cohorts.map(c => `<tr><td class="l">${mon(c.month)}</td><td class="r">${c.customers}</td><td class="r">${c.cameBack} <span class="hist">${pct(c.cameBack, c.customers)}</span></td><td class="r">${inr(c.spend / c.customers)}</td></tr>`).join("") + `</table>`;
+
+        document.getElementById("first").innerHTML = `<h2>First purchase → came back?</h2><div class="sub">Which first buy leads to a second</div>
+            <table><tr><th>First bought</th><th class="r">Customers</th><th class="r">Came back</th><th class="r">Avg spend</th></tr>` +
+            DATA.firstProduct.map(f => `<tr><td class="l">${esc(f.first)}</td><td class="r">${f.customers}</td><td class="r">${pct(f.cameBack, f.customers)}</td><td class="r">${inr(f.spend / f.customers)}</td></tr>`).join("") + `</table>`;
+
+        const x = DATA.crossover;
+        document.getElementById("cross").innerHTML = `<h2>Events and the shop</h2><div class="sub">Do event guests become product customers, and the other way round?</div>
+            <div class="kv"><span>Event guests (confirmed bookings)</span><b>${x.attendees}</b></div>
+            <div class="kv"><span>…who also bought products</span><b>${x.alsoBought} (${pct(x.alsoBought, x.attendees)})</b></div>
+            <div class="kv"><span>…bought products after their first event</span><b>${x.boughtAfterEvent}</b></div>
+            <div class="kv"><span>Product customers who later came to an event</span><b>${x.buyersWhoCameToEvent}</b></div>`;
+
+        renderList();
+    }
+
+    function renderList() {
+        const all = DATA.customers;
+        const sets = {
+            all: all,
+            repeat: all.filter(c => c.purchases >= 2),
+            once: all.filter(c => c.purchases === 1 && c.orders === 1),
+            events: all.filter(c => c.events > 0),
+        };
+        const list = sets[FILTER];
+        const btn = (k, l) => `<button data-f="${k}" class="${FILTER === k ? "on" : ""}">${l} (${sets[k].length})</button>`;
+        const wa = p => { const n = String(p || "").replace(/\D/g, "").slice(-10); return n.length === 10 ? `<a class="wa" href="https://wa.me/91${n}" target="_blank" rel="noopener">WhatsApp</a>` : ""; };
+        document.getElementById("list").innerHTML = `<h2>Customers</h2><div class="sub">Highest spend first. "Bought once" is who to invite back (Ritual Circle, next event, a refill).</div>
+            <div class="filters" id="filters">${btn("all", "Everyone")}${btn("repeat", "Came back")}${btn("once", "Bought once")}${btn("events", "Event guests")}</div>
+            <table><tr><th>Customer</th><th class="r">Orders</th><th class="r hide-m">Events</th><th class="r">Spend</th><th class="hide-m">First</th><th class="hide-m">Last</th><th></th></tr>` +
+            list.map(c => `<tr><td class="l"><b style="color:var(--ink);font-weight:500">${esc(c.name)}</b>
+                <div class="hist">${c.history.map(h => `${d(h.at)} · ${esc(h.what)} · ${inr(h.amount)}`).join("<br>")}</div></td>
+                <td class="r">${c.orders}</td><td class="r hide-m">${c.events}</td><td class="r">${inr(c.spend)}</td>
+                <td class="hide-m">${d(c.first)}</td><td class="hide-m">${d(c.last)}</td><td>${wa(c.phone)}</td></tr>`).join("") + `</table>`;
+        document.getElementById("filters").onclick = e => { const b = e.target.closest("button"); if (!b) return; FILTER = b.dataset.f; renderList(); };
+    }
+</script>
+<script src="/javascript/admin-nav.js" defer></script>
+</body>
+</html>

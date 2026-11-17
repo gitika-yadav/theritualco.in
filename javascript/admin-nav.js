@@ -11,6 +11,7 @@
         { group: "Events",    href: "/admin/events",          label: "Events",          desc: "Events, bookings and leads" },
         { group: "Events",    href: "/admin/event-order",     label: "Event stock",     desc: "Inventory sent out for events" },
         { group: "Marketing", href: "/admin/analytics",       label: "Analytics",       desc: "How the week went" },
+        { group: "Marketing", href: "/admin/customers",       label: "Customers",       desc: "Repeat purchase rate and lifetime value" },
         { group: "Marketing", href: "/admin/newsletter",      label: "Newsletter",      desc: "Subscribers and sends" },
         { group: "Marketing", href: "/admin/creators",        label: "Creators",        desc: "Ambassador pipeline" },
         { group: "Marketing", href: "/admin/outreach",        label: "Outreach",        desc: "Outreach hub" },
