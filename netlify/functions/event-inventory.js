@@ -12,11 +12,13 @@
 
 const { createClient } = require("@supabase/supabase-js");
 const { verifyAdminToken, getTokenFromEvent } = require("./shared/verify-admin-token");
+const { poolAvailable: poolAvailableFor } = require("./shared/event-pool");
 
 const supabase = createClient(
     process.env.SUPABASE_URL,
     process.env.SUPABASE_SERVICE_KEY
 );
+const poolAvailable = (product_id, color) => poolAvailableFor(supabase, product_id, color);
 
 exports.handler = async (event) => {
     const token = getTokenFromEvent(event);
@@ -54,19 +56,6 @@ async function listEvents() {
     if (ev.error) return { statusCode: 500, body: JSON.stringify({ error: ev.error.message }) };
     if (pool.error) return { statusCode: 500, body: JSON.stringify({ error: pool.error.message }) };
     return { statusCode: 200, body: JSON.stringify({ events: ev.data, pool_moves: pool.data }) };
-}
-
-// Pieces of one product+colour sitting in the pool right now (not at an event, not lost).
-async function poolAvailable(product_id, color) {
-    const [moves, ev] = await Promise.all([
-        supabase.from("event_pool_moves").select("qty").eq("product_id", product_id).eq("color", color),
-        supabase.from("event_inventory").select("qty_leased, qty_returned").eq("product_id", product_id).eq("color", color),
-    ]);
-    if (moves.error) throw new Error(moves.error.message);
-    if (ev.error) throw new Error(ev.error.message);
-    const added = moves.data.reduce((s, m) => s + m.qty, 0);
-    const net = ev.data.reduce((s, e) => s + e.qty_leased - e.qty_returned, 0);
-    return added - net;
 }
 
 async function poolMove(body) {
