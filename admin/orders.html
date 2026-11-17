@@ -429,7 +429,8 @@
             const date = new Date(o.created_at).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
             const amount = "₹" + ((o.amount_paise || 0) / 100).toLocaleString("en-IN");
             const status = o.status || "paid";
-            const badge = `<span class="badge badge-${status}"><span class="dot dot-${status}"></span>${STATUS_LABELS[status] || status}</span>`;
+            const isEv = o.payment_method === "event_stock";
+            const badge = `<span class="badge badge-${status}"><span class="dot dot-${status}"></span>${isEv && status === "gifted" ? "event stock" : (STATUS_LABELS[status] || status)}</span>`;
             const labelBtn = o.courier === "Delhivery" && o.tracking_number
                 ? ` <button class="btn-sm" onclick="printLabel('${(o.shipment_boxes && o.shipment_boxes.length > 1 ? o.shipment_boxes : [o.tracking_number]).join(",")}', this)">Label${o.shipment_boxes && o.shipment_boxes.length > 1 ? "s ×" + o.shipment_boxes.length : ""}</button>` : "";
             const shipBtn = TO_SHIP_STATUSES.includes(status)
@@ -448,7 +449,7 @@
             return `<tr onclick="openDetail('${o.id}')" style="cursor:pointer;">
       <td onclick="if(event.target.classList.contains('bulk-cb'))event.stopPropagation()">${canBulk(o) ? `<input type="checkbox" class="bulk-cb" ${BULK.has(o.id) ? "checked" : ""} onchange="toggleBulk('${o.id}', this.checked)"/>` : ""}<span class="order-id">#${shortId}</span></td>
       <td><div class="customer-name">${name}</div><div class="customer-email">${email}</div></td>
-      <td>${product}${o.is_gift ? ' <span class="gift-badge" title="Gift order">Gift</span>' : ""}</td>
+      <td>${product}${o.is_gift ? ' <span class="gift-badge" title="Gift order">Gift</span>' : ""}${isEv ? ` <span class="gift-badge" title="From the event pool — website stock untouched">Event · ${(o.items && o.items[0] && o.items[0].event_name) || ""}</span>` : ""}</td>
       <td class="amount">${amount}</td>
       <td>${badge}</td>
       <td style="color:#a09890;">${date}</td>
@@ -461,7 +462,7 @@
         e && e.stopPropagation();
         shipOrderId = id;
         const order = allOrders.find(o => o.id === id);
-        const codNote = order.status === "cod_unpaid" ? " · COD — confirm cash collected before shipping" : order.status === "gifted" ? " · Gift order" : "";
+        const codNote = order.status === "cod_unpaid" ? " · COD — confirm cash collected before shipping" : order.payment_method === "event_stock" ? " · Event stock (from the event pool)" : order.status === "gifted" ? " · Gift order" : "";
         document.getElementById("ship-modal-sub").textContent =
             `${order.guest_name || "Customer"} · ${itemsSummary(order.items)} · ₹${((order.amount_paise||0)/100).toLocaleString("en-IN")}${codNote}`;
         document.getElementById("ship-tracking").value = "";
@@ -627,7 +628,8 @@
             dlModeChange();
             const hints = [];
             if (order.status === "cod_unpaid") hints.push("COD order — Delhivery will collect ₹" + shipment.cod_amount + " on delivery.");
-            if (order.status === "gifted") hints.push("Gift order — declared value uses product prices (no money collected).");
+            if (order.payment_method === "event_stock") hints.push("Event stock — from the event pool, website stock untouched. Declared value uses product prices.");
+            else if (order.status === "gifted") hints.push("Gift order — declared value uses product prices (no money collected).");
             if (!shipment.city || !shipment.state || !shipment.pin) hints.push("Couldn't read city/state/pincode from the address — please fill them in.");
             if (DL_LINES.length > 1) hints.push("Packing in more than one box? Add a box and choose which item goes where — each box gets its own weight, size and label.");
             document.getElementById("dl-hint").textContent = hints.join(" ");

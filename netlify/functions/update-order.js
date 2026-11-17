@@ -76,9 +76,29 @@ exports.handler = async (event) => {
             ? i.kit_components.map(c => ({ id: c.product_id, color: c.color, qty: (c.quantity || 1) * (i.quantity || 1) }))
             : [{ id: i.product_id, color: i.color, qty: i.quantity ?? i.qty ?? 1 }]);
 
+    // Event-stock shipments came out of the event pool, not website stock, so a
+    // parcel that comes back goes back into the event pool instead (the event
+    // rows it created are marked returned). Website stock is never touched.
+    const isEventStock = order.payment_method === "event_stock";
+    const eventRowIds = () => (order.items || []).map(i => i.event_inventory_id).filter(Boolean);
+    const eventRows = async () => {
+        const { data } = await supabase.from("event_inventory").select("id, qty_leased, product_name, color").in("id", eventRowIds());
+        return data || [];
+    };
+
     // Parcel is back with us → put the units back on the shelf (only once).
     let restocked = [];
-    if (status === "returned" && !order.restocked_at) {
+    if (isEventStock && status === "returned" && !order.restocked_at) {
+        for (const r of await eventRows()) {
+            const { error } = await supabase.from("event_inventory").update({
+                qty_returned: r.qty_leased, qty_damaged: 0, qty_missing: 0, status: "returned",
+                date_returned: now.slice(0, 10), return_note: "Parcel came back (RTO)",
+            }).eq("id", r.id);
+            if (error) console.error("[EVENT_POOL_RETURN_ERROR]", r.id, error.message);
+            else restocked.push(`${r.product_name} ${r.color} ×${r.qty_leased} (event pool)`);
+        }
+        updates.restocked_at = now;
+    } else if (status === "returned" && !order.restocked_at) {
         for (const part of stockParts()) {
             const { error } = await supabase.rpc("restock_item", { p_product_id: part.id, p_color: part.color, p_qty: part.qty });
             if (error) console.error("[RESTOCK_ERROR]", part, error.message);
@@ -89,7 +109,16 @@ exports.handler = async (event) => {
 
     // "Received back" clicked by mistake → take those units back out of stock.
     let unrestocked = [];
-    if (prev === "returned" && status !== "returned" && order.restocked_at) {
+    if (isEventStock && prev === "returned" && status !== "returned" && order.restocked_at) {
+        for (const r of await eventRows()) {
+            const { error } = await supabase.from("event_inventory").update({
+                qty_returned: 0, qty_damaged: 0, qty_missing: 0, status: "out", date_returned: null, return_note: null,
+            }).eq("id", r.id);
+            if (error) console.error("[EVENT_POOL_UNRETURN_ERROR]", r.id, error.message);
+            else unrestocked.push(`${r.product_name} ${r.color} ×${r.qty_leased} (event pool)`);
+        }
+        updates.restocked_at = null;
+    } else if (prev === "returned" && status !== "returned" && order.restocked_at) {
         for (const part of stockParts()) {
             const { error } = await supabase.rpc("unrestock_item", { p_product_id: part.id, p_color: part.color, p_qty: part.qty });
             if (error) console.error("[UNRESTOCK_ERROR]", part, error.message);
@@ -105,7 +134,7 @@ exports.handler = async (event) => {
     if (updateErr) return { statusCode: 500, body: JSON.stringify({ error: updateErr.message }) };
 
     // Send shipping email only on a real dispatch (never on an undo)
-    if (status === "shipped" && !isUndo && (order.guest_email || order.customer_email)) {
+    if (status === "shipped" && !isUndo && !isEventStock && (order.guest_email || order.customer_email)) {
         const email = order.guest_email || order.customer_email;
         const name = (order.guest_name || order.customer_name || "there").split(" ")[0];
         const amount = (order.amount_paise / 100).toLocaleString("en-IN");

@@ -157,7 +157,7 @@ exports.handler = async (event) => {
 
         const emailed = new Set();
         for (const o of due || []) {
-            const skip = !o.guest_email || o.payment_method === "creator_gift" || emailed.has(o.guest_email.toLowerCase()) || !productsIn(o).length;
+            const skip = !o.guest_email || o.payment_method === "creator_gift" || o.payment_method === "event_stock" || emailed.has(o.guest_email.toLowerCase()) || !productsIn(o).length;
             if (!dry) {
                 if (!skip && process.env.RESEND_API_KEY) {
                     try { await sendEmail(o.guest_email, "How's it feeling? ✦ The Ritual Co.", reviewEmail(o)); }

@@ -21,6 +21,12 @@
         #status-msg{margin-top:16px;font-size:13px;}
         #gate{max-width:320px;margin:80px auto;text-align:center;}
         #gate input{margin-bottom:10px;}
+        .source{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px;}
+        .source label{margin:0;display:flex;gap:8px;align-items:flex-start;text-transform:none;letter-spacing:0;font-size:13px;font-weight:500;color:#1a1a18;border:1px solid #e5e0d8;border-radius:8px;padding:10px 12px;background:#fff;cursor:pointer;}
+        .source label small{display:block;font-weight:400;color:#8a8079;font-size:11px;margin-top:2px;}
+        .source input{width:auto;margin-top:3px;}
+        .source label:has(input:checked){border-color:#1a1a18;}
+        #event-wrap{display:none;}
         .remove-item{background:none;border:none;color:#a04040;font-size:18px;line-height:1;padding:8px;}
     </style>
 </head>
@@ -33,10 +39,22 @@
 </div>
 
 <div id="form-wrap" style="display:none;">
-    <h1>Creator / Collaboration Gift Order</h1>
-    <p class="sub">Places a ₹0 order — decrements real inventory, shows in the orders dashboard and morning briefing, no payment collected.</p>
+    <h1 id="page-title">Creator / Collaboration Gift Order</h1>
+    <p class="sub" id="page-sub">Places a ₹0 order — decrements real inventory, shows in the orders dashboard and morning briefing, no payment collected.</p>
 
-    <label for="creator_name">Creator name</label>
+    <label>Stock comes from</label>
+    <div class="source">
+        <label><input type="radio" name="source" value="website" checked/><span>Website stock<small>Creator or collab gift. Takes it off the site.</small></span></label>
+        <label><input type="radio" name="source" value="event_pool"/><span>Event pool<small>Shipping event stock, e.g. to a venue. Website stock untouched.</small></span></label>
+    </div>
+
+    <div id="event-wrap">
+        <label for="event_name">Event</label>
+        <input id="event_name" list="event-names" placeholder="e.g. Aqua Pilates · Bastian"/>
+        <datalist id="event-names"></datalist>
+    </div>
+
+    <label for="creator_name" id="name-label">Creator name</label>
     <input id="creator_name" required/>
 
     <label for="creator_handle">Instagram handle (optional)</label>
@@ -85,6 +103,9 @@
     ];
     const SHADE = { Cream: "Vanilla Cream", Pink: "Strawberry Milk", Black: "Onyx Black", Coffee: "Oat Latte" };
     let STOCK = null; // { productId: { Color: units } } from live inventory
+    let POOL = null;  // { productId: { Color: units } } from the event pool
+    const source = () => document.querySelector('input[name="source"]:checked').value;
+    const counts = () => source() === "event_pool" ? POOL : STOCK;
 
     async function loadStock() {
         try {
@@ -108,9 +129,44 @@
         }
     }
     function totalStock(p) {
-        if (!STOCK || !STOCK[p.id]) return null;
-        return Object.values(STOCK[p.id]).reduce((a, b) => a + b, 0);
+        const c = counts();
+        if (!c) return null;
+        if (!c[p.id]) return 0;
+        return Object.values(c[p.id]).reduce((a, b) => a + Math.max(0, b), 0);
     }
+    function unitsFor(p, color) {
+        const c = counts();
+        if (!c) return null;
+        return Math.max(0, (c[p.id] && c[p.id][color]) || 0);
+    }
+
+    async function loadPool() {
+        const res = await fetch("/.netlify/functions/create-creator-order", {
+            method: "POST", headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ secret: secretKey, action: "event_pool" }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Couldn't load the event pool");
+        POOL = data.pool || {};
+        document.getElementById("event-names").innerHTML = (data.events || []).map(n => `<option value="${n.replace(/"/g, "&quot;")}">`).join("");
+    }
+
+    async function onSourceChange() {
+        const ev = source() === "event_pool";
+        document.getElementById("event-wrap").style.display = ev ? "block" : "none";
+        document.getElementById("page-title").textContent = ev ? "Ship Event Stock" : "Creator / Collaboration Gift Order";
+        document.getElementById("page-sub").textContent = ev
+            ? "Sends opened stock from the event pool (e.g. to a venue). It's logged against the event on the Event stock page, so Return all works as usual. Website stock isn't touched and no email goes out. Ship it from Orders with Delhivery."
+            : "Places a ₹0 order — decrements real inventory, shows in the orders dashboard and morning briefing, no payment collected.";
+        document.getElementById("name-label").textContent = ev ? "Recipient / venue contact name" : "Creator name";
+        document.getElementById("submit-btn").textContent = ev ? "Create Event Shipment" : "Send Gift Order";
+        if (ev && POOL === null) {
+            try { await loadPool(); }
+            catch (e) { alert(e.message); }
+        }
+        document.querySelectorAll(".item-row").forEach(r => r._refresh && r._refresh());
+    }
+    document.querySelectorAll('input[name="source"]').forEach(r => r.addEventListener("change", onSourceChange));
     const stockReady = loadStock();
 
     let secretKey = "";
@@ -131,13 +187,7 @@
         row.innerHTML = `
     <div>
       <label>Product</label>
-      <select class="item-product">
-        ${PRODUCTS.map(p => {
-            const t = totalStock(p);
-            const label = t === null ? p.name : (t > 0 ? `${p.name} (${t} in stock)` : `${p.name} — out of stock`);
-            return `<option value="${p.id}">${label}</option>`;
-        }).join("")}
-      </select>
+      <select class="item-product"></select>
     </div>
     <div>
       <label>Colour</label>
@@ -153,21 +203,33 @@
 
         const productSelect = row.querySelector(".item-product");
         const colorSelect = row.querySelector(".item-color");
+        function refreshProducts() {
+            const keep = productSelect.value;
+            const where = source() === "event_pool" ? "in pool" : "in stock";
+            productSelect.innerHTML = PRODUCTS.map(p => {
+                const t = totalStock(p);
+                const label = t === null ? p.name : (t > 0 ? `${p.name} (${t} ${where})` : `${p.name} — none ${where}`);
+                return `<option value="${p.id}">${label}</option>`;
+            }).join("");
+            if (keep) productSelect.value = keep;
+        }
         function refreshColors() {
             const prod = PRODUCTS.find(p => p.id === productSelect.value);
-            colorSelect.innerHTML = prod.colors.map(c => {
-                const n = STOCK && STOCK[prod.id] ? (STOCK[prod.id][c] || 0) : null;
+            const colors = source() === "event_pool" ? ["Cream","Pink","Black","Coffee"] : prod.colors;
+            colorSelect.innerHTML = colors.map(c => {
+                const n = unitsFor(prod, c);
                 const name = SHADE[c] ? `${SHADE[c]} (${c})` : c;
                 if (n === null) return `<option value="${c}">${name}</option>`;
                 return n > 0
-                    ? `<option value="${c}">${name} — ${n} left</option>`
-                    : `<option value="${c}" disabled>${name} — sold out</option>`;
+                    ? `<option value="${c}">${name} — ${n} ${source() === "event_pool" ? "in pool" : "left"}</option>`
+                    : `<option value="${c}" disabled>${name} — ${source() === "event_pool" ? "none in pool" : "sold out"}</option>`;
             }).join("");
             const firstOk = Array.from(colorSelect.options).find(o => !o.disabled);
             if (firstOk) colorSelect.value = firstOk.value;
         }
         productSelect.addEventListener("change", refreshColors);
-        refreshColors();
+        row._refresh = () => { refreshProducts(); refreshColors(); };
+        row._refresh();
 
         row.querySelector(".remove-item").addEventListener("click", () => row.remove());
     }
@@ -177,9 +239,12 @@
     document.getElementById("submit-btn").addEventListener("click", async () => {
         const creator_name = document.getElementById("creator_name").value.trim();
         const address = document.getElementById("address").value.trim();
+        const isEvent = source() === "event_pool";
+        const event_name = document.getElementById("event_name").value.trim();
         if (!creator_name || !address) {
-            return alert("Creator name and shipping address are required.");
+            return alert((isEvent ? "Recipient name" : "Creator name") + " and shipping address are required.");
         }
+        if (isEvent && !event_name) return alert("Which event is this stock going to?");
 
         const items = Array.from(document.querySelectorAll(".item-row")).map(row => ({
             id:    row.querySelector(".item-product").value,
@@ -199,6 +264,8 @@
             state:          document.getElementById("state").value.trim(),
             pincode:        document.getElementById("pincode").value.trim(),
             items,
+            source: source(),
+            event_name: isEvent ? event_name : undefined,
         };
 
         const btn = document.getElementById("submit-btn");
@@ -220,8 +287,11 @@
                 statusMsg.style.color = "#a06b04";
                 console.warn("Skipped items:", result.skipped);
             } else {
-                statusMsg.textContent = `✅ Gift order placed — ${result.saved_items} item(s) recorded.`;
+                statusMsg.innerHTML = isEvent
+                    ? `✅ Event shipment created for ${event_name} — ${result.saved_items} item(s) taken from the event pool. <a href="/admin/orders.html">Ship it from Orders →</a>`
+                    : `✅ Gift order placed — ${result.saved_items} item(s) recorded.`;
                 statusMsg.style.color = "#2a6b3a";
+                if (isEvent) { POOL = null; await loadPool().catch(() => {}); document.querySelectorAll(".item-row").forEach(r => r._refresh && r._refresh()); }
             }
         } catch (err) {
             statusMsg.textContent = "❌ " + err.message;

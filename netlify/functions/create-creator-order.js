@@ -3,9 +3,16 @@
 // Not linked from any public page — protected by CREATOR_ORDER_SECRET.
 // One order row per gift order, items as a JSONB array (matches the new
 // orders schema — see migration-orders-items-jsonb.sql).
+//
+// source: "website" (default) → takes units from website stock (inventory).
+// source: "event_pool"        → ships event stock (e.g. to a venue). Takes units
+//   from the event pool by logging them against the event on the Event stock
+//   page; website stock is untouched, no gift email, not counted as a gift.
+// action: "event_pool"        → returns { pool, events } for the form.
 
 const { createClient } = require("@supabase/supabase-js");
 const { PRODUCT_MAP, resolveProductKey } = require("./shared/product-map");
+const { poolAvailable, poolSnapshot } = require("./shared/event-pool");
 
 const supabase = createClient(
     process.env.SUPABASE_URL,
@@ -24,6 +31,17 @@ exports.handler = async (event) => {
         const secret = process.env.CREATOR_ORDER_SECRET;
         if (secret && body.secret !== secret) {
             return { statusCode: 401, body: JSON.stringify({ error: "Unauthorised" }) };
+        }
+
+        if (body.action === "event_pool") {
+            const snap = await poolSnapshot(supabase);
+            return { statusCode: 200, body: JSON.stringify(snap) };
+        }
+
+        const fromPool = body.source === "event_pool";
+        const eventName = (body.event_name || "").trim();
+        if (fromPool && !eventName) {
+            return { statusCode: 400, body: JSON.stringify({ error: "Pick the event this stock is going to" }) };
         }
 
         const {
@@ -61,7 +79,7 @@ exports.handler = async (event) => {
                 .eq("product_id", product.id)
                 .eq("color", item.color || "default")
                 .single();
-            if (invErr || !inv || !inv.active) {
+            if (!fromPool && (invErr || !inv || !inv.active)) {
                 console.error("Creator order: item skipped — not found or inactive in inventory", product.id, item.color, invErr?.message);
                 skippedItems.push({ ...item, reason: invErr ? "inventory lookup error" : "inactive or missing" });
                 continue;
@@ -75,7 +93,8 @@ exports.handler = async (event) => {
                 weight:       product.weight,
                 color:        item.color || "Not specified",
                 quantity:     qty,
-                sku_id:       inv.sku || null,
+                sku_id:       (inv && inv.sku) || null,
+                ...(fromPool ? { from_event_pool: true } : {}),
             });
         }
 
@@ -87,12 +106,27 @@ exports.handler = async (event) => {
             return { statusCode: 400, body: JSON.stringify({ error: "No valid items in gift order" }) };
         }
 
+        // ── Event pool: check every line has enough before saving anything ───
+        if (fromPool) {
+            const need = {};
+            orderItems.forEach(i => { const k = i.product_id + "|" + i.color; need[k] = (need[k] || 0) + i.quantity; });
+            for (const [k, qty] of Object.entries(need)) {
+                const [pid, color] = k.split("|");
+                const available = await poolAvailable(supabase, pid, color);
+                if (qty > available) {
+                    const name = (orderItems.find(i => i.product_id === pid) || {}).product_name || pid;
+                    return { statusCode: 400, body: JSON.stringify({ error: `${name} · ${color}: only ${Math.max(available, 0)} in the event pool — add more on the Event stock page first` }) };
+                }
+            }
+        }
+
         // ── Save ONE order row for the whole gift, amount_paise: 0 ───
-        const giftReceipt = "ritual_gift_" + Date.now();
+        const giftReceipt = (fromPool ? "ritual_event_" : "ritual_gift_") + Date.now();
         const orderData = {
             razorpay_order_id: giftReceipt,
-            status:            "gifted",
-            payment_method:    "creator_gift",
+            status:            "gifted", // same "to ship" flow as gifts in orders.html
+            payment_method:    fromPool ? "event_stock" : "creator_gift",
+            ...(fromPool ? { channel: "event" } : {}),
             items:             orderItems,
             amount_paise:      0,
             shipping_address:  [address, landmark, city, state, pincode].filter(Boolean).join(", "),
@@ -107,6 +141,38 @@ exports.handler = async (event) => {
         if (insertErr || !order) {
             console.error("Creator order insert error:", insertErr);
             return { statusCode: 500, body: JSON.stringify({ error: "Failed to save gift order — please try again." }) };
+        }
+
+        // ── Event pool: log the units as sent to the event (pool goes down) ───
+        if (fromPool) {
+            const today = new Date().toISOString().slice(0, 10);
+            const rows = orderItems.map(i => ({
+                event_name:   eventName,
+                product_id:   i.product_id,
+                product_name: i.product_name,
+                color:        i.color,
+                qty_leased:   i.quantity,
+                qty_returned: 0,
+                date_out:     today,
+                status:       "out",
+                notes:        "Shipped via Delhivery · order " + giftReceipt,
+            }));
+            const { data: evRows, error: evErr } = await supabase.from("event_inventory").insert(rows).select("id");
+            if (evErr) {
+                await supabase.from("orders").delete().eq("id", order.id);
+                console.error("Event stock log error:", evErr);
+                return { statusCode: 500, body: JSON.stringify({ error: "Couldn't log the stock against the event — nothing was saved. " + evErr.message }) };
+            }
+            const withIds = orderItems.map((i, n) => ({ ...i, event_inventory_id: evRows[n] && evRows[n].id, event_name: eventName }));
+            await supabase.from("orders").update({ items: withIds }).eq("id", order.id);
+
+            return {
+                statusCode: 200,
+                body: JSON.stringify({
+                    success: true, order_id: order.id, receipt: giftReceipt, source: "event_pool",
+                    saved_items: orderItems.length, requested_items: items.length, skipped: skippedItems,
+                }),
+            };
         }
 
         // ── Decrement inventory for every gifted colour ───
