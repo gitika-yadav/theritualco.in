@@ -70,7 +70,7 @@ exports.handler = async () => {
             tag('title', item.title) +
             tag('description', item.desc) +
             tag('link', SITE + item.path) +
-            tag('image_link', `${SITE}/images/catalog/${item.img}.jpg?v=20261118b`) +
+            tag('image_link', `${SITE}/images/catalog/${item.img}.jpg?v=20261118c`) +
             tag('availability', availability) +
             (availability === 'preorder' ? tag('availability_date', PREORDER_SHIP_DATE) : '') +
             tag('price', `${price.toFixed(2)} INR`) +

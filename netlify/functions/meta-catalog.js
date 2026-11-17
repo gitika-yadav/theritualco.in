@@ -32,7 +32,7 @@ exports.handler = async () => {
         price: `${item.price.toFixed(2)} INR`,
         sale_price: item.salePrice ? `${item.salePrice.toFixed(2)} INR` : '',
         link: SITE + item.path,
-        image_link: `${SITE}/images/catalog/${item.img}.jpg?v=20261118b`,
+        image_link: `${SITE}/images/catalog/${item.img}.jpg?v=20261118c`,
         brand: BRAND,
         item_group_id: item.group,
         color: item.color || '',
