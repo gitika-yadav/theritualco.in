@@ -16,7 +16,7 @@
 
 const { createClient } = require("@supabase/supabase-js");
 const { verifyAdminToken, getTokenFromEvent } = require("./shared/verify-admin-token");
-const { PICKUP_LOCATION, PACKAGES, FALLBACK } = require("./shared/shipping-config");
+const { PICKUP_LOCATION, PACKAGES, FALLBACK, WHAT } = require("./shared/shipping-config");
 
 const BASE = process.env.DELHIVERY_ENV === "staging"
     ? "https://staging-express.delhivery.com"
@@ -65,8 +65,12 @@ function orderLines(order) {
             l = Math.max(l, pk.l); w = Math.max(w, pk.w); h += pk.h * p.qty;
         });
         const unit = i.unit_paise != null ? Number(i.unit_paise) / 100 : (Number(i.price) || mrp);
-        const name = String(i.product_name || i.product_id || "Item").replace(/\s*\(Pre-order[^)]*\)/i, "");
-        return { idx, name: `${name}${i.color ? ` (${i.color})` : ""}`, qty, unit: rupees(unit),
+        const brand = String(i.product_name || i.product_id || "Item").replace(/\s*\(Pre-order[^)]*\)/i, "");
+        // Lead with what the item is, so the hub X-ray matches the manifest.
+        const whats = [...new Set(parts.map(p => WHAT[p.id]).filter(Boolean))];
+        const what = parts.length > 1 ? (whats.length ? "Fitness kit: " + whats.join(", ") : "") : (whats[0] || "");
+        const name = what ? `${what} - ${brand}` : brand;
+        return { idx, name: `${name}${i.color && parts.length === 1 ? ` (${i.color})` : ""}`, qty, unit: rupees(unit),
                  weight_g: weight * qty, l, w, h: h * qty, pieces: parts.reduce((n, p) => n + p.qty, 0) * qty };
     });
 }

@@ -24,7 +24,23 @@ const PACKAGES = {
 };
 PACKAGES["capsule-dumbbell"] = PACKAGES["capsule-1kg"];
 
+// Plain-English contents for the Delhivery manifest. Hubs X-ray every parcel and
+// hold it as "Content Mismatch" when the scan doesn't match the description, so
+// say what the item IS ("Ankle weights"), not just the brand name ("The Ritual Cuffs").
+const WHAT = {
+    "yoga-mat-5mm": "Yoga mat",
+    "ankle-weights-2lb": "Ankle weights (fitness equipment, 2 lb pair)",
+    "pilates-ball": "Pilates ball (soft, inflatable)",
+    "pilates-ring": "Pilates ring",
+    "grip-socks": "Grip socks",
+    "yoga-belt": "Yoga strap",
+    "yoga-block": "Yoga block",
+    "capsule-1kg": "Dumbbells (fitness equipment, 1 kg pair)",
+    "capsule-2kg": "Dumbbells (fitness equipment, 2 kg pair)",
+    "capsule-dumbbell": "Dumbbells (fitness equipment)",
+};
+
 // Used for anything not listed above.
 const FALLBACK = { weight_g: 500, l: 25, w: 20, h: 10, mrp: 999 };
 
-module.exports = { PICKUP_LOCATION, PACKAGES, FALLBACK };
+module.exports = { PICKUP_LOCATION, PACKAGES, FALLBACK, WHAT };
