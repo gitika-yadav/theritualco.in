@@ -121,7 +121,7 @@
         .dl-items{grid-column:span 6;width:100%;border-collapse:collapse;font-size:12px;}
         .dl-items td{padding:6px 4px;border-bottom:0.5px solid #f0ece8;vertical-align:middle;}
         .dl-items select{padding:4px 6px;font-size:12px;}
-        .dl-box{grid-column:span 6;display:grid;grid-template-columns:70px 1fr 1fr 1fr 1fr 1.3fr 24px;gap:6px;align-items:center;font-size:12px;}
+        .dl-box{grid-column:span 6;display:grid;grid-template-columns:70px 1fr 1fr 1fr 1fr 1fr 1fr 24px;gap:6px;align-items:center;font-size:12px;}
         .dl-box input{padding:6px 7px;font-size:12px;width:100%;box-sizing:border-box;}
         .dl-box .lbl{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#a09890;}
         .dl-box .val{color:#3a3330;}
@@ -527,6 +527,13 @@
         return { weight_g: ls.reduce((n, x) => n + x.weight_g, 0), l: Math.max(...ls.map(x => x.l)),
                  w: Math.max(...ls.map(x => x.w)), h: Math.min(ls.reduce((n, x) => n + x.h, 0), 60) };
     }
+    // What Delhivery will bill: the higher of dead and volumetric weight.
+    function dlBillText(b) {
+        const vol = (b.l * b.w * b.h) / 5, bill = Math.max(b.weight_g || 0, vol || 0);
+        const off = Math.max(b.l, b.w, b.h) > 100 || (b.weight_g && vol > Math.max(b.weight_g, dlSuggest(b).weight_g) * 3 && vol > 2000);
+        return `<span style="color:${off ? "#b4563a" : "#8a7f76"}">bills ~${(bill / 1000).toFixed(1)} kg${off ? " ⚠" : ""}</span>`;
+    }
+    function dlBill(i) { const el = document.getElementById("dl-bill-" + i); if (el) el.innerHTML = dlBillText(DL_BOXES[i]); }
     function dlRenderItems() {
         const multi = DL_BOXES.length > 1;
         document.getElementById("dl-items").innerHTML = DL_LINES.map(x => {
@@ -541,10 +548,11 @@
             const value = DL_LINES.filter(x => b.lines.includes(x.idx)).reduce((n, x) => n + x.unit * x.qty, 0);
             return `<div class="dl-box">
               <div><div class="lbl">Box ${i + 1}</div><div class="val">₹${value.toLocaleString("en-IN")}</div></div>
-              <div><div class="lbl">Weight g</div><input type="number" min="1" value="${b.weight_g}" oninput="DL_BOXES[${i}].weight_g=+this.value"></div>
-              <div><div class="lbl">L cm</div><input type="number" min="1" value="${b.l}" oninput="DL_BOXES[${i}].l=+this.value"></div>
-              <div><div class="lbl">W cm</div><input type="number" min="1" value="${b.w}" oninput="DL_BOXES[${i}].w=+this.value"></div>
-              <div><div class="lbl">H cm</div><input type="number" min="1" value="${b.h}" oninput="DL_BOXES[${i}].h=+this.value"></div>
+              <div><div class="lbl">Weight g</div><input type="number" min="1" value="${b.weight_g}" oninput="DL_BOXES[${i}].weight_g=+this.value;dlBill(${i})"></div>
+              <div><div class="lbl">L cm</div><input type="number" min="1" value="${b.l}" oninput="DL_BOXES[${i}].l=+this.value;dlBill(${i})"></div>
+              <div><div class="lbl">W cm</div><input type="number" min="1" value="${b.w}" oninput="DL_BOXES[${i}].w=+this.value;dlBill(${i})"></div>
+              <div><div class="lbl">H cm</div><input type="number" min="1" value="${b.h}" oninput="DL_BOXES[${i}].h=+this.value;dlBill(${i})"></div>
+              <div class="val" id="dl-bill-${i}" style="font-size:11px;">${dlBillText(b)}</div>
               <div class="val" style="font-size:11px;color:#8a7f76;">${b.lines.length ? b.lines.length + " item" + (b.lines.length > 1 ? "s" : "") : "<span style='color:#b4563a'>empty</span>"}</div>
               <div>${DL_BOXES.length > 1 ? `<button type="button" class="rm" title="Remove box" onclick="dlRemoveBox(${i})">×</button>` : ""}</div>
             </div>`;
@@ -671,6 +679,18 @@
         ["cod_amount", "total_amount"].forEach(k => shipment[k] = Number(shipment[k]) || 0);
         if (DL_BOXES.some(b => !b.lines.length)) { st.textContent = "A box has no items in it — remove it or move an item into it."; st.className = "modal-status error"; return; }
         if (DL_BOXES.some(b => !(b.weight_g > 0 && b.l > 0 && b.w > 0 && b.h > 0))) { st.textContent = "Every box needs a weight and L × W × H."; st.className = "modal-status error"; return; }
+        // Typo guard — Delhivery bills on L×W×H/5000, so one wrong digit can cost thousands.
+        const soft = [];
+        DL_BOXES.forEach((b, i) => {
+            const n = `Box ${i + 1}`, side = Math.max(b.l, b.w, b.h), expect = dlSuggest(b).weight_g;
+            const vol = b.l * b.w * b.h / 5, real = Math.max(b.weight_g, expect);
+            if (side > 100) soft.push(`${n}: a side of ${side} cm (over 100 cm)`);
+            if (b.weight_g > 30000) soft.push(`${n}: ${(b.weight_g / 1000).toFixed(1)} kg (over 30 kg)`);
+            if (expect && b.weight_g < expect * 0.5) soft.push(`${n}: ${b.weight_g} g, but its items weigh ~${expect} g`);
+            if (real && vol > real * 3 && vol > 2000) soft.push(`${n}: this size bills as ${(vol / 1000).toFixed(1)} kg, it weighs ~${(real / 1000).toFixed(1)} kg`);
+        });
+        if (soft.length && !confirm("Please double-check — Delhivery charges extra if these are wrong:\n\n" + soft.join("\n") + "\n\nBook anyway?")) return;
+        shipment.confirm_unusual = soft.length > 0;
         shipment.boxes = DL_BOXES.map(b => ({ weight_g: b.weight_g, l: b.l, w: b.w, h: b.h, lines: b.lines }));
         Object.assign(shipment, { weight_g: DL_BOXES.reduce((n, b) => n + b.weight_g, 0), l: DL_BOXES[0].l, w: DL_BOXES[0].w, h: DL_BOXES[0].h });
         const boxText = DL_BOXES.map((b, i) => `Box ${i + 1}: ${b.weight_g} g · ${b.l}×${b.w}×${b.h} cm`).join("\n");
