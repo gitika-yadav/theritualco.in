@@ -159,6 +159,29 @@ function validate(s) {
     return errs;
 }
 
+// Catch typos before Delhivery bills on them. Delhivery charges the higher of
+// dead weight and volumetric weight (L×W×H / 5000), so one wrong digit in a box
+// size can cost thousands (18 Nov: 320×15×150 cm was billed as 150 kg).
+const MAX_SIDE_CM = 100, MAX_BOX_G = 30000;
+const volG = (b) => Number(b.l) * Number(b.w) * Number(b.h) / 5;   // grams
+function sanity(boxes, lines) {
+    const errs = [];
+    boxes.forEach((b, i) => {
+        const n = `Box ${i + 1}`;
+        const side = Math.max(Number(b.l), Number(b.w), Number(b.h));
+        if (side > MAX_SIDE_CM) errs.push(`${n}: a side of ${side} cm is too big — check L × W × H`);
+        if (Number(b.weight_g) > MAX_BOX_G) errs.push(`${n}: ${b.weight_g} g is over 30 kg — check the weight`);
+        const items = lines.filter(x => (b.lines || []).map(Number).includes(x.idx));
+        const expect = items.reduce((t, x) => t + x.weight_g, 0);
+        if (expect && Number(b.weight_g) < expect * 0.5)
+            errs.push(`${n}: ${b.weight_g} g is under half what its items weigh (~${expect} g)`);
+        const v = volG(b), real = Math.max(Number(b.weight_g), expect);
+        if (real && v > real * 3 && v > 2000)
+            errs.push(`${n}: size bills as ${(v / 1000).toFixed(1)} kg but it weighs ~${(real / 1000).toFixed(1)} kg — check L × W × H`);
+    });
+    return errs;
+}
+
 async function delhivery(path, opts) {
     const res = await fetch(BASE + path, {
         ...opts,
@@ -230,6 +253,8 @@ exports.handler = async (event) => {
         lines.forEach(x => { if (!placed.has(x.idx)) boxes[0].lines = [...(boxes[0].lines || []), x.idx]; });
         boxes = boxes.filter(b => (b.lines || []).length || boxes.length === 1);
         if (boxes.length > 5) return json(400, { error: "Delhivery allows up to 5 boxes per order" });
+        const bad = sanity(boxes.map(b => ({ ...b, weight_g: b.weight_g || s.weight_g, l: b.l || s.l, w: b.w || s.w, h: b.h || s.h })), lines);
+        if (bad.length && !s.confirm_unusual) return json(400, { error: bad.join(" · "), unusual: bad });
 
         const base = {
             name: s.name, add: s.add, pin: String(s.pin), city: s.city, state: s.state, country: "India",
