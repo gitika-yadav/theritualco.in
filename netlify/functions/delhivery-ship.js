@@ -162,6 +162,7 @@ function validate(s) {
 // Catch typos before Delhivery bills on them. Delhivery charges the higher of
 // dead weight and volumetric weight (L×W×H / 5000), so one wrong digit in a box
 // size can cost thousands (18 Nov: 320×15×150 cm was billed as 150 kg).
+// Nothing here is a hard stop: big B2B cartons are fine once someone confirms.
 const MAX_SIDE_CM = 100, MAX_BOX_G = 30000;
 const volG = (b) => Number(b.l) * Number(b.w) * Number(b.h) / 5;   // grams
 function sanity(boxes, lines) {

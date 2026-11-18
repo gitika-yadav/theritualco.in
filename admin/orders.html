@@ -680,17 +680,16 @@
         if (DL_BOXES.some(b => !b.lines.length)) { st.textContent = "A box has no items in it — remove it or move an item into it."; st.className = "modal-status error"; return; }
         if (DL_BOXES.some(b => !(b.weight_g > 0 && b.l > 0 && b.w > 0 && b.h > 0))) { st.textContent = "Every box needs a weight and L × W × H."; st.className = "modal-status error"; return; }
         // Typo guard — Delhivery bills on L×W×H/5000, so one wrong digit can cost thousands.
-        const hard = [], soft = [];
+        const soft = [];
         DL_BOXES.forEach((b, i) => {
             const n = `Box ${i + 1}`, side = Math.max(b.l, b.w, b.h), expect = dlSuggest(b).weight_g;
             const vol = b.l * b.w * b.h / 5, real = Math.max(b.weight_g, expect);
-            if (side > 100) hard.push(`${n}: a side of ${side} cm — no box we use is over 100 cm`);
-            if (b.weight_g > 30000) hard.push(`${n}: ${b.weight_g} g is over 30 kg`);
+            if (side > 100) soft.push(`${n}: a side of ${side} cm (over 100 cm)`);
+            if (b.weight_g > 30000) soft.push(`${n}: ${(b.weight_g / 1000).toFixed(1)} kg (over 30 kg)`);
             if (expect && b.weight_g < expect * 0.5) soft.push(`${n}: ${b.weight_g} g, but its items weigh ~${expect} g`);
             if (real && vol > real * 3 && vol > 2000) soft.push(`${n}: this size bills as ${(vol / 1000).toFixed(1)} kg, it weighs ~${(real / 1000).toFixed(1)} kg`);
         });
-        if (hard.length) { st.textContent = "Check the box: " + hard.join(" · "); st.className = "modal-status error"; return; }
-        if (soft.length && !confirm("These numbers look off — Delhivery will charge extra if they're wrong:\n\n" + soft.join("\n") + "\n\nBook anyway?")) return;
+        if (soft.length && !confirm("Please double-check — Delhivery charges extra if these are wrong:\n\n" + soft.join("\n") + "\n\nBook anyway?")) return;
         shipment.confirm_unusual = soft.length > 0;
         shipment.boxes = DL_BOXES.map(b => ({ weight_g: b.weight_g, l: b.l, w: b.w, h: b.h, lines: b.lines }));
         Object.assign(shipment, { weight_g: DL_BOXES.reduce((n, b) => n + b.weight_g, 0), l: DL_BOXES[0].l, w: DL_BOXES[0].w, h: DL_BOXES[0].h });
