@@ -967,3 +967,7 @@ body.tr-product-page .btn-primary:hover {
     box-shadow: 0 10px 24px rgba(42, 36, 32, 0.18);
 }
 body.tr-product-page .btn-primary:active { transform: translateY(0); box-shadow: 0 4px 12px rgba(42, 36, 32, 0.12); }
+
+/* price block was losing its bottom margin to the reset */
+body.tr-product-page .price-block { margin-bottom: 22px; }
+body.tr-product-page .price-row { margin-bottom: 8px; }
