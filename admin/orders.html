@@ -131,6 +131,14 @@
         .dl-done strong{font-family:monospace;font-size:14px;}
         .dl-done .btn-primary{margin-top:10px;}
         @media(max-width:640px){.span-3,.span-2{grid-column:span 6;}}
+        /* Phone: box size fields get a full row of their own so the numbers are readable */
+        @media(max-width:640px){
+            .dl-box{grid-template-columns:repeat(4,1fr);row-gap:8px;padding:10px 0;border-bottom:0.5px solid #f0ece8;}
+            .dl-box > :nth-child(1){grid-column:span 4;}
+            .dl-box > :nth-child(6){grid-column:span 2;}
+            .dl-box input{font-size:16px;padding:10px 8px;}
+            .dl-box .lbl{font-size:11px;}
+        }
         .gift-badge{display:inline-block;margin-left:6px;padding:2px 8px;border-radius:999px;background:#f3e9f7;color:#7a3f96;font-size:11px;vertical-align:1px;}
         /* Bulk ship */
         .bulk-cb{width:15px;height:15px;margin-right:8px;vertical-align:middle;cursor:pointer;accent-color:#3a3330;}
@@ -548,10 +556,10 @@
             const value = DL_LINES.filter(x => b.lines.includes(x.idx)).reduce((n, x) => n + x.unit * x.qty, 0);
             return `<div class="dl-box">
               <div><div class="lbl">Box ${i + 1}</div><div class="val">₹${value.toLocaleString("en-IN")}</div></div>
-              <div><div class="lbl">Weight g</div><input type="number" min="1" value="${b.weight_g}" oninput="DL_BOXES[${i}].weight_g=+this.value;dlBill(${i})"></div>
-              <div><div class="lbl">L cm</div><input type="number" min="1" value="${b.l}" oninput="DL_BOXES[${i}].l=+this.value;dlBill(${i})"></div>
-              <div><div class="lbl">W cm</div><input type="number" min="1" value="${b.w}" oninput="DL_BOXES[${i}].w=+this.value;dlBill(${i})"></div>
-              <div><div class="lbl">H cm</div><input type="number" min="1" value="${b.h}" oninput="DL_BOXES[${i}].h=+this.value;dlBill(${i})"></div>
+              <div><div class="lbl">Weight g</div><input type="number" inputmode="numeric" min="1" value="${b.weight_g}" oninput="DL_BOXES[${i}].weight_g=+this.value;dlBill(${i})"></div>
+              <div><div class="lbl">L cm</div><input type="number" inputmode="numeric" min="1" value="${b.l}" oninput="DL_BOXES[${i}].l=+this.value;dlBill(${i})"></div>
+              <div><div class="lbl">W cm</div><input type="number" inputmode="numeric" min="1" value="${b.w}" oninput="DL_BOXES[${i}].w=+this.value;dlBill(${i})"></div>
+              <div><div class="lbl">H cm</div><input type="number" inputmode="numeric" min="1" value="${b.h}" oninput="DL_BOXES[${i}].h=+this.value;dlBill(${i})"></div>
               <div class="val" id="dl-bill-${i}" style="font-size:11px;">${dlBillText(b)}</div>
               <div class="val" style="font-size:11px;color:#8a7f76;">${b.lines.length ? b.lines.length + " item" + (b.lines.length > 1 ? "s" : "") : "<span style='color:#b4563a'>empty</span>"}</div>
               <div>${DL_BOXES.length > 1 ? `<button type="button" class="rm" title="Remove box" onclick="dlRemoveBox(${i})">×</button>` : ""}</div>
