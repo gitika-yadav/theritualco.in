@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Find Your Colour – The Ritual Co. Colour Quiz</title>
+    <meta name="description" content="Four questions, four colours. Find your Ritual colour: Onyx Black, Vanilla Cream, Strawberry Milk or Oat Latte, and the pilates and yoga kit that matches your space."/>
+    <link rel="canonical" href="https://theritualco.in/find-your-colour"/>
+    <meta property="og:title" content="Which Ritual colour are you?"/>
+    <meta property="og:description" content="Onyx Black, Vanilla Cream, Strawberry Milk or Oat Latte? Take the 30-second quiz."/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://theritualco.in/find-your-colour"/>
+    <meta property="og:image" content="https://theritualco.in/images/hero-coffee.webp"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <link rel="icon" type="image/png" href="/images/favicon.png"/>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/global.css"/>
+    <link rel="stylesheet" href="/css/navbar.css"/>
+    <link rel="stylesheet" href="/css/footer.css"/>
+    <script src="/javascript/meta-pixel.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D366Q7R3XB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-D366Q7R3XB');
+    </script>
+    <style>
+        body{background:#F7F2EC;}
+        .q{max-width:640px;margin:0 auto;padding:120px 22px 80px;font-family:'DM Sans',sans-serif;color:#3a3330;text-align:center;min-height:80vh;}
+        .q h1,.q h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:400;color:#2a2420;margin:0;}
+        .q-eyebrow{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#8a7f76;margin:0 0 12px;}
+        .q-dots{display:flex;gap:10px;justify-content:center;margin:0 0 28px;}
+        .q-dots span{width:10px;height:10px;border-radius:50%;box-shadow:inset 0 -2px 3px rgba(0,0,0,.12);transition:transform .3s;}
+        .q-step{display:none;animation:fade .5s ease;}
+        .q-step.is-on{display:block;}
+        @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+        .q-intro h1{font-size:clamp(40px,7vw,60px);line-height:1.05;margin-bottom:14px;}
+        .q-intro p{font-size:16px;line-height:1.7;color:#7a6f68;margin:0 auto 30px;max-width:440px;}
+        .q-swatches{display:flex;gap:14px;justify-content:center;margin:0 0 34px;}
+        .q-swatches span{width:46px;height:46px;border-radius:50%;background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.42),rgba(255,255,255,0) 45%),var(--c);box-shadow:inset 0 -3px 6px rgba(0,0,0,.12),0 2px 6px rgba(40,30,20,.12);animation:bob 2.4s ease-in-out infinite;}
+        .q-swatches span:nth-child(2){animation-delay:.2s}.q-swatches span:nth-child(3){animation-delay:.4s}.q-swatches span:nth-child(4){animation-delay:.6s}
+        @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+        .q-btn{display:inline-block;background:#2a2420;color:#fff;border:0;border-radius:12px;padding:17px 34px;font:500 11.5px 'DM Sans',sans-serif;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;text-decoration:none;box-shadow:0 6px 18px rgba(42,36,32,.14);transition:transform .25s,background .25s;}
+        .q-btn:hover{background:#3a322c;transform:translateY(-2px);}
+        .q-btn--ghost{background:transparent;color:#2a2420;box-shadow:none;border:1px solid #d8cdc1;}
+        .q-btn--ghost:hover{background:#efe6dc;}
+        .q-count{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#a09890;margin:0 0 10px;}
+        .q-step h2{font-size:clamp(30px,5vw,40px);line-height:1.15;margin-bottom:28px;}
+        .q-opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+        .q-opt{background:#fff;border:1px solid #ece4da;border-radius:14px;padding:20px 16px;cursor:pointer;font:400 15px 'DM Sans',sans-serif;color:#3a3330;line-height:1.4;transition:transform .2s,border-color .2s,box-shadow .2s;text-align:left;display:flex;gap:12px;align-items:center;}
+        .q-opt:hover{transform:translateY(-2px);border-color:#c8b8a6;box-shadow:0 8px 20px rgba(42,36,32,.07);}
+        .q-opt .e{font-size:24px;flex-shrink:0;}
+        .q-back{margin-top:22px;background:none;border:0;color:#a09890;font:400 12px 'DM Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;}
+        /* result */
+        .r-reveal{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#8a7f76;margin:0 0 8px;}
+        .r-name{font-size:clamp(46px,9vw,72px);line-height:1;margin-bottom:6px;}
+        .r-tag{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:22px;color:#8a7f76;margin:0 0 26px;}
+        .r-media{position:relative;width:min(300px,78vw);aspect-ratio:9/16;margin:0 auto 26px;border-radius:22px;overflow:hidden;box-shadow:0 20px 50px rgba(42,36,32,.18);}
+        .r-media video{width:100%;height:100%;object-fit:cover;display:block;}
+        .r-wrap{position:relative;width:min(300px,78vw);margin:0 auto 26px;}.r-wrap .r-media{margin:0;}.r-burst{position:absolute;left:-60px;top:-60px;width:calc(100% + 120px);height:calc(100% + 120px);pointer-events:none;}
+        .r-copy{font-size:16px;line-height:1.75;color:#5a514b;max-width:470px;margin:0 auto 26px;}
+        .r-pairs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:0 0 28px;}
+        .r-pairs span{font-size:12px;background:#fff;border:1px solid #ece4da;border-radius:999px;padding:6px 12px;color:#5a514b;}
+        .r-ctas{display:flex;flex-direction:column;gap:10px;align-items:center;}
+        .r-ctas .q-btn{min-width:270px;}
+        .r-small{margin-top:18px;font-size:12px;color:#a09890;}
+        .r-small button{background:none;border:0;color:#5a514b;text-decoration:underline;text-decoration-color:#c8b8a6;text-underline-offset:3px;cursor:pointer;font:inherit;}
+        @media(max-width:560px){.q{padding-top:100px}.q-opts{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+<div id="navbar-placeholder"></div>
+
+<main class="q" id="quiz">
+    <section class="q-step q-intro is-on" data-step="0">
+        <p class="q-eyebrow">The Ritual Co. · Colour Quiz</p>
+        <h1>Which Ritual colour<br>are you?</h1>
+        <div class="q-swatches"><span style="--c:#1c1a19"></span><span style="--c:#efe6d8"></span><span style="--c:#f1cdc6"></span><span style="--c:#6b4e3b"></span></div>
+        <p>Four questions, thirty seconds. Find the colour that matches your space, your mornings and the way you move.</p>
+        <button class="q-btn" data-start>Find my colour</button>
+    </section>
+    <div id="q-steps"></div>
+    <section class="q-step" data-step="result" id="result"></section>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script>
+(function () {
+    var C = {
+        black:  { name: 'Onyx Black',      tag: 'Grounded & bold',  hex: '#1c1a19', ink: '#f3ede6', video: '/videos/reel-kit-black.mp4',     poster: '/videos/reel-kit-black.jpg',
+                  copy: 'You like things clean, focused and a little dramatic. Your ritual is about strength and no-nonsense calm: a dark mat that grounds the room and pieces that look sharp in any space.',
+                  pairs: ['Moody minimal rooms', 'Early, focused workouts', 'All-black everything'] },
+        cream:  { name: 'Vanilla Cream',   tag: 'Soft & airy',      hex: '#efe6d8', ink: '#2a2420', video: '/videos/reel-kit-cream.mp4',     poster: '/videos/reel-kit-cream.jpg',
+                  copy: 'Light, calm and quietly elegant. Your ritual is a slow stretch in a sunlit room, where everything feels clean and unhurried and your kit blends into the space like it was always there.',
+                  pairs: ['White and airy rooms', 'Slow morning flows', 'Matching neutral sets'] },
+        pink:   { name: 'Strawberry Milk', tag: 'Playful & sweet',  hex: '#f1cdc6', ink: '#2a2420', video: '/videos/reel-kit-pink.mp4',      poster: '/videos/reel-kit-pink.jpg',
+                  copy: 'Joyful, soft and unapologetically pretty. Your ritual is the best part of your day: a playlist on, a pink mat out and pieces that make you want to show up again tomorrow.',
+                  pairs: ['Cosy, colourful corners', 'Pilates with a playlist', 'Pink pilates princess'] },
+        coffee: { name: 'Oat Latte',       tag: 'Warm & earthy',    hex: '#6b4e3b', ink: '#f3ede6', video: '/videos/reel-kit-oat-latte.mp4', poster: '/videos/reel-kit-oat-latte.jpg',
+                  copy: 'Warm, grounded and effortlessly put-together. Your ritual feels like your favourite café: wood floors, soft light and earthy tones that make home workouts feel like a treat.',
+                  pairs: ['Wood floors and plants', 'Coffee-first mornings', 'Earthy neutral fits'] }
+    };
+    var Q = [
+        { q: 'Your space feels most like…', o: [
+            ['coffee', '🪴', 'Warm wood, plants and soft light'], ['cream', '🤍', 'All-white, airy and calm'],
+            ['black', '🖤', 'Moody, minimal and sleek'], ['pink', '🌸', 'Cosy, sunny and a little cute'] ] },
+        { q: 'Your morning starts with…', o: [
+            ['coffee', '☕', 'An oat latte, obviously'], ['cream', '🍵', 'Matcha and a slow stretch'],
+            ['black', '⚡', 'Black coffee and a to-do list'], ['pink', '🍓', 'A smoothie and a playlist'] ] },
+        { q: 'Your go-to workout fit is…', o: [
+            ['coffee', '🤎', 'Earthy neutrals, mocha and beige'], ['cream', '🥛', 'Head-to-toe cream and white'],
+            ['black', '🖤', 'All black everything'], ['pink', '🎀', 'Pink, with a bow somewhere'] ] },
+        { q: 'You want your ritual to feel…', o: [
+            ['coffee', '🕯️', 'Warm and grounding'], ['cream', '☁️', 'Calm and clean'],
+            ['black', '💪', 'Strong and focused'], ['pink', '✨', 'Fun and joyful'] ] }
+    ];
+    var answers = [];
+    var stepsEl = document.getElementById('q-steps');
+
+    function dots(n) {
+        var cols = ['#1c1a19', '#efe6d8', '#f1cdc6', '#6b4e3b'];
+        return '<div class="q-dots">' + Q.map(function (_, i) {
+            return '<span style="background:' + (i < n ? cols[i] : '#e6ddd3') + ';' + (i === n ? 'transform:scale(1.3)' : '') + '"></span>';
+        }).join('') + '</div>';
+    }
+    stepsEl.innerHTML = Q.map(function (s, i) {
+        return '<section class="q-step" data-step="' + (i + 1) + '">' + dots(i) +
+            '<p class="q-count">Question ' + (i + 1) + ' of ' + Q.length + '</p><h2>' + s.q + '</h2><div class="q-opts">' +
+            s.o.map(function (o) { return '<button class="q-opt" data-pick="' + o[0] + '"><span class="e">' + o[1] + '</span><span>' + o[2] + '</span></button>'; }).join('') +
+            '</div>' + (i ? '<button class="q-back" data-back>← Back</button>' : '') + '</section>';
+    }).join('');
+
+    function show(step) {
+        document.querySelectorAll('.q-step').forEach(function (s) { s.classList.toggle('is-on', s.getAttribute('data-step') === String(step)); });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function score() {
+        var t = { black: 0, cream: 0, pink: 0, coffee: 0 };
+        answers.forEach(function (a) { t[a]++; });
+        var best = Object.keys(t).sort(function (a, b) { return t[b] - t[a]; });
+        var last = answers[answers.length - 1];
+        if (t[best[0]] === t[best[1]] && t[last] === t[best[0]]) return last;
+        return best[0];
+    }
+
+    function confetti(canvas, hex) {
+        var ctx = canvas.getContext('2d'), W = canvas.width = canvas.offsetWidth * 2, H = canvas.height = canvas.offsetHeight * 2;
+        var cols = [hex, '#c8b8a6', '#efe6d8', '#ffffff'], ps = [];
+        for (var i = 0; i < 70; i++) ps.push({ x: W / 2, y: H / 2, vx: (Math.random() - .5) * 22, vy: (Math.random() - .5) * 22 - 6, r: 4 + Math.random() * 6, c: cols[i % cols.length], a: 1 });
+        (function tick() {
+            ctx.clearRect(0, 0, W, H); var alive = false;
+            ps.forEach(function (p) { p.x += p.vx; p.y += p.vy; p.vy += .5; p.vx *= .98; p.a -= .014; if (p.a > 0) { alive = true; ctx.globalAlpha = p.a; ctx.fillStyle = p.c; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.3); ctx.fill(); } });
+            if (alive) requestAnimationFrame(tick);
+        })();
+    }
+
+    function result() {
+        var k = score(), c = C[k];
+        try { localStorage.setItem('ritual_colour', k); } catch (e) {}
+        if (window.gtag) gtag('event', 'quiz_result', { quiz: 'find_your_colour', colour: k });
+        var el = document.getElementById('result');
+        el.innerHTML =
+            '<p class="r-reveal">You are</p><h2 class="r-name">' + c.name + '</h2><p class="r-tag">' + c.tag + '</p>' +
+            '<div class="r-wrap"><div class="r-media"><video src="' + c.video + '" poster="' + c.poster + '" autoplay muted loop playsinline></video></div><canvas class="r-burst"></canvas></div>' +
+            '<p class="r-copy">' + c.copy + '</p>' +
+            '<div class="r-pairs">' + c.pairs.map(function (p) { return '<span>' + p + '</span>'; }).join('') + '</div>' +
+            '<div class="r-ctas"><a class="q-btn" href="/products/products?color=' + k + '">Shop ' + c.name + '</a>' +
+            '<a class="q-btn q-btn--ghost" href="/products/bundles">See the kits in ' + c.name + '</a></div>' +
+            '<p class="r-small"><button data-share>Share my colour</button> &nbsp;·&nbsp; <button data-retake>Retake the quiz</button></p>';
+        show('result');
+        var cv = el.querySelector('.r-burst');
+        setTimeout(function () { confetti(cv, c.hex); }, 250);
+        el.querySelector('[data-retake]').onclick = function () { answers = []; show(0); };
+        el.querySelector('[data-share]').onclick = function () { share(k); };
+    }
+
+    function share(k) {
+        var c = C[k], cv = document.createElement('canvas'); cv.width = 1080; cv.height = 1920;
+        var x = cv.getContext('2d');
+        x.fillStyle = '#F7F2EC'; x.fillRect(0, 0, 1080, 1920);
+        x.fillStyle = c.hex; x.beginPath(); x.arc(540, 760, 300, 0, 6.3); x.fill();
+        var g = x.createRadialGradient(440, 660, 10, 440, 660, 260); g.addColorStop(0, 'rgba(255,255,255,.45)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+        x.fillStyle = g; x.beginPath(); x.arc(540, 760, 300, 0, 6.3); x.fill();
+        x.textAlign = 'center'; x.fillStyle = '#8a7f76';
+        x.font = '500 34px "DM Sans", sans-serif'; x.fillText('MY RITUAL COLOUR IS', 540, 300);
+        x.fillStyle = '#2a2420'; x.font = '400 128px "Cormorant Garamond", Georgia, serif'; x.fillText(c.name, 540, 1230);
+        x.fillStyle = '#8a7f76'; x.font = 'italic 400 56px "Cormorant Garamond", Georgia, serif'; x.fillText(c.tag, 540, 1320);
+        x.font = '400 34px "DM Sans", sans-serif'; x.fillText('Find yours → theritualco.in/find-your-colour', 540, 1720);
+        x.fillStyle = '#2a2420'; x.font = '400 44px "Cormorant Garamond", Georgia, serif'; x.fillText('The Ritual Co.', 540, 1790);
+        if (window.gtag) gtag('event', 'share', { method: 'quiz_card', content_type: 'colour', item_id: k });
+        cv.toBlob(function (b) {
+            var file = new File([b], 'my-ritual-colour.png', { type: 'image/png' });
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                navigator.share({ files: [file], title: 'My Ritual colour', text: 'I\'m ' + c.name + '! Find yours at theritualco.in/find-your-colour' }).catch(function () {});
+            } else {
+                var a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'my-ritual-colour.png'; a.click();
+            }
+        }, 'image/png');
+    }
+
+    document.querySelector('[data-start]').onclick = function () {
+        answers = []; show(1);
+        if (window.gtag) gtag('event', 'quiz_start', { quiz: 'find_your_colour' });
+    };
+    stepsEl.addEventListener('click', function (e) {
+        var pick = e.target.closest('[data-pick]'), back = e.target.closest('[data-back]');
+        var step = +e.target.closest('.q-step').getAttribute('data-step');
+        if (pick) { answers[step - 1] = pick.getAttribute('data-pick'); answers.length = step; step < Q.length ? show(step + 1) : result(); }
+        if (back) { show(step - 1); }
+    });
+})();
+</script>
+<script src="/javascript/init.js"></script>
+</body>
+</html>
