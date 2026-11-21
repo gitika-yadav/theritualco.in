@@ -714,7 +714,3 @@
     transition: background 0.2s, color 0.2s;
 }
 #cart-drawer .cd-up-btn:hover { background: #3a3330; color: #fff; }
-
-/* Reassurance lines above "Proceed to Checkout" (drawer + cart page) */
-.cart-trust { margin: 0 0 14px; font-family: 'DM Sans', sans-serif; font-size: 12px; line-height: 1.5; color: #6b6660; }
-.cart-trust p { margin: 0 0 4px; }
