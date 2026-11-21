@@ -1,3 +1,4 @@
+const { giftLinkBlock } = require("./shared/gift-link");
 const Razorpay = require("razorpay");
 const { prepaidOwnerEmail } = require("./shared/owner-email");
 const crypto = require("crypto");
@@ -188,6 +189,7 @@ ${itemRows}
 <tr><td style="color: #a09890; padding: 4px 0;">Payment ID</td><td style="text-align: right; font-size: 11px; color: #a09890;">${payment_id}</td></tr>
 </table>
 </div>
+${giftLinkBlock(order)}
 <p style="font-size: 13px; color: #7a6f68; line-height: 1.7; margin: 0 0 24px;">
 We'll send you a shipping notification with tracking details once your order is dispatched.
 For any questions, reply to this email or WhatsApp us.

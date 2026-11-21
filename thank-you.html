@@ -36,6 +36,39 @@
             Thank you for being an early supporter. A confirmation email is on its way to you with your order details.
         </p>
 
+        <div id="ty-gift" hidden style="background:#faf6f2;border-radius:16px;padding:22px 22px 20px;margin:26px 0 6px;text-align:center;">
+            <p style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#8a7f76;margin:0 0 8px;">🎁 Your digital gift card</p>
+            <p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;color:#2a2420;margin:0 0 8px;line-height:1.2;">Send <span id="ty-gift-to">them</span> a surprise</p>
+            <p style="font-size:13px;color:#7a6f68;line-height:1.6;margin:0 0 16px;">An animated card with your message that they unwrap on their phone, with live delivery status. No prices, ever.</p>
+            <a id="ty-gift-wa" href="#" target="_blank" rel="noopener" style="display:block;background:#2a2420;color:#fff;text-decoration:none;border-radius:12px;padding:14px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:8px;">Send on WhatsApp</a>
+            <div style="display:flex;gap:8px;">
+                <a id="ty-gift-open" href="#" target="_blank" rel="noopener" style="flex:1;border:1px solid #d8cdc1;color:#2a2420;text-decoration:none;border-radius:12px;padding:12px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;">Preview</a>
+                <button id="ty-gift-copy" type="button" style="flex:1;border:1px solid #d8cdc1;background:none;color:#2a2420;border-radius:12px;padding:12px;font:inherit;font-size:11px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;">Copy link</button>
+            </div>
+            <p style="font-size:11px;color:#a09890;margin:12px 0 0;">The link is also in your confirmation email. Send it whenever you like.</p>
+        </div>
+        <script>
+        (function () {
+            var g = null;
+            try { g = JSON.parse(localStorage.getItem("rc_last_gift") || "null"); } catch (e) {}
+            if (!g || !g.t) return;
+            var url = "https://theritualco.in/gift?t=" + encodeURIComponent(g.t);
+            var first = String(g.to || "them").split(" ")[0];
+            var phone = String(g.phone || "").replace(/\D/g, "").replace(/^91(?=\d{10}$)/, "");
+            var text = "Hey " + first + "! I sent you a little something 🎁 Unwrap it here: " + url;
+            document.getElementById("ty-gift-to").textContent = first;
+            document.getElementById("ty-gift-wa").href = "https://wa.me/" + (phone.length === 10 ? "91" + phone : "") + "?text=" + encodeURIComponent(text);
+            document.getElementById("ty-gift-open").href = url;
+            document.getElementById("ty-gift-copy").onclick = function () {
+                var b = this;
+                (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(function () { b.textContent = "Copied ✓"; }, function () { prompt("Copy this link", url); });
+            };
+            document.getElementById("ty-gift").hidden = false;
+            if (window.gtag) gtag("event", "gift_link_shown");
+            document.getElementById("ty-gift-wa").addEventListener("click", function () { if (window.gtag) gtag("event", "gift_link_sent", { method: "whatsapp" }); });
+        })();
+        </script>
+
         <hr class="ty-divider"/>
 
         <p class="ty-what-next">What happens next</p>

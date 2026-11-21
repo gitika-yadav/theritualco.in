@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>A gift for you 🎁 · The Ritual Co.</title>
+    <meta name="robots" content="noindex, nofollow"/>
+    <meta property="og:title" content="Someone sent you a gift 🎁"/>
+    <meta property="og:description" content="Tap to unwrap your note from The Ritual Co."/>
+    <meta property="og:image" content="https://theritualco.in/images/hero-cream.webp"/>
+    <link rel="icon" type="image/png" href="/images/favicon.png"/>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"/>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D366Q7R3XB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-D366Q7R3XB');
+    </script>
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0;}
+        html,body{height:100%;}
+        body{background:radial-gradient(ellipse at top,#fbf7f2,#efe6dc);font-family:'DM Sans',sans-serif;color:#3a3330;overflow-x:hidden;}
+        .g{min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 22px 40px;text-align:center;}
+        .brand{font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;color:#2a2420;letter-spacing:.02em;margin-bottom:34px;text-decoration:none;}
+        .eyebrow{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#8a7f76;margin-bottom:10px;}
+        h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:400;font-size:clamp(34px,8vw,48px);line-height:1.1;color:#2a2420;margin-bottom:34px;}
+        /* gift box */
+        .box{position:relative;width:210px;height:200px;cursor:pointer;margin:10px 0 26px;-webkit-tap-highlight-color:transparent;animation:wiggle 3.2s ease-in-out infinite;}
+        .box:focus-visible{outline:2px solid #c8b8a6;outline-offset:8px;border-radius:12px;}
+        @keyframes wiggle{0%,82%,100%{transform:rotate(0)}86%{transform:rotate(-4deg)}90%{transform:rotate(4deg)}94%{transform:rotate(-2deg)}}
+        .box__base{position:absolute;bottom:0;left:10px;width:190px;height:140px;border-radius:10px;background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.28),rgba(255,255,255,0) 55%),var(--bc);box-shadow:inset 0 -10px 18px rgba(0,0,0,.12),0 18px 34px rgba(42,36,32,.18);transition:transform .8s cubic-bezier(.6,0,.4,1),opacity .6s .3s;}
+        .box__lid{position:absolute;bottom:128px;left:0;width:210px;height:44px;border-radius:9px;background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.3),rgba(255,255,255,0) 55%),var(--bc);box-shadow:inset 0 -6px 10px rgba(0,0,0,.12),0 6px 12px rgba(42,36,32,.12);transition:transform .9s cubic-bezier(.5,-0.4,.3,1.2),opacity .5s .5s;z-index:2;}
+        .rib-v{position:absolute;left:50%;top:0;bottom:0;width:26px;margin-left:-13px;background:var(--rc);box-shadow:inset 0 0 0 1px rgba(0,0,0,.04);transform-origin:top;transition:transform .5s ease-in;}
+        .rib-h{position:absolute;top:50%;left:0;right:0;height:22px;margin-top:-11px;background:var(--rc);transform-origin:left;transition:transform .5s ease-in;}
+        .bow{position:absolute;left:50%;top:-34px;width:0;height:0;z-index:3;transition:transform .6s ease-in,opacity .4s;}
+        .bow::before,.bow::after{content:"";position:absolute;top:0;width:50px;height:36px;border:10px solid var(--rc);border-radius:50% 50% 50% 50%/60% 60% 40% 40%;}
+        .bow::before{right:0;transform:rotate(-24deg);transform-origin:right bottom;}
+        .bow::after{left:0;transform:rotate(24deg);transform-origin:left bottom;}
+        .bow i{position:absolute;left:-10px;top:24px;width:20px;height:18px;border-radius:6px;background:var(--rc);}
+        .tap{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#2a2420;border-bottom:1px solid #c8b8a6;padding-bottom:3px;animation:pulse 2s ease-in-out infinite;}
+        @keyframes pulse{50%{opacity:.45}}
+        /* opened */
+        .box{transition:height .6s ease .7s,margin .6s ease .7s;}
+        .open .box{animation:none;cursor:default;height:0;margin:0;}
+        .open .brand{margin-bottom:40px;}
+        .open .rib-v{transform:scaleY(0);}
+        .open .rib-h{transform:scaleX(0);}
+        .open .bow{transform:translateY(-60px) rotate(-30deg);opacity:0;}
+        .open .box__lid{transform:translate(120px,-160px) rotate(38deg);opacity:0;}
+        .open .box__base{transform:translateY(40px) scale(.9);opacity:0;}
+        .open .tap,.open h1,.open .eyebrow{display:none;}
+        /* card */
+        .card{display:none;position:relative;width:min(380px,92vw);background:#fffdfa;border-radius:20px;padding:40px 30px 30px;box-shadow:0 24px 60px rgba(42,36,32,.16);border:1px solid #efe6dc;}
+        .open .card{display:block;animation:rise 1s cubic-bezier(.2,.8,.2,1) .55s both;}
+        @keyframes rise{from{opacity:0;transform:translateY(80px) scale(.94)}to{opacity:1;transform:none}}
+        .card::before{content:"";position:absolute;left:50%;top:-18px;width:36px;height:36px;margin-left:-18px;border-radius:50%;background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.45),rgba(255,255,255,0) 45%),var(--bc);box-shadow:inset 0 -3px 6px rgba(0,0,0,.15),0 4px 10px rgba(42,36,32,.15);}
+        .card .dear{font-family:'Cormorant Garamond',Georgia,serif;font-size:30px;color:#2a2420;margin-bottom:14px;}
+        .card .msg{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:22px;line-height:1.5;color:#5a514b;margin-bottom:18px;white-space:pre-line;}
+        .card .from{font-size:13px;color:#8a7f76;margin-bottom:24px;}
+        .card .from b{font-weight:500;color:#3a3330;}
+        .status{display:flex;justify-content:space-between;position:relative;margin:0 4px 26px;}
+        .status::before{content:"";position:absolute;left:8px;right:8px;top:7px;height:2px;background:#efe6dc;}
+        .status .fill{position:absolute;left:8px;top:7px;height:2px;background:var(--bc);transition:width 1.2s 1.4s ease;}
+        .status span{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#a09890;width:33%;}
+        .status span::before{content:"";width:16px;height:16px;border-radius:50%;background:#efe6dc;border:3px solid #fffdfa;box-shadow:0 0 0 1px #e6ddd3;}
+        .status span.on{color:#2a2420;}
+        .status span.on::before{background:var(--bc);}
+        .status span:first-child{align-items:flex-start;}.status span:last-child{align-items:flex-end;}
+        .peek{background:none;border:1px solid #d8cdc1;border-radius:12px;padding:13px 18px;font:500 11px 'DM Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#2a2420;cursor:pointer;width:100%;}
+        .peek:hover{background:#faf6f2;}
+        .inside{display:none;text-align:left;margin-top:16px;border-top:1px solid #efe6dc;padding-top:14px;}
+        .inside.on{display:block;animation:rise .6s ease both;}
+        .inside li{list-style:none;display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid #f5efe8;font-size:14px;}
+        .inside li span:first-child{font-family:'Cormorant Garamond',Georgia,serif;font-size:18px;color:#2a2420;}
+        .inside li span:last-child{color:#8a7f76;font-size:12px;align-self:center;text-align:right;}
+        .after{display:none;margin-top:26px;font-size:12px;color:#8a7f76;line-height:1.7;}
+        .open .after{display:block;animation:rise .8s ease 1.6s both;}
+        .after a{color:#2a2420;text-decoration:underline;text-decoration-color:#c8b8a6;text-underline-offset:3px;}
+        canvas.fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:5;}
+        .demo{position:fixed;top:10px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:.14em;text-transform:uppercase;background:#2a2420;color:#fff;padding:5px 10px;border-radius:999px;}
+        .missing h1{margin-bottom:14px;} .missing p{color:#7a6f68;font-size:15px;line-height:1.7;max-width:360px;margin-bottom:22px;}
+        @media (prefers-reduced-motion: reduce){.box{animation:none}.tap{animation:none}}
+    </style>
+</head>
+<body>
+<main class="g" id="g" style="--bc:#efe6d8;--rc:#fffdfa">
+    <a class="brand" href="/">The Ritual Co.</a>
+    <p class="eyebrow" id="eyebrow">A little something</p>
+    <h1 id="headline">Opening…</h1>
+    <div class="box" id="box" role="button" tabindex="0" aria-label="Unwrap your gift" hidden>
+        <div class="box__lid"><span class="rib-v"></span><span class="bow"><i></i></span></div>
+        <div class="box__base"><span class="rib-v"></span><span class="rib-h"></span></div>
+    </div>
+    <p class="tap" id="tap" hidden>Tap to unwrap</p>
+    <section class="card" id="card" aria-live="polite"></section>
+    <p class="after">Made with care by <a href="/">The Ritual Co.</a>, aesthetic pilates &amp; yoga pieces for the home.</p>
+</main>
+<canvas class="fx" id="fx"></canvas>
+
+<script>
+(function () {
+    var HEX = { 'Onyx Black': '#2b2826', 'Vanilla Cream': '#efe6d8', 'Strawberry Milk': '#f1cdc6', 'Oat Latte': '#8a6a55' };
+    var RIB = { 'Onyx Black': '#efe6d8', 'Vanilla Cream': '#c8a98d', 'Strawberry Milk': '#fffdfa', 'Oat Latte': '#f3ede6' };
+    var params = new URLSearchParams(location.search);
+    var g = document.getElementById('g');
+    function esc(s) { return String(s || '').replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+    function missing() {
+        g.classList.add('missing');
+        document.getElementById('eyebrow').textContent = 'Hmm';
+        document.getElementById('headline').textContent = "We couldn't find this gift";
+        var p = document.createElement('p');
+        p.innerHTML = 'The link may be incomplete. Please check it with the person who sent it, or <a href="https://wa.me/917011199090" style="color:#2a2420">WhatsApp us</a>.';
+        g.insertBefore(p, document.querySelector('.after'));
+    }
+
+    function render(d) {
+        var colour = (d.items[0] && d.items[0].colour) || 'Vanilla Cream';
+        g.style.setProperty('--bc', HEX[colour] || '#efe6d8');
+        g.style.setProperty('--rc', RIB[colour] || '#fffdfa');
+        document.getElementById('eyebrow').textContent = d.from ? 'From ' + d.from : 'A little something';
+        document.getElementById('headline').innerHTML = esc(d.to || 'Hello') + ',<br>something is on its way to you';
+        var box = document.getElementById('box'), tap = document.getElementById('tap');
+        box.hidden = false; tap.hidden = false;
+
+        var steps = ['Being prepared', 'On its way', 'Arrived'];
+        var idx = { preparing: 0, shipped: 1, delivered: 2 }[d.stage];
+        var statusHtml = idx === undefined ? '' :
+            '<div class="status"><i class="fill" style="width:0" data-w="' + (idx * 50) + '%"></i>' +
+            steps.map(function (s, i) { return '<span class="' + (i <= idx ? 'on' : '') + '">' + s + '</span>'; }).join('') + '</div>';
+        var card = document.getElementById('card');
+        card.innerHTML =
+            '<p class="dear">Dear ' + esc(d.to || 'you') + ',</p>' +
+            (d.message ? '<p class="msg">“' + esc(d.message) + '”</p>' : '<p class="msg">A little ritual, just for you.</p>') +
+            '<p class="from">with love, <b>' + esc(d.from || 'someone who thinks of you') + '</b></p>' + statusHtml +
+            (d.items.length ? '<button class="peek" id="peek">Peek inside? Or keep the surprise</button><ul class="inside" id="inside">' +
+                d.items.map(function (i) { return '<li><span>' + esc(i.name) + '</span><span>' + esc(i.colour) + (i.qty > 1 ? ' × ' + i.qty : '') + '</span></li>'; }).join('') + '</ul>' : '');
+
+        function open() {
+            if (g.classList.contains('open')) return;
+            g.classList.add('open');
+            setTimeout(function () { confetti(HEX[colour] || '#efe6d8'); }, 450);
+            var f = card.querySelector('.fill'); if (f) setTimeout(function () { f.style.width = 'calc(' + f.getAttribute('data-w') + ' - 8px)'; }, 60);
+            if (navigator.vibrate) navigator.vibrate([20, 40, 30]);
+            if (window.gtag) gtag('event', 'gift_unwrapped', { stage: d.stage, demo: !!d.demo });
+        }
+        box.addEventListener('click', open);
+        box.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+        var peek = document.getElementById('peek');
+        if (peek) peek.addEventListener('click', function () {
+            document.getElementById('inside').classList.add('on'); peek.style.display = 'none';
+            if (window.gtag) gtag('event', 'gift_peek');
+        });
+    }
+
+    function confetti(main) {
+        var cv = document.getElementById('fx'), x = cv.getContext('2d');
+        var W = cv.width = innerWidth * devicePixelRatio, H = cv.height = innerHeight * devicePixelRatio, s = devicePixelRatio;
+        var cols = [main, '#c8b8a6', '#f1cdc6', '#efe6d8', '#8a6a55'], ps = [];
+        for (var i = 0; i < 140; i++) ps.push({ x: W / 2, y: H * .42, vx: (Math.random() - .5) * 26 * s, vy: (-Math.random() * 22 - 6) * s, w: (5 + Math.random() * 7) * s, h: (3 + Math.random() * 5) * s, r: Math.random() * 6, vr: (Math.random() - .5) * .3, c: cols[i % cols.length], a: 1 });
+        (function tick() {
+            x.clearRect(0, 0, W, H); var alive = false;
+            ps.forEach(function (p) {
+                p.x += p.vx; p.y += p.vy; p.vy += .55 * s; p.vx *= .985; p.r += p.vr; p.a -= .007;
+                if (p.a > 0 && p.y < H + 40) { alive = true; x.save(); x.globalAlpha = Math.max(p.a, 0); x.translate(p.x, p.y); x.rotate(p.r); x.fillStyle = p.c; x.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); x.restore(); }
+            });
+            if (alive) requestAnimationFrame(tick); else x.clearRect(0, 0, W, H);
+        })();
+    }
+
+    if (params.get('demo') === '1') {
+        var b = document.createElement('div'); b.className = 'demo'; b.textContent = 'Preview · sample gift'; document.body.appendChild(b);
+        render({ demo: true, to: 'Riya', from: 'Ananya', message: 'Happy birthday, Riya! For all the slow mornings you deserve. Love you lots.', stage: 'shipped',
+                 items: [{ name: 'Pilates Starter Kit', colour: 'Strawberry Milk', qty: 1 }] });
+        return;
+    }
+    var t = params.get('t');
+    if (!t) return missing();
+    fetch('/.netlify/functions/gift-public?t=' + encodeURIComponent(t))
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) { d ? render(d) : missing(); })
+        .catch(missing);
+})();
+</script>
+</body>
+</html>
