@@ -1,4 +1,6 @@
 const Razorpay = require("razorpay");
+const crypto = require("crypto");
+const { giftLinkBlock } = require("./shared/gift-link");
 const { giftRows } = require("./shared/owner-email");
 const { createClient } = require("@supabase/supabase-js");
 const { PRODUCT_MAP, resolveProductKey } = require("./shared/product-map");
@@ -249,6 +251,7 @@ exports.handler = async (event) => {
             orderData.gift_recipient = clean(body.gift.recipient, 80);
             orderData.gift_recipient_phone = clean(body.gift.recipient_phone, 15).replace(/[^\d+ ]/g, "") || null;
             orderData.gift_message = clean(body.gift.message, 200) || null;
+            orderData.gift_token = crypto.randomBytes(9).toString("base64url");
         }
         if (user_id) {
             orderData.user_id = user_id;
@@ -313,6 +316,7 @@ exports.handler = async (event) => {
                         <tr><td style="color:#a09890;padding-top:10px;border-top:1px solid #e8e2dc;">Amount due on delivery</td><td style="text-align:right;font-weight:500;padding-top:10px;border-top:1px solid #e8e2dc;">₹${amount}</td></tr>
                         </table>
                         </div>
+                        ${giftLinkBlock(orderData)}
                         <p style="font-size: 13px; color: #7a6f68; line-height: 1.7; margin: 0 0 24px;">
                         Please keep the exact amount ready for our delivery partner. We'll send a shipping notification with tracking details once dispatched.
                         </p>
@@ -370,6 +374,7 @@ exports.handler = async (event) => {
                 internal_order_ids: order.id,
                 items:             orderItems,
                 payment_method:    isCod ? "cod" : "online",
+                gift_token:        orderData.gift_token || null,
             }),
         };
 

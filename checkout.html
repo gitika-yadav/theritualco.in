@@ -346,6 +346,7 @@
         const pincode  = document.getElementById("pincode").value.trim();
         const city     = document.getElementById("city").value.trim();
         const state    = document.getElementById("state").value.trim();
+        try { localStorage.removeItem("rc_last_gift"); } catch (e) {}
         const giftOn   = document.getElementById("gift-on").checked;
         const gift     = giftOn ? {
             recipient: document.getElementById("gift-recipient").value.trim(),
@@ -464,6 +465,9 @@
                     btn.disabled = false; btn.textContent = "Continue To Payment";
                     return;
                 }
+                if (order.gift_token && gift) {
+                    try { localStorage.setItem("rc_last_gift", JSON.stringify({ t: order.gift_token, to: gift.recipient, phone: gift.recipient_phone })); } catch (e) {}
+                }
                 // GA4 "purchase" is sent once, with the items, from thank-you.html (reads rc_last_order below).
                 if (appliedDiscount) {
                     await fetch("/.netlify/functions/apply-discount", {
@@ -517,6 +521,9 @@
                 alert(order.error || "Could not create order. Please try again.");
                 btn.disabled = false; btn.textContent = "Continue To Payment";
                 return;
+            }
+            if (order.gift_token && gift) {
+                try { localStorage.setItem("rc_last_gift", JSON.stringify({ t: order.gift_token, to: gift.recipient, phone: gift.recipient_phone })); } catch (e) {}
             }
 
             gtag("event", "begin_checkout", { currency: "INR", value: order.amount / 100 });
