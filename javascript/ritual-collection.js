@@ -26,6 +26,8 @@
   // Orders that don't count as owned
   var SKIP = { pending: 1, cancelled: 1, refunded: 1, rto: 1, returned: 1, failed: 1 };
 
+  var COLOUR = { black: 'Onyx Black', cream: 'Vanilla Cream', pink: 'Strawberry Milk', coffee: 'Oat Latte' };
+  function niceColour(c) { return COLOUR[String(c).toLowerCase()] || c; }
   function esc(s) { return String(s || '').replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
 
   window.renderRitualCollection = function (orders, el) {
@@ -47,7 +49,8 @@
         }
         (keys || []).forEach(function (k) {
           owned[k] = owned[k] || [];
-          if (i.color && owned[k].indexOf(i.color) === -1) owned[k].push(i.color);
+          var c = i.color && niceColour(i.color);
+          if (c && owned[k].indexOf(c) === -1) owned[k].push(c);
         });
       });
     });
