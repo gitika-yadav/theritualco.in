@@ -63,16 +63,18 @@
         <div id="auth-greeting" class="auth-greeting" style="display:none"></div>
 
         <div class="form-grid">
-            <input id="name"    placeholder="Full Name"        required>
-            <input id="email"   placeholder="Email"            required>
-            <input id="phone"   placeholder="Phone Number"     required>
-            <input id="address" placeholder="Flat / House no, Building, Street, Area" required>
-            <input id="landmark" placeholder="Landmark (optional)">
+            <!-- Email first: as soon as it's typed the cart is saved for one reminder email (checkout-capture.js).
+                 autocomplete lets phones fill name, phone and address in one tap. -->
+            <input id="email"   type="email" placeholder="Email" autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false" required>
+            <input id="phone"   type="tel" placeholder="Phone Number" autocomplete="tel-national" inputmode="tel" required>
+            <input id="name"    placeholder="Full Name" autocomplete="name" required>
+            <input id="address" placeholder="Flat / House no, Building, Street, Area" autocomplete="address-line1" required>
+            <input id="landmark" placeholder="Landmark (optional)" autocomplete="address-line2">
             <div class="pincode-row" style="display:flex;gap:10px;">
-                <input id="pincode" placeholder="Pincode" inputmode="numeric" maxlength="6" required style="flex:0 0 38%;">
-                <input id="city" placeholder="City" required readonly style="flex:1;background:#f5f2ee;">
+                <input id="pincode" placeholder="Pincode" inputmode="numeric" autocomplete="postal-code" maxlength="6" required style="flex:0 0 38%;">
+                <input id="city" placeholder="City" autocomplete="address-level2" required readonly style="flex:1;background:#f5f2ee;">
             </div>
-            <input id="state" placeholder="State" required readonly style="background:#f5f2ee;">
+            <input id="state" placeholder="State" autocomplete="address-level1" required readonly style="background:#f5f2ee;">
             <p id="pincode-msg" style="font-size:12px;min-height:16px;margin:-4px 0 0;"></p>
             <!-- Gift option -->
             <div class="gift-box" id="gift-box">
