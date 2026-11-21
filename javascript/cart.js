@@ -197,3 +197,16 @@ function norm(key) {
     })();
 
 } // end guard
+
+// Reassurance shown next to "Proceed to Checkout" in the cart drawer and on
+// /cart.html — same small dotted row as the trust strip on product pages.
+// Styles are inline so it looks the same wherever the drawer opens.
+window.cartTrustHTML = function (cart) {
+    var pre = (cart && cart.items || []).some(function (i) { return /pre-?order|ships (in )?december/i.test(i.name || ""); });
+    var items = ["Free shipping", "Cash on delivery", "7-day easy returns",
+                 pre ? "Pre-orders ship in December" : "Dispatched within 24 hours"];
+    var dot = '<span style="width:4px;height:4px;border-radius:50%;background:#c8b8a6;flex-shrink:0;"></span>';
+    return '<div class="cart-trust" style="display:flex;flex-wrap:wrap;gap:6px 16px;margin:2px 0 16px;font-size:11px;letter-spacing:.03em;line-height:1.4;color:#8a7f76;">' +
+        items.map(function (t) { return '<span style="display:flex;align-items:center;gap:6px;">' + dot + t + '</span>'; }).join("") +
+        '</div>';
+};
