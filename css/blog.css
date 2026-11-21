@@ -254,18 +254,18 @@ body { background: var(--cream); }
    (matches the barre post look)
    ====================================================== */
 main.blog-post, main.blog-article {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 0 24px 72px;
-  background: transparent;
-  border-radius: 0;
-  box-shadow: none;
+  max-width: 760px;
+  margin: 112px auto 56px;
+  padding: 56px 56px 64px;
+  background: var(--surface);
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
   font-family: 'DM Sans', sans-serif;
   color: #3a3330;
 }
 .blog-post .breadcrumbs, .blog-article .breadcrumbs {
   font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
-  color: #a09890; margin-bottom: 22px;
+  color: #a09890; margin-bottom: 22px; padding-top: 0;
 }
 .blog-post .breadcrumbs a, .blog-article .breadcrumbs a { color: #a09890; text-decoration: none; }
 .blog-post h1, .blog-article h1 {
@@ -304,6 +304,6 @@ main.blog-post, main.blog-article {
 .blog-post th, .blog-article th { font-weight: 500; color: #2a2420; }
 .blog-article .callout, .blog-post .callout { background: #faf6f2; border: 0; border-radius: 12px; }
 @media (max-width: 600px) {
-  main.blog-post, main.blog-article { padding: 0 20px 56px; }
+  main.blog-post, main.blog-article { margin: 104px 12px 40px; padding: 36px 22px 48px; border-radius: 18px; }
   .blog-post h2, .blog-article h2 { font-size: 26px; }
 }
