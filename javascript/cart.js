@@ -197,3 +197,15 @@ function norm(key) {
     })();
 
 } // end guard
+
+// Reassurance shown next to "Proceed to Checkout" in the cart drawer and on
+// /cart.html. Keep it to what the shipping & refund policies actually promise.
+window.cartTrustHTML = function (cart) {
+    var pre = (cart && cart.items || []).some(function (i) { return /pre-?order|ships (in )?december/i.test(i.name || ""); });
+    var line2 = pre
+        ? "Pre-order items ship in December &middot; in-stock items dispatch within 24 hours"
+        : "Dispatched within 24 hours &middot; secure payment by Razorpay";
+    return '<div class="cart-trust">' +
+        '<p>&#10003; Free shipping across India &middot; Cash on delivery available</p>' +
+        '<p>&#10003; ' + line2 + '</p></div>';
+};

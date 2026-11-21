@@ -67,6 +67,7 @@
                     <span>Total</span>
                     <span id="cart-total"></span>
                 </div>
+                <div id="cart-trust"></div>
                 <a href="/checkout.html" class="cart-checkout-btn">Proceed to Checkout</a>
                 <a href="/products/products" class="cart-continue">Continue shopping</a>
             </aside>
@@ -135,6 +136,8 @@
         const t = Cart.total();
         subtotal.textContent = "₹" + t.toLocaleString("en-IN");
         total.textContent    = "₹" + t.toLocaleString("en-IN");
+        const trustEl = document.getElementById("cart-trust");
+        if (trustEl && window.cartTrustHTML) trustEl.innerHTML = window.cartTrustHTML(cart);
     }
 
     function changeQty(key, qty) {

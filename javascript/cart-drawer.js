@@ -154,6 +154,8 @@
 
         emptyEl.style.display  = "none";
         footerEl.style.display = "block";
+        const trustEl = document.getElementById("cd-trust");
+        if (trustEl && window.cartTrustHTML) trustEl.innerHTML = window.cartTrustHTML(cart);
 
         itemsEl.innerHTML = cart.items.map(item => {
             const available = Cart.getAvailable(item.id, item.weight, item.color);
