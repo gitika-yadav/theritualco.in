@@ -1,5 +1,5 @@
 /* Kit pages: thumbnail gallery under the main photo, like single-product pages.
-   Thumbs = the kit's main colour photo + each piece in the kit (current colour).
+   Thumbs = the kit photo in every colour (tap = switch colour) + each piece in the kit.
    Rebuilds when the shopper picks another colour. */
 (function () {
   var main = document.getElementById('main-img');
@@ -31,7 +31,16 @@
   }
 
   function build() {
-    var items = [{ src: currentMainSrc(), alt: main.alt }];
+    var sel = document.querySelector('.swatch.is-selected');
+    var items = [];
+    // 1) the kit photo in every colour, selected colour first
+    var swatches = Array.prototype.slice.call(document.querySelectorAll('.swatch'));
+    if (sel) swatches.sort(function (a, b) { return (b === sel) - (a === sel); });
+    swatches.forEach(function (sw) {
+      if (sw.dataset.img) items.push({ src: sw.dataset.img, alt: 'Kit in ' + (sw.dataset.name || ''), swatch: sw });
+    });
+    if (!items.length) items.push({ src: main.getAttribute('src'), alt: main.alt });
+    // 2) each piece in the kit, in the selected colour
     document.querySelectorAll('.kit-contents__img').forEach(function (img) {
       items.push({ src: img.getAttribute('src'), alt: img.alt });
     });
@@ -50,6 +59,11 @@
       if (i > 0) im.loading = 'lazy';
       b.appendChild(im);
       b.addEventListener('click', function () {
+        // a colour thumb also switches the kit to that colour
+        if (it.swatch && it.swatch !== document.querySelector('.swatch.is-selected') && typeof window.selectColour === 'function') {
+          window.selectColour(it.swatch);
+          return;
+        }
         main.src = it.src;
         strip.querySelectorAll('.thumb').forEach(function (t) { t.classList.remove('active'); });
         b.classList.add('active');
