@@ -4,7 +4,12 @@
    Used by: /products/capsule-dumbbell.html, /products/the-ritual-belt.html
    ════════════════════════════════════════════════════════════════ */
 
-body.tr-product-page, body.tr-product-page *, body.tr-product-page *::before, body.tr-product-page *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body.tr-product-page { box-sizing: border-box; margin: 0; padding: 0; }
+/* Reset everything except the shared navbar (its padding comes from navbar.css). :where keeps specificity unchanged. */
+body.tr-product-page *:where(:not(#navbar-placeholder, #navbar-placeholder *)),
+body.tr-product-page *:where(:not(#navbar-placeholder *))::before,
+body.tr-product-page *:where(:not(#navbar-placeholder *))::after { box-sizing: border-box; margin: 0; padding: 0; }
+body.tr-product-page #navbar-placeholder * { box-sizing: border-box; }
 
 :root {
     --canvas:    #F7F4EF;
@@ -945,3 +950,24 @@ body.tr-product-page .price-note strong {
     border-radius: 999px;
     margin-right: 4px;
 }
+
+/* Primary button: softer, rounded, gentle lift */
+body.tr-product-page .btn-primary {
+    background: #2a2420;
+    border-radius: 12px;
+    padding: 18px 24px;
+    font-size: 11.5px;
+    letter-spacing: 0.24em;
+    box-shadow: 0 6px 18px rgba(42, 36, 32, 0.14);
+    transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+body.tr-product-page .btn-primary:hover {
+    background: #3a322c;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(42, 36, 32, 0.18);
+}
+body.tr-product-page .btn-primary:active { transform: translateY(0); box-shadow: 0 4px 12px rgba(42, 36, 32, 0.12); }
+
+/* price block was losing its bottom margin to the reset */
+body.tr-product-page .price-block { margin-bottom: 22px; }
+body.tr-product-page .price-row { margin-bottom: 8px; }

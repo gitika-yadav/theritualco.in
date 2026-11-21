@@ -24,3 +24,6 @@
     margin-top: 12px;
 }
 .kit-card__btn:hover { background: #3a3330; }
+
+/* Kit contents price: light serif with level numerals, matching the main price */
+.kit-contents__price{font-family:'Cormorant Garamond',Georgia,serif;font-size:19px;font-weight:500;color:#2a2420;font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1;letter-spacing:0;}
