@@ -41,7 +41,9 @@
         .tap{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#2a2420;border-bottom:1px solid #c8b8a6;padding-bottom:3px;animation:pulse 2s ease-in-out infinite;}
         @keyframes pulse{50%{opacity:.45}}
         /* opened */
-        .open .box{animation:none;cursor:default;}
+        .box{transition:height .6s ease .7s,margin .6s ease .7s;}
+        .open .box{animation:none;cursor:default;height:0;margin:0;}
+        .open .brand{margin-bottom:40px;}
         .open .rib-v{transform:scaleY(0);}
         .open .rib-h{transform:scaleX(0);}
         .open .bow{transform:translateY(-60px) rotate(-30deg);opacity:0;}
