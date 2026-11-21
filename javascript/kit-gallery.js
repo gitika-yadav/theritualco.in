@@ -62,6 +62,7 @@
         // a colour thumb also switches the kit to that colour
         if (it.swatch && it.swatch !== document.querySelector('.swatch.is-selected') && typeof window.selectColour === 'function') {
           window.selectColour(it.swatch);
+          setTimeout(build, 0);
           return;
         }
         main.src = it.src;
