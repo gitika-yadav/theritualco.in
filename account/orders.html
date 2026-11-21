@@ -85,6 +85,7 @@
     <!-- ORDERS TAB -->
     <div id="tab-orders">
         <div class="loading" id="orders-loading">Loading orders…</div>
+        <div id="ritual-collection"></div>
         <div id="orders-list" style="display:none"></div>
     </div>
 
@@ -111,6 +112,7 @@
 
 <div id="footer-placeholder"></div>
 
+<script src="/javascript/ritual-collection.js"></script>
 <script type="module">
     import { supabase, getUser, signOut } from "/javascript/auth.js";
 
@@ -137,6 +139,7 @@
         headers: { Authorization: `Bearer ${session.access_token}` }
     });
     const { orders } = await res.json();
+    if (window.renderRitualCollection) window.renderRitualCollection(orders, document.getElementById("ritual-collection"));
 
     document.getElementById("orders-loading").style.display = "none";
     const list = document.getElementById("orders-list");
