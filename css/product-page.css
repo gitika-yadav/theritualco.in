@@ -860,3 +860,88 @@ body .rating-mini:hover #rating-mini-text { text-decoration: underline; }
     /* WhatsApp button sits above the Add to Cart bar instead of covering it */
     body.tr-product-page:has(.sticky-cart-bar.is-visible) .whatsapp-float { bottom: 88px !important; }
 }
+
+/* ======================================================
+   PREMIUM COLOUR PICKER + PRICE (all product & kit pages)
+   ====================================================== */
+body.tr-product-page .opt__label {
+    font-family: var(--ff-body);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--secondary);
+    margin-bottom: 14px;
+}
+body.tr-product-page .opt__label #colour-name,
+body.tr-product-page .opt__label #colour-chosen {
+    font-family: var(--ff-display);
+    font-style: italic;
+    font-size: 19px;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--ink) !important;
+    margin-left: 4px;
+}
+body.tr-product-page .swatch-wrap { gap: 8px; }
+body.tr-product-page .swatch {
+    width: 36px; height: 36px;
+    border: 0;
+    background:
+        radial-gradient(circle at 32% 28%, rgba(255,255,255,0.42), rgba(255,255,255,0) 45%),
+        var(--sw);
+    box-shadow:
+        inset 0 -3px 6px rgba(0,0,0,0.12),
+        inset 0 0 0 1px rgba(0,0,0,0.06),
+        0 1px 3px rgba(40,30,20,0.10);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+body.tr-product-page .swatch:hover { transform: translateY(-2px); }
+body.tr-product-page .swatch.active,
+body.tr-product-page .swatch.selected,
+body.tr-product-page .swatch.is-selected {
+    box-shadow:
+        inset 0 -3px 6px rgba(0,0,0,0.12),
+        inset 0 0 0 1px rgba(0,0,0,0.06),
+        0 0 0 3px var(--canvas),
+        0 0 0 4px #2a2420;
+}
+body.tr-product-page .swatch-label {
+    font-family: var(--ff-body);
+    font-size: 9.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #a09890;
+    transition: color 0.2s;
+}
+body.tr-product-page .swatch.active + .swatch-label,
+body.tr-product-page .swatch.selected + .swatch-label,
+body.tr-product-page .swatch.is-selected + .swatch-label { color: #2a2420; }
+
+/* Price: lining numerals so digits sit on one line */
+body.tr-product-page .price-row { align-items: center; gap: 12px; }
+body.tr-product-page .price {
+    font-variant-numeric: lining-nums;
+    font-feature-settings: "lnum" 1;
+}
+body.tr-product-page .price-retail {
+    font-family: var(--ff-body);
+    font-size: 15px;
+    font-weight: 300;
+    color: #a09890;
+    opacity: 1;
+    text-decoration-thickness: 1px;
+    font-variant-numeric: lining-nums;
+}
+body.tr-product-page .price-note strong {
+    display: inline-block;
+    background: #efe6dc;
+    color: #5a4636;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 3px 10px;
+    border-radius: 999px;
+    margin-right: 4px;
+}
