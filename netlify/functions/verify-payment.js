@@ -1,4 +1,5 @@
 const { giftLinkBlock } = require("./shared/gift-link");
+const { trackPurchase } = require("./shared/ga4");
 const Razorpay = require("razorpay");
 const { prepaidOwnerEmail } = require("./shared/owner-email");
 const crypto = require("crypto");
@@ -70,6 +71,9 @@ exports.handler = async (event) => {
                 body: JSON.stringify({ success: false, error: "Could not update order" }),
             };
         }
+
+        // ── GA4: server-side purchase (counted even if the customer closes the tab) ──
+        await trackPurchase(supabase, { ...order, razorpay_payment_id, status: "paid" });
 
         // ── Increment inventory sold count — once per line item, per colour ───
         const items = order.items || [];

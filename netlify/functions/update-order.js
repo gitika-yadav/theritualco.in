@@ -1,4 +1,5 @@
 const { createClient } = require("@supabase/supabase-js");
+const { trackRefund } = require("./shared/ga4");
 const { verifyAdminToken, getTokenFromEvent } = require("./shared/verify-admin-token");
 
 async function sendEmail({ to, subject, html }) {
@@ -132,6 +133,11 @@ exports.handler = async (event) => {
         .update(updates)
         .eq("id", order_id);
     if (updateErr) return { statusCode: 500, body: JSON.stringify({ error: updateErr.message }) };
+
+    // GA4: an order that came back is refunded in analytics (once per order).
+    if ((status === "rto" || status === "returned") && order.channel !== "event" && order.channel !== "wholesale") {
+        await trackRefund(supabase, order);
+    }
 
     // Send shipping email only on a real dispatch (never on an undo)
     if (status === "shipped" && !isUndo && !isEventStock && (order.guest_email || order.customer_email)) {

@@ -264,7 +264,7 @@
         document.getElementById("ev-book").innerHTML = '<div class="ev-done"><h2>You\'re in.</h2>' +
             '<p>We\'ve sent the details to <strong>' + esc(email) + '</strong>. See you on ' + esc(dateStr(e.starts_at)) + '.</p>' +
             '<a href="' + calLink(e) + '" target="_blank" rel="noopener">Add to calendar</a></div>';
-        try { gtag("event", e.price ? "purchase" : "sign_up", { event_category: "event", event_label: e.slug }); } catch (x) {}
+        try { gtag("event", e.price ? "event_booking" : "sign_up", { event_category: "event", event_label: e.slug, value: paid || 0, currency: "INR", quantity: qty || 1 }); } catch (x) {}
     }
 
     function loadRazorpay() {

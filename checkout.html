@@ -229,6 +229,14 @@
         return base + getCodFee();
     }
 
+    // GA4 ids from the browser cookies, so the server-side purchase keeps this visit's source.
+    function gaIds() {
+        var c = document.cookie || "";
+        var cid = /(?:^|;\s*)_ga=GA\d\.\d\.(\d+\.\d+)/.exec(c);
+        var sid = /(?:^|;\s*)_ga_D366Q7R3XB=GS\d\.\d\.s?(\d+)/.exec(c);
+        return { client_id: cid ? cid[1] : null, session_id: sid ? sid[1] : null, staff: !!window.TRC_STAFF };
+    }
+
     // ── Render order summary from cart ────────────
     function renderSummary() {
         const cart    = Cart.get();
@@ -456,7 +464,8 @@
                         payment_method: "cod",
                         discount_code: appliedDiscount ? appliedDiscount.code : null,
                         discount_amount: appliedDiscount ? appliedDiscount.discount_amount : 0,
-                        gift
+                        gift,
+                        ga: gaIds()
                     })
                 });
                 const order = await orderRes.json();
@@ -512,7 +521,8 @@
                     amount: finalAmount,
                     discount_code: appliedDiscount ? appliedDiscount.code : null,
                     discount_amount: appliedDiscount ? appliedDiscount.discount_amount : 0,
-                    gift
+                    gift,
+                    ga: gaIds()
                 })
             });
 

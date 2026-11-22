@@ -113,15 +113,8 @@
     (function () {
         var order = null;
         try { order = JSON.parse(localStorage.getItem('rc_last_order') || 'null'); } catch (e) {}
-        if (order && order.value && typeof gtag === 'function') {
-            gtag('event', 'purchase', {
-                transaction_id: String(order.id),
-                currency: 'INR',
-                value: parseFloat(order.value),
-                payment_type: order.payment_type,
-                items: order.items || (order.content_ids || []).map(function (id) { return { item_id: id }; })
-            });
-        }
+        // GA4 purchase is sent by the server (create-order / verify-payment) so it
+        // is counted even when the customer closes this tab. Meta is still sent here.
         if (order && order.value && window.trackMeta) {
             window.trackMeta('Purchase', {
                 content_ids: order.content_ids || [],
