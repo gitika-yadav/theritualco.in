@@ -15,12 +15,8 @@ const { verifyAdminToken, getTokenFromEvent } = require("./shared/verify-admin-t
 
 const json = (statusCode, body) => ({ statusCode, headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }, body: JSON.stringify(body) });
 
-// Max ad cost per sale, matched by words in the campaign name.
-const CAPS = [
-    { match: /sock/i, cap: 500 },
-    { match: /ankle|cuff/i, cap: 600 },
-    { match: /mat/i, cap: 1000 },
-];
+// Return on ad spend (Meta revenue ÷ spend). ~2× is roughly break-even.
+const ROAS_GOOD = 3, ROAS_BREAKEVEN = 2, NO_SALE_STOP = 1500;
 
 const PRODUCT_NAMES = {
     "yoga-mat-5mm": "Mat", "ankle-weights-2lb": "Cuffs", "pilates-ball": "Ball", "pilates-ring": "Ring",
@@ -147,7 +143,7 @@ async function metaStats(r) {
     if (!token || !acct) return { connected: false };
     const qs = new URLSearchParams({
         level: "campaign",
-        fields: "campaign_name,spend,impressions,clicks,actions",
+        fields: "campaign_name,spend,impressions,clicks,actions,action_values",
         time_range: JSON.stringify({ since: r.since, until: r.until }),
         limit: "50",
         access_token: token,
@@ -160,7 +156,7 @@ async function metaStats(r) {
         const spend = Number(c.spend) || 0;
         const purchases = action(c.actions, ["purchase", "offsite_conversion.fb_pixel_purchase", "omni_purchase"]);
         const atc = action(c.actions, ["add_to_cart", "offsite_conversion.fb_pixel_add_to_cart", "omni_add_to_cart"]);
-        const capRule = CAPS.find(x => x.match.test(c.campaign_name || ""));
+        const revenue = action(c.action_values, ["purchase", "offsite_conversion.fb_pixel_purchase", "omni_purchase"]);
         return {
             name: c.campaign_name,
             spend: Math.round(spend),
@@ -169,7 +165,8 @@ async function metaStats(r) {
             add_to_carts: atc,
             purchases,
             cost_per_purchase: purchases ? Math.round(spend / purchases) : null,
-            cap: capRule ? capRule.cap : null,
+            revenue: Math.round(revenue),
+            roas: spend ? Math.round((revenue / spend) * 100) / 100 : null,
         };
     }).sort((a, b) => b.spend - a.spend);
 
@@ -178,6 +175,8 @@ async function metaStats(r) {
         spend: campaigns.reduce((n, c) => n + c.spend, 0),
         clicks: campaigns.reduce((n, c) => n + c.clicks, 0),
         purchases: campaigns.reduce((n, c) => n + c.purchases, 0),
+        revenue: campaigns.reduce((n, c) => n + c.revenue, 0),
+        rules: { good: ROAS_GOOD, breakeven: ROAS_BREAKEVEN, no_sale_stop: NO_SALE_STOP },
         campaigns,
     };
 }

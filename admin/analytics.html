@@ -293,7 +293,7 @@
 
     function renderAds(m) {
         const el = document.getElementById("ads");
-        let html = `<h2>Meta ads by campaign</h2><p class="sub">Cost per purchase against your cap (socks ₹500 · ankle weights ₹600 · mat ₹1,000)</p>`;
+        let html = `<h2>Meta ads by campaign</h2><p class="sub">Return on ad spend (Meta revenue ÷ spend): 3× or more is healthy, under 2× loses money. Judge on 7–14 days, not one day.</p>`;
         if (!m.connected) {
             el.innerHTML = html + setupBox(`<b>Connect Meta ads</b> (read-only):<br>
                 1. Meta Business Settings → <b>System users</b> → add one (Employee) → assign your ad account with <b>View performance</b>.<br>
@@ -303,17 +303,19 @@
         }
         if (m.error) { el.innerHTML = html + `<p class="err">Meta error: ${esc(m.error)}</p>`; return; }
         if (!m.campaigns.length) { el.innerHTML = html + `<p class="sub">No ad spend in this period.</p>`; return; }
-        html += `<table><thead><tr><th>Campaign</th><th class="r">Spend</th><th class="r hide-m">Clicks</th><th class="r hide-m">Add to cart</th><th class="r">Sales</th><th class="r">Per sale</th></tr></thead><tbody>` +
-            m.campaigns.map(c => {
-                let status = "";
-                if (c.cost_per_purchase != null && c.cap) status = c.cost_per_purchase <= c.cap
-                    ? `<span class="pill pill-good">✓ ${inr(c.cost_per_purchase)}</span>` : `<span class="pill pill-bad">▲ ${inr(c.cost_per_purchase)}</span>`;
-                else if (c.cost_per_purchase != null) status = inr(c.cost_per_purchase);
-                else if (c.cap && c.spend >= c.cap) status = `<span class="pill pill-warn">No sale · ${inr(c.spend)}</span>`;
-                else status = `<span style="color:var(--muted)">—</span>`;
-                return `<tr><td class="l">${esc(c.name)}</td><td class="r">${inr(c.spend)}</td><td class="r hide-m">${num(c.clicks)}</td><td class="r hide-m">${num(c.add_to_carts)}</td><td class="r">${num(c.purchases)}</td><td class="r" title="${c.cap ? "Cap " + inr(c.cap) : "No cap set"}">${status}</td></tr>`;
-            }).join("") + `</tbody></table>
-            <p class="note">✓ under your cap · ▲ over your cap · "No sale" once spend passes the cap without a purchase. Total: ${inr(m.spend)} spend, ${num(m.purchases)} Meta-attributed sales.</p>`;
+        const R = m.rules || { good: 3, breakeven: 2, no_sale_stop: 1500 };
+        const roasPill = c => {
+            if (!c.purchases) return c.spend >= R.no_sale_stop
+                ? `<span class="pill pill-bad">No sale · ${inr(c.spend)}</span>` : `<span style="color:var(--muted)">—</span>`;
+            const x = c.roas.toFixed(1) + "×";
+            if (c.roas >= R.good) return `<span class="pill pill-good">✓ ${x}</span>`;
+            if (c.roas >= R.breakeven) return `<span class="pill pill-warn">${x}</span>`;
+            return `<span class="pill pill-bad">▼ ${x}</span>`;
+        };
+        html += `<table><thead><tr><th>Campaign</th><th class="r">Spend</th><th class="r hide-m">Add to cart</th><th class="r">Sales</th><th class="r hide-m">Revenue</th><th class="r hide-m">Per sale</th><th class="r">Return</th></tr></thead><tbody>` +
+            m.campaigns.map(c => `<tr><td class="l">${esc(c.name)}</td><td class="r">${inr(c.spend)}</td><td class="r hide-m">${num(c.add_to_carts)}</td><td class="r">${num(c.purchases)}</td><td class="r hide-m">${c.revenue ? inr(c.revenue) : "—"}</td><td class="r hide-m">${c.cost_per_purchase != null ? inr(c.cost_per_purchase) : "—"}</td><td class="r">${roasPill(c)}</td></tr>`).join("") +
+            `</tbody></table>
+            <p class="note">✓ ${R.good}× or more · amber ${R.breakeven}–${R.good}× (about break-even) · ▼ under ${R.breakeven}× · "No sale" once a campaign spends ${inr(R.no_sale_stop)} without a purchase. Total: ${inr(m.spend)} spend, ${num(m.purchases)} sales, ${inr(m.revenue || 0)} revenue${m.spend ? " · " + ((m.revenue || 0) / m.spend).toFixed(1) + "× overall" : ""} (Meta-attributed).</p>`;
         el.innerHTML = html;
     }
 
