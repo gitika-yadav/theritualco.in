@@ -237,6 +237,18 @@
         return { client_id: cid ? cid[1] : null, session_id: sid ? sid[1] : null, staff: !!window.TRC_STAFF };
     }
 
+    // Browser ids Meta uses to match the server-side Purchase (Conversions API).
+    function metaIds() {
+        var read = function (n) { return (document.cookie.match(new RegExp("(?:^|; )" + n + "=([^;]*)")) || [])[1] || ""; };
+        var fbclid = new URLSearchParams(location.search).get("fbclid");
+        return {
+            fbp: read("_fbp"),
+            fbc: read("_fbc") || (fbclid ? "fb.1." + Date.now() + "." + fbclid : ""),
+            source_url: location.origin + location.pathname,
+            staff: !!window.TRC_STAFF
+        };
+    }
+
     // ── Render order summary from cart ────────────
     function renderSummary() {
         const cart    = Cart.get();
@@ -465,7 +477,8 @@
                         discount_code: appliedDiscount ? appliedDiscount.code : null,
                         discount_amount: appliedDiscount ? appliedDiscount.discount_amount : 0,
                         gift,
-                        ga: gaIds()
+                        ga: gaIds(),
+                        meta: metaIds()
                     })
                 });
                 const order = await orderRes.json();
@@ -522,7 +535,8 @@
                     discount_code: appliedDiscount ? appliedDiscount.code : null,
                     discount_amount: appliedDiscount ? appliedDiscount.discount_amount : 0,
                     gift,
-                    ga: gaIds()
+                    ga: gaIds(),
+                        meta: metaIds()
                 })
             });
 
@@ -559,6 +573,7 @@
                             internal_order_ids:  order.internal_order_ids,
                             customer_name:       name,
                             customer_email:      email,
+                            meta:                metaIds(),
                         })
                     });
                     const verified = await verify.json();
