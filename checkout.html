@@ -322,7 +322,10 @@
     })();
 
     // ── GA4 begin_checkout (once per visit to the checkout page) ──
-    if (Cart.count() > 0 && typeof gtag === 'function') {
+    // once per session for the same cart, so reloads don't count again
+    var bcKey = 'rc_bc_' + Cart.count() + '_' + Cart.total(), bcSeen = false;
+    try { bcSeen = sessionStorage.getItem(bcKey) === '1'; sessionStorage.setItem(bcKey, '1'); } catch (e) {}
+    if (!bcSeen && Cart.count() > 0 && typeof gtag === 'function') {
         gtag('event', 'begin_checkout', {
             currency: 'INR',
             value: Cart.total(),
@@ -550,7 +553,6 @@
                 try { localStorage.setItem("rc_last_gift", JSON.stringify({ t: order.gift_token, to: gift.recipient, phone: gift.recipient_phone })); } catch (e) {}
             }
 
-            gtag("event", "begin_checkout", { currency: "INR", value: order.amount / 100 });
 
             const rzp = new Razorpay({
                 key:         "rzp_live_T9AlUY5JK50B2P",
