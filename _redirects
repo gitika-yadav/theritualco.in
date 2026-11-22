@@ -13,3 +13,33 @@
 
 # Silicone-vs-PVC post overlapped the 3-way comparison for the same searches (both stuck at ~position 8) — consolidated
 /blog/dumbbells/silicone-dumbbells-vs-pvc-dumbbells /blog/dumbbells/silicone-vs-neoprene-vs-pvc-dumbbells 301!
+
+# Pilates dumbbell exercises merged into the Pilates dumbbells guide (Google wouldn't index the thinner copy)
+/blog/pilates/pilates-dumbbell-exercises /blog/pilates/pilates-dumbbells-guide 301
+
+# Old URLs Search Console reports as 404 — send them to their current pages
+/products/ankle-weights /products/the-ritual-cuffs 301
+/products/yoga-mat /products/the-ritual-mat 301
+/products/yoga-belt /products/the-ritual-belt 301
+/products/ /products/products 301
+/blog/ritual-mindset/how-to-make-fitness-a-ritual /blog/wellness-rituals/how-to-make-fitness-a-ritual 301
+/blog/ritual-mindset/ritual-mindset-bloglist /blog/wellness-rituals/wellness-rituals-bloglist 301
+/blog/wellness/wellness-bloglist /blog/wellness-rituals/wellness-rituals-bloglist 301
+/blog/weightloss/weightloss-with-dumbbells /blog/dumbbells/weightloss-with-dumbbells 301
+/blog/weightloss/weightloss-bloglist /blog/dumbbells/dumbbell-bloglist 301
+/blog/category-homegym/homegym-bloglist /blog/homegym/homegym-bloglist 301
+/blog/category-womens-wellness/womens-wellness-bloglist /blog 301
+/blog/article-format /blog 301
+# .html versions of the same old URLs
+/blog/pilates/pilates-dumbbell-exercises.html /blog/pilates/pilates-dumbbells-guide 301
+/products/ankle-weights.html /products/the-ritual-cuffs 301
+/products/yoga-mat.html /products/the-ritual-mat 301
+/products/yoga-belt.html /products/the-ritual-belt 301
+/blog/ritual-mindset/how-to-make-fitness-a-ritual.html /blog/wellness-rituals/how-to-make-fitness-a-ritual 301
+/blog/ritual-mindset/ritual-mindset-bloglist.html /blog/wellness-rituals/wellness-rituals-bloglist 301
+/blog/wellness/wellness-bloglist.html /blog/wellness-rituals/wellness-rituals-bloglist 301
+/blog/weightloss/weightloss-with-dumbbells.html /blog/dumbbells/weightloss-with-dumbbells 301
+/blog/weightloss/weightloss-bloglist.html /blog/dumbbells/dumbbell-bloglist 301
+/blog/category-homegym/homegym-bloglist.html /blog/homegym/homegym-bloglist 301
+/blog/category-womens-wellness/womens-wellness-bloglist.html /blog 301
+/blog/article-format.html /blog 301
