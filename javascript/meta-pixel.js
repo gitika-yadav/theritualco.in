@@ -8,6 +8,16 @@
 // - Exposes window.trackMeta(event, params, eventId) — a no-op-safe wrapper
 //   (AddToCart is fired from Cart.add() in cart.js; Purchase from thank-you.html)
 
+// ── Production only ─────────────────────────────────────────────────
+// Netlify preview sites (deploy-preview-…, *.netlify.app) and localhost send
+// nothing to GA or Meta, so test clicks never mix with real data.
+(function () {
+    var h = location.hostname;
+    if (h === "theritualco.in" || h === "www.theritualco.in") return;
+    window["ga-disable-G-D366Q7R3XB"] = true;
+    window.TRC_NONPROD = true;
+})();
+
 // ── Staff mode ──────────────────────────────────────────────────────
 // Open any page with ?staff=on once per browser/device and that browser stops
 // sending anything to Meta (no PageView/AddToCart/Purchase) and stops sending
@@ -56,7 +66,7 @@
 })();
 
 (function () {
-    if (window.TRC_STAFF) return; // staff mode: no Meta Pixel at all
+    if (window.TRC_STAFF || window.TRC_NONPROD) return; // staff mode or preview site: no Meta Pixel at all
     var PIXEL_ID = '1372190218138137';
 
     if (!window.fbq) {

@@ -9,6 +9,7 @@
 //   GET /.netlify/functions/delhivery-sync?secret=<CART_REMINDER_SECRET>   (&dry=1 to preview)
 
 const { createClient } = require("@supabase/supabase-js");
+const { trackRefund } = require("./shared/ga4");
 
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
 
@@ -144,6 +145,21 @@ exports.handler = async (event) => {
                     report.returning.push({ awb: o.tracking_number, status: label });
                 }
                 if (!dry) await supabase.from("orders").update(upd).eq("id", o.id);
+                if (!dry && upd.status === "rto") {
+                    const { data: full } = await supabase.from("orders").select("*").eq("id", o.id).single();
+                    if (full) await trackRefund(supabase, full);
+                }
+            }
+        }
+
+        // ── 1b. GA4 refunds for returned orders not yet refunded in analytics ──
+        if (!dry) {
+            const { data: back } = await supabase.from("orders").select("*")
+                .in("status", ["rto", "returned"]).is("ga_refund_sent_at", null).gt("amount_paise", 0)
+                .not("payment_method", "in", "(creator_gift,event_stock)").limit(50);
+            for (const o of back || []) {
+                if (o.channel === "event" || o.channel === "wholesale") continue;
+                await trackRefund(supabase, o);
             }
         }
 

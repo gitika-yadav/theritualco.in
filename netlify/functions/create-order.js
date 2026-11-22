@@ -1,6 +1,7 @@
 const Razorpay = require("razorpay");
 const crypto = require("crypto");
 const { giftLinkBlock } = require("./shared/gift-link");
+const { isProdHost, trackPurchase } = require("./shared/ga4");
 const { giftRows } = require("./shared/owner-email");
 const { createClient } = require("@supabase/supabase-js");
 const { PRODUCT_MAP, resolveProductKey } = require("./shared/product-map");
@@ -253,6 +254,11 @@ exports.handler = async (event) => {
             orderData.gift_message = clean(body.gift.message, 200) || null;
             orderData.gift_token = crypto.randomBytes(9).toString("base64url");
         }
+        // GA4: browser ids so the server-side purchase keeps the visit's attribution.
+        const ga = (body.ga && typeof body.ga === "object") ? body.ga : {};
+        orderData.ga_client_id  = /^\d+\.\d+$/.test(String(ga.client_id || "")) ? String(ga.client_id) : null;
+        orderData.ga_session_id = /^\d+$/.test(String(ga.session_id || "")) ? String(ga.session_id) : null;
+        orderData.ga_skip       = !!ga.staff || !isProdHost(event);
         if (user_id) {
             orderData.user_id = user_id;
         } else {
@@ -267,6 +273,10 @@ exports.handler = async (event) => {
         if (insertErr || !order) {
             console.error("Order insert error:", insertErr);
             return { statusCode: 500, body: JSON.stringify({ error: "Failed to save order — please try again." }) };
+        }
+
+        if (isCod) {
+            await trackPurchase(supabase, { ...orderData, id: order.id, created_at: new Date().toISOString() });
         }
 
         if (isCod) {
