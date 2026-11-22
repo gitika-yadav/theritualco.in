@@ -1,5 +1,6 @@
 const { giftLinkBlock } = require("./shared/gift-link");
-const { trackPurchase } = require("./shared/ga4");
+const { trackPurchase, isProdHost } = require("./shared/ga4");
+const { sendPurchase } = require("./shared/meta-capi");
 const Razorpay = require("razorpay");
 const { prepaidOwnerEmail } = require("./shared/owner-email");
 const crypto = require("crypto");
@@ -23,6 +24,7 @@ exports.handler = async (event) => {
             internal_order_id,
             customer_name,
             customer_email,
+            meta,
         } = JSON.parse(event.body);
 
         // ── Verify Razorpay signature ─────────────────────
@@ -74,6 +76,18 @@ exports.handler = async (event) => {
 
         // ── GA4: server-side purchase (counted even if the customer closes the tab) ──
         await trackPurchase(supabase, { ...order, razorpay_payment_id, status: "paid" });
+
+        // ── Meta Conversions API (same event_id as the browser Pixel: the payment id) ──
+        if (!order.ga_skip && isProdHost(event)) {
+            const m = (meta && typeof meta === "object") ? meta : {};
+            await sendPurchase({
+                eventId: razorpay_payment_id, value: (order.amount_paise || 0) / 100, items: order.items || [],
+                email: customer_email || order.guest_email, phone: order.guest_phone,
+                name: customer_name || order.guest_name, address: order.shipping_address,
+                fbp: m.fbp, fbc: m.fbc, sourceUrl: m.source_url, headers: event.headers,
+                externalId: customer_email || order.guest_email,
+            });
+        }
 
         // ── Increment inventory sold count — once per line item, per colour ───
         const items = order.items || [];

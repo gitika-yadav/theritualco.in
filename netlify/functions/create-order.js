@@ -2,6 +2,7 @@ const Razorpay = require("razorpay");
 const crypto = require("crypto");
 const { giftLinkBlock } = require("./shared/gift-link");
 const { isProdHost, trackPurchase } = require("./shared/ga4");
+const { sendPurchase } = require("./shared/meta-capi");
 const { giftRows } = require("./shared/owner-email");
 const { createClient } = require("@supabase/supabase-js");
 const { PRODUCT_MAP, resolveProductKey } = require("./shared/product-map");
@@ -277,6 +278,16 @@ exports.handler = async (event) => {
 
         if (isCod) {
             await trackPurchase(supabase, { ...orderData, id: order.id, created_at: new Date().toISOString() });
+            // Meta Conversions API: same event_id as the browser Pixel (the COD receipt), so Meta counts it once.
+            if (!orderData.ga_skip) {
+                const meta = (body.meta && typeof body.meta === "object") ? body.meta : {};
+                await sendPurchase({
+                    eventId: codReceipt, value: totalPaise / 100, items: orderItems,
+                    email, phone, name, city, state, zip: pincode,
+                    fbp: meta.fbp, fbc: meta.fbc, sourceUrl: meta.source_url,
+                    headers: event.headers, externalId: email,
+                });
+            }
         }
 
         if (isCod) {
