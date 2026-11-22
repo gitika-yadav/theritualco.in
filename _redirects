@@ -30,3 +30,16 @@
 /blog/category-homegym/homegym-bloglist /blog/homegym/homegym-bloglist 301
 /blog/category-womens-wellness/womens-wellness-bloglist /blog 301
 /blog/article-format /blog 301
+# .html versions of the same old URLs
+/blog/pilates/pilates-dumbbell-exercises.html /blog/pilates/pilates-dumbbells-guide 301
+/products/ankle-weights.html /products/the-ritual-cuffs 301
+/products/yoga-mat.html /products/the-ritual-mat 301
+/products/yoga-belt.html /products/the-ritual-belt 301
+/blog/ritual-mindset/how-to-make-fitness-a-ritual.html /blog/wellness-rituals/how-to-make-fitness-a-ritual 301
+/blog/ritual-mindset/ritual-mindset-bloglist.html /blog/wellness-rituals/wellness-rituals-bloglist 301
+/blog/wellness/wellness-bloglist.html /blog/wellness-rituals/wellness-rituals-bloglist 301
+/blog/weightloss/weightloss-with-dumbbells.html /blog/dumbbells/weightloss-with-dumbbells 301
+/blog/weightloss/weightloss-bloglist.html /blog/dumbbells/dumbbell-bloglist 301
+/blog/category-homegym/homegym-bloglist.html /blog/homegym/homegym-bloglist 301
+/blog/category-womens-wellness/womens-wellness-bloglist.html /blog 301
+/blog/article-format.html /blog 301
