@@ -71,6 +71,15 @@
         .day .b{width:100%;max-width:34px;background:var(--bar);border-radius:4px 4px 0 0;min-height:2px;}
         .day .b.zero{background:var(--bar-soft);}
         .day .t{font-size:10px;color:var(--muted);margin-top:6px;white-space:nowrap;}
+        .mo-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--ink2);margin-bottom:10px;}
+        .mo-legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px;}
+        .months{display:flex;align-items:flex-end;gap:10px;height:180px;padding-top:6px;margin-bottom:16px;}
+        .mo{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;min-width:0;}
+        .mo .stack{width:100%;max-width:56px;display:flex;flex-direction:column-reverse;border-radius:4px 4px 0 0;overflow:hidden;min-height:2px;background:var(--bar-soft);}
+        .mo .stack span{display:block;width:100%;}
+        .mo .amt{font-size:10.5px;color:var(--ink);margin-bottom:4px;white-space:nowrap;font-variant-numeric:tabular-nums;}
+        .mo .t{font-size:11px;color:var(--muted);margin-top:6px;white-space:nowrap;}
+        .mo.now .t{color:var(--ink);font-weight:500;}
         .loading{opacity:.45;pointer-events:none;transition:opacity .2s;}
         @media(max-width:1000px){.tiles{grid-template-columns:repeat(3,1fr);}.grid2,.grid4{grid-template-columns:1fr 1fr;}}
         @media(max-width:640px){.main{padding:16px;}.tiles{grid-template-columns:1fr 1fr;}.grid2,.grid4{grid-template-columns:1fr;}.row{grid-template-columns:110px 1fr 54px;}.range{min-width:0;}.topbar{padding:0 16px;}.hide-m{display:none;}}
@@ -103,6 +112,7 @@
             <button class="nav" id="next" title="Next period">›</button></span>
         </div>
         <div class="tiles" id="tiles"></div>
+        <div class="card" id="monthly" style="margin-bottom:14px"><h2>Month by month</h2><p class="sub">Loading…</p></div>
         <div class="card" id="days" style="margin-bottom:14px"></div>
         <div class="grid2">
             <div class="card" id="funnel"></div>
@@ -166,6 +176,7 @@
             DATA = await res.json();
             if (!res.ok) throw new Error(DATA.error || "HTTP " + res.status);
             render(DATA);
+            loadMonthly();
         } catch (e) {
             document.getElementById("tiles").innerHTML = `<div class="card err" style="grid-column:1/-1">Couldn't load results: ${esc(e.message)}</div>`;
         } finally { main.classList.remove("loading"); }
@@ -249,6 +260,45 @@
             <div class="days">${days.map((d, i) => `<div class="day" title="${nice(d.day)}: ${inr(d.revenue)} · ${d.orders} order${d.orders === 1 ? "" : "s"}">
                 <div class="b ${d.revenue ? "" : "zero"}" style="height:${d.revenue ? Math.max(3, d.revenue / top * 100) : 2}%"></div>
                 <span class="t">${i % step === 0 || i === days.length - 1 ? nice(d.day) : "&nbsp;"}</span></div>`).join("")}</div>`;
+    }
+
+    // ── Month by month (all channels, all time — not tied to the period above) ──
+    const MO_CH = [["website", "Website", "#3a3330"], ["b2b", "B2B / studios", "#a89889"], ["amazon", "Amazon", "#e3b5bd"], ["direct", "Direct", "#d9cfc4"]];
+    const moName = ym => new Date(ym + "-15T12:00:00+05:30").toLocaleDateString("en-IN", { month: "short", year: "2-digit" });
+    const short = n => n >= 100000 ? "₹" + (n / 100000).toFixed(n >= 1000000 ? 0 : 1) + "L" : n >= 1000 ? "₹" + (n / 1000).toFixed(n >= 10000 ? 0 : 1) + "k" : inr(n);
+    let MONTHLY_LOADED = false;
+    async function loadMonthly() {
+        if (MONTHLY_LOADED) return;
+        const el = document.getElementById("monthly");
+        try {
+            const res = await fetch("/.netlify/functions/admin-monthly", { headers: { "x-admin-token": SESSION_TOKEN } });
+            const d = await res.json();
+            if (!res.ok) throw new Error(d.error || "HTTP " + res.status);
+            MONTHLY_LOADED = true;
+            renderMonthly(d.months || []);
+        } catch (e) { el.innerHTML = `<h2>Month by month</h2><p class="err">Couldn't load: ${esc(e.message)}</p>`; }
+    }
+    function renderMonthly(months) {
+        const el = document.getElementById("monthly");
+        if (!months.length) { el.innerHTML = `<h2>Month by month</h2><p class="sub">No orders yet.</p>`; return; }
+        const top = Math.max(1, ...months.map(m => m.booked));
+        const cur = months[months.length - 1].month;
+        const tot = months.reduce((a, m) => ({ booked: a.booked + m.booked, received: a.received + m.received, to_come: a.to_come + m.to_come, returned: a.returned + m.returned, orders: a.orders + m.orders }), { booked: 0, received: 0, to_come: 0, returned: 0, orders: 0 });
+        el.innerHTML = `<h2>Month by month</h2><p class="sub">Every channel, by order date. Returns left out of the bars. Hover a bar for the split.</p>
+            <div class="mo-legend">${MO_CH.map(([, n, c]) => `<span><i style="background:${c}"></i>${n}</span>`).join("")}</div>
+            <div class="months">${months.map(m => {
+                const tip = `${moName(m.month)}: ${inr(m.booked)}\n` + MO_CH.filter(([k]) => m.channels[k]).map(([k, n]) => `${n} ${inr(m.channels[k])}`).join("\n") + `\nReceived ${inr(m.received)} · to come ${inr(m.to_come)}`;
+                return `<div class="mo ${m.month === cur ? "now" : ""}" title="${esc(tip)}">
+                    <span class="amt">${m.booked ? short(m.booked) : ""}</span>
+                    <div class="stack" style="height:${m.booked ? Math.max(2, m.booked / top * 100) : 1}%">${MO_CH.map(([k, , c]) => m.channels[k] ? `<span style="height:${m.channels[k] / m.booked * 100}%;background:${c}"></span>` : "").join("")}</div>
+                    <span class="t">${moName(m.month)}</span></div>`;
+            }).join("")}</div>
+            <table><thead><tr><th>Month</th><th class="r">Orders</th><th class="r">Sales</th><th class="r">Received</th><th class="r">Still to come</th><th class="r hide-m">Avg order</th><th class="r hide-m">Returned</th></tr></thead><tbody>
+            ${months.slice().reverse().map(m => `<tr><td>${moName(m.month)}${m.month === cur ? ' <span style="color:var(--muted)">(so far)</span>' : ""}</td><td class="r">${num(m.orders)}</td><td class="r">${inr(m.booked)}</td><td class="r">${inr(m.received)}</td>
+                <td class="r">${m.to_come ? `<span class="pill pill-warn">${inr(m.to_come)}</span>` : "—"}</td><td class="r hide-m">${inr(m.aov)}</td><td class="r hide-m">${m.returned ? `<span style="color:var(--bad)">${inr(m.returned)}</span>` : "—"}</td></tr>`).join("")}
+            <tr><td><b>Total</b></td><td class="r"><b>${num(tot.orders)}</b></td><td class="r"><b>${inr(tot.booked)}</b></td><td class="r"><b>${inr(tot.received)}</b></td><td class="r"><b>${inr(tot.to_come)}</b></td><td class="r hide-m"><b>${tot.orders ? inr(tot.booked / tot.orders) : "—"}</b></td><td class="r hide-m"><b>${inr(tot.returned)}</b></td></tr>
+            </tbody></table>
+            <p class="note">Received counts COD once delivered and part-paid studio orders by what's actually come in. Gifts and event stock aren't counted. Sales + Returned = the month totals in the Total Income sheet.</p>`;
     }
 
     const kv = (k, v) => `<div class="kv"><span>${k}</span><b>${v}</b></div>`;

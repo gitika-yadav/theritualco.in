@@ -187,7 +187,7 @@
         <div class="stat"><div class="stat-val" id="s-revenue">—</div><div class="stat-lbl">Total revenue</div><div class="stat-sub" id="s-revenue-sub"></div></div>
         <div class="stat"><div class="stat-val" id="s-pending">—</div><div class="stat-lbl">To ship</div></div>
         <div class="stat"><div class="stat-val" id="s-shipped">—</div><div class="stat-lbl">Shipped</div></div>
-        <div class="stat"><div class="stat-val" id="s-received">—</div><div class="stat-lbl">Money received</div><div class="stat-sub">all channels</div></div>
+        <div class="stat"><div class="stat-val" id="s-received">—</div><div class="stat-lbl">Money received</div><div class="stat-sub"><select id="s-month" onchange="updateStats()" style="font:inherit;font-size:11px;color:#5a4f48;border:0.5px solid #e0dbd4;border-radius:6px;padding:1px 4px;background:#faf8f5;"><option value="">All time</option></select></div></div>
         <div class="stat"><div class="stat-val" id="s-tocome">—</div><div class="stat-lbl">Still to come</div><div class="stat-sub" id="s-tocome-sub"></div></div>
     </div>
 
@@ -413,8 +413,18 @@
         // part-paid / unpaid orders (e.g. wholesale advances); otherwise COD
         // counts only once delivered, and returns / gifts / event stock count as 0.
         const NO_MONEY = ["rto", "returned", "pending", "failed", "cancelled"];
+        const ymIST = iso => new Date(iso).toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" }).slice(0, 7);
+        const sel = document.getElementById("s-month");
+        const months = [...new Set(allOrders.map(o => ymIST(o.created_at)))].sort().reverse();
+        if (sel.options.length !== months.length + 1) {
+            const keep = sel.value;
+            sel.innerHTML = `<option value="">All time</option>` + months.map(m => `<option value="${m}">${new Date(m + "-15T12:00:00+05:30").toLocaleDateString("en-IN", { month: "short", year: "numeric" })}</option>`).join("");
+            sel.value = keep;
+        }
+        const pick = sel.value;
         let received = 0, toCome = 0, owing = 0;
         for (const o of allOrders) {
+            if (pick && ymIST(o.created_at) !== pick) continue;
             if (NO_MONEY.includes(o.status) || o.payment_method === "creator_gift" || o.payment_method === "event_stock") continue;
             const amt = o.amount_paise || 0;
             let paid;
