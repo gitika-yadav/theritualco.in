@@ -30,7 +30,9 @@
         .nav-link{font-size:12px;color:#a09890;text-decoration:none;padding:4px 10px;border-radius:6px;}
         .nav-link:hover{background:#f5f2ee;color:#3a3330;}
         /* Stats */
-        .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:20px 28px;}
+        .stats{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;padding:20px 28px;}
+        @media(max-width:1000px){.stats{grid-template-columns:repeat(3,1fr);}}
+        @media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr);}}
         .stat{background:#fff;border:0.5px solid #e0dbd4;border-radius:10px;padding:16px 18px;}
         .stat-val{font-size:24px;font-weight:500;color:#1a1714;margin-bottom:2px;}
         .stat-lbl{font-size:11px;color:#a09890;}
@@ -185,6 +187,8 @@
         <div class="stat"><div class="stat-val" id="s-revenue">—</div><div class="stat-lbl">Total revenue</div><div class="stat-sub" id="s-revenue-sub"></div></div>
         <div class="stat"><div class="stat-val" id="s-pending">—</div><div class="stat-lbl">To ship</div></div>
         <div class="stat"><div class="stat-val" id="s-shipped">—</div><div class="stat-lbl">Shipped</div></div>
+        <div class="stat"><div class="stat-val" id="s-received">—</div><div class="stat-lbl">Money received</div><div class="stat-sub">all channels</div></div>
+        <div class="stat"><div class="stat-val" id="s-tocome">—</div><div class="stat-lbl">Still to come</div><div class="stat-sub" id="s-tocome-sub"></div></div>
     </div>
 
     <!-- Filters -->
@@ -404,6 +408,26 @@
         document.getElementById("s-revenue-sub").textContent = `avg ₹${paidOrders.length ? Math.round(revenue / paidOrders.length).toLocaleString("en-IN") : 0}`;
         document.getElementById("s-pending").textContent = toShip;
         document.getElementById("s-shipped").textContent = shipped;
+
+        // Money actually in vs still owed. amount_paid_paise overrides for
+        // part-paid / unpaid orders (e.g. wholesale advances); otherwise COD
+        // counts only once delivered, and returns / gifts / event stock count as 0.
+        const NO_MONEY = ["rto", "returned", "pending", "failed", "cancelled"];
+        let received = 0, toCome = 0, owing = 0;
+        for (const o of allOrders) {
+            if (NO_MONEY.includes(o.status) || o.payment_method === "creator_gift" || o.payment_method === "event_stock") continue;
+            const amt = o.amount_paise || 0;
+            let paid;
+            if (o.amount_paid_paise != null) paid = Math.min(o.amount_paid_paise, amt);
+            else if (o.status === "cod_unpaid" || (o.payment_method === "cod" && o.status !== "delivered")) paid = 0;
+            else paid = amt;
+            received += paid;
+            if (amt > paid) { toCome += amt - paid; owing++; }
+        }
+        const inr = p => "₹" + (p / 100).toLocaleString("en-IN", { maximumFractionDigits: 2 });
+        document.getElementById("s-received").textContent = inr(received);
+        document.getElementById("s-tocome").textContent = inr(toCome);
+        document.getElementById("s-tocome-sub").textContent = owing ? `${owing} order${owing > 1 ? "s" : ""} (COD + B2B balance)` : "";
     }
 
     function setFilter(f, btn) {
