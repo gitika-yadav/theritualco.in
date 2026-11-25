@@ -14,7 +14,6 @@ const PREORDER_SHIPS = "December";
 const KIT_MAP = {
     "yoga-essentials-kit": {
         id: "yoga-essentials-kit",
-        preorder: true, // can be ordered while a piece is out of stock; ships at restock
         name: "Yoga Essentials Kit",
         price_paise: 579900, mrp_paise: 639700, // kit price; mrp = pieces bought separately
         noCodes: true, // discount codes don't stack on kits
@@ -27,7 +26,6 @@ const KIT_MAP = {
     },
     "yoga-studio-kit": {
         id: "yoga-studio-kit",
-        preorder: true, // can be ordered while a piece is out of stock; ships at restock
         name: "Yoga Studio Kit",
         price_paise: 209900, mrp_paise: 229700, // kit price; mrp = pieces bought separately
         noCodes: true, // discount codes don't stack on kits
@@ -39,7 +37,6 @@ const KIT_MAP = {
     },
     "pilates-starter-kit": {
         id: "pilates-starter-kit",
-        preorder: true, // can be ordered while a piece is out of stock; ships at restock
         name: "Pilates Starter Kit",
         price_paise: 879900, mrp_paise: 999600, // kit price; mrp = pieces bought separately
         noCodes: true, // discount codes don't stack on kits
@@ -52,7 +49,6 @@ const KIT_MAP = {
     },
     "pilates-sculpt-kit": {
         id: "pilates-sculpt-kit",
-        preorder: true, // can be ordered while a piece is out of stock; ships at restock
         name: "Pilates Sculpt Kit",
         price_paise: 749900, mrp_paise: 849600, // kit price; mrp = pieces bought separately
         noCodes: true, // discount codes don't stack on kits
@@ -65,7 +61,6 @@ const KIT_MAP = {
     },
     "pilates-complete-kit": {
         id: "pilates-complete-kit",
-        preorder: true, // can be ordered while a piece is out of stock; ships at restock
         name: "Pilates Complete Kit",
         price_paise: 1219900, mrp_paise: 1439400, // kit price; mrp = pieces bought separately
         noCodes: true, // discount codes don't stack on kits

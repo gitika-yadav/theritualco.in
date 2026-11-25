@@ -262,14 +262,7 @@
     </div>
   `).join("");
 
-        // Pre-order items (dumbbells, block, ring and every kit) ship in December — don't promise 24h dispatch.
-        const PREORDER_CART_IDS = ["capsule-dumbbell", "yoga-block", "pilates-ring",
-            "pilates-starter-kit", "pilates-sculpt-kit", "pilates-complete-kit", "yoga-essentials-kit", "yoga-studio-kit"];
-        const hasPreorder = cart.items.some(i => PREORDER_CART_IDS.includes(i.id));
-        const allPreorder = hasPreorder && cart.items.every(i => PREORDER_CART_IDS.includes(i.id));
-        const dispatchText = !hasPreorder ? "Dispatched within 24 hours."
-            : allPreorder ? "Pre-order: ships in December."
-            : "Includes pre-order items, which ship in December.";
+        const dispatchText = "Dispatched within 24 hours.";
         ["dispatch-copy", "dispatch-copy-2"].forEach(id => {
             const el = document.getElementById(id);
             if (el) el.textContent = dispatchText;

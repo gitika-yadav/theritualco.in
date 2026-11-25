@@ -18,13 +18,9 @@
     // Products that stay orderable as a pre-order when out of stock
     // (mirror of `preorder: true` in netlify/functions/shared/product-map.js).
     var PREORDER_LABEL = "Pre-order · Ships in December";
-    var PREORDER = {
-        "capsule-dumbbell": PREORDER_LABEL,
-        "yoga-block": PREORDER_LABEL, "the-ritual-block": PREORDER_LABEL,
-        "pilates-ring": PREORDER_LABEL, "the-ritual-ring": PREORDER_LABEL
-    };
+    var PREORDER = {}; // nothing is on pre-order now
     // Inventory ids that stay orderable when out of stock (listing cards).
-    var PREORDER_IDS = ["capsule-1kg", "capsule-2kg", "yoga-block", "pilates-ring"];
+    var PREORDER_IDS = [];
 
     var SLUG_MAP = {
         "capsule-dumbbell": { ids: ["capsule-1kg", "capsule-2kg"], weightAware: true },

@@ -12,8 +12,6 @@
 
     var btn = document.getElementById("preorder-btn");
     if (!btn) return;
-    // Pre-order products ship later; never promise a date for them.
-    if (/capsule-dumbbell|the-ritual-block|the-ritual-ring/.test(location.pathname)) return;
 
     // "Today" in India, whatever the shopper's device timezone.
     function istToday() {
