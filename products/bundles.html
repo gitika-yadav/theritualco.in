@@ -172,6 +172,7 @@
             flex-direction: column;
             transition: box-shadow 0.25s ease, transform 0.25s ease;
         }
+        #kit-canvas .kit-card { cursor: pointer; }
         #kit-canvas .kit-card:hover {
             box-shadow: 0 18px 40px rgba(28,26,23,0.08);
             transform: translateY(-3px);
@@ -1012,5 +1013,20 @@
     });
 </script>
 
+<script>
+// Whole kit card opens the kit page. Item links inside (mat, ring...) still go to their own pages.
+(function () {
+    document.querySelectorAll('#kit-canvas .kit-card').forEach(function (card) {
+        var btn = card.querySelector('.kit-card__btn');
+        if (!btn) return;
+        card.addEventListener('click', function (e) {
+            if (e.target.closest('a, button')) return;
+            if (window.getSelection && String(window.getSelection()).length) return;
+            if (e.metaKey || e.ctrlKey) window.open(btn.href, '_blank');
+            else window.location.href = btn.href;
+        });
+    });
+})();
+</script>
 </body>
 </html>
