@@ -2,13 +2,13 @@
 // "Order today · arrives Tue 4 – Sat 8 Nov" under Add to Cart on product pages.
 // Hidden when the button isn't a plain "Add to Cart" (sold out / pre-order).
 //
-// Window = dispatch (within 24h, Mon–Sat) + 2–5 days transit, skipping Sundays.
+// Window = dispatch (within 24h, Mon–Sat) + 2–7 days transit, skipping Sundays.
 // Change the numbers below if your dispatch or courier times change.
 
 (function () {
     var DISPATCH_DAYS = 1;   // working days until it's handed to Delhivery
     var TRANSIT_MIN = 2;     // working days in transit (fastest)
-    var TRANSIT_MAX = 5;     // working days in transit (slowest)
+    var TRANSIT_MAX = 7;     // working days in transit (slowest)
 
     var btn = document.getElementById("preorder-btn");
     if (!btn) return;
