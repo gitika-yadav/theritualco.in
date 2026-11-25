@@ -12,188 +12,342 @@
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About The Ritual Co | Aesthetic Silicone Dumbbells, Designed in India</title>
-    <meta name="description" content="The Ritual Co makes India's first capsule-shaped silicone dumbbells — aesthetic, skin-safe strength essentials designed for the home. Founded by Gitika Yadav, engineer and fitness creator." />
+    <title>About The Ritual Co. | Design-led Pilates &amp; Home Movement Essentials</title>
+    <meta name="description" content="The Ritual Co. makes design-led Pilates and home movement essentials in four shades: mats, ankle weights, capsule dumbbells, rings, balls, blocks and kits. Founded in Delhi by Gitika Yadav." />
 
     <link rel="icon" type="image/png" href="/images/favicon.png" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="/css/global.css" />
-    <link rel="stylesheet" href="/css/about.css" />
     <link rel="stylesheet" href="/css/navbar.css" />
     <link rel="stylesheet" href="/css/footer.css" />
     <link rel="canonical" href="https://theritualco.in/about">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="About The Ritual Co | Aesthetic Silicone Dumbbells, Designed in India">
-    <meta property="og:description" content="India's first capsule-shaped silicone dumbbells — aesthetic, skin-safe strength essentials for the home. Founded by Gitika Yadav.">
+    <meta property="og:title" content="About The Ritual Co. | Because Movement Is a Ritual">
+    <meta property="og:description" content="Design-led Pilates and home movement essentials in Onyx Black, Vanilla Cream, Strawberry Milk and Oat Latte. Founded by Gitika Yadav.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://theritualco.in/about">
-    <meta property="og:image" content="https://theritualco.in/images/capsule-dumbbell.webp">
+    <meta property="og:image" content="https://theritualco.in/images/pilates-complete-kit-oat-latte.webp">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="About The Ritual Co">
-    <meta name="twitter:description" content="India's first capsule-shaped silicone dumbbells, designed for the home.">
-    <meta name="twitter:image" content="https://theritualco.in/images/capsule-dumbbell.webp">
+    <meta name="twitter:title" content="About The Ritual Co.">
+    <meta name="twitter:description" content="Design-led Pilates and home movement essentials, in four shades.">
+    <meta name="twitter:image" content="https://theritualco.in/images/pilates-complete-kit-oat-latte.webp">
     <script src="/javascript/meta-pixel.js"></script>
+
+    <style>
+        #about-canvas {
+            --ink: #1C1A17;
+            --ink-soft: rgba(28,26,23,0.68);
+            --ink-mute: rgba(28,26,23,0.48);
+            --cream: #FBF8F3;
+            --cream-deep: #F0E8DA;
+            --oat: #8b7360;
+            --line: rgba(28,26,23,0.10);
+            font-family: 'DM Sans', -apple-system, sans-serif;
+            color: var(--ink);
+            background: var(--cream);
+            -webkit-font-smoothing: antialiased;
+        }
+        #about-canvas * { box-sizing: border-box; }
+        #about-canvas img { display: block; width: 100%; height: 100%; object-fit: cover; }
+        #about-canvas a { color: inherit; }
+        #about-canvas .wrap { max-width: 1160px; margin: 0 auto; padding: 0 32px; }
+        #about-canvas .eyebrow {
+            font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+            color: var(--oat); margin: 0 0 18px; font-weight: 500;
+        }
+        #about-canvas h1, #about-canvas h2, #about-canvas h3 {
+            font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; color: var(--ink); margin: 0;
+        }
+        #about-canvas p { line-height: 1.75; color: var(--ink-soft); font-size: 15.5px; margin: 0 0 16px; font-weight: 300; }
+        #about-canvas .btn {
+            display: inline-block; padding: 15px 30px; border: 1px solid var(--ink);
+            background: var(--ink); color: var(--cream); text-decoration: none;
+            font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; transition: opacity .2s;
+        }
+        #about-canvas .btn:hover { opacity: .85; }
+        #about-canvas .btn--ghost { background: transparent; color: var(--ink); }
+
+        /* Hero */
+        #about-canvas .hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 64px; align-items: center; padding: 56px 32px 88px; max-width: 1160px; margin: 0 auto; }
+        #about-canvas .hero h1 { font-style: italic; font-size: clamp(40px, 5.4vw, 66px); line-height: 1.06; margin-bottom: 26px; }
+        #about-canvas .hero .lede { font-size: 17px; max-width: 46ch; margin-bottom: 34px; }
+        #about-canvas .hero .ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+        #about-canvas .hero__img { aspect-ratio: 4 / 5; overflow: hidden; background: var(--cream-deep); }
+
+        /* Manifesto band */
+        #about-canvas .band { background: var(--cream-deep); padding: 88px 0; text-align: center; }
+        #about-canvas .band blockquote {
+            font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 300;
+            font-size: clamp(26px, 3.4vw, 40px); line-height: 1.3; margin: 0 auto; max-width: 30ch; color: var(--ink);
+        }
+
+        /* Story */
+        #about-canvas .story { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; padding: 104px 32px; max-width: 1160px; margin: 0 auto; align-items: start; }
+        #about-canvas .story h2 { font-size: clamp(32px, 3.6vw, 44px); line-height: 1.15; }
+
+        /* Shades */
+        #about-canvas .shades { padding: 0 0 104px; }
+        #about-canvas .section-head { display: flex; justify-content: space-between; align-items: end; gap: 40px; margin-bottom: 40px; flex-wrap: wrap; }
+        #about-canvas .section-head h2 { font-size: clamp(32px, 3.6vw, 44px); }
+        #about-canvas .section-head p { max-width: 44ch; margin: 0; }
+        #about-canvas .shade-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        #about-canvas .shade { text-decoration: none; display: block; }
+        #about-canvas .shade__img { aspect-ratio: 4 / 5; overflow: hidden; background: var(--cream-deep); }
+        #about-canvas .shade__img img { transition: transform .6s ease; }
+        #about-canvas .shade:hover .shade__img img { transform: scale(1.03); }
+        #about-canvas .shade__meta { display: flex; align-items: center; gap: 10px; padding-top: 16px; }
+        #about-canvas .shade__dot { width: 14px; height: 14px; border-radius: 50%; flex: none; border: 1px solid var(--line); }
+        #about-canvas .shade__name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 22px; }
+        #about-canvas .shade__tag { font-size: 12px; color: var(--ink-mute); padding-left: 24px; margin-top: 2px; }
+
+        /* What we make */
+        #about-canvas .make { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+        #about-canvas .make-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+        #about-canvas .make-item:first-child { padding-left: 0; }
+        #about-canvas .make-item { padding: 44px 28px; border-right: 1px solid var(--line); text-decoration: none; transition: background .2s; }
+        #about-canvas .make-item:last-child { border-right: none; }
+        #about-canvas .make-item:hover { background: var(--cream-deep); }
+        #about-canvas .make-item h3 { font-size: 26px; margin-bottom: 10px; }
+        #about-canvas .make-item p { font-size: 14px; margin: 0 0 18px; }
+        #about-canvas .make-item span { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--oat); }
+
+        /* Founder */
+        #about-canvas .founder { display: grid; grid-template-columns: 1.15fr 1fr; gap: 72px; align-items: center; padding: 104px 32px; max-width: 1160px; margin: 0 auto; }
+        #about-canvas .founder__img { aspect-ratio: 3 / 2; overflow: hidden; }
+        #about-canvas .founder h2 { font-size: clamp(32px, 3.6vw, 44px); margin-bottom: 22px; }
+        #about-canvas .founder .sig { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 20px; color: var(--ink); margin-top: 8px; }
+
+        /* Principles */
+        #about-canvas .principles { background: var(--cream-deep); padding: 96px 0; }
+        #about-canvas .principles h2 { font-size: clamp(32px, 3.6vw, 44px); margin-bottom: 48px; text-align: center; }
+        #about-canvas .p-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 36px; }
+        #about-canvas .p-grid .num { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 18px; color: var(--oat); display: block; margin-bottom: 14px; }
+        #about-canvas .p-grid h3 { font-size: 23px; margin-bottom: 10px; }
+        #about-canvas .p-grid p { font-size: 14.5px; margin: 0; }
+
+        /* Journey */
+        #about-canvas .journey { padding: 104px 32px; max-width: 820px; margin: 0 auto; }
+        #about-canvas .journey h2 { font-size: clamp(32px, 3.6vw, 44px); margin-bottom: 40px; text-align: center; }
+        #about-canvas .steps { list-style: none; margin: 0; padding: 0; border-left: 1px solid var(--line); }
+        #about-canvas .steps li { position: relative; padding: 0 0 34px 34px; }
+        #about-canvas .steps li::before { content: ''; position: absolute; left: -5px; top: 7px; width: 9px; height: 9px; border-radius: 50%; background: var(--oat); }
+        #about-canvas .steps .when { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--oat); display: block; margin-bottom: 6px; }
+        #about-canvas .steps p { margin: 0; }
+
+        /* Closing */
+        #about-canvas .closing { text-align: center; padding: 96px 32px 112px; border-top: 1px solid var(--line); }
+        #about-canvas .closing h2 { font-style: italic; font-size: clamp(34px, 4.2vw, 52px); margin-bottom: 18px; }
+        #about-canvas .closing p { max-width: 48ch; margin: 0 auto 32px; }
+        #about-canvas .closing .ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        #about-canvas .closing .press { margin-top: 28px; font-size: 13px; }
+        #about-canvas .closing .press a { color: var(--ink-soft); }
+
+        @media (max-width: 900px) {
+            #about-canvas .hero, #about-canvas .story, #about-canvas .founder { grid-template-columns: 1fr; gap: 40px; padding-top: 48px; padding-bottom: 72px; }
+            #about-canvas .hero__img { order: -1; }
+            #about-canvas .shade-grid, #about-canvas .p-grid { grid-template-columns: 1fr 1fr; gap: 24px 16px; }
+            #about-canvas .make-grid { grid-template-columns: 1fr 1fr; }
+            #about-canvas .make-item:nth-child(2) { border-right: none; }
+            #about-canvas .make-item:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+        }
+        @media (max-width: 560px) {
+            #about-canvas .wrap, #about-canvas .hero, #about-canvas .story, #about-canvas .founder, #about-canvas .journey { padding-left: 20px; padding-right: 20px; }
+            #about-canvas .p-grid { grid-template-columns: 1fr; }
+            #about-canvas .make-item { padding: 32px 20px; }
+            #about-canvas .band { padding: 64px 0; }
+        }
+    </style>
 </head>
 
 <body>
 <div class="page-wrapper">
     <div id="navbar-placeholder"></div>
 
-    <main class="about-wrap">
+    <main id="about-canvas">
+
         <!-- HERO -->
-        <header class="about-hero">
-            <div class="about-hero__copy">
+        <header class="hero">
+            <div>
+                <p class="eyebrow">About The Ritual Co.</p>
                 <h1>Because movement is a ritual.</h1>
                 <p class="lede">
-                    The Ritual Co. designs strength essentials that feel as good as they look — soft, strong,
-                    and unapologetically minimal. We make India's first capsule-shaped silicone dumbbells,
-                    so your workout can live beautifully in your space instead of hiding in a cupboard.
+                    We make Pilates and home movement essentials that are as considered as the rest of your home.
+                    Soft-touch, quietly beautiful pieces in four shades, designed to be left out, not hidden away.
                 </p>
-                <div class="hero-cta">
+                <div class="ctas">
                     <a class="btn" href="/products/products">Shop the collection</a>
+                    <a class="btn btn--ghost" href="/find-your-colour">Find your colour</a>
                 </div>
             </div>
-            <picture class="about-hero__img">
-                <img src="/images/grey.webp" alt="Capsule-shaped silicone dumbbells in pastel tones – The Ritual Co." loading="lazy" width="720" height="540"/>
-            </picture>
+            <div class="hero__img">
+                <img src="/images/pilates-complete-kit-oat-latte.webp" alt="The Pilates Complete Kit in Oat Latte laid out on The Ritual Mat" width="1080" height="1350"/>
+            </div>
         </header>
 
-        <!-- 3 PILLARS -->
-        <section class="pillars">
-            <article class="card">
-                <h3>Ergonomic by design</h3>
-                <p>Soft-touch silicone, balanced core, and a ~35&nbsp;mm grip built for a secure, comfortable hold.</p>
-            </article>
-            <article class="card">
-                <h3>Minimal, considered aesthetic</h3>
-                <p>Muted, calming tones that belong in your home — no loud logos, no clutter.</p>
-            </article>
-            <article class="card">
-                <h3>Made to last</h3>
-                <p>Durable silicone over a cast-iron core; gentle on floors and easy to care for.</p>
-            </article>
+        <!-- MANIFESTO -->
+        <section class="band">
+            <div class="wrap">
+                <blockquote>Fewer, better pieces. Tones that calm a room. A practice you actually want to come back to.</blockquote>
+            </div>
         </section>
 
         <!-- STORY -->
         <section class="story">
-            <div class="story__text">
-                <h2>Our story</h2>
-                <p>
-                    We started with a simple problem: strength gear was either too harsh or too plain. We wanted
-                    equipment that would invite you to move — tools that match your space, your rhythm, and your mood.
-                </p>
-                <p>
-                    The result is a collection that blends form and function: capsule-shaped dumbbells with a
-                    silk-matte finish, designed and manufactured in India for intentional movement at home.
-                </p>
-                <blockquote>
-                    "I wanted strength tools that don't just sit in a corner — but make you want to show up."
-                    <span class="sig">— Gitika Yadav, Founder</span>
-                </blockquote>
+            <div>
+                <p class="eyebrow">Our story</p>
+                <h2>Equipment worth keeping in plain sight.</h2>
             </div>
-            <picture class="story__img">
-                <img src="/images/img_1.webp" alt="The Ritual Co capsule dumbbells styled at home" loading="lazy" width="720" height="520"/>
-            </picture>
+            <div>
+                <p>
+                    Most workout gear is built to be put away: loud colours, hard plastics, logos everywhere. We wanted the
+                    opposite, pieces that feel good in the hand and look good in a living room, so the mat stays rolled out
+                    and the weights stay within reach.
+                </p>
+                <p>
+                    The Ritual Co. began with one object, a capsule-shaped silicone dumbbell. It has since grown into a
+                    full collection for mat Pilates and everyday movement: mats, ankle weights, Pilates rings and balls, yoga
+                    blocks, belts and grip socks, plus curated kits that match piece for piece.
+                </p>
+                <p>
+                    Everything is designed by us in Delhi and made in one of four shades, so it all works together.
+                </p>
+            </div>
+        </section>
+
+        <!-- SHADES -->
+        <section class="shades">
+            <div class="wrap">
+                <div class="section-head">
+                    <div>
+                        <p class="eyebrow">The palette</p>
+                        <h2>Four shades. One ritual.</h2>
+                    </div>
+                    <p>The collection comes in four colours that sit together, so you can build your set slowly and it will always match.</p>
+                </div>
+                <div class="shade-grid">
+                    <a class="shade" href="/products/products?color=black">
+                        <div class="shade__img"><img src="/images/yoga-mat-black-lifestyle.webp" alt="Onyx Black Pilates set on The Ritual Mat" loading="lazy" width="1080" height="1350"/></div>
+                        <div class="shade__meta"><span class="shade__dot" style="background:#1f1f1f"></span><span class="shade__name">Onyx Black</span></div>
+                        <p class="shade__tag">Grounded &amp; bold</p>
+                    </a>
+                    <a class="shade" href="/products/products?color=cream">
+                        <div class="shade__img"><img src="/images/yoga-mat-lifestyle-1.webp" alt="Vanilla Cream Pilates set on The Ritual Mat" loading="lazy" width="1080" height="1350"/></div>
+                        <div class="shade__meta"><span class="shade__dot" style="background:#f3eadf"></span><span class="shade__name">Vanilla Cream</span></div>
+                        <p class="shade__tag">Soft &amp; airy</p>
+                    </a>
+                    <a class="shade" href="/products/products?color=pink">
+                        <div class="shade__img"><img src="/images/yoga-mat-pink-lifestyle.webp" alt="Strawberry Milk Pilates set on The Ritual Mat" loading="lazy" width="1080" height="1350"/></div>
+                        <div class="shade__meta"><span class="shade__dot" style="background:#f6c2d2"></span><span class="shade__name">Strawberry Milk</span></div>
+                        <p class="shade__tag">Playful &amp; sweet</p>
+                    </a>
+                    <a class="shade" href="/products/products?color=coffee">
+                        <div class="shade__img"><img src="/images/pilates-ball-coffee-cuffs.webp" alt="Oat Latte Ritual Cuffs and Ritual Ball" loading="lazy" width="1080" height="1350"/></div>
+                        <div class="shade__meta"><span class="shade__dot" style="background:#8b7360"></span><span class="shade__name">Oat Latte</span></div>
+                        <p class="shade__tag">Warm &amp; earthy</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- WHAT WE MAKE -->
+        <section class="make">
+            <div class="wrap"><div class="make-grid">
+                <a class="make-item" href="/products/bundles">
+                    <h3>Pilates &amp; Yoga Kits</h3>
+                    <p>Matching sets, from a first Pilates setup to the complete ritual.</p>
+                    <span>Shop kits →</span>
+                </a>
+                <a class="make-item" href="/products/the-ritual-mat">
+                    <h3>The Ritual Mat</h3>
+                    <p>5&nbsp;mm, with a grippy PU top that holds even when you sweat.</p>
+                    <span>Shop the mat →</span>
+                </a>
+                <a class="make-item" href="/products/the-ritual-cuffs">
+                    <h3>Weights</h3>
+                    <p>Ankle and wrist cuffs, plus capsule dumbbells with a cast-iron core.</p>
+                    <span>Shop weights →</span>
+                </a>
+                <a class="make-item" href="/products/products">
+                    <h3>Props &amp; Socks</h3>
+                    <p>Rings, balls, blocks, belts and grip socks for the details of your practice.</p>
+                    <span>Shop all →</span>
+                </a>
+            </div></div>
         </section>
 
         <!-- FOUNDER -->
-        <section class="founder-about">
-            <div class="founder-about__img">
-                <img src="/images/founder.webp" alt="Gitika Yadav, Founder of The Ritual Co." loading="lazy" width="480" height="540"/>
+        <section class="founder">
+            <div class="founder__img">
+                <img src="/images/founder.webp" alt="Gitika Yadav, founder of The Ritual Co." loading="lazy" width="1200" height="800"/>
             </div>
-            <div class="founder-about__text">
-                <h2>About the founder</h2>
+            <div>
+                <p class="eyebrow">The founder</p>
+                <h2>Gitika Yadav</h2>
                 <p>
-                    The Ritual Co. was founded by <strong>Gitika Yadav</strong> — a software engineer at Google,
-                    fitness content creator, and someone who simply wanted wellness products beautiful enough to
-                    deserve space at home.
+                    Gitika is a software engineer at Google and a fitness content creator. She has worked with Cult.fit and
+                    featured on Radio City India's <em>Beyond Muscles</em> series. She started The Ritual Co. because she
+                    couldn't find equipment she was happy to leave out at home.
                 </p>
                 <p>
-                    Her work bridges precision and aesthetics: an engineer's eye for how an object should feel in
-                    the hand, and a creator's instinct for how it should look in a space. As a Cult.fit creator and
-                    a featured voice on Radio City India's <em>Beyond Muscles</em> series, she's spent years thinking
-                    about how movement becomes a sustainable, daily ritual rather than a chore.
+                    She brings an engineer's eye to how each piece should feel in the hand, and a creator's eye to how it
+                    should look in a room.
                 </p>
-                <p>
-                    The Ritual Co. is the product of that obsession — strength essentials engineered for the body
-                    and designed for the home.
-                </p>
+                <p class="sig">"I wanted tools that make you want to show up, not ones that sit in a corner."</p>
             </div>
         </section>
 
-        <!-- VALUES -->
-        <section class="values">
-            <h2>What we believe</h2>
-            <ul class="values__grid">
-                <li>
-                    <h4>Movement, not punishment</h4>
-                    <p>Gentle progress over all-out intensity. Consistency builds strength.</p>
-                </li>
-                <li>
-                    <h4>Sustainability in practice</h4>
-                    <p>Long-lasting designs, low-waste packaging, and mindful manufacturing partners.</p>
-                </li>
-                <li>
-                    <h4>Design that calms</h4>
-                    <p>Muted tones and clean lines — tools that reduce visual noise and encourage flow.</p>
-                </li>
-                <li>
-                    <h4>Strength for all</h4>
-                    <p>Form-first weights that feel safe for beginners and empowering for everyone.</p>
-                </li>
-            </ul>
-        </section>
-
-        <!-- MATERIALS / SPECS STRIP -->
-        <section class="specs">
-            <div class="spec">
-                <span class="k">Core</span>
-                <span class="v">Cast iron</span>
-            </div>
-            <div class="spec">
-                <span class="k">Coating</span>
-                <span class="v">Skin-safe silicone</span>
-            </div>
-            <div class="spec">
-                <span class="k">Weights</span>
-                <span class="v">1 kg &amp; 2 kg</span>
-            </div>
-            <div class="spec">
-                <span class="k">Grip</span>
-                <span class="v">~35 mm</span>
-            </div>
-            <div class="spec">
-                <span class="k">Colours</span>
-                <span class="v">Vanilla Cream, Strawberry Milk, Oat Latte and Onyx Black</span>
+        <!-- PRINCIPLES -->
+        <section class="principles">
+            <div class="wrap">
+                <h2>What we believe</h2>
+                <div class="p-grid">
+                    <div>
+                        <span class="num">01</span>
+                        <h3>Movement, not punishment</h3>
+                        <p>Small, steady practice over all-or-nothing intensity. Consistency is what builds strength.</p>
+                    </div>
+                    <div>
+                        <span class="num">02</span>
+                        <h3>Design that calms</h3>
+                        <p>Muted tones and clean lines. Tools that quiet a room instead of cluttering it.</p>
+                    </div>
+                    <div>
+                        <span class="num">03</span>
+                        <h3>Made to be used</h3>
+                        <p>Soft-touch materials, honest weights and finishes that hold up to daily practice.</p>
+                    </div>
+                    <div>
+                        <span class="num">04</span>
+                        <h3>For every body</h3>
+                        <p>Form-first pieces that feel safe for beginners and still earn their place for regulars.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- TIMELINE / MILESTONES -->
-        <section class="timeline">
-            <h2>The journey</h2>
+        <!-- JOURNEY -->
+        <section class="journey">
+            <h2>The journey so far</h2>
             <ol class="steps">
-                <li><strong>May 2025:</strong> Sketching, ergonomics testing, and palette exploration.</li>
-                <li><strong>December 2025:</strong> Prototype rounds and community feedback from early supporters.</li>
-                <li><strong>Jan 2026:</strong> The Ritual Co. is incorporated; final tooling and launch prep.</li>
-                <li><strong>June 2026:</strong> Capsule Dumbbells launch — first production run shipping pan-India.</li>
-                <li><strong>June 2026:</strong> Yoga Belts launch — first production run shipping pan-India.</li>
-                <li><strong>July 2026:</strong> Yoga mats and ankle weights waitlist signup — launching in september</li>
+                <li><span class="when">2025</span><p>The idea: strength tools beautiful enough to live in your home. Sketches, grip testing and a four-shade palette.</p></li>
+                <li><span class="when">June 2026</span><p>We launch with the Capsule Dumbbells and The Ritual Belt, shipping across India.</p></li>
+                <li><span class="when">August 2026</span><p>Our first Pilates studios set up with Ritual capsule dumbbells.</p></li>
+                <li><span class="when">October 2026</span><p>The Ritual Mat, Cuffs, Ball and Grip Socks join the collection, and the Pilates and yoga kits come together.</p></li>
+                <li><span class="when">November 2026</span><p>Rings and blocks open for pre-order, and we host our first Pilates &amp; Recovery morning in Delhi.</p></li>
+                <li><span class="when">Next</span><p>More shades of the ritual: new pieces, more studios and more mornings spent moving together.</p></li>
             </ol>
         </section>
 
-        <!-- PRESS LINK -->
-        <section class="press-link">
-            <p>The Ritual Co. and its founder have been featured across media and creator platforms.
-                <a href="/press">See where we've been featured →</a></p>
-        </section>
-
-        <!-- CTA -->
-        <section class="cta">
-            <h2>Build your ritual</h2>
-            <p>Get first access to capsule dumbbells and new colour drops.</p>
-            <a class="btn" href="/#waitlist">Join the waitlist</a>
+        <!-- CLOSING -->
+        <section class="closing">
+            <h2>Build your ritual.</h2>
+            <p>Start with one piece or the whole set. Everything ships free across India.</p>
+            <div class="ctas">
+                <a class="btn" href="/products/bundles">Shop the kits</a>
+                <a class="btn btn--ghost" href="/products/products">Shop all products</a>
+            </div>
+            <p class="press">The Ritual Co. and its founder have been featured across media and creator platforms. <a href="/press">See the press →</a></p>
         </section>
     </main>
 
@@ -240,7 +394,7 @@
                 "jobTitle": "Founder"
             }
         },
-        "description": "India's first capsule-shaped silicone dumbbells — aesthetic, skin-safe strength essentials designed and made in India for mindful movement at home."
+        "description": "Design-led Pilates and home movement essentials in four shades: mats, ankle weights, capsule dumbbells, Pilates rings and balls, yoga blocks, belts, grip socks and kits. Designed in Delhi."
     }
 </script>
 
