@@ -374,5 +374,18 @@
 <script src="/javascript/arrives-by.js" defer></script>
 <script src="/javascript/kit-gallery.js" defer></script>
 <script src="/javascript/reels.js" defer></script>
+<script>
+// Preselect a colour from the link, e.g. ?color=cream or ?color=oat-latte (used by ads).
+(function () {
+    var c = (new URLSearchParams(location.search).get('color') || '').toLowerCase();
+    var alias = { 'oat-latte': 'coffee', 'oatlatte': 'coffee', 'vanilla-cream': 'cream', 'strawberry-milk': 'pink', 'onyx-black': 'black', 'onyx': 'black' };
+    c = alias[c] || c;
+    if (!c || typeof selectColour !== 'function') return;
+    var b = Array.prototype.find.call(document.querySelectorAll('.swatch'), function (x) {
+        return (x.dataset.color || '').toLowerCase() === c && !x.classList.contains('sold-out');
+    });
+    if (b) selectColour(b);
+})();
+</script>
 </body>
 </html>
