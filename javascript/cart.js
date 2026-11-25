@@ -70,7 +70,7 @@ function norm(key) {
         // TOTAL stock available for an item (ignores cart). Infinity = unknown/no row.
         // Pre-order items can be added while out of stock (mirror of
         // `preorder: true` in netlify/functions/shared/product-map.js).
-        const PREORDER_IDS = ["capsule-1kg", "capsule-2kg", "yoga-block", "pilates-ring"];
+        const PREORDER_IDS = []; // nothing is on pre-order now
 
         function getAvailable(id, weight, color) {
             const avail = getCachedAvailability();
@@ -204,7 +204,7 @@ function norm(key) {
 window.cartTrustHTML = function (cart) {
     var pre = (cart && cart.items || []).some(function (i) { return /pre-?order|ships (in )?december/i.test(i.name || ""); });
     var items = ["Free shipping", "Cash on delivery", "7-day easy returns",
-                 pre ? "Pre-orders ship in December" : "Dispatched within 24 hours"];
+                 "Dispatched within 24 hours"];
     var dot = '<span style="width:4px;height:4px;border-radius:50%;background:#c8b8a6;flex-shrink:0;"></span>';
     return '<div class="cart-trust" style="display:flex;flex-wrap:wrap;gap:6px 16px;margin:2px 0 16px;font-size:11px;letter-spacing:.03em;line-height:1.4;color:#8a7f76;">' +
         items.map(function (t) { return '<span style="display:flex;align-items:center;gap:6px;">' + dot + t + '</span>'; }).join("") +

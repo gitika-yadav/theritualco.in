@@ -25,10 +25,10 @@ const ITEMS = [
         desc: 'Three pairs of non-slip grip socks, one in each shade: Cream, Pink and Coffee. Silicone heart grips for pilates, barre and yoga. Free shipping across India.'
     },
 
-    // ── Capsule Dumbbells (preorder) ──
+    // ── Capsule Dumbbells ──
     ...['1kg', '2kg'].flatMap(w => [['Black', 'BLK'], ['Coffee', 'LCF'], ['Cream', 'CRM'], ['Pink', 'PNK']].map(([color, c]) => ({
         id: `DMB-${c}-${w.toUpperCase()}`, group: 'capsule-dumbbell', title: `Capsule Silicone Dumbbells ${w} pair – ${color}`, color, size: w,
-        price: w === '1kg' ? 2499 : 2999, path: '/products/capsule-dumbbell', img: `DMB-${c}`, avail: 'preorder',
+        price: w === '1kg' ? 2499 : 2999, path: '/products/capsule-dumbbell', img: `DMB-${c}`, avail: 'stock',
         desc: 'Soft-touch, skin-safe silicone capsule dumbbells with a cast-iron core and ergonomic ~35 mm grip. Sold as a pair.'
     }))),
 
@@ -67,24 +67,24 @@ const ITEMS = [
         desc: 'Dense EVA foam yoga block for alignment, seated poses and deeper stretches. Skin-safe and stable.'
     })),
 
-    // ── The Ritual Ring (waitlist) ──
+    // ── The Ritual Ring ──
     {
         id: 'RNG-STD', group: 'pilates-ring', title: 'The Ritual Ring Pilates Circle', color: '', size: '14 in',
-        price: 1499, path: '/products/the-ritual-ring', img: 'RNG-STD', avail: 'out of stock',
+        price: 1499, path: '/products/the-ritual-ring', img: 'RNG-STD', avail: 'stock', stockSkus: ['RNG-BLK-STD', 'RNG-CRM-STD', 'RNG-PNK-STD', 'RNG-LCF-STD'],
         desc: 'Pilates ring (magic circle) for inner thigh, arm and core toning. Dual foam-padded handles, 14 inch.'
     },
 
-    // ── Kits (preorder) ──
-    { id: 'KIT-PILATES-STARTER', group: 'pilates-starter-kit', title: 'Pilates Starter Kit – Mat, Ring, Ball & Dumbbells', price: 9996, salePrice: 8799, path: '/products/pilates-starter-kit', img: 'KIT-PILATES-STARTER', avail: 'preorder',
-      desc: 'The Ritual Mat, Ring, Ball and 1kg Capsule Dumbbells. Everything to start pilates at home. Preorder now.' },
-    { id: 'KIT-PILATES-SCULPT', group: 'pilates-sculpt-kit', title: 'Pilates Sculpt Kit – Ring, Ball, Dumbbells & Cuffs', price: 8496, salePrice: 7499, path: '/products/pilates-sculpt-kit', img: 'KIT-PILATES-SCULPT', avail: 'preorder',
-      desc: 'For the mat you already own: The Ritual Ring, Ball, 1kg Capsule Dumbbells and Cuffs ankle weights. Preorder now.' },
-    { id: 'KIT-PILATES-COMPLETE', group: 'pilates-complete-kit', title: 'Pilates Complete Kit – All Six Pieces', price: 14394, salePrice: 12199, path: '/products/pilates-complete-kit', img: 'KIT-PILATES-COMPLETE', avail: 'preorder',
-      desc: 'Mat, ring, ball, 1kg dumbbells, cuffs and a block: the complete home pilates set. Preorder now.' },
-    { id: 'KIT-YOGA-ESSENTIALS', group: 'yoga-essentials-kit', title: 'Yoga Essentials Kit – Mat, Belt & Block', price: 6397, salePrice: 5799, path: '/products/yoga-essentials-kit', img: 'KIT-YOGA-ESSENTIALS', avail: 'preorder',
-      desc: 'The Ritual Mat, Belt and Block bundled together for a complete home yoga practice. Preorder now.' },
-    { id: 'KIT-YOGA-STUDIO', group: 'yoga-studio-kit', title: 'Yoga Studio Kit – Belt & Two Blocks', price: 2297, salePrice: 2099, path: '/products/yoga-studio-kit', img: 'KIT-YOGA-STUDIO', avail: 'preorder',
-      desc: 'For the mat you already own: The Ritual Belt and two Ritual Blocks. Preorder now.' },
+    // ── Kits ──
+    { id: 'KIT-PILATES-STARTER', group: 'pilates-starter-kit', title: 'Pilates Starter Kit – Mat, Ring, Ball & Dumbbells', price: 9996, salePrice: 8799, path: '/products/pilates-starter-kit', img: 'KIT-PILATES-STARTER', avail: 'in stock',
+      desc: 'The Ritual Mat, Ring, Ball and 1kg Capsule Dumbbells. Everything to start pilates at home. Free shipping across India.' },
+    { id: 'KIT-PILATES-SCULPT', group: 'pilates-sculpt-kit', title: 'Pilates Sculpt Kit – Ring, Ball, Dumbbells & Cuffs', price: 8496, salePrice: 7499, path: '/products/pilates-sculpt-kit', img: 'KIT-PILATES-SCULPT', avail: 'in stock',
+      desc: 'For the mat you already own: The Ritual Ring, Ball, 1kg Capsule Dumbbells and Cuffs ankle weights. Free shipping across India.' },
+    { id: 'KIT-PILATES-COMPLETE', group: 'pilates-complete-kit', title: 'Pilates Complete Kit – All Six Pieces', price: 14394, salePrice: 12199, path: '/products/pilates-complete-kit', img: 'KIT-PILATES-COMPLETE', avail: 'in stock',
+      desc: 'Mat, ring, ball, 1kg dumbbells, cuffs and a block: the complete home pilates set. Free shipping across India.' },
+    { id: 'KIT-YOGA-ESSENTIALS', group: 'yoga-essentials-kit', title: 'Yoga Essentials Kit – Mat, Belt & Block', price: 6397, salePrice: 5799, path: '/products/yoga-essentials-kit', img: 'KIT-YOGA-ESSENTIALS', avail: 'in stock',
+      desc: 'The Ritual Mat, Belt and Block bundled together for a complete home yoga practice. Free shipping across India.' },
+    { id: 'KIT-YOGA-STUDIO', group: 'yoga-studio-kit', title: 'Yoga Studio Kit – Belt & Two Blocks', price: 2297, salePrice: 2099, path: '/products/yoga-studio-kit', img: 'KIT-YOGA-STUDIO', avail: 'in stock',
+      desc: 'For the mat you already own: The Ritual Belt and two Ritual Blocks. Free shipping across India.' },
 ];
 
 // Returns a function item -> 'in stock' | 'out of stock' | 'preorder' using live Supabase stock.

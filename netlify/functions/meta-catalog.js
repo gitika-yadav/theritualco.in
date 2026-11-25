@@ -5,7 +5,7 @@
 //
 // Names, prices, links and images below mirror the live product pages.
 // Stock comes live from the Supabase `inventory` table (by SKU).
-// Kits and dumbbells are always listed as preorder; the ring as out of stock (waitlist).
+// Kits are listed as in stock; everything else follows live stock.
 //
 // item_group_id = the product id the website's Meta Pixel sends (Cart item id), so
 // pixel events (content_type 'product_group') match catalog products.
