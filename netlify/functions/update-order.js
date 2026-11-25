@@ -165,7 +165,7 @@ exports.handler = async (event) => {
             <div style="font-family:Georgia,serif;max-width:560px;margin:0 auto;color:#3a3330;padding:40px 24px;">
                 <p style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#a09890;margin:0 0 32px;font-family:sans-serif;">The Ritual Co.</p>
                 <h1 style="font-size:24px;font-weight:400;margin:0 0 8px;">It's on its way, ${name}.</h1>
-                <p style="font-size:15px;color:#7a6f68;line-height:1.7;margin:0 0 24px;">Your order has been dispatched and is headed to you. Delivery usually takes 2–5 working days once shipped.</p>
+                <p style="font-size:15px;color:#7a6f68;line-height:1.7;margin:0 0 24px;">Your order has been dispatched and is headed to you. Delivery usually takes 2–7 days once shipped.</p>
                 <div style="border:0.5px solid #e8e2dc;border-radius:8px;padding:16px 20px;margin:0 0 20px;">
                     <table style="width:100%;font-size:13px;border-collapse:collapse;font-family:sans-serif;">
                         ${itemRows}

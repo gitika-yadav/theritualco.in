@@ -62,7 +62,7 @@ ${rows}
 </table>
 </div>
 <a href="${restore}" style="display:block;text-align:center;background:#3a3330;color:#fff;text-decoration:none;padding:16px;border-radius:8px;font-family:Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;">Return to your cart</a>
-<p style="font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#7a6f68;text-align:center;margin:18px 0 32px;">Free shipping &nbsp;·&nbsp; Cash on delivery &nbsp;·&nbsp; 7-day easy returns</p>
+<p style="font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#7a6f68;text-align:center;margin:18px 0 32px;">Free shipping &nbsp;·&nbsp; Cash on delivery &nbsp;·&nbsp; 7-day damage returns</p>
 <p style="font-size:15px;line-height:1.6;color:#3a3330;margin:0 0 6px;">Questions about sizing, colour or delivery? Just reply to this email and we'll help.</p>
 <p style="font-size:15px;color:#3a3330;margin:0 0 32px;">— The Ritual Co. team</p>
 <p style="font-family:Helvetica,Arial,sans-serif;font-size:11px;color:#b0a89f;margin:0;">This is the only reminder we'll send about this cart.</p>
