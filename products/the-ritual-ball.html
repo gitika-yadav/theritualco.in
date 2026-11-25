@@ -123,7 +123,7 @@
         <p class="product__tagline">Soften into stability.<br>Strengthen with control.</p>
 
         <div class="opt">
-            <label class="opt__label">Colour &mdash; <span id="colour-name">Cream</span></label>
+            <label class="opt__label">Colour &mdash; <span id="colour-name">Vanilla Cream</span></label>
             <div class="swatches" role="radiogroup" aria-label="Colour" style="gap:16px;">
                 <div class="swatch-wrap">
                     <button class="swatch is-selected" data-name="Cream" data-color="Cream" data-img="/images/pilates-ball-cream.webp" style="--sw:#f3eadf" aria-label="Cream" aria-checked="true" role="radio" onclick="selectColour(this)"></button>
@@ -134,11 +134,11 @@
                     <span class="swatch-label">Onyx Black</span>
                 </div>
                 <div class="swatch-wrap">
-                    <button class="swatch" data-name="Pink" data-color="Pink" data-img="/images/pilates-ball-pink.webp" style="--sw:#f8c8b8" aria-label="Pink" aria-checked="false" role="radio" onclick="selectColour(this)"></button>
+                    <button class="swatch" data-name="Pink" data-color="Pink" data-img="/images/pilates-ball-pink.webp" style="--sw:#f6c2d2" aria-label="Pink" aria-checked="false" role="radio" onclick="selectColour(this)"></button>
                     <span class="swatch-label">Strawberry Milk</span>
                 </div>
                 <div class="swatch-wrap">
-                    <button class="swatch" data-name="Coffee" data-color="Coffee" data-img="/images/pilates-ball-coffee.webp" style="--sw:#6f4e37" aria-label="Coffee" aria-checked="false" role="radio" onclick="selectColour(this)"></button>
+                    <button class="swatch" data-name="Coffee" data-color="Coffee" data-img="/images/pilates-ball-coffee.webp" style="--sw:#8b7360" aria-label="Coffee" aria-checked="false" role="radio" onclick="selectColour(this)"></button>
                     <span class="swatch-label">Oat Latte</span>
                 </div>
             </div>
@@ -212,7 +212,7 @@
                             <tr><td>Material</td><td>Non-toxic, anti-burst PVC</td></tr>
                             <tr><td>Includes</td><td>Inflation straw</td></tr>
                             <tr><td>Sold as</td><td>Single ball</td></tr>
-                            <tr><td>Colours</td><td>Cream, Black, Pink</td></tr>
+                            <tr><td>Colours</td><td>Vanilla Cream, Onyx Black, Strawberry Milk</td></tr>
                             <tr><td>Best for</td><td>Pilates, Core, Pelvic Floor, Stability, Rehab</td></tr>
                             </tbody>
                         </table>
@@ -341,7 +341,7 @@
         btn.classList.add('active','selected','is-selected');
         btn.setAttribute('aria-pressed','true');
         btn.setAttribute('aria-checked','true');
-        document.getElementById('colour-name').textContent = btn.dataset.name;
+        document.getElementById('colour-name').textContent = ({Cream:'Vanilla Cream',Pink:'Strawberry Milk',Black:'Onyx Black',Coffee:'Oat Latte'}[btn.dataset.name]||btn.dataset.name);
         switchProductImage(btn);
     }
 

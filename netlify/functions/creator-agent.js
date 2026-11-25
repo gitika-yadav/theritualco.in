@@ -27,7 +27,7 @@ const BRAND = {
     name: "The Ritual Co",
     handle: "@theritualco.in",
     positioning: "Pilates on a yacht — aspirational, restrained luxury. Products are lifestyle objects not gym equipment.",
-    product: "Silicone Capsule Dumbbells — cast iron core, silicone coating. Available in Peach, Grey, Cream, Black.",
+    product: "Silicone Capsule Dumbbells — cast iron core, silicone coating. Available in Vanilla Cream, Strawberry Milk, Oat Latte and Onyx Black.",
     contentRequirements: "Dedicated reel (not story, not collab post), unique discount code in caption, post within 14 days of receiving product, tag @theritualco.in",
     tone: "Premium, editorial, aspirational. Never discount-forward. Never 'gym bro'. Always aesthetic-first.",
 };

@@ -49,7 +49,7 @@ function buildLaunchEmail(firstName) {
     <p style="font-size:14px;color:#a09890;margin:0 0 20px;font-style:italic;">Soft, strong, and unapologetically minimal.</p>
 
     <p style="font-size:15px;color:#7a6f68;line-height:1.8;margin:0 0 20px;">
-      Cast-iron core wrapped in skin-safe, silk-matte silicone. Designed specifically for women's hands with an ergonomic ~35mm grip — balanced weight distribution so there's no wrist roll mid-rep. Available in Peach, Grey, Cream, Black, and Pink.
+      Cast-iron core wrapped in skin-safe, silk-matte silicone. Designed specifically for women's hands with an ergonomic ~35mm grip — balanced weight distribution so there's no wrist roll mid-rep. Available in Vanilla Cream, Strawberry Milk, Oat Latte and Onyx Black, and Pink.
     </p>
 
     <p style="font-size:15px;color:#7a6f68;line-height:1.8;margin:0 0 20px;">
