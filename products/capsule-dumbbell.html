@@ -152,7 +152,7 @@
 
 <!--        <div class="out-of-stock-badge">Out of stock</div>-->
 
-        <p class="option-heading">Colour &mdash; <em id="colour-name">Cream</em></p>
+        <p class="option-heading">Colour &mdash; <em id="colour-name">Vanilla Cream</em></p>
         <div class="swatches" role="group" aria-label="Colour options">
             <button class="swatch color-option active selected" style="background:#EFE9DE;" data-name="Vanilla Cream" data-color="Cream"
                     data-img="/images/capsule-dumbbell-cream.webp"
@@ -160,10 +160,10 @@
             <button class="swatch color-option" style="background:#2B2B29;" data-name="Onyx Black" data-color="Black"
                     data-img="/images/capsule-dumbbell-black.webp"
                     aria-label="Black" aria-pressed="false" onclick="selectColour(this)"></button>
-            <button class="swatch color-option" style="background:#E9B7C4;" data-name="Strawberry Milk" data-color="Pink"
+            <button class="swatch color-option" style="background:#f6c2d2;" data-name="Strawberry Milk" data-color="Pink"
                     data-img="/images/capsule-dumbbell-pink.webp"
                     aria-label="Pink" aria-pressed="false" onclick="selectColour(this)"></button>
-            <button class="swatch color-option" style="background:#6f4e37;" data-name="Oat latte" data-color="Coffee"
+            <button class="swatch color-option" style="background:#a89889;" data-name="Oat Latte" data-color="Coffee"
                     data-img="/images/capsule-dumbbell-coffee.webp"
                     aria-label="Coffee" aria-pressed="false" onclick="selectColour(this)"></button>
         </div>
@@ -246,7 +246,7 @@
                             <tr><td>Grip</td><td>~35 mm ergonomic</td></tr>
                             <tr><td>Core</td><td>Cast iron</td></tr>
                             <tr><td>Coating</td><td>Skin-safe silicone, silk-matte</td></tr>
-                            <tr><td>Colours</td><td>Pink, Coffee, Cream, Black</td></tr>
+                            <tr><td>Colours</td><td>Strawberry Milk, Oat Latte, Vanilla Cream, Onyx Black</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -365,7 +365,7 @@
         });
         btn.classList.add('active', 'selected');
         btn.setAttribute('aria-pressed', 'true');
-        document.getElementById('colour-name').textContent = btn.dataset.name;
+        document.getElementById('colour-name').textContent = ({Cream:'Vanilla Cream',Pink:'Strawberry Milk',Black:'Onyx Black',Coffee:'Oat Latte'}[btn.dataset.name]||btn.dataset.name);
         switchProductImage(btn);
     }
 
