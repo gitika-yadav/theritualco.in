@@ -16,7 +16,8 @@ function isProdHost(event) {
 // The id GA uses for the order: Razorpay payment id for prepaid, our COD receipt otherwise.
 // (Matches what the browser sent before, so refunds line up with old purchases.)
 function transactionId(order) {
-    return order.payment_method === "online" ? (order.razorpay_payment_id || order.razorpay_order_id) : order.razorpay_order_id;
+    // Payment id when there is one (online, and COD orders that paid the advance) — matches the browser purchase on thank-you.
+    return order.razorpay_payment_id || order.razorpay_order_id;
 }
 
 function items(order) {
