@@ -130,7 +130,7 @@ function defaultsFor(order) {
         state: addr.state,
         pin: addr.pin,
         payment_mode: isCod ? "COD" : "Prepaid",
-        cod_amount: isCod ? amount : 0,
+        cod_amount: isCod ? Math.max(0, amount - Math.round((order.amount_paid_paise || 0) / 100)) : 0, // COD advance already paid online
         total_amount: amount || mrp,
         products_desc: desc.slice(0, 250),
         quantity: list.reduce((n, p) => n + p.qty, 0) || 1,

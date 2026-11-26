@@ -45,7 +45,8 @@ exports.handler = async (event) => {
             const amt = (o.amount_paise || 0) / 100;
             if (RETURNED.includes(o.status)) { mo.returned += amt; continue; }
             let paid;
-            if (o.amount_paid_paise != null) paid = Math.min(o.amount_paid_paise / 100, amt);
+            if (o.payment_method === "cod" && o.status === "delivered") paid = amt; // advance + cash collected
+            else if (o.amount_paid_paise != null) paid = Math.min(o.amount_paid_paise / 100, amt);
             else if (o.status === "cod_unpaid" || (o.payment_method === "cod" && o.status !== "delivered")) paid = 0;
             else paid = amt;
             mo.channels[CHANNEL[o.channel || "retail"]] += amt;
