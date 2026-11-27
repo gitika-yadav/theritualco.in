@@ -245,6 +245,7 @@
             fbp: read("_fbp"),
             fbc: read("_fbc") || (fbclid ? "fb.1." + Date.now() + "." + fbclid : ""),
             source_url: location.origin + location.pathname,
+            xid: window.metaVisitorId ? window.metaVisitorId() : "",
             staff: !!window.TRC_STAFF
         };
     }
@@ -447,6 +448,15 @@
             }))
         });
 
+        // Hashed email/phone/name/city for Meta matching (never sent in plain text)
+        if (window.setMetaUser) {
+            try {
+                await Promise.race([
+                    window.setMetaUser({ email, phone, name, city, state, zip: pincode }),
+                    new Promise(r => setTimeout(r, 600))
+                ]);
+            } catch (e) {}
+        }
         if (window.trackMeta) {
             window.trackMeta('InitiateCheckout', {
                 content_ids: Cart.get().items.map(i => i.id),

@@ -120,4 +120,48 @@ async function sendPurchase(o) {
     }
 }
 
-module.exports = { sendPurchase, _test: { addressParts, phoneHash, hashed } };
+const HEX64 = /^[a-f0-9]{64}$/;
+const USER_KEYS = ["em", "ph", "fn", "ln", "ct", "st", "zp", "country", "external_id"];
+
+/**
+ * sendBrowserEvent({ eventName, eventId, user, custom, fbp, fbc, sourceUrl, headers })
+ * Mirrors a browser Pixel event (same event_id) from our server. `user` holds
+ * SHA-256 hashes made in the browser; anything that isn't a hash is dropped.
+ * Never throws.
+ */
+async function sendBrowserEvent(o) {
+    if (!process.env.META_CAPI_TOKEN || !o || !o.eventId || !o.eventName) return { skipped: true };
+    try {
+        const { ip, ua } = clientInfo(o.headers);
+        const user_data = { client_ip_address: ip, client_user_agent: ua, fbp: o.fbp || undefined, fbc: o.fbc || undefined };
+        for (const k of USER_KEYS) {
+            const v = o.user && o.user[k];
+            if (typeof v === "string" && HEX64.test(v)) user_data[k] = [v];
+        }
+        const event = {
+            event_name: o.eventName,
+            event_time: Math.floor(Date.now() / 1000),
+            event_id: String(o.eventId),
+            action_source: "website",
+            event_source_url: o.sourceUrl || "https://theritualco.in/",
+            user_data,
+            custom_data: o.custom || {},
+        };
+        const body = { data: [event] };
+        if (process.env.META_TEST_EVENT_CODE) body.test_event_code = process.env.META_TEST_EVENT_CODE;
+        const ctrl = new AbortController();
+        const t = setTimeout(() => ctrl.abort(), 4000);
+        const res = await fetch(`${API}/${PIXEL_ID}/events?access_token=${encodeURIComponent(process.env.META_CAPI_TOKEN)}`, {
+            method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body), signal: ctrl.signal,
+        });
+        clearTimeout(t);
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) console.error("[META_CAPI]", o.eventName, res.status, JSON.stringify(data).slice(0, 500));
+        return { ok: res.ok, data };
+    } catch (err) {
+        console.error("[META_CAPI]", o.eventName, err.message);
+        return { ok: false };
+    }
+}
+
+module.exports = { sendPurchase, sendBrowserEvent, CATALOG_ID_ALIASES, _test: { addressParts, phoneHash, hashed } };

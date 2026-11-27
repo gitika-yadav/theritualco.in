@@ -285,7 +285,7 @@ exports.handler = async (event) => {
                     eventId: codReceipt, value: totalPaise / 100, items: orderItems,
                     email, phone, name, city, state, zip: pincode,
                     fbp: meta.fbp, fbc: meta.fbc, sourceUrl: meta.source_url,
-                    headers: event.headers, externalId: email,
+                    headers: event.headers, externalId: (meta.xid && /^[a-f0-9]{32}$/.test(meta.xid)) ? meta.xid : email,
                 });
             }
         }
