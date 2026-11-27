@@ -111,17 +111,17 @@
                     <span class="pay-card__dot" aria-hidden="true"></span>
                     <span class="pay-card__body">
                         <span class="pay-card__title">Cash on delivery</span>
-                        <span class="pay-card__sub">Pay ₹199 now to confirm, the rest when it arrives</span>
+                        <span class="pay-card__sub">Pay when your order arrives</span>
                     </span>
-                    <span class="pay-card__price">₹199 now</span>
+                    <span class="pay-card__price">+₹99</span>
                 </button>
                 <p class="pay-choice__nudge" id="pay-nudge" hidden>
-                    The ₹199 is part of your total, not a fee. It's refunded if you cancel before dispatch, but kept if the parcel is refused at delivery. Or pay it all online and there's nothing to pay at the door. <button type="button" id="pay-switch">Pay fully online</button>
+                    Paying online saves you ₹99. <button type="button" id="pay-switch">Switch to online</button>
                 </p>
             </div>
             <select id="payment" required class="pay-select-hidden" aria-hidden="true" tabindex="-1">
                 <option value="online">Pay Online (UPI / Card / Net banking)</option>
-                <option value="cod">Cash on Delivery (₹199 now, rest on delivery)</option>
+                <option value="cod">Cash on Delivery (+₹99)</option>
             </select>
         </div>
     </section>
@@ -136,7 +136,10 @@
             <span>Shipping</span>
             <span>Free</span>
         </div>
-
+        <div class="line" id="cod-line" style="display:none">
+            <span>COD Charge</span>
+            <span>₹99</span>
+        </div>
         <!-- DISCOUNT CODE -->
         <div class="line" style="flex-direction:column;gap:8px;align-items:stretch;">
             <div style="display:flex;gap:8px;">
@@ -153,10 +156,6 @@
         <div class="line total">
             <span>Total</span>
             <span id="total"></span>
-        </div>
-        <div id="cod-split" style="display:none;font-size:13px;color:#7a6f68;">
-            <div class="line"><span>Pay now to confirm</span><span id="cod-now">₹199</span></div>
-            <div class="line"><span>Pay on delivery</span><span id="cod-later"></span></div>
         </div>
 
         <button class="pay" id="payBtn">Continue To Payment</button>
@@ -219,17 +218,15 @@
         document.getElementById("checkout-main").style.display = "";
     }
 
-    // Cash on delivery: ₹199 is paid online to confirm (part of the total, not a fee),
-    // the rest on delivery. Must match COD_ADVANCE_PAISE in create-order.js.
-    const COD_ADVANCE = 199;
-    function isCodSelected() {
+    function getCodFee() {
         const sel = document.getElementById("payment");
-        return !!sel && sel.value === "cod";
+        return sel && sel.value === "cod" ? 99 : 0;
     }
 
     function getGrandTotal() {
         const ad = window.appliedDiscount;
-        return ad ? Math.max(0, Cart.total() - (ad.discount_amount || 0)) : Cart.total();
+        const base = ad ? Math.max(0, Cart.total() - (ad.discount_amount || 0)) : Cart.total();
+        return base + getCodFee();
     }
 
     // GA4 ids from the browser cookies, so the server-side purchase keeps this visit's source.
@@ -271,17 +268,9 @@
             if (el) el.textContent = dispatchText;
         });
 
-        const total = getGrandTotal();
-        totalEl.textContent = "₹" + total.toLocaleString("en-IN");
-        const split = document.getElementById("cod-split");
-        if (split) {
-            const now = Math.min(COD_ADVANCE, total);
-            split.style.display = isCodSelected() ? "" : "none";
-            document.getElementById("cod-now").textContent = "₹" + now.toLocaleString("en-IN");
-            document.getElementById("cod-later").textContent = "₹" + (total - now).toLocaleString("en-IN");
-        }
-        const payBtn = document.getElementById("payBtn");
-        if (payBtn && !payBtn.disabled) payBtn.textContent = isCodSelected() ? "Pay ₹" + Math.min(COD_ADVANCE, total) + " to confirm" : "Continue To Payment";
+        const codLine = document.getElementById("cod-line");
+        if (codLine) codLine.style.display = getCodFee() ? "flex" : "none";
+        totalEl.textContent = "₹" + getGrandTotal().toLocaleString("en-IN");
     }
 
     renderSummary();
@@ -431,10 +420,11 @@
 
         const btn = document.getElementById("payBtn");
         btn.disabled = true; btn.textContent = "Creating order…";
+        const codFee  = method === "cod" ? 99 : 0;
         const baseAmount = appliedDiscount
             ? Math.max(0, Cart.total() - (appliedDiscount.discount_amount || 0))
             : Cart.total();
-        const finalAmount = baseAmount;
+        const finalAmount = baseAmount + codFee;
 
 // ── funnel events: shipping then payment ──
         gtag('event', 'add_shipping_info', {
@@ -467,7 +457,67 @@
             });
         }
 
-// ── Payment: online pays the full total; cash on delivery pays the ₹199 advance here ──
+        if (method === "cod") {
+            btn.textContent = "Placing order…";
+            try {
+                const orderRes = await fetch("/.netlify/functions/create-order", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        cart: cart.items,
+                        name, email, phone,
+                        address, landmark, pincode, city, state,
+                        user_id: user ? user.id : null,
+                        amount: finalAmount,
+                        payment_method: "cod",
+                        discount_code: appliedDiscount ? appliedDiscount.code : null,
+                        discount_amount: appliedDiscount ? appliedDiscount.discount_amount : 0,
+                        gift,
+                        ga: gaIds(),
+                        meta: metaIds()
+                    })
+                });
+                const order = await orderRes.json();
+                if (!orderRes.ok) {
+                    alert(order.error || "Could not place order. Please try again.");
+                    btn.disabled = false; btn.textContent = "Continue To Payment";
+                    return;
+                }
+                if (order.gift_token && gift) {
+                    try { localStorage.setItem("rc_last_gift", JSON.stringify({ t: order.gift_token, to: gift.recipient, phone: gift.recipient_phone })); } catch (e) {}
+                }
+                // GA4 "purchase" is sent once, with the items, from thank-you.html (reads rc_last_order below).
+                if (appliedDiscount) {
+                    await fetch("/.netlify/functions/apply-discount", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ code: appliedDiscount.code })
+                    }).catch(() => {});
+                }
+                localStorage.setItem('rc_last_order', JSON.stringify({
+                    id: order.order_id || ("COD-" + Date.now()),
+                    value: finalAmount,
+                    content_ids: Cart.get().items.map(i => i.id),
+                    num_items: Cart.count(),
+                    payment_type: 'COD',
+                    items: Cart.get().items.map(i => ({
+                        item_id: i.id, item_name: i.name, item_variant: i.weight,
+                        price: i.price, quantity: i.qty
+                    }))
+                }));
+                Cart.clear();
+                localStorage.setItem('rc_last_order_amount', finalAmount);
+                window.location.href = "/thank-you.html";
+                return;
+            } catch (err) {
+                console.error(err);
+                alert("Something went wrong. Please try again.");
+                btn.disabled = false; btn.textContent = "Continue To Payment";
+                return;
+            }
+        }
+
+// ── existing online flow (try { … Razorpay … }) continues unchanged ──
         try {
             const orderRes = await fetch("/.netlify/functions/create-order", {
                 method: "POST",
@@ -478,12 +528,11 @@
                     address, landmark, pincode, city, state,
                     user_id: user ? user.id : null,
                     amount: finalAmount,
-                    payment_method: method,
                     discount_code: appliedDiscount ? appliedDiscount.code : null,
                     discount_amount: appliedDiscount ? appliedDiscount.discount_amount : 0,
                     gift,
                     ga: gaIds(),
-                    meta: metaIds()
+                        meta: metaIds()
                 })
             });
 
@@ -504,7 +553,7 @@
                 currency:    order.currency,
                 order_id:    order.order_id,
                 name:        "The Ritual Co.",
-                description: method === "cod" ? "Advance to confirm your cash on delivery order" : "Your Ritual Co. order",
+                description: "Your Ritual Co. order",
                 prefill:     { name, email, contact: phone },
                 theme:       { color: "#49201F" },
                 handler: async (response) => {
@@ -541,7 +590,7 @@
                         value: finalAmount,
                         content_ids: Cart.get().items.map(i => i.id),
                         num_items: Cart.count(),
-                        payment_type: method === "cod" ? 'COD' : 'Online',
+                        payment_type: 'Online',
                         items: Cart.get().items.map(i => ({
                             item_id: i.id, item_name: i.name, item_variant: i.weight,
                             price: i.price, quantity: i.qty
@@ -552,7 +601,7 @@
                     window.location.href = "/thank-you.html";
                 },
                 modal: {
-                    ondismiss: () => { btn.disabled = false; renderSummary(); }
+                    ondismiss: () => { btn.disabled = false; btn.textContent = "Continue To Payment"; }
                 }
             });
 
@@ -613,17 +662,15 @@
                 msg.textContent = data.error || "Invalid code";
                 msg.style.color = "#c0392b";
                 appliedDiscount = null;
-                window.appliedDiscount = null;
                 document.getElementById("discount-line").style.display = "none";
-                if (typeof renderSummary === "function") renderSummary();
             } else {
                 appliedDiscount = data;
                 const final = Math.max(0, Cart.total() - (data.discount_amount || 0));
                 document.getElementById("code-display").textContent = data.code;
                 document.getElementById("discount-display").textContent = data.free_shipping ? "Free shipping" : "−₹" + (data.discount_amount || 0).toLocaleString("en-IN");
                 document.getElementById("discount-line").style.display = "flex";
-                window.appliedDiscount = data;
-                if (typeof renderSummary === "function") renderSummary(); else document.getElementById("total").innerText = "₹" + final.toLocaleString("en-IN");
+                const cod = document.getElementById("payment").value === "cod" ? 99 : 0;
+                document.getElementById("total").innerText = "₹" + (final + cod).toLocaleString("en-IN");
                 msg.textContent = data.free_shipping ? "Free shipping applied!" : "You save ₹" + data.discount_amount.toLocaleString("en-IN");
                 msg.style.color = "#27ae60";
             }

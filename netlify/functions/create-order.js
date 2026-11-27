@@ -1,6 +1,9 @@
 const Razorpay = require("razorpay");
 const crypto = require("crypto");
-const { isProdHost } = require("./shared/ga4");
+const { giftLinkBlock } = require("./shared/gift-link");
+const { isProdHost, trackPurchase } = require("./shared/ga4");
+const { sendPurchase } = require("./shared/meta-capi");
+const { giftRows } = require("./shared/owner-email");
 const { createClient } = require("@supabase/supabase-js");
 const { PRODUCT_MAP, resolveProductKey } = require("./shared/product-map");
 const { KIT_MAP, PREORDER_SHIPS } = require("./shared/kit-map");
@@ -211,27 +214,29 @@ exports.handler = async (event) => {
         }
         totalPaise = Math.max(0, totalPaise - discountPaise);
 
-        // COD: no fee. The shopper pays a small advance online now and the rest
-        // on delivery, which cuts refusals at the door. The order only becomes a
-        // live COD order (cod_unpaid) once verify-payment confirms the advance.
-        const COD_ADVANCE_PAISE = 19900; // ₹199
-        const payNowPaise = isCod ? Math.min(COD_ADVANCE_PAISE, totalPaise) : totalPaise;
+        const COD_FEE_PAISE = 9900; // ₹99
+        if (isCod) totalPaise += COD_FEE_PAISE;
 
-        const razorpay = new Razorpay({
-            key_id:     process.env.RAZORPAY_KEY_ID,
-            key_secret: process.env.RAZORPAY_KEY_SECRET,
-        });
-        const rzOrder = await razorpay.orders.create({
-            amount:   payNowPaise,
-            currency: "INR",
-            receipt:  (isCod ? "ritual_cod_" : "ritual_") + Date.now(),
-            notes:    { customer: name, items: orderItems.length, cod_advance: isCod ? "yes" : "no" },
-        });
+        let rzOrder = null;
+        if (!isCod) {
+            const razorpay = new Razorpay({
+                key_id:     process.env.RAZORPAY_KEY_ID,
+                key_secret: process.env.RAZORPAY_KEY_SECRET,
+            });
+            rzOrder = await razorpay.orders.create({
+                amount:   totalPaise,
+                currency: "INR",
+                receipt:  "ritual_" + Date.now(),
+                notes:    { customer: name, items: orderItems.length },
+            });
+        }
+        const codReceipt = "ritual_cod_" + Date.now();
+        const receiptId = isCod ? codReceipt : rzOrder.id;
 
 // ── Save ONE order row for the whole cart ────────────────
         const orderData = {
-            razorpay_order_id: rzOrder.id,
-            status:            "pending",
+            razorpay_order_id: isCod ? codReceipt : rzOrder.id,
+            status:            isCod ? "cod_unpaid" : "pending",
             payment_method:    isCod ? "cod" : "online",
             items:             orderItems,
             amount_paise:      totalPaise,
@@ -271,13 +276,121 @@ exports.handler = async (event) => {
             return { statusCode: 500, body: JSON.stringify({ error: "Failed to save order — please try again." }) };
         }
 
+        if (isCod) {
+            await trackPurchase(supabase, { ...orderData, id: order.id, created_at: new Date().toISOString() });
+            // Meta Conversions API: same event_id as the browser Pixel (the COD receipt), so Meta counts it once.
+            if (!orderData.ga_skip) {
+                const meta = (body.meta && typeof body.meta === "object") ? body.meta : {};
+                await sendPurchase({
+                    eventId: codReceipt, value: totalPaise / 100, items: orderItems,
+                    email, phone, name, city, state, zip: pincode,
+                    fbp: meta.fbp, fbc: meta.fbc, sourceUrl: meta.source_url,
+                    headers: event.headers, externalId: email,
+                });
+            }
+        }
+
+        if (isCod) {
+            for (const orderItem of orderItems) {
+                if (orderItem.is_preorder) continue; // no stock to take yet — fulfilled at restock
+                if (orderItem.is_kit) {
+                    // Decrement each component separately
+                    for (const comp of orderItem.kit_components) {
+                        const { error: invErr } = await supabase.rpc("increment_sold", {
+                            p_product_id: comp.product_id,
+                            p_color:      comp.color,
+                            p_qty:        (comp.quantity || 1) * (orderItem.quantity || 1),
+                        });
+                        if (invErr) console.error("Kit component inventory increment error:", invErr, comp.product_id, comp.color);
+                    }
+                } else {
+                    const { data: ok, error: invErr } = await supabase.rpc("increment_sold", {
+                        p_product_id: orderItem.product_id,
+                        p_color:      orderItem.color,
+                        p_qty:        orderItem.quantity || 1,
+                    });
+                    if (invErr) console.error("COD inventory increment error:", invErr);
+                    else if (ok === false) console.error("COD oversell rejected:", item.product_id, item.color);
+                }
+            }
+        }
+
+        if (isCod && process.env.RESEND_API_KEY) {
+            const amount    = (totalPaise / 100).toLocaleString("en-IN");
+            const orderTime = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
+            const itemLines = orderItems.map(i =>
+                `<tr><td style="color:#a09890;padding:6px 0;">${i.product_name}</td><td style="text-align:right;">${i.weight} · ${i.color} × ${i.quantity}</td></tr>`
+            ).join("");
+
+            // Customer confirmation
+            await sendEmail({
+                to: email,
+                subject: "Your COD order is confirmed ✦ The Ritual Co.",
+                html: `
+                        <div style="font-family: Georgia, serif; max-width: 560px; margin: 0 auto; color: #3a3330; padding: 40px 24px;">
+                        <p style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #a09890; margin: 0 0 32px;">The Ritual Co.</p>
+                        <h1 style="font-size: 24px; font-weight: 400; margin: 0 0 8px;">Order confirmed — pay on delivery.</h1>
+                        <p style="font-size: 15px; color: #7a6f68; margin: 0 0 32px;">Thank you, ${name.split(" ")[0]}. Your order is reserved and will ship soon.</p>
+                        <div style="border: 1px solid #e8e2dc; border-radius: 10px; padding: 20px 24px; margin-bottom: 32px;">
+                        <table style="width: 100%; font-size: 13px; border-collapse: collapse;">
+                        ${itemLines}
+                        <tr><td style="color:#a09890;padding-top:10px;border-top:1px solid #e8e2dc;">Amount due on delivery</td><td style="text-align:right;font-weight:500;padding-top:10px;border-top:1px solid #e8e2dc;">₹${amount}</td></tr>
+                        </table>
+                        </div>
+                        ${giftLinkBlock(orderData)}
+                        <p style="font-size: 13px; color: #7a6f68; line-height: 1.7; margin: 0 0 24px;">
+                        Please keep the exact amount ready for our delivery partner. We'll send a shipping notification with tracking details once dispatched.
+                        </p>
+                        <p style="font-size: 13px; color: #a09890; margin: 0;">— Gitika &amp; the Ritual Co. team</p>
+                        <hr style="border: none; border-top: 1px solid #e8e2dc; margin: 32px 0;">
+                        <p style="font-size: 11px; color: #c0b8b0; margin: 0;">
+                        The Ritual Co. · <a href="https://theritualco.in" style="color: #c0b8b0;">theritualco.in</a>
+                        </p>
+                        </div>`,
+                            }).catch((e) => console.error("[COD_EMAIL_CUSTOMER_ERROR]", e.message));
+
+                            // Owner notification
+                            sendEmail({
+                                to: "theritualcoofficial@gmail.com",
+                                subject: `${orderData.is_gift ? "🎁" : "🛒"} New COD order — ${name} — ₹${amount}`,
+                                html: `
+                <h2 style="font-family:sans-serif">New COD Order</h2>
+                <table style="font-family:sans-serif;font-size:14px;border-collapse:collapse">
+                  <tr><td style="padding:6px 20px 6px 0;color:#888">Name</td><td><strong>${name}</strong></td></tr>
+                  <tr><td style="padding:6px 20px 6px 0;color:#888">Email</td><td>${email}</td></tr>
+                  <tr><td style="padding:6px 20px 6px 0;color:#888">Phone</td><td>${phone}</td></tr>
+                  <tr><td style="padding:6px 20px 6px 0;color:#888">Address</td><td>${address}</td></tr>
+                  <tr><td style="padding:6px 20px 6px 0;color:#888">Items</td><td>${orderItems.map(i => `${i.product_name} ${i.weight} ${i.color} ×${i.quantity}`).join("<br>")}</td></tr>
+                  ${giftRows(orderData)}
+                  <tr><td style="padding:6px 20px 6px 0;color:#888">Payment</td><td><strong>COD</strong></td></tr>
+                  <tr><td style="padding:6px 20px 6px 0;color:#888">Amount due</td><td><strong>₹${amount}</strong></td></tr>
+                  <tr><td style="padding:6px 20px 6px 0;color:#888">Receipt</td><td style="font-size:12px;color:#555">${codReceipt}</td></tr>
+                  <tr><td style="padding:6px 20px 6px 0;color:#888">Time</td><td>${orderTime} IST</td></tr>
+                </table>`,
+                            }).catch((e) => console.error("[COD_EMAIL_OWNER_ERROR]", e.message));
+        }
+
+        if (isCod && process.env.GOOGLE_SHEET_URL) {
+            const first = orderItems[0] || {};
+            await fetch(process.env.GOOGLE_SHEET_URL, {
+                method: "POST",
+                body: JSON.stringify({
+                    name, email, phone, address,
+                    color: first.color || "",
+                    product: first.product_name || "Capsule Dumbbells",
+                    weight: first.weight || "",
+                    amount: totalPaise / 100,
+                    paymentId: "COD",
+                    orderId: codReceipt,
+                }),
+            }).catch((e) => console.error("COD sheet log failed:", e));
+        }
+
         return {
             statusCode: 200,
             body: JSON.stringify({
-                order_id:          rzOrder.id,
-                amount:            payNowPaise,         // charged now (the ₹199 advance for COD)
-                total:             totalPaise,
-                due_on_delivery:   totalPaise - payNowPaise,
+                order_id:          isCod ? codReceipt : rzOrder.id,
+                amount:            totalPaise,
                 currency:          "INR",
                 internal_order_ids: order.id,
                 items:             orderItems,
@@ -291,3 +404,20 @@ exports.handler = async (event) => {
         return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
     }
 };
+
+async function sendEmail({ to, subject, html }) {
+    const res = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            from: "The Ritual Co. <hello@theritualco.in>",
+            reply_to: "theritualcoofficial@gmail.com",
+            to, subject, html,
+        }),
+    });
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+}

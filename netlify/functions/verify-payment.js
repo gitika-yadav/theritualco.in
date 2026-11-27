@@ -56,30 +56,14 @@ exports.handler = async (event) => {
             };
         }
 
-        // Already confirmed (e.g. the customer refreshed and the handler ran twice): don't redo stock/emails.
-        if (order.razorpay_payment_id && order.razorpay_payment_id === razorpay_payment_id && order.status !== "pending") {
-            return { statusCode: 200, body: JSON.stringify({ success: true, order_id: order.id }) };
-        }
-
         // ── Mark order as paid ────────────────────────────
-        // COD orders pay a small advance online; the rest is collected on delivery.
-        const isCod = order.payment_method === "cod";
-        let advancePaise = null;
-        if (isCod) {
-            try {
-                const rz = new Razorpay({ key_id: process.env.RAZORPAY_KEY_ID, key_secret: process.env.RAZORPAY_KEY_SECRET });
-                const rzo = await rz.orders.fetch(razorpay_order_id);
-                advancePaise = Number(rzo.amount_paid || rzo.amount) || 0;
-            } catch (e) {
-                console.error("[COD_ADVANCE_FETCH]", e.message);
-                advancePaise = Math.min(19900, order.amount_paise || 0);
-            }
-        }
-        const update = { razorpay_payment_id, razorpay_signature, status: isCod ? "cod_unpaid" : "paid" };
-        if (isCod) update.amount_paid_paise = advancePaise;
         const { error: updateErr } = await supabase
             .from("orders")
-            .update(update)
+            .update({
+                razorpay_payment_id,
+                razorpay_signature,
+                status: "paid",
+            })
             .eq("id", order.id);
 
         if (updateErr) {
@@ -91,7 +75,7 @@ exports.handler = async (event) => {
         }
 
         // ── GA4: server-side purchase (counted even if the customer closes the tab) ──
-        await trackPurchase(supabase, { ...order, ...update });
+        await trackPurchase(supabase, { ...order, razorpay_payment_id, status: "paid" });
 
         // ── Meta Conversions API (same event_id as the browser Pixel: the payment id) ──
         if (!order.ga_skip && isProdHost(event)) {
@@ -141,15 +125,15 @@ exports.handler = async (event) => {
             await sendConfirmationEmail({
                 to: emailTo,
                 name: emailName,
-                order: { ...order, ...update },
+                order,
                 payment_id: razorpay_payment_id,
-            }).catch((e) => console.error("[CONFIRM_EMAIL_ERROR]", e.message));
+            });
         }
 
         // ── Owner notification (same as the COD "New order" email) ──
         if (process.env.RESEND_API_KEY) {
             try {
-                const fresh = { ...order, ...update };
+                const fresh = { ...order, status: "paid" };
                 const mail = prepaidOwnerEmail(fresh, razorpay_payment_id);
                 await fetch("https://api.resend.com/emails", {
                     method: "POST",
@@ -174,7 +158,7 @@ exports.handler = async (event) => {
                         product: item.product_name,
                         weight: item.weight,
                         amount: (item.unit_paise * (item.quantity ?? item.qty ?? 1)) / 100,
-                        paymentId: isCod ? "COD (advance " + razorpay_payment_id + ")" : razorpay_payment_id,
+                        paymentId: razorpay_payment_id,
                         orderId: razorpay_order_id,
                     }),
                 }).catch((e) => console.error("Sheet log failed:", e));
@@ -195,14 +179,7 @@ exports.handler = async (event) => {
 };
 
 async function sendConfirmationEmail({ to, name, order, payment_id }) {
-    const inr = (p) => "₹" + ((p || 0) / 100).toLocaleString("en-IN");
-    const isCod = order.payment_method === "cod";
     const amount = (order.amount_paise / 100).toLocaleString("en-IN");
-    const paidRows = isCod
-        ? `<tr><td style="color:#a09890;padding-top:10px;border-top:1px solid #e8e2dc;">Order total</td><td style="text-align:right;padding-top:10px;border-top:1px solid #e8e2dc;">₹${amount}</td></tr>
-<tr><td style="color:#a09890;padding:4px 0;">Paid now</td><td style="text-align:right;">${inr(order.amount_paid_paise)}</td></tr>
-<tr><td style="color:#a09890;padding:4px 0;">Due on delivery</td><td style="text-align:right;font-weight:500;">${inr((order.amount_paise || 0) - (order.amount_paid_paise || 0))}</td></tr>`
-        : `<tr><td style="color:#a09890;padding-top:10px;border-top:1px solid #e8e2dc;">Amount paid</td><td style="text-align:right;font-weight:500;padding-top:10px;border-top:1px solid #e8e2dc;">₹${amount}</td></tr>`;
     const items = order.items || [];
     const itemRows = items.map(i =>
         `<tr><td style="color:#a09890;padding:6px 0;">${i.product_name}</td><td style="text-align:right;">${i.weight || ""}${i.weight && i.color ? " · " : ""}${i.color || ""} × ${i.quantity ?? i.qty ?? 1}</td></tr>`
@@ -217,7 +194,7 @@ async function sendConfirmationEmail({ to, name, order, payment_id }) {
         body: JSON.stringify({
             from: "The Ritual Co. <orders@theritualco.in>",
             to,
-            subject: isCod ? "Your cash on delivery order is confirmed ✦ The Ritual Co." : "Your order is confirmed ✦ The Ritual Co.",
+            subject: "Your order is confirmed ✦ The Ritual Co.",
             html: `
 <div style="font-family: Georgia, serif; max-width: 560px; margin: 0 auto; color: #3a3330; padding: 40px 24px;">
 <p style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #a09890; margin: 0 0 32px;">The Ritual Co.</p>
@@ -226,13 +203,13 @@ async function sendConfirmationEmail({ to, name, order, payment_id }) {
 <div style="border: 1px solid #e8e2dc; border-radius: 10px; padding: 20px 24px; margin-bottom: 32px;">
 <table style="width: 100%; font-size: 13px; border-collapse: collapse;">
 ${itemRows}
-${paidRows}
+<tr><td style="color:#a09890;padding-top:10px;border-top:1px solid #e8e2dc;">Amount paid</td><td style="text-align:right;font-weight:500;padding-top:10px;border-top:1px solid #e8e2dc;">₹${amount}</td></tr>
 <tr><td style="color: #a09890; padding: 4px 0;">Payment ID</td><td style="text-align: right; font-size: 11px; color: #a09890;">${payment_id}</td></tr>
 </table>
 </div>
 ${giftLinkBlock(order)}
 <p style="font-size: 13px; color: #7a6f68; line-height: 1.7; margin: 0 0 24px;">
-${isCod ? "Please keep the balance ready for our delivery partner. " : ""}We'll send you a shipping notification with tracking details once your order is dispatched.
+We'll send you a shipping notification with tracking details once your order is dispatched.
 For any questions, reply to this email or WhatsApp us.
 </p>
 <p style="font-size: 13px; color: #a09890; margin: 0;">— Gitika &amp; the Ritual Co. team</p>

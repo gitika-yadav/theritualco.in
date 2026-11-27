@@ -30,14 +30,12 @@ function istTime(d) {
     return new Date(d || Date.now()).toLocaleString("en-IN", { timeZone: "Asia/Kolkata", dateStyle: "medium", timeStyle: "short" });
 }
 
-// Owner email for a new order: paid online, or COD with the advance paid online.
+// Owner email for a paid (online) order.
 function prepaidOwnerEmail(o, paymentId) {
     const amount = ((o.amount_paise || 0) / 100).toLocaleString("en-IN");
-    const isCod = o.payment_method === "cod";
-    const inr = (p) => "₹" + ((p || 0) / 100).toLocaleString("en-IN");
-    const subject = `${o.is_gift ? "🎁" : "🛒"} New ${isCod ? "COD" : "paid"} order — ${o.guest_name || "Customer"} — ₹${amount}`;
+    const subject = `${o.is_gift ? "🎁" : "🛒"} New paid order — ${o.guest_name || "Customer"} — ₹${amount}`;
     const html = `
-<h2 style="font-family:sans-serif">New ${isCod ? "COD" : "Paid"} Order${o.is_gift ? " · Gift" : ""}</h2>
+<h2 style="font-family:sans-serif">New Paid Order${o.is_gift ? " · Gift" : ""}</h2>
 <table style="font-family:sans-serif;font-size:14px;border-collapse:collapse">
 ${ROW("Name", "<strong>" + esc(o.guest_name) + "</strong>")}
 ${ROW("Email", esc(o.guest_email))}
@@ -46,9 +44,8 @@ ${ROW("Address", esc(o.shipping_address))}
 ${ROW("Items", itemLines(o.items))}
 ${giftRows(o)}
 ${o.discount_code ? ROW("Discount", esc(o.discount_code) + (o.discount_amount ? " (−₹" + esc(o.discount_amount) + ")" : "")) : ""}
-${isCod
-    ? ROW("Payment", "<strong>COD</strong> · advance paid online") + ROW("Order total", "₹" + amount) + ROW("Advance paid", inr(o.amount_paid_paise)) + ROW("Collect on delivery", "<strong>" + inr((o.amount_paise || 0) - (o.amount_paid_paise || 0)) + "</strong>")
-    : ROW("Payment", "<strong>Paid online</strong>") + ROW("Amount paid", "<strong>₹" + amount + "</strong>")}
+${ROW("Payment", "<strong>Paid online</strong>")}
+${ROW("Amount paid", "<strong>₹" + amount + "</strong>")}
 ${ROW("Payment ID", '<span style="font-size:12px;color:#555">' + esc(paymentId) + "</span>")}
 ${ROW("Time", istTime(o.created_at) + " IST")}
 </table>
