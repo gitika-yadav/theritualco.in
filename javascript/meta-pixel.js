@@ -82,6 +82,83 @@
         fbq('track', 'PageView');
     }
 
+    // ── Advanced matching (raises Event Match Quality) ──
+    // A first-party visitor id (external_id) for everyone, plus the shopper's
+    // email / phone / name / city once we know them (checkout form, login).
+    // Only SHA-256 hashes are stored or sent — never the plain values.
+    var AM_KEY = 'trc_am';
+    function readCookie(n) { return (document.cookie.match(new RegExp('(?:^|; )' + n + '=([^;]*)')) || [])[1] || ''; }
+    function visitorId() {
+        var id = readCookie('trc_xid');
+        if (!id) {
+            var a = new Uint8Array(16);
+            (window.crypto || {}).getRandomValues ? crypto.getRandomValues(a) : a.forEach(function (_, i) { a[i] = Math.random() * 256; });
+            id = Array.prototype.map.call(a, function (b) { return ('0' + b.toString(16)).slice(-2); }).join('');
+            document.cookie = 'trc_xid=' + id + '; path=/; max-age=63072000; SameSite=Lax';
+        }
+        return id;
+    }
+    window.metaVisitorId = visitorId;
+    function sha256(v) {
+        var n = String(v == null ? '' : v).trim().toLowerCase();
+        if (!n || !(window.crypto && crypto.subtle)) return Promise.resolve('');
+        return crypto.subtle.digest('SHA-256', new TextEncoder().encode(n)).then(function (buf) {
+            return Array.prototype.map.call(new Uint8Array(buf), function (b) { return ('0' + b.toString(16)).slice(-2); }).join('');
+        });
+    }
+    function storedAM() { try { return JSON.parse(localStorage.getItem(AM_KEY) || '{}') || {}; } catch (e) { return {}; } }
+    function applyAM(am) { try { if (typeof window.fbq === 'function') fbq('init', PIXEL_ID, am); } catch (e) {} }
+
+    // setMetaUser({ email, phone, name, city, state, zip }) — any subset.
+    window.setMetaUser = function (u) {
+        u = u || {};
+        var digits = String(u.phone || '').replace(/\D/g, '');
+        if (digits.length === 10) digits = '91' + digits;
+        var parts = String(u.name || '').trim().split(/\s+/);
+        var raw = {
+            em: u.email, ph: digits,
+            fn: parts[0], ln: parts.slice(1).join(' '),
+            ct: String(u.city || '').replace(/\s+/g, ''), st: String(u.state || '').replace(/\s+/g, ''),
+            zp: u.zip
+        };
+        var keys = Object.keys(raw);
+        return Promise.all(keys.map(function (k) { return sha256(raw[k]); })).then(function (h) {
+            var am = storedAM();
+            keys.forEach(function (k, i) { if (h[i]) am[k] = h[i]; });
+            try { localStorage.setItem(AM_KEY, JSON.stringify(am)); } catch (e) {}
+            return window.metaUserData().then(applyAM);
+        }).catch(function () {});
+    };
+    // Hashed user data for the Pixel and our server events.
+    window.metaUserData = function () {
+        var am = storedAM();
+        return Promise.all([sha256(visitorId()), sha256('in')]).then(function (h) {
+            if (h[0]) am.external_id = h[0];
+            if (h[1]) am.country = h[1];
+            return am;
+        });
+    };
+    window.metaUserData().then(applyAM).catch(function () {});
+
+    // Add to cart and Initiate checkout also go to our server (Conversions API)
+    // with the same event id, so Meta counts each once and can match it even
+    // when the browser Pixel is blocked.
+    var SERVER_EVENTS = { AddToCart: 1, InitiateCheckout: 1 };
+    function sendServerEvent(event, params, eventId) {
+        window.metaUserData().then(function (am) {
+            var payload = JSON.stringify({
+                event: event, event_id: eventId, params: params || {}, user: am,
+                fbp: readCookie('_fbp'), fbc: readCookie('_fbc'),
+                source_url: location.origin + location.pathname
+            });
+            var url = '/.netlify/functions/meta-event';
+            try {
+                if (navigator.sendBeacon && navigator.sendBeacon(url, new Blob([payload], { type: 'application/json' }))) return;
+            } catch (e) {}
+            fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload, keepalive: true }).catch(function () {});
+        }).catch(function () {});
+    }
+
     // Product ids sent to Meta must match item_group_id in the catalog feed
     // (/meta-catalog.csv). A few pages use a different id for the same product.
     var CATALOG_ID_ALIASES = {
@@ -100,8 +177,10 @@
                 });
                 params.content_type = 'product_group';
             }
+            if (!eventId && SERVER_EVENTS[event]) eventId = event + '_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
             if (eventId) fbq('track', event, params || {}, { eventID: String(eventId) });
             else fbq('track', event, params || {});
+            if (SERVER_EVENTS[event]) sendServerEvent(event, params, String(eventId));
         } catch (e) { /* tracking must never break the page */ }
     };
 

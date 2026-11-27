@@ -78,6 +78,7 @@ if (typeof Cart === "undefined") {
         const loginLink   = document.getElementById("nav-login");
         const accountLink = document.getElementById("nav-account");
         if (user) {
+            if (user.email && window.setMetaUser) window.setMetaUser({ email: user.email, phone: user.phone }); // hashed, for Meta matching
             if (loginLink)   loginLink.style.display = "none";
             if (accountLink) accountLink.style.display = "flex";
         } else {

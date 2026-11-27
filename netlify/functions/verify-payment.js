@@ -85,7 +85,7 @@ exports.handler = async (event) => {
                 email: customer_email || order.guest_email, phone: order.guest_phone,
                 name: customer_name || order.guest_name, address: order.shipping_address,
                 fbp: m.fbp, fbc: m.fbc, sourceUrl: m.source_url, headers: event.headers,
-                externalId: customer_email || order.guest_email,
+                externalId: (m.xid && /^[a-f0-9]{32}$/.test(m.xid)) ? m.xid : (customer_email || order.guest_email),
             });
         }
 
